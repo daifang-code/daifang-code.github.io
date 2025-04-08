@@ -1,0 +1,41 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1078">PE1078: 设置操纵</h2>
+    <h3>一项或多项系统设置、配置元素存在被用户控制的危险</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1078</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>一项或多项系统设置、配置元素存在被用户控制的危险。</p>
+<h4>漏洞与风险</h4>
+<p>当系统设置能够被外部控制时，服务将面临停机的风险，程序也可能会表现出异常的行为，且很可能是恶意的异常行为。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<ul>
+<li>将系统分区，划清界限，明确划分出安全区域。</li>
+<li>正常情况下，不要允许用户输入或其他不可信的数据去控制敏感的数据值。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>以下的Java代码片段展示了从<code>HttpServletRequest</code>中读取一字符串并将它设置为一个数据库连接的活动目录：</p>
+<div class="highlight"><pre><span></span><span class="n">conn</span><span class="o">.</span><span class="na">setCatalog</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&quot;catalog&quot;</span><span class="o">));</span>
+</pre></div>
+<p>在以上的例子中，攻击者可以提供一个不存在的活动目录以造成错误，或连接到一个没有访问授权的数据库区域。</p>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/15.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

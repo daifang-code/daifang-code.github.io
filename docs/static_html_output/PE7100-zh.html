@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7100">BE7100: 线程是使用默认的空的run方法创建的</h2>
+    <h3>线程是使用默认的空的run方法创建的</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7100</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>线程是使用默认的空的run方法创建的</p>
+<h4>漏洞与风险</h4>
+<p>此方法通过从Thread类派生或通过传递Runnable对象来创建线程，而不指定run方法。这个线程只会浪费时间。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

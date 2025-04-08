@@ -1,0 +1,50 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2145">PE2145: no-octal</h2>
+    <h3>禁用八进制字面量 (no-octal)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2145</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁用八进制字面量 (no-octal)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>八进制自面量是指那些以 0 开始的数字，比如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">071</span><span class="p">;</span>      <span class="c1">// 57</span>
+</pre></div>
+<p>在 JavaScript 代码中，八进制的前导数字零作为其标示一致是导致混淆和错误的来源，ECMAScript 5 已经弃用了八进制字面量。</p>
+<h2>缺陷详因</h2>
+<p>该规则禁用八进制字面量。</p>
+<p>如果 ESLint 是在严格模式下解析代码，解析器（而不是该规则）会报告错误。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-octal: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">071</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">07</span><span class="p">;</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-octal: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">num</span>  <span class="o">=</span> <span class="s2">&quot;071&quot;</span><span class="p">;</span>
+</pre></div>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSHint</strong>: W115</li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.6 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-octal.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-octal.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

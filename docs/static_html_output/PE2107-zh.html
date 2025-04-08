@@ -1,0 +1,57 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2107">PE2107: no-extra-semi</h2>
+    <h3>禁用不必要的分号 (no-extra-semi)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2107</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁用不必要的分号 (no-extra-semi)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>书写错误和对哪里需要使用分号的误解，会导致出现不必要的分号。虽然在技术上不是个错误，但阅读代码时会引起困惑。</p>
+<h2>缺陷详因</h2>
+<p>该规则禁用不必要的分号。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-extra-semi: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// code</span>
+<span class="p">};</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-extra-semi: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// code</span>
+<span class="p">};</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你有意使用额外的分号，那么你可以禁用此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="semi">semi</a></li>
+<li><a href="semi-spacing">semi-spacing</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-extra-semi.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-extra-semi.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

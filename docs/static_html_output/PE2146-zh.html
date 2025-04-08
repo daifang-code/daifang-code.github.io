@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2146">PE2146: no-octal-escape</h2>
+    <h3>禁止在字符串字面量中使用八进制转义序列 (no-octal-escape)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2146</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止在字符串字面量中使用八进制转义序列 (no-octal-escape)</h4>
+<p>自 ECMAScript 规范第5版起，字符串字面量中的八进制转义序列已经被弃用，不应该被使用。应该使用 Unicode 转义序列。</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s2">&quot;Copyright \251&quot;</span><span class="p">;</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则禁止在字符串字面量中使用八进制转义序列。</p>
+<p>如果 ESLint 是在严格模式下解析代码，解析器（而不是该规则）会报告错误。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-octal-escape: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s2">&quot;Copyright \251&quot;</span><span class="p">;</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-octal-escape: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s2">&quot;Copyright \u00A9&quot;</span><span class="p">;</span>   <span class="c1">// unicode</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s2">&quot;Copyright \xA9&quot;</span><span class="p">;</span>     <span class="c1">// hexadecimal</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-octal-escape.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-octal-escape.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

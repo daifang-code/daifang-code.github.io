@@ -1,0 +1,153 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2000">PE2000: accessor-pairs</h2>
+    <h3>强制getter/setter成对出现在对象中 (accessor-pairs)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2000</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制getter/setter成对出现在对象中 (accessor-pairs)</h4>
+<p>创建一个对象，其某个属性只有 setter 而没有对应的 getter，这在 Javascript 中 是个常犯的错误。没有 getter ，你不能读取这个属性，该属性也就不会被用到。（译者注： Javascript 中不一定非要同时指定 getter 和 setter ，原文将此表述为&quot;错误&quot;并非是指语法上的错误）</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><span class="c1">// Bad</span>
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">set</span> <span class="nx">a</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// Good</span>
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">set</span> <span class="nx">a</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">get</span> <span class="nx">a</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>如果只定义 setter 而没有定义 getter，该规则会发出警告。设置了 <code>getWithoutSet</code> 选项，如果只有 getter 而没有 setter，该规则同样会发出警告。</p>
+<h2>缺陷详因</h2>
+<p>该规则强制一种编码风格：对于每个属性，如果定义了setter，也必须定义相应的 getter。</p>
+<p>通过激活 <code>getWithoutSet</code> 选项，强制为每个定义了 getter 的属性提供对应的 setter。</p>
+<h2>修改方案</h2>
+<ul>
+<li>当 <code>setWithoutGet</code> 设置为<code>true</code>时，如果只定义 setter 而不定义 getter，该规则将发出警告（默认为 <code>true</code>）。</li>
+<li>当 <code>getWithoutSet</code> 设置为<code>true</code>时，如果只定义 getter 而不定义 setter，该规则将发出警告（默认为 <code>false</code>）。</li>
+</ul>
+<h5>setWithoutGet</h5>
+<p>默认选项<code>{ &quot;setWithoutGet&quot;: true }</code>的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint accessor-pairs: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">set</span> <span class="nx">a</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span><span class="nx">d</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<p>默认选项<code>{ &quot;setWithoutGet&quot;: true }</code>的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint accessor-pairs: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">set</span> <span class="nx">a</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">get</span> <span class="nx">a</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span><span class="nx">d</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<h5>getWithoutSet</h5>
+<p><code>{ &quot;getWithoutSet&quot;: true }</code>选项的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint accessor-pairs: [&quot;error&quot;, { &quot;getWithoutSet&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">set</span> <span class="nx">a</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">get</span> <span class="nx">a</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span><span class="nx">d</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span><span class="nx">d</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<p><code>{ &quot;getWithoutSet&quot;: true }</code>选项的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint accessor-pairs: [&quot;error&quot;, { &quot;getWithoutSet&quot;: true }]*/</span>
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">set</span> <span class="nx">a</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">get</span> <span class="nx">a</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span><span class="nx">d</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不关心对象里同时出现 setter 和 getter，你可以关闭这个规则。</p>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set">Object Setters</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get">Object Getters</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects">Working with Objects</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.22.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/accessor-pairs.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/accessor-pairs.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

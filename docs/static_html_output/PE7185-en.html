@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7185">BE7185: Class names shouldn't shadow simple name of implemented interface</h2>
+    <h3>Class names shouldn't shadow simple name of implemented interface</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7185</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Class names shouldn't shadow simple name of implemented interface</p>
+<h4>Vulnerability and risk</h4>
+<p> This class/interface has a simple name that is identical to that of an implemented/extended interface, except
+that the interface is in a different package (e.g., <code>alpha.Foo</code> extends <code>beta.Foo</code>).
+This can be exceptionally confusing, create lots of situations in which you have to look at import statements
+to resolve references and creates many
+opportunities to accidentally define methods that do not override methods in their superclasses.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

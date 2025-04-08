@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7165">BE7165: 静态初始化程序在分配所有静态final字段之前创建实例</h2>
+    <h3>静态初始化程序在分配所有静态final字段之前创建实例</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7165</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>静态初始化程序在分配所有静态final字段之前创建实例</p>
+<h4>漏洞与风险</h4>
+<p> 类的静态初始化程序在所有静态final字段被分配之前创建类的实例。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

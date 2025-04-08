@@ -1,0 +1,54 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7562">BE7562: Static IV</h2>
+    <h3>Static IV</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7562</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Static IV</p>
+<h4>Vulnerability and risk</h4>
+<p>
+    Initialization vector must be regenerated for each message to be encrypted.
+</p>
+<p><b>Vulnerable Code:</b></p>
+<p>
+<pre>
+private static byte[] IV = new byte[16] {(byte)0,(byte)1,(byte)2,[...]};
+<p>public void encrypt(String message) throws Exception {</p>
+
+<pre><code>IvParameterSpec ivSpec = new IvParameterSpec(IV);
+</code></pre>
+<p>[...]
+&lt;/pre&gt;</p>
+<p><b>Solution:</b></p>
+<p>
+<pre>
+public void encrypt(String message) throws Exception {
+
+<pre><code>byte[] iv = new byte[16];
+new SecureRandom().nextBytes(iv);
+
+IvParameterSpec ivSpec = new IvParameterSpec(iv);
+</code></pre>
+<p>[...]
+&lt;/pre&gt;</p>
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>critical</p>
+<h4>References</h4>
+<p>&lt;a href=&quot;http://en.wikipedia.org/wiki/Initialization_vector&quot;&gt;Wikipedia: Initialization vector&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/329.html&quot;&gt;CWE-329: Not Using a Random IV with CBC Mode&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://defuse.ca/cbcmodeiv.htm&quot;&gt;Encryption - CBC Mode IV: Secret or Not?&lt;/a&gt;</p>
+</p>
+
+    </section>
+</article>

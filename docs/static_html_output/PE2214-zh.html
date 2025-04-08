@@ -1,0 +1,179 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2214">PE2214: padding-line-between-statements</h2>
+    <h3>要求或禁止在语句间填充空行 (padding-line-between-statements)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2214</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求或禁止在语句间填充空行 (padding-line-between-statements)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>该规则要求或禁止在给定的两种语句间填充空行。正确的空行可以帮助开发人员理解代码。</p>
+<p>例如，以下配置要求在变量声明和 <code>return</code> 语句之间有一行空行。</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padding-line-between-statements: [</span>
+<span class="cm">    &quot;error&quot;,</span>
+<span class="cm">    { blankLine: &quot;always&quot;, prev: &quot;var&quot;, next: &quot;return&quot; }</span>
+<span class="cm">]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="nx">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>如果没有配置，该规则不生效。</p>
+<p>该规则有一个对象配置，有三个属性：<code>blankLine</code>、<code>prev</code> 和 <code>next</code>。例如 <code>{ blankLine: &quot;always&quot;, prev: &quot;var&quot;, next: &quot;return&quot; }</code> 意为 “要求在变量声明和 <code>return</code> 语句之间有一行或多行空行。”你可以在配置中提供任意数量。如果语句匹配多个配置，则使用最后匹配的配置。</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;padding-line-between-statements&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;error&quot;</span><span class="p">,</span>
+        <span class="p">{</span> <span class="nt">&quot;blankLine&quot;</span><span class="p">:</span> <span class="err">LINEBREAK_TYPE</span><span class="p">,</span> <span class="nt">&quot;prev&quot;</span><span class="p">:</span> <span class="err">STATEMENT_TYPE</span><span class="p">,</span> <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="err">STATEMENT_TYPE</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nt">&quot;blankLine&quot;</span><span class="p">:</span> <span class="err">LINEBREAK_TYPE</span><span class="p">,</span> <span class="nt">&quot;prev&quot;</span><span class="p">:</span> <span class="err">STATEMENT_TYPE</span><span class="p">,</span> <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="err">STATEMENT_TYPE</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nt">&quot;blankLine&quot;</span><span class="p">:</span> <span class="err">LINEBREAK_TYPE</span><span class="p">,</span> <span class="nt">&quot;prev&quot;</span><span class="p">:</span> <span class="err">STATEMENT_TYPE</span><span class="p">,</span> <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="err">STATEMENT_TYPE</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nt">&quot;blankLine&quot;</span><span class="p">:</span> <span class="err">LINEBREAK_TYPE</span><span class="p">,</span> <span class="nt">&quot;prev&quot;</span><span class="p">:</span> <span class="err">STATEMENT_TYPE</span><span class="p">,</span> <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="err">STATEMENT_TYPE</span> <span class="p">},</span>
+        <span class="err">...</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+<pre><code>- `&quot;always&quot;` 要求一行或多行空行。注意它不计算注释中存在的空行。
+- `&quot;with&quot;` 是 `with` 语句。
+
+</code></pre>
+<h2>Examples</h2>
+<p>该配置会要求所有的 <code>return</code> 语句前都有空行，就像 <a href="/docs/rules/newline-before-return">newline-before-return</a>规则一样。</p>
+<p>配置 <code>[{ blankLine: &quot;always&quot;, prev: &quot;*&quot;, next: &quot;return&quot; }]</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padding-line-between-statements: [</span>
+<span class="cm">    &quot;error&quot;,</span>
+<span class="cm">    { blankLine: &quot;always&quot;, prev: &quot;*&quot;, next: &quot;return&quot; }</span>
+<span class="cm">]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">();</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>配置 <code>[{ blankLine: &quot;always&quot;, prev: &quot;*&quot;, next: &quot;return&quot; }]</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padding-line-between-statements: [</span>
+<span class="cm">    &quot;error&quot;,</span>
+<span class="cm">    { blankLine: &quot;always&quot;, prev: &quot;*&quot;, next: &quot;return&quot; }</span>
+<span class="cm">]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">();</span>
+
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<hr />
+<p>该配置要求每一个变量声明之后都有空行，就像 <a href="/docs/rules/newline-after-var">newline-after-var</a> 规则。</p>
+<p>配置 <code>[{ blankLine: &quot;always&quot;, prev: [&quot;const&quot;, &quot;let&quot;, &quot;var&quot;], next: &quot;*&quot;}, { blankLine: &quot;any&quot;, prev: [&quot;const&quot;, &quot;let&quot;, &quot;var&quot;], next: [&quot;const&quot;, &quot;let&quot;, &quot;var&quot;]}]</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padding-line-between-statements: [</span>
+<span class="cm">    &quot;error&quot;,</span>
+<span class="cm">    { blankLine: &quot;always&quot;, prev: [&quot;const&quot;, &quot;let&quot;, &quot;var&quot;], next: &quot;*&quot;},</span>
+<span class="cm">    { blankLine: &quot;any&quot;,    prev: [&quot;const&quot;, &quot;let&quot;, &quot;var&quot;], next: [&quot;const&quot;, &quot;let&quot;, &quot;var&quot;]}</span>
+<span class="cm">]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>配置 <code>[{ blankLine: &quot;always&quot;, prev: [&quot;const&quot;, &quot;let&quot;, &quot;var&quot;], next: &quot;*&quot;}, { blankLine: &quot;any&quot;, prev: [&quot;const&quot;, &quot;let&quot;, &quot;var&quot;], next: [&quot;const&quot;, &quot;let&quot;, &quot;var&quot;]}]</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padding-line-between-statements: [</span>
+<span class="cm">    &quot;error&quot;,</span>
+<span class="cm">    { blankLine: &quot;always&quot;, prev: [&quot;const&quot;, &quot;let&quot;, &quot;var&quot;], next: &quot;*&quot;},</span>
+<span class="cm">    { blankLine: &quot;any&quot;,    prev: [&quot;const&quot;, &quot;let&quot;, &quot;var&quot;], next: [&quot;const&quot;, &quot;let&quot;, &quot;var&quot;]}</span>
+<span class="cm">]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<hr />
+<p>该配置要所有的指令序言之后都有空行，就像 <a href="/docs/rules/lines-around-directive">lines-around-directive</a> 规则。</p>
+<p>配置 <code>[{ blankLine: &quot;always&quot;, prev: &quot;directive&quot;, next: &quot;*&quot; }, { blankLine: &quot;any&quot;, prev: &quot;directive&quot;, next: &quot;directive&quot; }]</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padding-line-between-statements: [</span>
+<span class="cm">    &quot;error&quot;,</span>
+<span class="cm">    { blankLine: &quot;always&quot;, prev: &quot;directive&quot;, next: &quot;*&quot; },</span>
+<span class="cm">    { blankLine: &quot;any&quot;,    prev: &quot;directive&quot;, next: &quot;directive&quot; }</span>
+<span class="cm">]*/</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="nx">foo</span><span class="p">();</span>
+</pre></div>
+<p>配置 <code>[{ blankLine: &quot;always&quot;, prev: &quot;directive&quot;, next: &quot;*&quot; }, { blankLine: &quot;any&quot;, prev: &quot;directive&quot;, next: &quot;directive&quot; }]</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padding-line-between-statements: [</span>
+<span class="cm">    &quot;error&quot;,</span>
+<span class="cm">    { blankLine: &quot;always&quot;, prev: &quot;directive&quot;, next: &quot;*&quot; },</span>
+<span class="cm">    { blankLine: &quot;any&quot;,    prev: &quot;directive&quot;, next: &quot;directive&quot; }</span>
+<span class="cm">]*/</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="s2">&quot;use asm&quot;</span><span class="p">;</span>
+
+<span class="nx">foo</span><span class="p">();</span>
+</pre></div>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS:</strong> <a href="http://jscs.info/rule/requirePaddingNewLineAfterVariableDeclaration">requirePaddingNewLineAfterVariableDeclaration</a></li>
+<li><strong>JSCS:</strong> <a href="http://jscs.info/rule/requirePaddingNewLinesAfterBlocks">requirePaddingNewLinesAfterBlocks</a></li>
+<li><strong>JSCS:</strong> <a href="http://jscs.info/rule/disallowPaddingNewLinesAfterBlocks">disallowPaddingNewLinesAfterBlocks</a></li>
+<li><strong>JSCS:</strong> <a href="http://jscs.info/rule/requirePaddingNewLinesAfterUseStrict">requirePaddingNewLinesAfterUseStrict</a></li>
+<li><strong>JSCS:</strong> <a href="http://jscs.info/rule/disallowPaddingNewLinesAfterUseStrict">disallowPaddingNewLinesAfterUseStrict</a></li>
+<li><strong>JSCS:</strong> <a href="http://jscs.info/rule/requirePaddingNewLinesBeforeExport">requirePaddingNewLinesBeforeExport</a></li>
+<li><strong>JSCS:</strong> <a href="http://jscs.info/rule/disallowPaddingNewLinesBeforeExport">disallowPaddingNewLinesBeforeExport</a></li>
+<li><strong>JSCS:</strong> <a href="http://jscs.info/rule/requirePaddingNewlinesBeforeKeywords">requirePaddingNewlinesBeforeKeywords</a></li>
+<li><strong>JSCS:</strong> <a href="http://jscs.info/rule/disallowPaddingNewlinesBeforeKeywords">disallowPaddingNewlinesBeforeKeywords</a></li>
+</ul>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想受到关于换行的通知，可以禁用此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 4.0.0-beta.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/padding-line-between-statements.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/padding-line-between-statements.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

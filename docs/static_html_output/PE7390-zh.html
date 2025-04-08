@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7390">BE7390: 类扩展Servlet类并使用实例变量</h2>
+    <h3>类扩展Servlet类并使用实例变量</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7390</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>类扩展Servlet类并使用实例变量</p>
+<h4>漏洞与风险</h4>
+<p>此类从Servlet类扩展，并使用实例成员变量。由于J2EE框架只创建了一个Servlet类实例，并以多线程方式使用，因此很可能存在问题，非常不鼓励这种方式。仅考虑使用方法局部变量。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

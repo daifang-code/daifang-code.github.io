@@ -1,0 +1,40 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2242">SC2242: Improper return value</h2>
+    <h3>Can only exit with status 0-255. Other data should be written to stdout/stderr.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2242</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Can only exit with status 0-255. Other data should be written to stdout/stderr.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">exit</span> <span class="s2">&quot;Bad filename&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;Bad filename&quot;</span> &gt;<span class="p">&amp;</span><span class="m">2</span>
+<span class="nb">exit</span> <span class="m">1</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p><code>exit</code> can only be used to signal success or failure (0 = success, 1-255 = failure). It can not be used to return string data, and it can not be used to print error messages.</p>
+<p>String data should be written stdout, before an <code>exit 0</code> to exit with success.</p>
+<p>Errors should instead be written to stderr, with an <code>exit 1</code> (or higher) to exit with failure:</p>
+
+<pre><code>if [ ! -f &quot;$1&quot; ]
+then
+   echo &quot;$1 is not a regular file&quot; &gt;&amp;2
+   exit 1
+fi
+</code></pre>
+<p>Note in particular that <code>exit -1</code> is equivalent to <code>exit 255</code>, but that <code>exit 1</code> is the more canonical way of expressing the first possible error code.</p>
+<h5>Exceptions:</h5>
+<p>None</p>
+
+    </section>
+</article>

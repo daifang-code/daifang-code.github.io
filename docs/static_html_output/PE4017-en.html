@@ -1,0 +1,40 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4017">PE4017: Constructor pointer memory leaks</h2>
+    <h3>Constructor pointer memory leaks</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE4017</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Memory leak in constructor and destructor.</p>
+<h4>Vulnerability and risk</h4>
+<p>It is likely to cause memory leaks when memory is allocated in constructors but not freed in corresponding destructors.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Critical</p>
+<h4>Potential Mitigations</h4>
+<p>Free the allocated memory in destructors.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code Example</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span><span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+
+  <span class="n">A</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">new</span> <span class="kt">char</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+  <span class="p">}</span>
+  <span class="o">~</span><span class="n">A</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="c1">// Memory pointed by p is likely to be leaked.</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

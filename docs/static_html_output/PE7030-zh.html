@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7030">BE7030: 巨大的字符串常量跨多个类文件复制</h2>
+    <h3>巨大的字符串常量跨多个类文件复制</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7030</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>巨大的字符串常量跨多个类文件复制</p>
+<h4>漏洞与风险</h4>
+<p>
+一个大的字符串常量被复制到多个类文件中。
+<p>这很可能是因为最后一个字段被初始化为字符串常量，Java语言强制将对其它类的最后一个字段的所有引用都内联到此类文件中。 见 &lt;a href=&quot;http://bugs.java.com/bugdatabase/view_bug.do?bug_id=6447475&quot;&gt;JDK bug 6447475&lt;/a&gt; 关于JDK中此错误发生的描述以及如何解决这个问题。</p>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

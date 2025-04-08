@@ -1,0 +1,142 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2204">PE2204: nonblock-statement-body-position</h2>
+    <h3>enforce the location of single-line statements (nonblock-statement-body-position)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2204</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>enforce the location of single-line statements (nonblock-statement-body-position)</h4>
+<p>When writing <code>if</code>, <code>else</code>, <code>while</code>, <code>do-while</code>, and <code>for</code> statements, the body can be a single statement instead of a block. It can be useful to enforce a consistent location for these single statements.</p>
+<p>For example, some developers avoid writing code like this:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+</pre></div>
+<p>If another developer attempts to add <code>baz();</code> to the <code>if</code> statement, they might mistakenly change the code to</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+  <span class="nx">baz</span><span class="p">();</span> <span class="c1">// this line is not in the `if` statement!</span>
+</pre></div>
+<p>To avoid this issue, one might require all single-line <code>if</code> statements to appear directly after the conditional, without a linebreak:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule aims to enforce a consistent location for single-line statements.</p>
+<p>Note that this rule does not enforce the usage of single-line statements in general. If you would like to disallow single-line statements, use the <a href="/docs/rules/curly.md"><code>curly</code></a> rule instead.</p>
+<h5>Options</h5>
+<p>This rule accepts a string option:</p>
+<ul>
+<li><code>&quot;beside&quot;</code> (default) disallows a newline before a single-line statement.</li>
+<li><code>&quot;below&quot;</code> requires a newline before a single-line statement.</li>
+<li><code>&quot;any&quot;</code> does not enforce the position of a single-line statement.</li>
+</ul>
+<p>Additionally, the rule accepts an optional object option with an <code>&quot;overrides&quot;</code> key. This can be used to specify a location for particular statements that override the default. For example:</p>
+<ul>
+<li><code>&quot;beside&quot;, { &quot;overrides&quot;: { &quot;while&quot;: &quot;below&quot; } }</code> requires all single-line statements to appear on the same line as their parent, unless the parent is a <code>while</code> statement, in which case the single-line statement must not be on the same line.</li>
+<li><code>&quot;below&quot;, { &quot;overrides&quot;: { &quot;do&quot;: &quot;any&quot; } }</code> disallows all single-line statements from appearing on the same line as their parent, unless the parent is a <code>do-while</code> statement, in which case the position of the single-line statement is not enforced.</li>
+</ul>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;beside&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint nonblock-statement-body-position: [&quot;error&quot;, &quot;beside&quot;] */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span>
+  <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">foo</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">do</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;beside&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint nonblock-statement-body-position: [&quot;error&quot;, &quot;beside&quot;] */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">foo</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">do</span> <span class="nx">bar</span><span class="p">();</span> <span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// block statements are always allowed with this rule</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;below&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint nonblock-statement-body-position: [&quot;error&quot;, &quot;below&quot;] */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">foo</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">do</span> <span class="nx">bar</span><span class="p">();</span> <span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;below&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint nonblock-statement-body-position: [&quot;error&quot;, &quot;below&quot;] */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span>
+  <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">foo</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">do</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Although the second `if` statement is on the same line as the `else`, this is a very common</span>
+  <span class="c1">// pattern, so it&#39;s not checked by this rule.</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;beside&quot;, { &quot;overrides&quot;: { &quot;while&quot;: &quot;below&quot; } }</code> rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint nonblock-statement-body-position: [&quot;error&quot;, &quot;beside&quot;, { &quot;overrides&quot;: { &quot;while&quot;: &quot;below&quot; } }] */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;beside&quot;, { &quot;overrides&quot;: { &quot;while&quot;: &quot;below&quot; } }</code> rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint nonblock-statement-body-position: [&quot;error&quot;, &quot;beside&quot;, { &quot;overrides&quot;: { &quot;while&quot;: &quot;below&quot; } }] */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you're not concerned about consistent locations of single-line statements, you should not turn on this rule. You can also disable this rule if you're using the <code>&quot;all&quot;</code> option for the <a href="/docs/rules/curly.md"><code>curly</code></a> rule, because this will disallow single-line statements entirely.</p>
+<h2>Further Reading</h2>
+<ul>
+<li>JSCS: <a href="https://jscs-dev.github.io/rule/requireNewlineBeforeSingleStatementsInIf">requireNewlineBeforeSingleStatementsInIf</a></li>
+</ul>
+
+    </section>
+</article>

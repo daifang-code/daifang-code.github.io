@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2201">SC2201: Suspicious condition</h2>
+    <h3>Brace expansion doesn't happen in `[[ ]]`. Use a loop.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2201</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Brace expansion doesn't happen in <code>[[ ]]</code>. Use a loop.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span> <span class="o">=</span> index.<span class="o">{</span>htm,html,php<span class="o">}</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;This is the main file&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span> main in index.<span class="o">{</span>htm,html,php<span class="o">}</span>
+<span class="k">do</span>
+  <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$main</span><span class="s2">&quot;</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;This is the main file&quot;</span>
+<span class="k">done</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>Brace expansions doesn't happen in <code>[[ ]]</code>. They will just be interpreted literally.</p>
+<p>Instead, use a <code>for</code> loop to iterate over values, and apply your condition to each.</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

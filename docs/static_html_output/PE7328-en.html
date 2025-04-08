@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7328">BE7328: Incompatible bit masks</h2>
+    <h3>Incompatible bit masks</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7328</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Incompatible bit masks</p>
+<h4>Vulnerability and risk</h4>
+<p> This method compares an expression of the form (e &amp; C) to D,
+which will always compare unequal
+due to the specific values of constants C and D.
+This may indicate a logic error or typo.</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

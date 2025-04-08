@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0020">PE0020: Bad Evaluation Order</h2>
+    <h3>Expression evaluation do not determine the order in which side effects happen.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0020</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>If a single memory location is written more than once, or both read and written, without an intervening sequence point, then the program behavior is undefined. In practice, implementations may behave differently depending on compiler, compiler version, and optimization settings. This occurs even though the rules of precedence and associativity unambiguously define the syntactic expression structure.</p>
+<p>In the following example, the value of b after the assignment is 3 if the left side of the operator is evaluated first, or 4 if the right side of the operator is evaluated first:</p>
+<div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+<h4>Vulnerability and risk</h4>
+<h5>Side Effect</h5>
+<p>Expression evaluation do not determine the order in which side effects happen.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>Ensure that the expression has no side effects.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">++</span><span class="p">;</span> 
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example,  The right hand side of the assignment at line 3 is evaluated before the assignment itself takes place. However, the side effect order is unspecified because the side effect associated with ++ could happen before or after the side effect associated with the assignment.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">x</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example,  the return value x is 1 at line 4.</p>
+
+    </section>
+</article>

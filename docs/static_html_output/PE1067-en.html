@@ -1,0 +1,93 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1067">PE1067: Incorrect use of IO API</h2>
+    <h3>Incorrect use of IO API.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1067</dd>
+                    <dt>Tags</dt>
+                    <dd>CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Incorrect use of IO API contains questions as follows:</p>
+<ol>
+<li><p>Invalid usage of output stream.such as in fclose();fread() use closed file.</p>
+</li>
+<li><p>fflush() called on input stream may result in undefined behaviour on non-linux systems.</p>
+</li>
+<li><p>Read and write operations without a call to a positioning function (fseek, fsetpos or rewind) or fflush in between result in undefined behaviour.&quot;, CWE664,</p>
+</li>
+<li><p>Read operation on a file that was opened only for writing.</p>
+</li>
+</ol>
+<p>Write operation on a file that was opened only for reading.
+Used file that is not opened.</p>
+<ol start="5">
+<li><p>Repositioning operation performed on a file opened in append mode has no effect.</p>
+</li>
+<li><p>Without field width limits can crash with huge input data. Add a field width &quot;specifier to fix this problem.</p>
+</li>
+<li><p>Wrong Printf Scanf Arg Num or wrong Printf Scanf Parameter Position Error.</p>
+</li>
+</ol>
+<h4>Vulnerability and risk</h4>
+<h5>Improper Control of a Resource Through its Lifetime(Question1,2,3,4,5)</h5>
+<p>The software does not maintain or incorrectly maintains control over a resource throughout its lifetime of creation, use, and release.</p>
+<p>Resources often have explicit instructions on how to be created, used and destroyed. When software does not follow these instructions, it can lead to unexpected behaviors and potentially exploitable states.</p>
+<p>Even without explicit instructions, various principles are expected to be adhered to, such as &quot;Do not use an object until after its creation is complete,&quot; or &quot;do not use an object after it has been slated for destruction.&quot;</p>
+<h5>Use of Expired File Descriptor(Question1)</h5>
+<p>The software uses or accesses a file descriptor after it has been closed.</p>
+<p>After a file descriptor for a particular file or device has been released, it can be reused. The code might not write to the original file, since the reused file descriptor might reference a different file or device.</p>
+<h5>Improper Restriction of Operations within the Bounds of a Memory Buffer(Question6)</h5>
+<p>The software performs operations on a memory buffer, but it can read from or write to a memory location that is outside of the intended boundary of the buffer.</p>
+<p>Certain languages allow direct addressing of memory locations and do not automatically ensure that these locations are valid for the memory buffer that is being referenced. This can cause read or write operations to be performed on memory locations that may be associated with other variables, data structures, or internal program data.</p>
+<p>As a result, an attacker may be able to execute arbitrary code, alter the intended control flow, read sensitive information, or cause the system to crash.</p>
+<h5>Function Call With Incorrect Number of Arguments(Question7)</h5>
+<p>The software calls a function, procedure, or routine, but the caller specifies too many arguments, or too few arguments, which may lead to undefined behavior and resultant weaknesses.</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+<h4>Potential Mitigations</h4>
+<h5>Phase: Testing</h5>
+<p>Use Static analysis tools to check for unreleased resources.</p>
+<h5>Phase: Testing</h5>
+<p>Because this function call often produces incorrect behavior it will usually be detected during testing or normal operation of the software. During testing exercise all possible control paths will typically expose this weakness except in rare cases when the incorrect function call accidentally produces the correct results or if the provided argument type is very similar to the expected argument type.</p>
+<h4>Demonstrative Examples</h4>
+<h5>bad example(Question6: Without field width limits)</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Typing in 5 or more characters may make the program crash.</p>
+<h5>good example(Question6: Without field width limits)</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%4s&quot;</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>The correct usage here is 'scanf(&quot;%4s&quot;, c);', as the maximum field width does not include the terminating null byte.</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/664.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://cwe.mitre.org/data/definitions/664.html<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+<li id="fn-3"><p>https://cwe.mitre.org/data/definitions/664.html<a href="#fnref-3" class="footnote">&#8617;</a></p></li>
+<li id="fn-4"><p>https://cwe.mitre.org/data/definitions/664.html<a href="#fnref-4" class="footnote">&#8617;</a></p></li>
+<li id="fn-5"><p>http://linux.die.net/man/3/scanf<a href="#fnref-5" class="footnote">&#8617;</a></p></li>
+<li id="fn-6"><p>http://www.opensource.apple.com/source/xnu/xnu-1456.1.26/libkern/stdio/scanf.c<a href="#fnref-6" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

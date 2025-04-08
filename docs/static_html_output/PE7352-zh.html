@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7352">BE7352: 方法在循环中编译正则表达式</h2>
+    <h3>方法在循环中编译正则表达式</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7352</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>方法在循环中编译正则表达式</p>
+<h4>漏洞与风险</h4>
+<p>该方法在循环中创建相同的正则表达式，因此每次迭代都会编译它。最好在循环外使用Pattern.compile来预编译这个正则表达式。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

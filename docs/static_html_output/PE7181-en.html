@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7181">BE7181: Enum field is public and mutable</h2>
+    <h3>Enum field is public and mutable</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7181</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Enum field is public and mutable</p>
+<h4>Vulnerability and risk</h4>
+<p>A mutable public field is defined inside a public enum, thus can be changed by malicious code or by accident from another package.
+  Though mutable enum fields may be used for lazy initialization, it's a bad practice to expose them to the outer world.
+  Consider declaring this field final and/or package-private.</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

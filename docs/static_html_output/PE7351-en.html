@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7351">BE7351: Method calls Pattern.compile in a loop</h2>
+    <h3>Method calls Pattern.compile in a loop</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7351</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Method calls Pattern.compile in a loop</p>
+<h4>Vulnerability and risk</h4>
+<p> The method calls Pattern.compile inside the loop passing the constant arguments.
+If the Pattern should be used several times there's no reason to compile it for each loop iteration.
+Move this call outside of the loop or even into static final field.</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

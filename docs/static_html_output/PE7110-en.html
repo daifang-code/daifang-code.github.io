@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7110">BE7110: Explicit invocation of finalizer</h2>
+    <h3>Explicit invocation of finalizer</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7110</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Explicit invocation of finalizer</p>
+<h4>Vulnerability and risk</h4>
+<p> This method contains an explicit invocation of the <code>finalize()</code>
+  method on an object.&nbsp; Because finalizer methods are supposed to be
+  executed once, and only by the VM, this is a bad idea.</p>
+<p>If a connected set of objects beings finalizable, then the VM will invoke the
+finalize method on all the finalizable object, possibly at the same time in different threads.
+Thus, it is a particularly bad idea, in the finalize method for a class X, invoke finalize
+on objects referenced by X, because they may already be getting finalized in a separate thread.</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

@@ -1,0 +1,37 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1077">SC1077: Improper quote for command expension</h2>
+    <h3>For command expansion, the tick should slant left (` vs ´).</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1077</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>For command expansion, the tick should slant left (` vs ´).</h4>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;Your username is ´whoami´&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;Your username is </span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">&quot;</span> <span class="c1"># Preferred</span>
+<span class="nb">echo</span> <span class="s2">&quot;Your username is `whoami`&quot;</span>  <span class="c1"># Deprecated, will give [SC2006]</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>In some fonts it's hard to tell ticks apart, but Bash strongly distinguishes between backticks (grave accent <code>`</code>), forward ticks (acute accent <code>´</code>) and regular ticks (apostrophe <code>'</code>).</p>
+<p>Backticks start command expansions, while forward ticks are literal. To help spot bugs, ShellCheck parses backticks and forward ticks interchangeably.</p>
+<h5>Exceptions</h5>
+<p>If you want to write out literal forward ticks, such as fancyful ascii quotation marks:</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;``Proprietary software is an injustice.´´  - Richard Stallman&quot;</span>
+</pre></div>
+<p>use single quotes instead:</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;``Proprietary software is an injustice.´´  - Richard Stallman&#39;</span>
+</pre></div>
+<p>To nest forward ticks in command expansion, use <code>$(..)</code> instead of <code>`..`</code>.</p>
+
+    </section>
+</article>

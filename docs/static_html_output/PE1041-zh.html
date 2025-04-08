@@ -1,0 +1,50 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1041">PE1041: switch语句的重复操作</h2>
+    <h3>在switch语句中存在多余的位操作。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1041</dd>
+                    <dt>标签</dt>
+                    <dd>CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在switch语句中存在多余的位操作。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
+     <span class="p">{</span>
+         <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+          <span class="n">y</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>        <span class="c1">// &lt;- this assignment is redundant</span>
+         <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+          <span class="n">y</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>        <span class="c1">// &lt;- case 2 falls through and sets y twice</span>
+     <span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，case 2设置了y的值两次。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+       <span class="n">y</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span><span class="k">break</span><span class="p">;</span>        
+      <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+       <span class="n">y</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span><span class="k">break</span><span class="p">;</span>        
+  <span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，case 2将y的值设为2后跳出switch。</p>
+<h4>引用</h4>
+<p>http://cppcheck.sourceforge.net/devinfo/doxyoutput/checkother_8cpp_source.html#l00732</p>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p><a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,34 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7395">BE7395: Integral value cast to double and then passed to Math.ceil</h2>
+    <h3>Integral value cast to double and then passed to Math.ceil</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7395</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Integral value cast to double and then passed to Math.ceil</p>
+<h4>Vulnerability and risk</h4>
+<p>
+This code converts an integral value (e.g., int or long)
+to a double precision
+floating point number and then
+passing the result to the Math.ceil() function, which rounds a double to
+the next higher integer value. This operation should always be a no-op,
+since the converting an integer to a double should give a number with no fractional part.
+It is likely that the operation that generated the value to be passed
+to Math.ceil was intended to be performed using double precision
+floating point arithmetic.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+
+    </section>
+</article>

@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2068">SC2068: Missing quote</h2>
+    <h3>Double quote array expansions to avoid re-splitting elements.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2068</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Double quote array expansions to avoid re-splitting elements.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>cp <span class="nv">$@</span> ~/dir
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>cp <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> ~/dir
+</pre></div>
+<h5>Rationale:</h5>
+<p>Double quotes around <code>$@</code> (and similarly, <code>${array[@]}</code>) prevents globbing and word splitting of individual elements, while still expanding to multiple separate arguments.</p>
+<p>Let's say you have three arguments: <code>baz</code>, <code>foo bar</code> and <code>*</code></p>
+<p><code>&quot;$@&quot;</code> will expand into exactly that: <code>baz</code>, <code>foo bar</code> and <code>*</code></p>
+<p><code>$@</code> will expand into multiple other arguments: <code>baz</code>, <code>foo</code>, <code>bar</code>, <code>file.txt</code> and <code>otherfile.jpg</code></p>
+<p>Since the latter is rarely expected or desired, ShellCheck warns about it.</p>
+<h5>Exceptions</h5>
+<p>When you want globbing of individual elements.</p>
+
+    </section>
+</article>

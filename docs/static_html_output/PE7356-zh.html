@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7356">BE7356: run方法中的JUnit断言不会被JUnit注意到</h2>
+    <h3>run方法中的JUnit断言不会被JUnit注意到</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7356</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>run方法中的JUnit断言不会被JUnit注意到</p>
+<h4>漏洞与风险</h4>
+<p> 一个JUnit断言是在run方法中执行的。失败的JUnit断言只会导致抛出异常。因此，如果这个异常发生在一个线程中而不是调用测试方法的线程中，该异常将终止线程，但不会导致测试失败。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

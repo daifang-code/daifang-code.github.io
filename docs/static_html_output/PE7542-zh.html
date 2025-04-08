@@ -1,0 +1,42 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7542">BE7542: DESede不安全</h2>
+    <h3>DESede不安全</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7542</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>DESede不安全</p>
+<h4>漏洞与风险</h4>
+<p>
+三重DES（也称为3DES或DESede）被认为是现代应用的强加密算法。 目前，NIST建议使用AES分组加密而不是3DES。
+</p>
+<p>
+    <b>缺陷代码示例：</b>
+<pre>Cipher c = Cipher.getInstance("DESede/ECB/PKCS5Padding");
+c.init(Cipher.ENCRYPT_MODE, k, iv);
+byte[] cipherText = c.doFinal(plainText);</pre>
+</p>
+<p>
+    <b>示例解决方案：</b>
+    <pre>Cipher c = Cipher.getInstance("AES/GCM/NoPadding");
+c.init(Cipher.ENCRYPT_MODE, k, iv);
+byte[] cipherText = c.doFinal(plainText);</pre>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://www.nist.gov/itl/fips/060205_des.cfm&quot;&gt;NIST Withdraws Outdated Data Encryption Standard&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/326.html&quot;&gt;CWE-326: Inadequate Encryption Strength&lt;/a&gt;</p>
+</p>
+
+    </section>
+</article>

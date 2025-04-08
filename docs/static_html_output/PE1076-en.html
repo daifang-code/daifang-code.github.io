@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1076">PE1076: Resource Injection</h2>
+    <h3>An adversary exploits weaknesses in input validation by manipulating resource identifiers</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1076</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>An adversary exploits weaknesses in input validation by manipulating resource identifiers enabling the unintended modification or specification of a resource.</p>
+<h4>Vulnerability and risk</h4>
+<p>Unintended modification or specification of a resource.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<ul>
+<li><p>Ensure all input content that is delivered to client is sanitized against an acceptable content specification.</p>
+</li>
+<li><p>Perform input validation for all content.</p>
+</li>
+<li><p>Enforce regular patching of software.</p>
+</li>
+</ul>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<p>The following examples represent an application which gets a port number from an HTTP request and creates a socket with this port number without any validation. A user using a proxy can modify this port and obtain a direct connection (socket) with the server.</p>
+<div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">rPort</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&quot;remotePort&quot;</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="n">ServerSocket</span> <span class="n">srvr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServerSocket</span><span class="o">(</span><span class="n">rPort</span><span class="o">);</span>
+<span class="n">Socket</span> <span class="n">skt</span> <span class="o">=</span> <span class="n">srvr</span><span class="o">.</span><span class="na">accept</span><span class="o">();</span> 
+<span class="o">...</span>
+</pre></div>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.owasp.org/index.php/Resource_Injection<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://capec.mitre.org/data/definitions/240.html<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

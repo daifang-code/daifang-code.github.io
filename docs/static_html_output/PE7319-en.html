@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7319">BE7319: Bad comparison of signed byte</h2>
+    <h3>Bad comparison of signed byte</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7319</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Bad comparison of signed byte</p>
+<h4>Vulnerability and risk</h4>
+<p> Signed bytes can only have a value in the range -128 to 127. Comparing
+a signed byte with a value outside that range is vacuous and likely to be incorrect.
+To convert a signed byte <code>b</code> to an unsigned value in the range 0..255,
+use <code>0xff &amp; b</code>.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

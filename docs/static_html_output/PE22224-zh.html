@@ -1,0 +1,39 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22224">PE22224: DUO114</h2>
+    <h3>DUO114</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22224</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO114</h4>
+<p>此linter查找函数中缺少a的<code>returnValue</code>调用`内联回调修饰符。</p>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">twisted.internet</span> <span class="kn">import</span> <span class="n">defer</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">other_inlinecallbacks_func</span><span class="p">(</span><span class="n">arg</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">defer</span><span class="o">.</span><span class="n">returnValue</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+<h2>正确代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">twisted.internet</span> <span class="kn">import</span> <span class="n">defer</span>
+
+<span class="nd">@defer.inlineCallbacks</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">other_inlinecallbacks_func</span><span class="p">(</span><span class="n">arg</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">defer</span><span class="o">.</span><span class="n">returnValue</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+<h2>来源</h2>
+<p><code>returnValue</code>调用意味着函数应该使用<code>inlineCallbacks</code>。有关详细信息，请参见<a href="https://twistedmatrix.com/documents/current/api/twisted.internet.defer.html%5CreturnValue">returnValue</a>.</p>
+<h2>特别提及</h2>
+<p>None-如果不需要<code>inlineCallbacks</code>，只需使用<code>return</code></p>
+
+    </section>
+</article>

@@ -1,0 +1,89 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7566">BE7566: Use of ESAPI Encryptor</h2>
+    <h3>Use of ESAPI Encryptor</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7566</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Use of ESAPI Encryptor</p>
+<h4>Vulnerability and risk</h4>
+<p>
+    The ESAPI has a small history of vulnerabilities within the cryptography component. Here is a quick validation list to
+    make sure the Authenticated Encryption is working as expected.
+</p>
+<p><b>1. Library Version</b></p>
+<p>
+    This issue is corrected in ESAPI version 2.1.0. Versions <= 2.0.1 are vulnerable to a MAC bypass (CVE-2013-5679).<br/>
+</p>
+<p>
+    For Maven users, the plugin <a href="http://mojo.codehaus.org/versions-maven-plugin/">versions</a> can be called using the
+    following command. The effective version of ESAPI will be available in the output.<br/>
+    <pre>$ mvn versions:display-dependency-updates</pre>
+    <br/>Output:<br/>
+    <pre>
+[...]
+[INFO] The following dependencies in Dependencies have newer versions:
+[INFO]   org.slf4j:slf4j-api ................................... 1.6.4 -> 1.7.7
+[INFO]   org.owasp.esapi:esapi ................................. 2.0.1 -> 2.1.0
+[...]
+    </pre>
+</p>
+<p>
+    or by looking at the configuration directly.<br/>
+    <pre>
+<dependency<
+    <groupId<org.owasp.esapi</groupId<
+    <artifactId<esapi</artifactId<
+    <version<2.1.0</version<
+</dependency<</pre>
+</p>
+<p>
+    For Ant users, the jar used should be <a href="http://repo1.maven.org/maven2/org/owasp/esapi/esapi/2.1.0/esapi-2.1.0.jar">esapi-2.1.0.jar</a>.
+</p>
+<p><b>2. Configuration:</b></p>
+    <p>
+    The library version 2.1.0 is still vulnerable to key size being changed in the ciphertext definition (CVE-2013-5960). Some precautions need to be taken.<br/>
+    <br/>
+    <div><b>The cryptographic configuration of ESAPI can also be vulnerable if any of these elements are present:</b><br/>
+    <b>Insecure configuration:</b><br/>
+    <pre>
+Encryptor.CipherText.useMAC=false
+<p>Encryptor.EncryptionAlgorithm=AES
+Encryptor.CipherTransformation=AES/CBC/PKCS5Padding</p>
+<p>Encryptor.cipher_modes.additional_allowed=CBC&lt;/pre&gt;
+    &lt;/div&gt;</p>
+</p>
+<p>
+    <div>
+    <b>Secure configuration:</b><br/>
+    <pre>
+#Needed
+Encryptor.CipherText.useMAC=true
+<p>#Needed to have a solid auth. encryption
+Encryptor.EncryptionAlgorithm=AES
+Encryptor.CipherTransformation=AES/GCM/NoPadding</p>
+<p>#CBC mode should be removed to avoid padding oracle
+Encryptor.cipher_modes.additional_allowed=&lt;/pre&gt;
+    &lt;/div&gt;</p>
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+<h4>References</h4>
+<p>&lt;a href=&quot;http://owasp-esapi-java.googlecode.com/svn/trunk/documentation/ESAPI-security-bulletin1.pdf&quot;&gt;ESAPI Security bulletin 1 (CVE-2013-5679)&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-5679&quot;&gt;Vulnerability Summary for CVE-2013-5679&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://www.synacktiv.com/ressources/synacktiv_owasp_esapi_hmac_bypass.pdf&quot;&gt;Synactiv: Bypassing HMAC validation in OWASP ESAPI symmetric encryption&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/310.html&quot;&gt;CWE-310: Cryptographic Issues&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://lists.owasp.org/pipermail/esapi-dev/2015-March/002533.html&quot;&gt;ESAPI-dev mailing list: Status of CVE-2013-5960&lt;/a&gt;&lt;br/&gt;</p>
+</p>
+
+    </section>
+</article>

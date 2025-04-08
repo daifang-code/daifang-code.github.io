@@ -1,0 +1,60 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4013">PE4013: 没有对口令域进行掩饰</h2>
+    <h3>用户输入口令时没有对口令域进行掩饰。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE4013</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>用户输入口令时没有对口令域进行掩饰。</p>
+<h4>漏洞与风险</h4>
+<p>增加了攻击者通过观察屏幕获取到口令的可能性。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>要避免该漏洞，你应该：</p>
+<ul>
+<li>用户输入口令时对口令域进行掩饰。通常，用户输入的每一个字符都应该以星号形式回显。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">password</span><span class="p">[</span><span class="n">MAX_STR_LEN</span><span class="p">];</span>  <span class="c1">//MAX_STR_LEN的值为15</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Please enter the password: &quot;</span><span class="p">);</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAX_STR_LEN</span> <span class="o">&amp;&amp;</span> <span class="n">c</span><span class="o">!=</span><span class="sc">&#39;\n&#39;</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%c&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>  <span class="c1">//没对用户输入的口令进行掩饰</span>
+        <span class="n">password</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+        <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>规范用法示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">password</span><span class="p">[</span><span class="n">MAX_STR_LEN</span><span class="p">];</span>  <span class="c1">//MAX_STR_LEN的值为15</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Please enter the password: &quot;</span><span class="p">);</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAX_STR_LEN</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="n">getch</span><span class="p">())</span><span class="o">!=</span><span class="sc">&#39;\n&#39;</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">password</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+        <span class="n">putchar</span><span class="p">(</span><span class="sc">&#39;*&#39;</span><span class="p">);</span>  <span class="c1">//用星号代替用户所输入的口令</span>
+        <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

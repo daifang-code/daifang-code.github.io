@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7401">BE7401: Equals方法不应该对它的参数的类型进行假设</h2>
+    <h3>Equals方法不应该对它的参数的类型进行假设</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7401</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>Equals方法不应该对它的参数的类型进行假设</p>
+<h4>漏洞与风险</h4>
+<p><code>equals(Object o)</code>方法不应对<code>o</code>的类型做任何假设。如果<code>o</code>与<code>this</code>类型不同，它应该简单地返回false。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

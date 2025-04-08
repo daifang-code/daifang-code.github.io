@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1111">SC1111: Using unicode quote</h2>
+    <h3>This is a unicode quote. Delete and retype it (or ignore/singlequote for literal).</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1111</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This is a unicode quote. Delete and retype it (or ignore/singlequote for literal).</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;hello world”</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;hello world&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>Some software, like OS X, Word and WordPress, may automatically replace your regular quotes with slanted Unicode quotes. The shell does not recognize these quotes and will not respect them.</p>
+<p>In this case, you have slanted double quotes in a double quoted string. Try deleting and retyping them, and/or disable “smart quotes” in your editor or OS.</p>
+<h5>Exceptions</h5>
+<p>If you want to use literal slanted double quotes for typographic reasons, you can put them in single quotes to make ShellCheck ignore them:</p>
+<div class="highlight"><pre><span></span><span class="nb">printf</span> <span class="s1">&#39;Warning: “wakeonlan” is not installed.\n&#39;</span>
+</pre></div>
+<p>You can also just [[ignore]] this warning.</p>
+
+    </section>
+</article>

@@ -1,0 +1,62 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2258">PE2258: global-strict</h2>
+    <h3>已被ESLint v1.0移除，且由`strict`规则替代</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2258</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<p>该规则已被ESLint v1.0<strong>移除</strong>，且由<code>strict</code>规则<strong>替代</strong>。新的<code>strict</code>规则中的<code>&quot;global&quot;</code>选项与已移除的该规则很相像。</p>
+<p>Strict mode is enabled by using the following pragma in your code:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+</pre></div>
+<p>When used globally, as in this example, the strict mode pragma applies to all code within a single file. This can be dangerous if you concatenate scripts together before serving them to a browser. For instance, if you have a file running in strict mode and you concatenate that file with jQuery, the strict mode now also applies to jQuery and may cause errors.</p>
+<p>However, if you're using Node.js, you may want to turn strict mode on globally. Files are typically not concatenated together in Node.js projects and therefore the risk of applying strict mode accidentally is minimal. Further, since every file in Node.js has its own scope, global strict mode only effects the single file in which it is placed.</p>
+<h2>缺陷详因</h2>
+<p>This rule requires or disallows global strict mode invoked by a <code>&quot;use strict&quot;</code> pragma in the global scope.</p>
+<p>The following pattern is under strict mode globally and is considered valid with the <code>&quot;always&quot;</code> option and a warning with the <code>&quot;never&quot;</code> option.</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>The following patterns apply strict mode only to functions so are valid with the <code>&quot;never&quot;</code> option but are problems with the <code>&quot;always&quot;</code> option.</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+    <span class="c1">// other code</span>
+<span class="p">}());</span>
+</pre></div>
+<h2>修改方案</h2>
+<div class="highlight"><pre><span></span><span class="s2">&quot;global-strict&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;always&quot;</span><span class="p">]</span>
+</pre></div>
+<p>Requires that every file have a top-level <code>&quot;use strict&quot;</code> statement.</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;global-strict&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;never&quot;</span><span class="p">]</span>
+</pre></div>
+<p>Warns whenever <code>&quot;use strict&quot;</code> is used in the global scope such that it could contaminate concatenated files.</p>
+<h2>当该情况下该规则可忽略</h2>
+<p>When a project may use non-strict-mode code side by side with strict-mode code and the files are not concatenated, the decision to use global strict mode can be made on an individual basis, rendering this rule unnecessary.</p>
+<h2>Eslint版本</h2>
+<p>This rule was introduced in ESLint 0.8.0 and removed in 1.0.0-rc-1.</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/global-strict.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

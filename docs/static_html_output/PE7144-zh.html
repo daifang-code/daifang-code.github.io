@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7144">BE7144: 在getClass上进行同步而不是类文字</h2>
+    <h3>在getClass上进行同步而不是类文字</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7144</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在getClass上进行同步而不是类文字</p>
+<h4>漏洞与风险</h4>
+<p>这个实例方法在<code>this.getClass()</code>上同步。
+如果该类被子类化，子类将在子类的类对象上同步，这可能不是您所预期的。
+例如，考虑java.awt.label中的这段代码：</p>
+<pre><code>private static final String base = ""label"";
+private static int nameCounter = 0;
+String constructComponentName() {
+    synchronized (getClass()) {
+        return base + nameCounter++;
+    }
+}
+</code></pre>
+     <p><code>Label</code>的子类不会在同一个子类上同步，这会引起datarace。
+相反的，代码应该在<code>Label.class</code>上同步
+</p><pre><code>private static final String base = "label";
+private static int nameCounter = 0;
+String constructComponentName() {
+    synchronized (Label.class) {
+        return base + nameCounter++;
+    }
+}
+</code></pre>
+      <p>Bug模式是由Jason Mehrens提供的</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

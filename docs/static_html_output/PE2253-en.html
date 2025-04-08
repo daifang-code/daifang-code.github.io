@@ -1,0 +1,92 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2253">PE2253: wrap-iife</h2>
+    <h3>Require IIFEs to be Wrapped (wrap-iife)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2253</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Require IIFEs to be Wrapped (wrap-iife)</h4>
+<p>You can immediately invoke function expressions, but not function declarations. A common technique to create an immediately-invoked function expression (IIFE) is to wrap a function declaration in parentheses. The opening parentheses causes the contained function to be parsed as an expression, rather than a declaration.</p>
+<div class="highlight"><pre><span></span><span class="c1">// function expression could be unwrapped</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span> <span class="p">};}();</span>
+
+<span class="c1">// function declaration must be wrapped</span>
+<span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="cm">/* side effects */</span> <span class="p">}();</span> <span class="c1">// SyntaxError</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule requires all immediately-invoked function expressions to be wrapped in parentheses.</p>
+<h2>Options</h2>
+<p>This rule has two options, a string option and an object option.</p>
+<p>String option:</p>
+<ul>
+<li><code>&quot;outside&quot;</code> enforces always wrapping the <em>call</em> expression. The default is <code>&quot;outside&quot;</code>.</li>
+<li><code>&quot;inside&quot;</code> enforces always wrapping the <em>function</em> expression.</li>
+<li><code>&quot;any&quot;</code> enforces always wrapping, but allows either style.</li>
+</ul>
+<p>Object option:</p>
+<ul>
+<li><code>&quot;functionPrototypeMethods&quot;: true</code> additionally enforces wrapping function expressions invoked using <code>.call</code> and <code>.apply</code>. The default is <code>false</code>.</li>
+</ul>
+<h5>outside</h5>
+<p>Examples of <strong>incorrect</strong> code for the default <code>&quot;outside&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint wrap-iife: [&quot;error&quot;, &quot;outside&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span> <span class="p">};}();</span> <span class="c1">// unwrapped</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span> <span class="p">};})();</span> <span class="c1">// wrapped function expression</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the default <code>&quot;outside&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint wrap-iife: [&quot;error&quot;, &quot;outside&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span> <span class="p">};}());</span> <span class="c1">// wrapped call expression</span>
+</pre></div>
+<h5>inside</h5>
+<p>Examples of <strong>incorrect</strong> code for the <code>&quot;inside&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint wrap-iife: [&quot;error&quot;, &quot;inside&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span> <span class="p">};}();</span> <span class="c1">// unwrapped</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span> <span class="p">};}());</span> <span class="c1">// wrapped call expression</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the <code>&quot;inside&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint wrap-iife: [&quot;error&quot;, &quot;inside&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span> <span class="p">};})();</span> <span class="c1">// wrapped function expression</span>
+</pre></div>
+<h5>any</h5>
+<p>Examples of <strong>incorrect</strong> code for the <code>&quot;any&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint wrap-iife: [&quot;error&quot;, &quot;any&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span> <span class="p">};}();</span> <span class="c1">// unwrapped</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the <code>&quot;any&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint wrap-iife: [&quot;error&quot;, &quot;any&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span> <span class="p">};}());</span> <span class="c1">// wrapped call expression</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span> <span class="p">};})();</span> <span class="c1">// wrapped function expression</span>
+</pre></div>
+<h5>functionPrototypeMethods</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;inside&quot;, { &quot;functionPrototypeMethods&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint wrap-iife: [2, &quot;inside&quot;, { functionPrototypeMethods: true }] */</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">foo</span><span class="p">();</span> <span class="p">}()</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="nx">foo</span><span class="p">();</span> <span class="p">}())</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">foo</span><span class="p">();</span> <span class="p">}.</span><span class="nx">call</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="nx">foo</span><span class="p">();</span> <span class="p">}.</span><span class="nx">call</span><span class="p">(</span><span class="nx">bar</span><span class="p">))</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;inside&quot;, { &quot;functionPrototypeMethods&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint wrap-iife: [2, &quot;inside&quot;, { functionPrototypeMethods: true }] */</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="nx">foo</span><span class="p">();</span> <span class="p">})()</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="nx">foo</span><span class="p">();</span> <span class="p">}).</span><span class="nx">call</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span>
+</pre></div>
+
+    </section>
+</article>

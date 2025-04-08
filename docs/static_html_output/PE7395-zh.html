@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7395">BE7395: int转换为double，然后传递给Math.ceil</h2>
+    <h3>int转换为double，然后传递给Math.ceil</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7395</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>int转换为double，然后传递给Math.ceil</p>
+<h4>漏洞与风险</h4>
+<p>此代码将整数值（例如，int或long）转换为双精度浮点数，然后将结果传递给Math.ceil()函数，该函数将double舍入到下一个更高的整数值。此操作应始终为无操作，因为将整数转换为double应该给出一个没有小数部分的数字。生成要传递给Math.ceil的值的操作可能是使用双精度浮点运算执行的。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

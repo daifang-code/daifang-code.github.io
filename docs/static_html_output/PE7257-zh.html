@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7257">BE7257: 异常被创建并丢弃而不是抛出</h2>
+    <h3>异常被创建并丢弃而不是抛出</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7257</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>异常被创建并丢弃而不是抛出</p>
+<h4>漏洞与风险</h4>
+<p> 此代码创建一个异常（或错误）对象，但不对其执行任何操作。例如，</p>
+<pre><code>if (x < 0) {
+    new IllegalArgumentException("x must be nonnegative");
+}
+</code></pre>
+<p>这可能是程序员抛出创建的异常的意图：</p>
+<pre><code>if (x < 0) {
+    throw new IllegalArgumentException(""x must be nonnegative"");
+}
+</code></pre>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

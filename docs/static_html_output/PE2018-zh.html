@@ -1,0 +1,90 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2018">PE2018: complexity</h2>
+    <h3>限制圈复杂度 (complexity)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2018</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>限制圈复杂度 (complexity)</h4>
+<p>圈复杂度数量上表现为覆盖所有代码的独立现行路径条数。该规则允许设置一个圈复杂度阈值。</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">a</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span><span class="p">;</span> <span class="c1">// 1st path</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// 2nd path</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// 3rd path</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>此规则目的在于通过在项目中设置一个圈复杂度阈值来控制代码的复杂度，因此，它将会在圈复杂度超过配置的阈值时发出警告 (默认是 <code>20</code>)。</p>
+<p>最大阈值为 2 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint complexity: [&quot;error&quot;, 2]*/</span>
+
+<span class="kd">function</span> <span class="nx">a</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// 3rd path</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>最大阈值为 2 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint complexity: [&quot;error&quot;, 2]*/</span>
+
+<span class="kd">function</span> <span class="nx">a</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>你可以指定一个包含 <code>max</code> 属性的对象：</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;complexity&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+<p>等同于：</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;complexity&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;max&quot;</span><span class="p">:</span> <span class="mi">2</span> <span class="p">}]</span>
+</pre></div>
+<p><strong>弃用：</strong>属性 <code>maximum</code> 已弃用。请使用 <code>max</code> 属性。</p>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不能为你的代码确定一个合适的圈复杂度阈值，最好禁用此规则。</p>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity">Cyclomatic Complexity</a></li>
+<li><a href="http://ariya.ofilabs.com/2012/12/complexity-analysis-of-javascript-code.html">Complexity Analysis of JavaScript Code</a></li>
+<li><a href="https://craftsmanshipforsoftware.com/2015/05/25/complexity-for-javascript/">More about Complexity in JavaScript</a></li>
+<li><a href="https://web.archive.org/web/20160808115119/http://jscomplexity.org/complexity">About Complexity</a></li>
+<li><a href="https://github.com/eslint/eslint/issues/4808#issuecomment-167795140">Discussion about Complexity in ESLint and more links</a></li>
+</ul>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="max-depth">max-depth</a></li>
+<li><a href="max-len">max-len</a></li>
+<li><a href="max-nested-callbacks">max-nested-callbacks</a></li>
+<li><a href="max-params">max-params</a></li>
+<li><a href="max-statements">max-statements</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/complexity.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/complexity.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

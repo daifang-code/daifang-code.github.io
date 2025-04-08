@@ -1,0 +1,38 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1050">PE1050: 无效函数参数</h2>
+    <h3>形参与实参类型不一致。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1050</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>函数传递的实参类型与形参不一致</p>
+<h4>漏洞与风险</h4>
+<p>如果实参和形参不一致，则最终调用以形参为准。这样会在调用函数时改变参数的类型，从而导致结果的差异。</p>
+<h4>缓解与预防</h4>
+<p>使形参和实参类型一致，如果不能一致则在编写时考虑形参的类型。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>演示示例</h4>
+<h5>漏洞缺陷示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">);</span>
+<span class="kt">char</span> <span class="n">b</span><span class="o">=</span><span class="mi">30</span><span class="p">;</span> <span class="c1">//detect</span>
+<span class="n">bad</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+<p>b是实参，它与形参的类型是不一样的。在调用时系统将默认b为int型并带入函数中。但是这样会导致b类型的改变</p>
+<h5>漏洞缺陷修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">b</span><span class="o">=</span><span class="mi">30</span><span class="p">;</span>
+<span class="n">bad</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+
+    </section>
+</article>

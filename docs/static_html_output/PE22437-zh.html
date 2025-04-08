@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22437">PE22437: W504</h2>
+    <h3>Line break occurred after a binary operator</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22437</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>换行应该发生在二进制运算符之前，以保持所有运算符对齐。</p>
+<p>This rule was changed on April 16th, 2016 in <a href="https://github.com/python/peps/commit/c59c4376ad233a62ca4b3a6060c81368bd21e85b">this
+commit</a>
+. The tool <a href="https://github.com/PyCQA/pycodestyle/pull/502">is updated</a>
+to recommend that line breaks <em>should</em> occur before the binary operator
+because it keeps all operators aligned. However older versions of
+tooling can still recommend the previous behaviour. See also W503.</p>
+<h5>示例错误片段</h5>
+
+<pre><code>income = (gross_wages +
+          taxable_interest)
+
+</code></pre>
+<h5>最佳修复</h5>
+
+<pre><code>income = (gross_wages
+          + taxable_interest)
+
+
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#should-a-line-break-before-or-after-a-binary-operator<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

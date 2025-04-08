@@ -1,0 +1,79 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2240">PE2240: space-infix-ops</h2>
+    <h3>要求中缀操作符周围有空格 (space-infix-ops)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2240</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求中缀操作符周围有空格 (space-infix-ops)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>虽然格式化首选项都非常个人化，但大量的风格指南要求运算符周围有空格，例如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+</pre></div>
+<p>这些额外空格的支持者认为它将使代码易于阅读，可以更轻易地突出潜在的错误，例如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">i</span><span class="o">+++</span><span class="mi">2</span><span class="p">;</span>
+</pre></div>
+<p>虽然这是有效的 JavaScript 语法，但很难确定作者的意图。</p>
+<h2>缺陷详因</h2>
+<p>此规则旨在确保中缀运算符周围有空格。</p>
+<h2>修改方案</h2>
+<p>该规则接收唯一一个可选项参数，具有以下默认值：</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;space-infix-ops&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nt">&quot;int32Hint&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">}]</span>
+</pre></div>
+<h5><code>int32Hint</code></h5>
+<p>设置 <code>int32Hint</code> 选项为 <code>true</code> (默认 <code>false</code>) 允许 <code>a|0</code> 不带空格.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="o">|</span><span class="mi">0</span><span class="p">;</span> <span class="c1">// `foo` is forced to be signed 32 bit integer</span>
+</pre></div>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-infix-ops: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="nx">a</span><span class="o">+</span><span class="nx">b</span>
+
+<span class="nx">a</span><span class="o">+</span> <span class="nx">b</span>
+
+<span class="nx">a</span> <span class="o">+</span><span class="nx">b</span>
+
+<span class="nx">a</span><span class="o">?</span><span class="nx">b</span><span class="o">:</span><span class="nx">c</span>
+
+<span class="kr">const</span> <span class="nx">a</span><span class="o">=</span><span class="p">{</span><span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">};</span>
+
+<span class="kd">var</span> <span class="p">{</span><span class="nx">a</span><span class="o">=</span><span class="mi">0</span><span class="p">}</span><span class="o">=</span><span class="nx">bar</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-infix-ops: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
+
+<span class="nx">a</span>       <span class="o">+</span> <span class="nx">b</span>
+
+<span class="nx">a</span> <span class="o">?</span> <span class="nx">b</span> <span class="o">:</span> <span class="nx">c</span>
+
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="nx">b</span><span class="o">:</span><span class="mi">1</span><span class="p">};</span>
+
+<span class="kd">var</span> <span class="p">{</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">}</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.2.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/space-infix-ops.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/space-infix-ops.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

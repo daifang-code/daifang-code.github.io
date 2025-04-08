@@ -1,0 +1,140 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2063">PE2063: multiline-ternary</h2>
+    <h3>要求或禁止在三元操作数中间换行 (multiline-ternary)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2063</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求或禁止在三元操作数中间换行 (multiline-ternary)</h4>
+<p>JavaScript 允许三元操作数之间有换行，可以提高程序的可读性。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span> <span class="o">&gt;</span> <span class="nx">baz</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+</pre></div>
+<p>上面的代码可以重写为以下形式，来提高可读性，更加清晰的描述三元操作数。</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span> <span class="o">&gt;</span> <span class="nx">baz</span> <span class="o">?</span>
+    <span class="nx">value1</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则强制或禁止在三元操作数之间有换行。注意：操作符的位置不是该规则强制的。如果你对操作符的位置感兴趣，可以查看<a href="operator-linebreak">operator-linebreak</a>。</p>
+<h2>修改方案</h2>
+<p>该规则有一个字符串选项：</p>
+<ul>
+<li><code>&quot;always&quot;</code> (默认) 强制三元操作数之间有换行。</li>
+<li><code>&quot;always-multiline&quot;</code> 如果表达式跨越多个行，则在三元表达式的操作数之间强制换行。</li>
+<li><code>&quot;never&quot;</code> 禁止三元操作数之间有换行 (强制整个三元表达式在同一行).</li>
+</ul>
+<h5>always</h5>
+<p>这是默认选项：</p>
+<p>默认选项 <code>&quot;always&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint multiline-ternary: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="nx">value</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="nx">value</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+</pre></div>
+<p>默认选项 <code>&quot;always&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint multiline-ternary: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="nx">value1</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="p">(</span><span class="nx">baz</span> <span class="o">&gt;</span> <span class="nx">qux</span> <span class="o">?</span>
+        <span class="nx">value1</span> <span class="o">:</span>
+        <span class="nx">value2</span><span class="p">)</span> <span class="o">:</span>
+    <span class="nx">value3</span><span class="p">;</span>
+</pre></div>
+<h5>always-multiline</h5>
+<p>选项<code>&quot;always-multiline&quot;</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint multiline-ternary: [&quot;error&quot;, &quot;always-multiline&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">&amp;&amp;</span>
+    <span class="nx">bar</span> <span class="o">&gt;</span> <span class="nx">baz</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+</pre></div>
+<p>选项<code>&quot;always-multiline&quot;</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint multiline-ternary: [&quot;error&quot;, &quot;always-multiline&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="nx">value1</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="p">(</span><span class="nx">baz</span> <span class="o">&gt;</span> <span class="nx">qux</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">)</span> <span class="o">:</span>
+    <span class="nx">value3</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="p">(</span><span class="nx">baz</span> <span class="o">&gt;</span> <span class="nx">qux</span> <span class="o">?</span>
+        <span class="nx">value1</span> <span class="o">:</span>
+        <span class="nx">value2</span><span class="p">)</span> <span class="o">:</span>
+    <span class="nx">value3</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">&amp;&amp;</span>
+    <span class="nx">bar</span> <span class="o">&gt;</span> <span class="nx">baz</span> <span class="o">?</span>
+        <span class="nx">value1</span> <span class="o">:</span>
+        <span class="nx">value2</span><span class="p">;</span>
+</pre></div>
+<h5>never</h5>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint multiline-ternary: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="nx">value</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="nx">value</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span>
+    <span class="nx">bar</span> <span class="o">?</span>
+    <span class="nx">value1</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint multiline-ternary: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="p">(</span><span class="nx">baz</span> <span class="o">&gt;</span> <span class="nx">qux</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">)</span> <span class="o">:</span> <span class="nx">value3</span><span class="p">;</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你对三元操作数是否有换行没有严格约定，你可以禁用此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="operator-linebreak">operator-linebreak</a></li>
+</ul>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS</strong>: <a href="http://jscs.info/rule/requireMultiLineTernary">requireMultiLineTernary</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 3.1.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/multiline-ternary.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/multiline-ternary.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

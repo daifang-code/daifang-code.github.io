@@ -1,0 +1,60 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1056">PE1056: 不正确的字符串比较</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1056</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>如果字符串常量与指向字符串直接用'=='进行比较，那他们比较的是地址而不是字符串是否相同，有些表达式总会导致错误</p>
+<h4>漏洞与风险</h4>
+<h5>表达式错误</h5>
+<p>不正确地字符串比较操作导致错误的结果。</p>
+<h4>缓解与预防</h4>
+<p>可以使用strcmp()函数进行比较。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>演示示例</h4>
+<h5>漏洞缺陷示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">isequiv</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">t</span> <span class="o">==</span> <span class="s">&quot;char&quot;</span><span class="p">)</span><span class="c1">//detect</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">else</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="n">test</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;char&quot;</span><span class="p">;</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">isequiv</span><span class="p">(</span><span class="n">test</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+<p>在这种情况下，它们比较的是地址而不是字符串是否相同。因此返回的结果将是0</p>
+<h5>漏洞缺陷修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">isequiv</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="s">&quot;char&quot;</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="c1">//detect</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">else</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">good</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="n">test</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;char&quot;</span><span class="p">;</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">isequiv</span><span class="p">(</span><span class="n">test</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+<p>当使用strcmp时，比较的就是字符串的内容而不是地址，这样就能够正确比较了。</p>
+
+    </section>
+</article>

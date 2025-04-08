@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7345">BE7345: Uncallable method defined in anonymous class</h2>
+    <h3>Uncallable method defined in anonymous class</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7345</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Uncallable method defined in anonymous class</p>
+<h4>Vulnerability and risk</h4>
+<p> This anonymous class defined a method that is not directly invoked and does not override
+a method in a superclass. Since methods in other classes cannot directly invoke methods
+declared in an anonymous class, it seems that this method is uncallable. The method
+might simply be dead code, but it is also possible that the method is intended to
+override a method declared in a superclass, and due to an typo or other error the method does not,
+in fact, override the method it is intended to.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

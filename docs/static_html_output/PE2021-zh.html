@@ -1,0 +1,90 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2021">PE2021: consistent-this</h2>
+    <h3>要求一致的 This (consistent-this)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2021</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求一致的 This (consistent-this)</h4>
+<p>通常，非常有必要获取当前执行环境的上下文以便在后续过程中继续使用。一个常见的例子就是 jQuery 的回调函数：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+<span class="nx">jQuery</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// here, &quot;this&quot; is the HTMLElement where the click event occurred</span>
+    <span class="nx">that</span><span class="p">.</span><span class="nx">setFoo</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<p><code>this</code> 有多个常用的别名，例如 <code>self</code>、<code>that</code> 或 <code>me</code> 。在整个项目中确保团队成员使用同样的别名是一个很有必要的事情。</p>
+<h2>缺陷详因</h2>
+<p>该规则指定一个变量作为 <code>this</code> 的别名。它将强制两件事情：</p>
+<ul>
+<li>如果一个变量声明为一个指定的名称，它 <em>必须</em> 初始化（在声明语句中）或被赋值（与声明语句在同一范围内）为 <code>this</code>。</li>
+<li>如果一个变量初始化或被赋值为 <code>this</code>，那么该变量 <em>必须</em> 是指定的别名。</li>
+</ul>
+<h2>修改方案</h2>
+<p>该规则有一个到两个字符串选项：</p>
+<ul>
+<li>为 <code>this</code> 指定别名 (默认 <code>&quot;that&quot;</code>)</li>
+</ul>
+<p>默认选项 <code>&quot;that&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint consistent-this: [&quot;error&quot;, &quot;that&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+<span class="nx">that</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+
+<span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</pre></div>
+<p>默认选项 <code>&quot;that&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint consistent-this: [&quot;error&quot;, &quot;that&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">self</span><span class="p">;</span>
+
+<span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+<span class="nx">foo</span><span class="p">.</span><span class="nx">bar</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</pre></div>
+<p>如果指定的变量没有初始化，默认选项 <code>&quot;that&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint consistent-this: [&quot;error&quot;, &quot;that&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">that</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>如果指定的变量没有初始化，默认选项 <code>&quot;that&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint consistent-this: [&quot;error&quot;, &quot;that&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">that</span><span class="p">;</span>
+<span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">that</span><span class="p">;</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+<span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你需要获取嵌套的上下文，<code>consistent-this</code> 是会有问题的。这种类型的代码通常很难阅读和维护，你应该考虑重构它。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/consistent-this.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/consistent-this.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

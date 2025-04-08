@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22518">PE22518: E0101</h2>
+    <h3>E0101</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22518</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Message</h2>
+<p>Explicit return in <strong>init</strong></p>
+<h2>Description</h2>
+<p>Used when the special class method <strong>init</strong>() has an explicit return value.
+This message belongs to the basic checker.</p>
+<h2>Explanation</h2>
+<p>The <strong>init</strong>() method is required to return nothing. Python 2.7 and 3.x raises:</p>
+<p>TypeError: <strong>init</strong>() should return None</p>
+<p>when <strong>init</strong>() is called and executes a return statement with a value other than None. PyLint reports this error without depending on the actual invocation.</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

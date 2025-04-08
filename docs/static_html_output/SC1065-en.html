@@ -1,0 +1,39 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1065">SC1065: Using observable function parameters</h2>
+    <h3>Trying to declare parameters? Don't. Use () and refer to params as $1, $2..</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1065</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Trying to declare parameters? Don't. Use () and refer to params as $1, $2..</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>foo<span class="o">(</span>input<span class="o">)</span> <span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$input</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+foo<span class="o">(</span><span class="s2">&quot;hello world&quot;</span><span class="o">)</span><span class="p">;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>foo<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+foo <span class="s2">&quot;hello world&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>Shell script functions behave just like scripts and other commands:</p>
+<ul>
+<li>They always take a 0 to N parameters, referred to with <code>$1</code>, <code>$2</code> etc. They can not declare parameters by name.</li>
+<li>They are executed using <code>name arg1 arg2</code>, and not with parentheses as C-like languages.</li>
+</ul>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

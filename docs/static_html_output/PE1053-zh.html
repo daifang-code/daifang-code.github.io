@@ -1,0 +1,63 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1053">PE1053: 计算表达式不清晰</h2>
+    <h3>计算表达式表述不清楚，使得同一个表达式有多种理解方式。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1053</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>计算表达式表述不清楚，使得同一个表达式有多种理解方式。例如'a+b?c:d'可能原意是想表达(a+b)?c:d或a+(b?c:d)。当一个if语句被分号提前终止时，then语句将永远被执行，从而改变了if语句的逻辑。在while,for等循环语句被分号提前终止时，可能会导致死循环或者循环体部分只被执行一次。</p>
+<h4>漏洞与风险</h4>
+<p>若表达式没有被正确理解，或者程序执行逻辑与原意不同，则整个程序将脱离预定轨迹运行，甚至形成死循环并导致程序崩溃。</p>
+<h4>缓解与预防</h4>
+<p>对于表达式，尽量多用括号标明运算步骤。对于判断和循环语句，注意分号所在位置。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>演示示例</h4>
+<h5>漏洞缺陷示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#define FAIL 0</span>
+<span class="cp">#define SUCCESS 1</span>
+<span class="p">...</span>
+<span class="kt">int</span> <span class="n">validateUser</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">username</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">password</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">isUser</span> <span class="o">=</span> <span class="n">FAIL</span><span class="p">;</span>
+  <span class="c1">// call method to authenticate username and password</span>
+  <span class="c1">// if authentication fails then return failure otherwise return success</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">isUser</span> <span class="o">=</span> <span class="n">AuthenticateUser</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span> <span class="o">==</span> <span class="n">FAIL</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//detect</span>
+    <span class="k">return</span> <span class="n">isUser</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="n">isUser</span> <span class="o">=</span> <span class="n">SUCCESS</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">isUser</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在这种情况下，“==”的优先级高于“=”，因此对于判断语句，将先进行AuthenticateUser(username, password) == FAIL的比较，然后对isUser进行赋值，从而导致整个程序逻辑错误。</p>
+<h5>漏洞缺陷修复示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#define FAIL 0</span>
+<span class="cp">#define SUCCESS 1</span>
+<span class="p">...</span>
+<span class="kt">int</span> <span class="n">validateUser</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">username</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">password</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">isUser</span> <span class="o">=</span> <span class="n">FAIL</span><span class="p">;</span>
+  <span class="c1">// call method to authenticate username and password</span>
+  <span class="c1">// if authentication fails then return failure otherwise return success</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">isUser</span> <span class="o">=</span> <span class="n">AuthenticateUser</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">))</span> <span class="o">==</span> <span class="n">FAIL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">isUser</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="n">isUser</span> <span class="o">=</span> <span class="n">SUCCESS</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">isUser</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面代码中，我们只需要加上小括号先进行复制运算再进行比较运算就可以了。</p>
+
+    </section>
+</article>

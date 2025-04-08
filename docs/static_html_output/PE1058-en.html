@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1058">PE1058: Function declaration issues</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1058</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>If the class member function is a const function, the function can be technically satisfied, and this function does not show compilation errors, but it is conceptually meaningless. Class member functions can be static. This will bring performance benefits because the instance is not passed to the function. This change does not cause a compiler error, but it is not necessarily significant conceptually .</p>
+<h4>Likelihood of Exploit</h4>
+<p>Consider the design and function tasks first. Is it a function that cannot change the internal state of an object? If not, try not to use const and static functions.</p>
+<h4>Potential Mitigations</h4>
+<p>low</p>
+
+    </section>
+</article>

@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7299">BE7299: 使用％b格式说明符格式化的非布尔参数</h2>
+    <h3>使用％b格式说明符格式化的非布尔参数</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7299</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>使用％b格式说明符格式化的非布尔参数</p>
+<h4>漏洞与风险</h4>
+<p>非Boolean类型的参数正在使用％b格式说明符进行格式化。这不会引发异常，相反它将为任何非空值打印true，对于null打印false。格式化字符串的功能有点奇怪，也许与您想要的不一样。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

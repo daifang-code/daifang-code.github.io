@@ -1,0 +1,39 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7169">BE7169: Synchronization on field in futile attempt to guard that field</h2>
+    <h3>Synchronization on field in futile attempt to guard that field</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7169</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Synchronization on field in futile attempt to guard that field</p>
+<h4>Vulnerability and risk</h4>
+<p> This method synchronizes on a field in what appears to be an attempt
+to guard against simultaneous updates to that field. But guarding a field
+gets a lock on the referenced object, not on the field. This may not
+provide the mutual exclusion you need, and other threads might
+be obtaining locks on the referenced objects (for other purposes). An example
+of this pattern would be:</p>
+<pre><code>private Long myNtfSeqNbrCounter = new Long(0);
+private Long getNotificationSequenceNumber() {
+     Long result = null;
+     synchronized(myNtfSeqNbrCounter) {
+         result = new Long(myNtfSeqNbrCounter.longValue() + 1);
+         myNtfSeqNbrCounter = new Long(result.longValue());
+     }
+     return result;
+}
+</code></pre>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+
+    </section>
+</article>

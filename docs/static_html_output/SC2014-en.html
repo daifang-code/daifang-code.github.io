@@ -1,0 +1,34 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2014">SC2014: Improper 'find' directive</h2>
+    <h3>This will expand once before find runs, not per file found.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2014</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This will expand once before find runs, not per file found.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>find . -name <span class="s1">&#39;*.tar&#39;</span> -exec tar xf <span class="o">{}</span> -C <span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="o">{}</span><span class="k">)</span><span class="s2">&quot;</span> <span class="se">\;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>find . -name <span class="s1">&#39;*.tar&#39;</span> -exec sh -c <span class="s1">&#39;tar xf &quot;$1&quot; -C &quot;$(dirname &quot;$1&quot;)&quot;&#39;</span> _ <span class="o">{}</span> <span class="se">\;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>Bash evaluates any command substitutions before the command they feature in is executed. In this case, the command is <code>find</code>. This means that <code>$(dirname {})</code> will run <strong>before</strong> <code>find</code> runs, and not <strong>while</strong> <code>find</code> runs.</p>
+<p>To run shell code for each file, we can write a tiny script and inline it with <code>sh -c</code>. We add <code>_</code> as a dummy argument that becomes <code>$0</code>, and a filename argument that becomes <code>$1</code> in the inlined script:</p>
+<div class="highlight"><pre><span></span>$ sh -c <span class="s1">&#39;echo &quot;$1 is in $(dirname &quot;$1&quot;)&quot;&#39;</span> _ <span class="s2">&quot;mydir/myfile&quot;</span>
+mydir/myfile is in mydir
+</pre></div>
+<p>This command can be executed by <code>find -exec</code>, with <code>{}</code> as the filename argument. It executes shell which interprets the inlined script once for each file. Note that the inlined script is single quoted, again to ensure that the expansion does not happen prematurely .</p>
+<h5>Exceptions:</h5>
+<p>If you don't care (or if you prefer) that it's only expanded once, like when dynamically selecting the executable to be used by all invocations, you can ignore this message.</p>
+
+    </section>
+</article>

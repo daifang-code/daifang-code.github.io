@@ -1,0 +1,44 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1109">PE1109: 不安全的存储</h2>
+    <h3>该软件没有在存储或传输前对敏感或关键数据进行加密</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1109</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>该软件没有在存储或传输前对敏感或关键数据进行加密。</p>
+<h4>漏洞与风险</h4>
+<p>没有对HTTPS session中敏感的cookie值的<code>Secure</code>属性进行设置，使得用户代理可能会在一个HTTPS session中以明文形式传递coockie。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<ul>
+<li>明确设计指明哪些重要的数据或资源需要进行加密保护。</li>
+<li>确保系统设计中妥善处理好加密这一环。</li>
+<li>区分不同场景下对加密的需求。</li>
+<li>在使用工业界认可的方法时，请正确使用它们。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>以下的缺陷代码片段来自一个servlet doPost()方法，它会设置cookie中accountID这一敏感者，但中途缺少了对<code>setSecure(true)</code>的调用：</p>
+<div class="highlight"><pre><span></span><span class="n">Cookie</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Cookie</span><span class="o">(</span><span class="n">ACCOUNT_ID</span><span class="o">,</span> <span class="n">acctID</span><span class="o">);</span>
+<span class="n">response</span><span class="o">.</span><span class="na">addCookie</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+</pre></div>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/614.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://cwe.mitre.org/data/definitions/311.html<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7062">BE7062: 从double构造出来的BigDecimal值造成精度丢失</h2>
+    <h3>从double构造出来的BigDecimal值造成精度丢失</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7062</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>从double构造出来的BigDecimal值造成精度丢失</p>
+<h4>漏洞与风险</h4>
+<p>
+    由double值创建的BigDecimal不能精确的表达该double数的十进制字面量。
+    例如，您可能期待在Java中通过new BigDecimal(0.1)创建一个BigDecimal，它从字面上看看应该等于0.1，但实际上等于0.1000000000000000055511151231257827021181583404541015625。
+    您可以使用BigDecimal.valueOf(double d)方法，该方法使用字面上直接表示的double值来创建BigDecimal（例如，BigDecimal.valueOf(0.1)给出的结果为0.1）。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

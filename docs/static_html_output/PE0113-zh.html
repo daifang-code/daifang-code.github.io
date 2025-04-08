@@ -1,0 +1,47 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0113">PE0113: 过时的implicit int</h2>
+    <h3>过时的implicit int。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0113</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在声明函数或变量时，使用了过时的&quot;implicit int&quot;规则。</p>
+<h4>漏洞与风险</h4>
+<p>当一个变量未被指定所属类型时，默认的是&quot;int&quot;型，但现代C++已不再支持此规则，可能导致代码难以移植。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>在声明函数或变量时，应指定变量或函数返回值的类型。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>   <span class="c1">// 未声明常量的类型</span>
+<span class="n">example_fun</span><span class="p">()</span>    <span class="c1">// 未声明函数返回值的类型</span>
+<span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞修复代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>   
+<span class="kt">int</span> <span class="nf">example_fun</span><span class="p">()</span>    
+<span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>SJ/T 11682-2017 6.5.30<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

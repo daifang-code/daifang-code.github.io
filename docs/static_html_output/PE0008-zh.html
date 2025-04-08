@@ -1,0 +1,42 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0008">PE0008: 函数地址与0作比较</h2>
+    <h3>函数地址与0作比较。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0008</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在条件判断中将函数的地址与0作比较时，因为函数的地址不可能为0，所以这样的比较结果通常为恒定值false。这种情况大多数时由于程序员笔误导致的。</p>
+<h4>漏洞与风险</h4>
+<h5>逻辑错误</h5>
+<p>将函数地址与0作比较，结果恒为false，这可能与程序员的预期行为不一致，导致逻辑上的错误。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>将函数的返回值与0作比较。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">malloc</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* bad */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在第2行中将strlen函数地址与0作比较，结果恒为false。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">malloc</span><span class="p">(</span><span class="n">len</span><span class="p">))</span> <span class="p">{</span> <span class="cm">/* good */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在第2行中将strlen函数的返回值与0作比较。</p>
+
+    </section>
+</article>

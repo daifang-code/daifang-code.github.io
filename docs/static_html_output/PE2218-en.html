@@ -1,0 +1,62 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2218">PE2218: prefer-numeric-literals</h2>
+    <h3>disallow `parseInt()` and `Number.parseInt()` in favor of binary, octal, and hexadecimal literals (prefer-numeric-literals)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2218</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow <code>parseInt()</code> and <code>Number.parseInt()</code> in favor of binary, octal, and hexadecimal literals (prefer-numeric-literals)</h4>
+<p>The <code>parseInt()</code> and <code>Number.parseInt()</code> functions can be used to turn binary, octal, and hexadecimal strings into integers. As binary, octal, and hexadecimal literals are supported in ES6, this rule encourages use of those numeric literals instead of <code>parseInt()</code> or <code>Number.parseInt()</code>.</p>
+<div class="highlight"><pre><span></span><span class="mb">0b111110111</span> <span class="o">===</span> <span class="mi">503</span><span class="p">;</span>
+<span class="mo">0o767</span> <span class="o">===</span> <span class="mi">503</span><span class="p">;</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule disallows calls to <code>parseInt()</code> or <code>Number.parseInt()</code> if called with two arguments: a string; and a radix option of 2 (binary), 8 (octal), or 16 (hexadecimal).</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-numeric-literals: &quot;error&quot;*/</span>
+
+<span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;111110111&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">===</span> <span class="mi">503</span><span class="p">;</span>
+<span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;767&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="o">===</span> <span class="mi">503</span><span class="p">;</span>
+<span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;1F7&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">===</span> <span class="mi">503</span><span class="p">;</span>
+<span class="nb">Number</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;111110111&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">===</span> <span class="mi">503</span><span class="p">;</span>
+<span class="nb">Number</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;767&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="o">===</span> <span class="mi">503</span><span class="p">;</span>
+<span class="nb">Number</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;1F7&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">===</span> <span class="mi">503</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-numeric-literals: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="nb">parseInt</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nb">parseInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="nb">Number</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nb">Number</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+
+<span class="mb">0b111110111</span> <span class="o">===</span> <span class="mi">503</span><span class="p">;</span>
+<span class="mo">0o767</span> <span class="o">===</span> <span class="mi">503</span><span class="p">;</span>
+<span class="mh">0x1F7</span> <span class="o">===</span> <span class="mi">503</span><span class="p">;</span>
+
+<span class="nx">a</span><span class="p">[</span><span class="nb">parseInt</span><span class="p">](</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="nb">parseInt</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="nb">parseInt</span><span class="p">(</span><span class="nx">foo</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="nb">Number</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="nb">Number</span><span class="p">.</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">foo</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you want to allow use of <code>parseInt()</code> or <code>Number.parseInt()</code> for binary, octal, or hexadecimal integers, or if you are not using ES6 (because binary and octal literals are not supported in ES5 and below), you may wish to disable this rule.</p>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS</strong>: <a href="https://jscs-dev.github.io/rule/requireNumericLiterals">requireNumericLiterals</a></li>
+</ul>
+
+    </section>
+</article>

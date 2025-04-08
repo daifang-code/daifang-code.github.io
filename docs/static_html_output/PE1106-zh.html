@@ -1,0 +1,36 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1106">PE1106: 邮件命令注入</h2>
+    <h3>攻击者利用IMAP/SMTP服务器验证输入过程中的弱点，在服务器上执行命令</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1106</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>攻击者利用IMAP/SMTP服务器验证输入过程中的弱点，在服务器上执行命令。</p>
+<h4>漏洞与风险</h4>
+<p>Web邮件服务器处于Internet和IMAP/SMTP邮件服务器之间。当Web邮件服务器接收到用户请求后，Web邮件服务器通过询问后端的邮件服务器以获取用户请求的信息，并将获得的信息返回给用户。在IMAP/SMTP命令注入攻击场景中，攻击者会将邮件服务器上相应的命令嵌入到发送给Web邮件服务器的请求中。如果Web邮件服务器没有合理地对用户的请求进行清洗，那么当请求内容发送到后端邮件服务器后，后端服务器就会执行这些命令。管理人员通常认为后端邮件服务器因为只跟Web邮件服务器通讯而避免了直接与Internet接触，因此就放松了后端邮件服务器上的安全警惕，进而给恶意代码的执行带来了可能。正因如此，邮件命令注入攻击可以说是非常危险的。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<ul>
+<li>对用户可控制的输入进行验证、过滤，以排除潜在的危险字符。</li>
+<li>在将输入用作命令前先对输入进行编码，以保证命令相关的字符不会被当成待使用命令的一部分。</li>
+<li>应该对输入进行参数化，或限制只能将输入用在命令的数据部分，以排除误将输入当成部分命令的可能。</li>
+</ul>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.owasp.org/index.php/Top_10-2017_A1-Injection<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

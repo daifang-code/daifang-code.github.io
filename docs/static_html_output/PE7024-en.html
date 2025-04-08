@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7024">BE7024: Finalizer only nulls fields</h2>
+    <h3>Finalizer only nulls fields</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7024</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Finalizer only nulls fields</p>
+<h4>Vulnerability and risk</h4>
+<p> This finalizer does nothing except null out fields. This is completely pointless, and requires that
+the object be garbage collected, finalized, and then garbage collected again. You should just remove the finalize
+method.</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

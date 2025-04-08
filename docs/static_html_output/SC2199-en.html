@@ -1,0 +1,38 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2199">SC2199: Suspicious condition</h2>
+    <h3>Arrays implicitly concatenate in `[[ ]]`. Use a loop (or explicit * instead of @).</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2199</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Arrays implicitly concatenate in <code>[[ ]]</code>. Use a loop (or explicit * instead of @).</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">ext</span><span class="o">=</span>png
+<span class="nv">allowedExt</span><span class="o">=(</span>jpg bmp png<span class="o">)</span>
+<span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$ext</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">allowedExt</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;Extension is valid&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">ext</span><span class="o">=</span>png
+<span class="nv">allowedExt</span><span class="o">=(</span>jpg bmp png<span class="o">)</span>
+<span class="k">for</span> value in <span class="s2">&quot;</span><span class="si">${</span><span class="nv">allowedExt</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">do</span>
+  <span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$ext</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$value</span><span class="s2">&quot;</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;Extension is valid&quot;</span>
+<span class="k">done</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>Array expansions in <code>[[ .. ]]</code> will implicitly concatenate into a single string, much like in assignments. The problematic code is equivalent to <code>[ &quot;$ext&quot; = &quot;jpg bmp png&quot; ]</code>.</p>
+<p>Instead, use a <code>for</code> loop to iterate over values, and apply your condition to each.</p>
+<p>Alternatively, if you do want to concatenate all the values in the array into a single string for your test, use <code>&quot;$*&quot;</code> or <code>&quot;${array[*]}&quot;</code> to make this explicit.</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

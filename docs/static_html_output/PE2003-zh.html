@@ -1,0 +1,112 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2003">PE2003: array-callback-return</h2>
+    <h3>强制数组方法的回调函数中有 return 语句 (array-callback-return)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2003</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制数组方法的回调函数中有 return 语句 (array-callback-return)</h4>
+<p><code>Array</code>有一些方法用来过滤、映射和折叠。如果你忘记了在它们的回调函数中写<code>return</code>语句，这种情况可能是个错误。</p>
+<div class="highlight"><pre><span></span><span class="c1">// example: convert [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;] --&gt; {a: 0, b: 1, c: 2}</span>
+<span class="kd">var</span> <span class="nx">indexMap</span> <span class="o">=</span> <span class="nx">myArray</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">memo</span><span class="p">,</span> <span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">memo</span><span class="p">[</span><span class="nx">item</span><span class="p">]</span> <span class="o">=</span> <span class="nx">index</span><span class="p">;</span>
+<span class="p">},</span> <span class="p">{});</span> <span class="c1">// Error: cannot set property &#39;b&#39; of undefined</span>
+</pre></div>
+<p>该规则强制数组方法的回调函数中的<code>return</code>语句的使用。</p>
+<h2>缺陷详因</h2>
+<p>该规则发现以下方法的回调函数，然后检查<code>return</code>语句的使用。</p>
+<ul>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.from"><code>Array.from</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.from"><code>Array.from</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.every"><code>Array.prototype.every</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.every"><code>Array.prototype.every</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.filter"><code>Array.prototype.filter</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.filter"><code>Array.prototype.filter</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.find"><code>Array.prototype.find</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.find"><code>Array.prototype.find</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.findIndex"><code>Array.prototype.findIndex</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.findIndex"><code>Array.prototype.findIndex</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.map"><code>Array.prototype.map</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.map"><code>Array.prototype.map</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.reduce"><code>Array.prototype.reduce</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.reduce"><code>Array.prototype.reduce</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.reduceRight"><code>Array.prototype.reduceRight</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.reduceRight"><code>Array.prototype.reduceRight</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.some"><code>Array.prototype.some</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.some"><code>Array.prototype.some</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.sort"><code>Array.prototype.sort</code></a></li>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-array.prototype.sort"><code>Array.prototype.sort</code></a></li>
+<li>以上类型的数据。</li>
+</ul>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-callback-return: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">indexMap</span> <span class="o">=</span> <span class="nx">myArray</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">memo</span><span class="p">,</span> <span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">memo</span><span class="p">[</span><span class="nx">item</span><span class="p">]</span> <span class="o">=</span> <span class="nx">index</span><span class="p">;</span>
+<span class="p">},</span> <span class="p">{});</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">nodes</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">===</span> <span class="s2">&quot;DIV&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-callback-return: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">indexMap</span> <span class="o">=</span> <span class="nx">myArray</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">memo</span><span class="p">,</span> <span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">memo</span><span class="p">[</span><span class="nx">item</span><span class="p">]</span> <span class="o">=</span> <span class="nx">index</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">memo</span><span class="p">;</span>
+<span class="p">},</span> <span class="p">{});</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">nodes</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">===</span> <span class="s2">&quot;DIV&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">node</span> <span class="p">=&gt;</span> <span class="nx">node</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">));</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则有一个对象选项：</p>
+<ul>
+<li><code>&quot;allowImplicit&quot;: false</code> (默认) 当设置为 <code>true</code> 时，允许隐式使用 <code>return</code> 不包含任何表达式地返回 <code>undefined</code>。</li>
+</ul>
+<p>选项 <code>{ &quot;allowImplicit&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-callback-return: [&quot;error&quot;, { allowImplicit: true }]*/</span>
+<span class="kd">var</span> <span class="nx">undefAllTheThings</span> <span class="o">=</span> <span class="nx">myArray</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+<h2>Known Limitations</h2>
+<p>该规则检查给定名称的方法中的回调函数，<em>即使</em>该对象中的方法 <em>不是</em>一个数组。</p>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想收到关于强制数组方法的回调函数中<code>return</code>语句的使用情况的警告，你可以禁用此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 2.0.0-alpha-1 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/array-callback-return.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/array-callback-return.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,74 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2274">PE2274: spaced-line-comment</h2>
+    <h3>该规则已被ESLint v1.0移除，且由`spaced-comment`规则替代</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2274</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<p>该规则已被ESLint v1.0<strong>移除</strong>，且由<code>spaced-comment</code>规则<strong>替代</strong>。</p>
+<p>Some style guides require or disallow a whitespace immediately after the initial <code>//</code> of a line comment.
+Whitespace after the <code>//</code> makes it easier to read text in comments.
+On the other hand, commenting out code is easier without having to put a whitespace right after the <code>//</code>.</p>
+<h2>缺陷详因</h2>
+<p>This rule will enforce consistency of spacing after the start of a line comment <code>//</code>.</p>
+<p>This rule takes two arguments. If the first is <code>&quot;always&quot;</code> then the <code>//</code> must be followed by at least once whitespace.
+If <code>&quot;never&quot;</code> then there should be no whitespace following.
+The default is <code>&quot;always&quot;</code>.</p>
+<p>The second argument is an object with one key, <code>&quot;exceptions&quot;</code>.
+The value is an array of string patterns which are considered exceptions to the rule.
+It is important to note that the exceptions are ignored if the first argument is <code>&quot;never&quot;</code>.
+Exceptions cannot be mixed.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="c1">// When [&quot;never&quot;]</span>
+<span class="c1">// This is a comment with a whitespace at the beginning</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="c1">//When [&quot;always&quot;]</span>
+<span class="c1">//This is a comment with no whitespace at the beginning</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="c1">// When [&quot;always&quot;,{&quot;exceptions&quot;:[&quot;-&quot;,&quot;+&quot;]}]</span>
+<span class="c1">//------++++++++</span>
+<span class="c1">// Comment block</span>
+<span class="c1">//------++++++++</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="c1">// When [&quot;always&quot;]</span>
+<span class="c1">// This is a comment with a whitespace at the beginning</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="c1">//When [&quot;never&quot;]</span>
+<span class="c1">//This is a comment with no whitespace at the beginning</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="c1">// When [&quot;always&quot;,{&quot;exceptions&quot;:[&quot;-&quot;]}]</span>
+<span class="c1">//--------------</span>
+<span class="c1">// Comment block</span>
+<span class="c1">//--------------</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="c1">// When [&quot;always&quot;,{&quot;exceptions&quot;:[&quot;-+&quot;]}]</span>
+<span class="c1">//-+-+-+-+-+-+-+</span>
+<span class="c1">// Comment block</span>
+<span class="c1">//-+-+-+-+-+-+-+</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="spaced-comment">spaced-comment</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>This rule was introduced in ESLint 0.9.0 and removed in 1.0.0-rc-1.</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/spaced-line-comment.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

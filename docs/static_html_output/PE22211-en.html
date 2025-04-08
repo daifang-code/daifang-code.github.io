@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22211">PE22211: DUO101</h2>
+    <h3>DUO101</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22211</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO101</h4>
+<p><strong>Note: This rule only applies to Python &lt; 3.3</strong></p>
+<p>This linter looks for <code>inlineCallbacks</code> functions that have non-empty
+<code>return</code> statements. Using a non-empty <code>return</code> statement and a <code>yield</code>
+statement in the same function is a syntax error.</p>
+<p>This is <strong>not a security bug</strong>, but is a common bug when building <code>twisted</code>
+applications.</p>
+<h2>Problematic code</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">twisted.internet</span> <span class="kn">import</span> <span class="n">defer</span>
+
+<span class="nd">@defer.inlineCallbacks</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">arg</span>
+</pre></div>
+<h2>Correct code</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">twisted.internet</span> <span class="kn">import</span> <span class="n">defer</span>
+
+<span class="nd">@defer.inlineCallbacks</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="n">defer</span><span class="o">.</span><span class="n">returnValue</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+</pre></div>
+<h2>Rationale</h2>
+<p>For more information see <a href="https://twisted.readthedocs.io/en/latest/core/howto/defer-intro.html">Introduction to Deferreds</a>.</p>
+<h2>Exceptions</h2>
+<ul>
+<li>If you are using Python 3.3+, it is possible to use the <code>return</code> statement instead of <code>returnValue</code></li>
+</ul>
+
+    </section>
+</article>

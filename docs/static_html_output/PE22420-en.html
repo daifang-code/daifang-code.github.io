@@ -1,0 +1,37 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22420">PE22420: E704</h2>
+    <h3>Multiple statements on one line (def)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22420</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Multiple statements of a function definition should be on their own
+separate lines.</p>
+<h5>Anti-pattern</h5>
+
+<pre><code>def f(): pass
+
+</code></pre>
+<h5>Best practice</h5>
+
+<pre><code>def f():
+    pass
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#other-recommendations<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

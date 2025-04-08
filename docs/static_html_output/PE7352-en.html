@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7352">BE7352: Method compiles the regular expression in a loop</h2>
+    <h3>Method compiles the regular expression in a loop</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7352</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Method compiles the regular expression in a loop</p>
+<h4>Vulnerability and risk</h4>
+<p> The method creates the same regular expression inside the loop, so it will be compiled every iteration.
+It would be more optimal to precompile this regular expression using Pattern.compile outside of the loop.</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

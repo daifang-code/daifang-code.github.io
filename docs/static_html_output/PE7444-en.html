@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7444">BE7444: Adding elements of an entry set may fail due to reuse of Entry objects</h2>
+    <h3>Adding elements of an entry set may fail due to reuse of Entry objects</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7444</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Adding elements of an entry set may fail due to reuse of Entry objects</p>
+<h4>Vulnerability and risk</h4>
+<p> The entrySet() method is allowed to return a view of the
+     underlying Map in which a single Entry object is reused and returned
+     during the iteration.  As of Java 1.6, both IdentityHashMap
+     and EnumMap did so. When iterating through such a Map,
+     the Entry value is only valid until you advance to the next iteration.
+     If, for example, you try to pass such an entrySet to an addAll method,
+     things will go badly wrong.
+    </p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

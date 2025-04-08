@@ -1,0 +1,65 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2245">PE2245: symbol-description</h2>
+    <h3>要求 symbol 描述 (symbol-description)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2245</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求 symbol 描述 (symbol-description)</h4>
+<p><code>Symbol</code> 可以有可选的描述：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="s2">&quot;some description&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">someString</span> <span class="o">=</span> <span class="s2">&quot;some description&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="nx">someString</span><span class="p">);</span>
+</pre></div>
+<p>使用 <code>描述</code> 更容易促进调试：当生成一个 symbol 实例时，使用描述。</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="s2">&quot;some description&quot;</span><span class="p">);</span>
+
+<span class="o">&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="c1">// Symbol(some description)</span>
+</pre></div>
+<p>以便在调试过程中观察时区分不同的 symbol 。</p>
+<h2>缺陷详因</h2>
+<p>该规则要求创建 symbol 时带有描述。</p>
+<h2>Examples</h2>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint symbol-description: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">();</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint symbol-description: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="s2">&quot;some description&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">someString</span> <span class="o">=</span> <span class="s2">&quot;some description&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="nx">someString</span><span class="p">);</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>该规则不应该在 ES3/5 环境中使用。</p>
+<p>另外，如果你不想在创建 Symbol 时强制出现<code>描述</code>，可以安全地关闭该规则。</p>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-symbol-description">Symbol Objects specification: Symbol description</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则是在 ESLint 3.4.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/symbol-description.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/symbol-description.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

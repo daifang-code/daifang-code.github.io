@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7125">BE7125: compareTo()/ compare()返回Integer.MIN_VALUE</h2>
+    <h3>compareTo()/ compare()返回Integer.MIN_VALUE</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7125</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>compareTo()/ compare()返回Integer.MIN_VALUE</p>
+<h4>漏洞与风险</h4>
+<p>在某些情况下，这个compareTo或compare方法返回常量Integer.MIN_VALUE。
+  compareTo用返回值结果的符号表示实际判断结果，人们有时会直接取compareTo的返回值的负数，来获得参数倒转过来的结果。如果返回的值不是Integer.MIN_VALUE，这种方法是可行的。
+    因此应该只返回-1而不是Integer.MIN_VALUE。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

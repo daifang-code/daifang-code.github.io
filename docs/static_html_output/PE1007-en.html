@@ -1,0 +1,70 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1007">PE1007: Illegal whence argument in fseek</h2>
+    <h3>Illegal whence argument in fseek. </h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1007</dd>
+                    <dt>Tags</dt>
+                    <dd>C, C++</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">fseek</span> <span class="p">(</span> <span class="kt">FILE</span> <span class="o">*</span> <span class="n">stream</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">int</span> <span class="n">origin</span> <span class="p">);</span>
+</pre></div>
+<p>The third argument origin: Position used as reference for the offset. It is specified by one of the following constants defined in <code>&lt;cstdio&gt;</code> exclusively to be used as arguments for this function:</p>
+<p>|Constant|	Reference position|
+--- | --- |
+|SEEK_SET|	Beginning of file|
+|SEEK_CUR|	Current position of the file pointer|
+|SEEK_END|	End of file |</p>
+<h4>Vulnerability and risk</h4>
+<p>If the third argument to fseek() not be SEEK_SET, SEEK_END, or SEEK_CUR, the behavior is undefined.</p>
+<h4>Potential Mitigations</h4>
+<p>The whence argument to fseek() should be SEEK_SET, SEEK_END, or SEEK_CUR.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code Example</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#define N 5</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">student</span><span class="p">{</span>
+  <span class="kt">long</span> <span class="n">sno</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+  <span class="kt">float</span> <span class="n">score</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="p">}</span><span class="n">STU</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="n">filename</span><span class="p">,</span><span class="n">STU</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span><span class="p">;</span>
+  <span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">&quot;rb+&quot;</span><span class="p">);</span>
+  <span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="o">-</span><span class="mi">1L</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="mi">4</span><span class="p">);</span> <span class="c1">// 4 is not a valid whence argument</span>
+  <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="n">fp</span><span class="p">);</span>
+  <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed code example</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#define N 5</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">student</span><span class="p">{</span>
+  <span class="kt">long</span> <span class="n">sno</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+  <span class="kt">float</span> <span class="n">score</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="p">}</span><span class="n">STU</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="n">filename</span><span class="p">,</span><span class="n">STU</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span><span class="p">;</span>
+  <span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">&quot;rb+&quot;</span><span class="p">);</span>
+  <span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="o">-</span><span class="mi">1L</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="n">SEEK_END</span><span class="p">);</span>
+  <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="n">fp</span><span class="p">);</span>
+  <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

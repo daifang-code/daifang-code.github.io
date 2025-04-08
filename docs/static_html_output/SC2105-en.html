@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2105">SC2105: Using 'break' outside loops</h2>
+    <h3>`break` is only valid in loops</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2105</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2><code>break</code> is only valid in loops</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
+    -v<span class="o">)</span>
+       <span class="nv">verbose</span><span class="o">=</span><span class="m">1</span>
+       <span class="nb">break</span>
+       <span class="p">;;</span>
+    -d<span class="o">)</span>
+       <span class="nv">debug</span><span class="o">=</span><span class="m">1</span>
+<span class="k">esac</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
+    -v<span class="o">)</span>
+       <span class="nv">verbose</span><span class="o">=</span><span class="m">1</span>
+       <span class="p">;;</span>
+    -d<span class="o">)</span>
+       <span class="nv">debug</span><span class="o">=</span><span class="m">1</span>
+<span class="k">esac</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p><code>break</code> or <code>continue</code> was found outside a loop. These statements are only valid in loops. In particular, <code>break</code> is not required in <code>case</code> statements as there is no implicit fall-through.</p>
+<p>To return from a function or sourced script, use <code>return</code>. To exit a script, use <code>exit</code>.</p>
+<h5>Exceptions:</h5>
+<p>It's possible to <code>break</code>/<code>continue</code> in a function without a loop. The call will then affect the loop -- if any -- that the function is invoked from. This is obviously not good coding practice.</p>
+
+    </section>
+</article>

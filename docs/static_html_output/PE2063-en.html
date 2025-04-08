@@ -1,0 +1,134 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2063">PE2063: multiline-ternary</h2>
+    <h3>Enforce or disallow newlines between operands of ternary expressions (multiline-ternary)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2063</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Enforce or disallow newlines between operands of ternary expressions (multiline-ternary)</h4>
+<p>JavaScript allows operands of ternary expressions to be separated by newlines, which can improve the readability of your program.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span> <span class="o">&gt;</span> <span class="nx">baz</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+</pre></div>
+<p>The above can be rewritten as the following to improve readability and more clearly delineate the operands:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span> <span class="o">&gt;</span> <span class="nx">baz</span> <span class="o">?</span>
+    <span class="nx">value1</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule enforces or disallows newlines between operands of a ternary expression.
+Note: The location of the operators is not enforced by this rule. Please see the <a href="operator-linebreak.md">operator-linebreak</a> rule if you are interested in enforcing the location of the operators themselves.</p>
+<h2>Options</h2>
+<p>This rule has a string option:</p>
+<ul>
+<li><code>&quot;always&quot;</code> (default) enforces newlines between the operands of a ternary expression.</li>
+<li><code>&quot;always-multiline&quot;</code> enforces newlines between the operands of a ternary expression if the expression spans multiple lines.</li>
+<li><code>&quot;never&quot;</code> disallows newlines between the operands of a ternary expression (enforcing that the entire ternary expression is on one line).</li>
+</ul>
+<h5>always</h5>
+<p>This is the default option.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint multiline-ternary: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="nx">value</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="nx">value</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint multiline-ternary: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="nx">value1</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="p">(</span><span class="nx">baz</span> <span class="o">&gt;</span> <span class="nx">qux</span> <span class="o">?</span>
+        <span class="nx">value1</span> <span class="o">:</span>
+        <span class="nx">value2</span><span class="p">)</span> <span class="o">:</span>
+    <span class="nx">value3</span><span class="p">;</span>
+</pre></div>
+<h5>always-multiline</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always-multiline&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint multiline-ternary: [&quot;error&quot;, &quot;always-multiline&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">&amp;&amp;</span>
+    <span class="nx">bar</span> <span class="o">&gt;</span> <span class="nx">baz</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always-multiline&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint multiline-ternary: [&quot;error&quot;, &quot;always-multiline&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="nx">value1</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="p">(</span><span class="nx">baz</span> <span class="o">&gt;</span> <span class="nx">qux</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">)</span> <span class="o">:</span>
+    <span class="nx">value3</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="p">(</span><span class="nx">baz</span> <span class="o">&gt;</span> <span class="nx">qux</span> <span class="o">?</span>
+        <span class="nx">value1</span> <span class="o">:</span>
+        <span class="nx">value2</span><span class="p">)</span> <span class="o">:</span>
+    <span class="nx">value3</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">&amp;&amp;</span>
+    <span class="nx">bar</span> <span class="o">&gt;</span> <span class="nx">baz</span> <span class="o">?</span>
+        <span class="nx">value1</span> <span class="o">:</span>
+        <span class="nx">value2</span><span class="p">;</span>
+</pre></div>
+<h5>never</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint multiline-ternary: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="nx">value</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span>
+    <span class="nx">value</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span>
+    <span class="nx">bar</span> <span class="o">?</span>
+    <span class="nx">value1</span> <span class="o">:</span>
+    <span class="nx">value2</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint multiline-ternary: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">&gt;</span> <span class="nx">bar</span> <span class="o">?</span> <span class="p">(</span><span class="nx">baz</span> <span class="o">&gt;</span> <span class="nx">qux</span> <span class="o">?</span> <span class="nx">value1</span> <span class="o">:</span> <span class="nx">value2</span><span class="p">)</span> <span class="o">:</span> <span class="nx">value3</span><span class="p">;</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>You can safely disable this rule if you do not have any strict conventions about whether the operands of a ternary expression should be separated by newlines.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="operator-linebreak.md">operator-linebreak</a></li>
+</ul>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS</strong>: <a href="https://jscs-dev.github.io/rule/requireMultiLineTernary">requireMultiLineTernary</a></li>
+</ul>
+
+    </section>
+</article>

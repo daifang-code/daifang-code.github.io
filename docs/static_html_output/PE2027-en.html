@@ -1,0 +1,53 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2027">PE2027: eol-last</h2>
+    <h3>require or disallow newline at the end of files (eol-last)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2027</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>require or disallow newline at the end of files (eol-last)</h4>
+<p>Trailing newlines in non-empty files are a common UNIX idiom. Benefits of
+trailing newlines include the ability to concatenate or append to files as well
+as output files to the terminal without interfering with shell prompts.</p>
+<h2>Rule Details</h2>
+<p>This rule enforces at least one newline (or absence thereof) at the end
+of non-empty files.</p>
+<p>Prior to v0.16.0 this rule also enforced that there was only a single line at
+the end of the file. If you still want this behavior, consider enabling
+<a href="no-multiple-empty-lines.md">no-multiple-empty-lines</a> with <code>maxEOF</code> and/or
+<a href="no-trailing-spaces.md">no-trailing-spaces</a>.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint eol-last: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">doSmth</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint eol-last: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">doSmth</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span><span class="err">\</span><span class="nx">n</span>
+</pre></div>
+<h2>Options</h2>
+<p>This rule has a string option:</p>
+<ul>
+<li><code>&quot;always&quot;</code> (default) enforces that files end with a newline (LF)</li>
+<li><code>&quot;never&quot;</code> enforces that files do not end with a newline</li>
+<li><code>&quot;unix&quot;</code> (deprecated) is identical to &quot;always&quot;</li>
+<li><code>&quot;windows&quot;</code> (deprecated) is identical to &quot;always&quot;, but will use a CRLF character when autofixing</li>
+</ul>
+<p><strong>Deprecated:</strong> The options <code>&quot;unix&quot;</code> and <code>&quot;windows&quot;</code> are deprecated. If you need to enforce a specific linebreak style, use this rule in conjunction with <code>linebreak-style</code>.</p>
+
+    </section>
+</article>

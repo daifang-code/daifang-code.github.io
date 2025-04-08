@@ -1,0 +1,40 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1133">SC1133: Unexpected start of line</h2>
+    <h3>Unexpected start of line. If breaking lines, |/||/&& should be at the end of the previous one.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1133</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Unexpected start of line. If breaking lines, |/||/&amp;&amp; should be at the end of the previous one.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>dmesg
+  <span class="p">|</span> grep <span class="s2">&quot;error&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>dmesg <span class="p">|</span>
+  grep <span class="s2">&quot;error&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck has found a line that unexpectedly started with <code>|</code>, <code>||</code> or <code>&amp;&amp;</code>. This usually happens when a line is broken incorrectly.</p>
+<p>When breaking around a <code>|</code>, <code>||</code> or <code>&amp;&amp;</code>, there are two options:</p>
+<ul>
+<li>Break the line <em>after</em> this token. <code>dmesg</code> is a complete command by itself, but <code>dmesg |</code> is not so the shell knows to continue on the next line.</li>
+<li>Use a <code>\</code> at the end of the previous line to explicitly tell the shell to continue on the next.</li>
+</ul>
+<h5>Exceptions:</h5>
+<p>None. This is a syntax error.</p>
+<h5>Related resources:</h5>
+<ul>
+<li>Help by adding links to BashFAQ, StackOverflow, man pages, POSIX, etc!</li>
+</ul>
+
+    </section>
+</article>

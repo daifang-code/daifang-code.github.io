@@ -1,0 +1,279 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2015">PE2015: comma-dangle</h2>
+    <h3>require or disallow trailing commas (comma-dangle)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2015</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>require or disallow trailing commas (comma-dangle)</h4>
+<p>Trailing commas in object literals are valid according to the ECMAScript 5 (and ECMAScript 3!) spec. However, IE8 (when not in IE8 document mode) and below will throw an error when it encounters trailing commas in JavaScript.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+<p>Trailing commas simplify adding and removing items to objects and arrays, since only the lines you are modifying must be touched.
+Another argument in favor of trailing commas is that it improves the clarity of diffs when an item is added or removed from an object or array:</p>
+<p>Less clear:</p>
+<div class="highlight"><pre><span></span>var foo = {
+<span class="gd">-    bar: &quot;baz&quot;,</span>
+<span class="gd">-    qux: &quot;quux&quot;</span>
+<span class="gi">+    bar: &quot;baz&quot;</span>
+ };
+</pre></div>
+<p>More clear:</p>
+<div class="highlight"><pre><span></span>var foo = {
+     bar: &quot;baz&quot;,
+<span class="gd">-    qux: &quot;quux&quot;,</span>
+ };
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule enforces consistent use of trailing commas in object and array literals.</p>
+<h2>Options</h2>
+<p>This rule has a string option or an object option:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;comma-dangle&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;never&quot;</span><span class="p">],</span>
+    <span class="err">//</span> <span class="err">or</span>
+    <span class="nt">&quot;comma-dangle&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nt">&quot;arrays&quot;</span><span class="p">:</span> <span class="s2">&quot;never&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;objects&quot;</span><span class="p">:</span> <span class="s2">&quot;never&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;imports&quot;</span><span class="p">:</span> <span class="s2">&quot;never&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;exports&quot;</span><span class="p">:</span> <span class="s2">&quot;never&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;functions&quot;</span><span class="p">:</span> <span class="s2">&quot;ignore&quot;</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+<ul>
+<li><code>&quot;never&quot;</code> (default) disallows trailing commas</li>
+<li><code>&quot;always&quot;</code> requires trailing commas</li>
+<li><code>&quot;always-multiline&quot;</code> requires trailing commas when the last element or property is in a <em>different</em> line than the closing <code>]</code> or <code>}</code> and disallows trailing commas when the last element or property is on the <em>same</em> line as the closing <code>]</code> or <code>}</code></li>
+<li><code>&quot;only-multiline&quot;</code> allows (but does not require) trailing commas when the last element or property is in a <em>different</em> line than the closing <code>]</code> or <code>}</code> and disallows trailing commas when the last element or property is on the <em>same</em> line as the closing <code>]</code> or <code>}</code></li>
+</ul>
+<p>Trailing commas in function declarations and function calls are valid syntax since ECMAScript 2017; however, the string option does not check these situations for backwards compatibility.</p>
+<p>You can also use an object option to configure this rule for each type of syntax.
+Each of the following options can be set to <code>&quot;never&quot;</code>, <code>&quot;always&quot;</code>, <code>&quot;always-multiline&quot;</code>, <code>&quot;only-multiline&quot;</code>, or <code>&quot;ignore&quot;</code>.
+The default for each option is <code>&quot;never&quot;</code> unless otherwise specified.</p>
+<ul>
+<li><code>arrays</code> is for array literals and array patterns of destructuring. (e.g. <code>let [a,] = [1,];</code>)</li>
+<li><code>objects</code> is for object literals and object patterns of destructuring. (e.g. <code>let {a,} = {a: 1};</code>)</li>
+<li><code>imports</code> is for import declarations of ES Modules. (e.g. <code>import {a,} from &quot;foo&quot;;</code>)</li>
+<li><code>exports</code> is for export declarations of ES Modules. (e.g. <code>export {a,};</code>)</li>
+<li><code>functions</code> is for function declarations and function calls. (e.g. <code>(function(a,){ })(b,);</code>)<ul>
+<li><code>functions</code> is set to <code>&quot;ignore&quot;</code> by default for consistency with the string option.</li>
+<li><code>functions</code> should only be enabled when linting ECMAScript 2017 or higher.</li>
+</ul>
+</li>
+</ul>
+<h5>never</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-dangle: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,];</span>
+
+<span class="nx">foo</span><span class="p">({</span>
+  <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span><span class="p">,</span>
+<span class="p">});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-dangle: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">];</span>
+
+<span class="nx">foo</span><span class="p">({</span>
+  <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span>
+<span class="p">});</span>
+</pre></div>
+<h5>always</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-dangle: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">];</span>
+
+<span class="nx">foo</span><span class="p">({</span>
+  <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span>
+<span class="p">});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-dangle: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,];</span>
+
+<span class="nx">foo</span><span class="p">({</span>
+  <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span><span class="p">,</span>
+<span class="p">});</span>
+</pre></div>
+<h5>always-multiline</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always-multiline&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-dangle: [&quot;error&quot;, &quot;always-multiline&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span> <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span><span class="p">,</span> <span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,];</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,];</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span>
+<span class="p">];</span>
+
+<span class="nx">foo</span><span class="p">({</span>
+  <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span>
+<span class="p">});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always-multiline&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-dangle: [&quot;error&quot;, &quot;always-multiline&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span><span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span> <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">];</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">];</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="nx">foo</span><span class="p">({</span>
+  <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span><span class="p">,</span>
+<span class="p">});</span>
+</pre></div>
+<h5>only-multiline</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;only-multiline&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-dangle: [&quot;error&quot;, &quot;only-multiline&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span> <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span><span class="p">,</span> <span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,];</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,];</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;only-multiline&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-dangle: [&quot;error&quot;, &quot;only-multiline&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span><span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span> <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">];</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">];</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span>
+<span class="p">];</span>
+
+<span class="nx">foo</span><span class="p">({</span>
+  <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="nx">foo</span><span class="p">({</span>
+  <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="o">:</span> <span class="s2">&quot;quux&quot;</span>
+<span class="p">});</span>
+</pre></div>
+<h5>functions</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{&quot;functions&quot;: &quot;never&quot;}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-dangle: [&quot;error&quot;, {&quot;functions&quot;: &quot;never&quot;}]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,);</span>
+<span class="k">new</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{&quot;functions&quot;: &quot;never&quot;}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-dangle: [&quot;error&quot;, {&quot;functions&quot;: &quot;never&quot;}]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+<span class="k">new</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{&quot;functions&quot;: &quot;always&quot;}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-dangle: [&quot;error&quot;, {&quot;functions&quot;: &quot;always&quot;}]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+<span class="k">new</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{&quot;functions&quot;: &quot;always&quot;}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-dangle: [&quot;error&quot;, {&quot;functions&quot;: &quot;always&quot;}]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,);</span>
+<span class="k">new</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,);</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>You can turn this rule off if you are not concerned with dangling commas.</p>
+
+    </section>
+</article>

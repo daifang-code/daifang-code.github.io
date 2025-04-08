@@ -1,0 +1,98 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2081">PE2081: no-console</h2>
+    <h3>禁用 `console` (no-console)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2081</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁用 <code>console</code> (no-console)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>在 JavaScript，虽然<code>console</code> 被设计为在浏览器中执行的，但避免使用 <code>console</code> 的方法被认为是一种最佳实践。这样的消息被认为是用于调试的，因此不适合输出到客户端。通常，在发布到产品之前应该剔除 <code>console</code> 的调用。</p>
+<div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Made it here.&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;That shouldn&#39;t have happened.&quot;</span><span class="p">);</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则禁止调用 <code>console</code> 对象的方法。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-console: &quot;error&quot;*/</span>
+
+
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Log a debug level message.&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;Log a warn level message.&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;Log an error level message.&quot;</span><span class="p">);</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-console: &quot;error&quot;*/</span>
+
+<span class="c1">// custom console</span>
+<span class="nx">Console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello world!&quot;</span><span class="p">);</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则有例外情况，是个对象：</p>
+<ul>
+<li><code>&quot;allow&quot;</code> 是个字符串数组，包含允许使用的<code>console</code> 对象的方法</li>
+</ul>
+<p>选项 <code>{ &quot;allow&quot;: [&quot;warn&quot;, &quot;error&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-console: [&quot;error&quot;, { allow: [&quot;warn&quot;, &quot;error&quot;] }] */</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;Log a warn level message.&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;Log an error level message.&quot;</span><span class="p">);</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你在使用 Node.js，然后，<code>console</code> 主要用来向用户输出信息，所以不是严格用于调试目的。如果你正在做 Node.js 开发，那么你很可能不想启用此规则。</p>
+<p>另一个可能不使用此规则的情况是，如果你想执行控制台调用，而不是控制台重写。例如:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-console: [&quot;error&quot;, { allow: [&quot;warn&quot;] }] */</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+<p>在上面使用 <code>no-console</code> 规则的示例中，ESLint 将报告一个错误。对于上面的例子，你可以禁用该规则:</p>
+<div class="highlight"><pre><span></span><span class="c1">// eslint-disable-next-line no-console</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// or</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// eslint-disable-line no-console</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+<p>然而，你可能不希望手动添加 <code>eslint-disable-next-line</code> 或 <code>eslint-disable-line</code>。你可以使用 <code>no-restricted-syntax</code> 规则来实现控制台调用仅接收错误的效果:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;no-restricted-syntax&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;error&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;CallExpression[callee.object.name=&#39;console&#39;][callee.property.name=/^(log|warn|error|info|trace)$/]&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Unexpected property on console object was called&quot;</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-alert">no-alert</a></li>
+<li><a href="no-debugger">no-debugger</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.2 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-console.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-console.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

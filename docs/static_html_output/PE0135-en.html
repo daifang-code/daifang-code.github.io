@@ -1,0 +1,66 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0135">PE0135: Deserialization Untrusted Data</h2>
+    <h3>The application deserializes untrusted data without sufficiently verifying that the resulting data will be valid.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0135</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA, CWE-502 ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>It is often convenient to serialize objects for communication or to save them for later use. However, these data may be modified by attackers and when developers place no restrictions on &quot;gadget chains&quot; or series of instances and method invocations that can self-execute during the deserialization process (i.e. before the object is returned to the caller), it is sometimes possible for attackers to leverage them to perform unauthorized actions, like generating a shell.</p>
+<h4>Vulnerability and Risk</h4>
+<p>This can result in two primary types of attacks:</p>
+<ol>
+<li><p>Object and data structure related attacks where the attacker modifies application logic or achieves arbitrary remote code execution if there are classes available to the application that can change behavior during or after deserialization.</p>
+</li>
+<li><p>Typical data tampering attacks, such as access-control-related attacks, where existing data structures are used but the content is changed.</p>
+</li>
+</ol>
+<h4>Potential Mitigations</h4>
+<ol>
+<li><p>Avoid accepting serialized objects from untrusted sources or use serialization mediums that only permit primitive data types.</p>
+</li>
+<li><p>If available, use the signing/sealing features of the programming language to assure that deserialized data has not been tainted. For example, a hash-based message authentication code (HMAC) could be used to ensure that data has not been modified.</p>
+</li>
+<li><p>When deserializing data, populate a new object rather than just deserializing. The result is that the data flows through safe input validation and that the functions are safe.</p>
+</li>
+<li><p>Explicitly define a final object() to prevent deserialization.</p>
+</li>
+<li><p>Make fields transient to protect them from deserialization.</p>
+</li>
+</ol>
+<p>An attempt to serialize and then deserialize a class containing transient fields will result in NULLs where the transient data should be. This is an excellent way to prevent time, environment-based, or sensitive variables from being carried over and used improperly.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Critical</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">try</span> <span class="o">{</span>
+  <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;object.obj&quot;</span><span class="o">);</span>
+  <span class="n">ObjectInputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">));</span>
+  <span class="n">javax</span><span class="o">.</span><span class="na">swing</span><span class="o">.</span><span class="na">JButton</span> <span class="n">button</span> <span class="o">=</span> <span class="o">(</span><span class="n">javax</span><span class="o">.</span><span class="na">swing</span><span class="o">.</span><span class="na">JButton</span><span class="o">)</span> <span class="n">in</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+  <span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+<p>This code does not attempt to verify the source or contents of the file before deserializing it. An attacker may be able to replace the intended file with a file that contains arbitrary malicious code which will be executed when the button is pressed.</p>
+<h5>Fixed code Example</h5>
+<div class="highlight"><pre><span></span><span class="kd">private</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">in</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOException</span> <span class="o">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOException</span><span class="o">(</span><span class="s">&quot;Cannot be deserialized&quot;</span><span class="o">);</span> 
+<span class="o">}</span>
+</pre></div>
+<p>To mitigate this, explicitly define final readObject() to prevent deserialization.</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/502.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

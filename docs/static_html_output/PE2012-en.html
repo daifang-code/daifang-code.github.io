@@ -1,0 +1,165 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2012">PE2012: camelcase</h2>
+    <h3>Require CamelCase (camelcase)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2012</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Require CamelCase (camelcase)</h4>
+<p>When it comes to naming variables, style guides generally fall into one of two camps: camelcase (<code>variableName</code>) and underscores (<code>variable_name</code>). This rule focuses on using the camelcase approach. If your style guide calls for camelCasing your variable names, then this rule is for you!</p>
+<h2>Rule Details</h2>
+<p>This rule looks for any underscores (<code>_</code>) located within the source code. It ignores leading and trailing underscores and only checks those in the middle of a variable name. If ESLint decides that the variable is a constant (all uppercase), then no warning will be thrown. Otherwise, a warning will be thrown. This rule only flags definitions and assignments but not function calls. In case of ES6 <code>import</code> statements, this rule only targets the name of the variable that will be imported into the local module scope.</p>
+<h2>Options</h2>
+<p>This rule has an object option:</p>
+<ul>
+<li><code>&quot;properties&quot;: &quot;always&quot;</code> (default) enforces camelcase style for property names</li>
+<li><code>&quot;properties&quot;: &quot;never&quot;</code> does not check property names</li>
+<li><code>&quot;ignoreDestructuring&quot;: false</code> (default) enforces camelcase style for destructured identifiers</li>
+<li><code>&quot;ignoreDestructuring&quot;: true</code> does not check destructured identifiers</li>
+<li><code>allow</code> (<code>string[]</code>) list of properties to accept. Accept regex.</li>
+</ul>
+<h5>properties: &quot;always&quot;</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>{ &quot;properties&quot;: &quot;always&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint camelcase: &quot;error&quot;*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">no_camelcased</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;external-module&quot;</span>
+
+<span class="kd">var</span> <span class="nx">my_favorite_color</span> <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">do_something</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="nx">obj</span><span class="p">.</span><span class="nx">do_something</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">no_camelcased</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">isCamelcased</span><span class="o">:</span> <span class="nx">no_camelcased</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">no_camelcased</span> <span class="o">=</span> <span class="s1">&#39;default value&#39;</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">my_pref</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">no_camelcased</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">bar_baz</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">quz</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>{ &quot;properties&quot;: &quot;always&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint camelcase: &quot;error&quot;*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">no_camelcased</span> <span class="nx">as</span> <span class="nx">camelCased</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;external-module&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">myFavoriteColor</span>   <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">_myFavoriteColor</span>  <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">myFavoriteColor_</span>  <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">MY_FAVORITE_COLOR</span> <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">.</span><span class="nx">baz_boom</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">qux</span><span class="o">:</span> <span class="nx">bar</span><span class="p">.</span><span class="nx">baz_boom</span> <span class="p">};</span>
+
+<span class="nx">obj</span><span class="p">.</span><span class="nx">do_something</span><span class="p">();</span>
+<span class="nx">do_something</span><span class="p">();</span>
+<span class="k">new</span> <span class="nx">do_something</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="o">:</span> <span class="nx">category</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">isCamelCased</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">isCamelCased</span><span class="o">:</span> <span class="nx">isAlsoCamelCased</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">isCamelCased</span> <span class="o">=</span> <span class="s1">&#39;default value&#39;</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">categoryId</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">isCamelCased</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">isCamelCased</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">quz</span><span class="p">;</span>
+</pre></div>
+<h5>properties: &quot;never&quot;</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;properties&quot;: &quot;never&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint camelcase: [&quot;error&quot;, {properties: &quot;never&quot;}]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">my_pref</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">};</span>
+</pre></div>
+<h5>ignoreDestructuring: false</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>{ &quot;ignoreDestructuring&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint camelcase: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="o">:</span> <span class="nx">category_id</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="o">:</span> <span class="nx">category_alias</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="o">:</span> <span class="nx">categoryId</span><span class="p">,</span> <span class="p">...</span><span class="nx">other_props</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+</pre></div>
+<h5>ignoreDestructuring: true</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;ignoreDestructuring&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint camelcase: [&quot;error&quot;, {ignoreDestructuring: true}]*/</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="o">:</span> <span class="nx">category_alias</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="p">,</span> <span class="p">...</span><span class="nx">other_props</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;ignoreDestructuring&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint camelcase: [&quot;error&quot;, {ignoreDestructuring: true}]*/</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="o">:</span> <span class="nx">category_id</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+</pre></div>
+<h2>allow</h2>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>allow</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint camelcase: [&quot;error&quot;, {allow: [&quot;UNSAFE_componentWillMount&quot;]}]*/</span>
+
+<span class="kd">function</span> <span class="nx">UNSAFE_componentWillMount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint camelcase: [&quot;error&quot;, {allow: [&quot;^UNSAFE_&quot;]}]*/</span>
+
+<span class="kd">function</span> <span class="nx">UNSAFE_componentWillMount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">UNSAFE_componentWillMount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you have established coding standards using a different naming convention (separating words with underscores), turn this rule off.</p>
+
+    </section>
+</article>

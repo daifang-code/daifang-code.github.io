@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22229">PE22229: DUO119</h2>
+    <h3>DUO119</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22229</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO119</h4>
+<p>这个linter查找<code>shelve</code>模块的用法。</p>
+<blockquote>
+<p>因为<code>shelve</code>模块是由<code>pickle</code>支持的，所以加载它是不安全的&gt;来自不可信来源的架子。就像<code>泡菜</code>一样，装一个架子罐&gt;执行任意代码。</p>
+</blockquote>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">shelve</span>
+</pre></div>
+<h2>正确代码</h2>
+<p>与其使用<code>shelve</code>库，不如使用序列化不允许执行代码的格式，例如<code>json</code>。</p>
+<h2>来源</h2>
+<h2>特别提及</h2>
+<p><em>如果传递给<code>shelve</code>的数据不包含用户输入，则代码可能是安全的</em>如果传递给<code>shelve</code>的数据是常量字符串，则代码可能是安全的</p>
+
+    </section>
+</article>

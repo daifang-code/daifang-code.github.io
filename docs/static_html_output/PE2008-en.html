@@ -1,0 +1,89 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2008">PE2008: block-scoped-var</h2>
+    <h3>Treat var as Block Scoped (block-scoped-var)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2008</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Treat var as Block Scoped (block-scoped-var)</h4>
+<p>The <code>block-scoped-var</code> rule generates warnings when variables are used outside of the block in which they were defined. This emulates C-style block scope.</p>
+<h2>Rule Details</h2>
+<p>This rule aims to reduce the usage of variables outside of their binding context and emulate traditional block scope from other languages. This is to help newcomers to the language avoid difficult bugs with variable hoisting.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint block-scoped-var: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">doIf</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">build</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">build</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">doIfElse</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">build</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">build</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">doTryCatch</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">build</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">build</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint block-scoped-var: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">doIf</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">build</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">build</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">build</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">doIfElse</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">build</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">build</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">build</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">doTryCatch</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">build</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">f</span><span class="p">;</span>
+
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">build</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">f</span> <span class="o">=</span> <span class="nx">build</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html">JavaScript Scoping and Hoisting</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var#var_hoisting">var Hoisting</a></li>
+</ul>
+
+    </section>
+</article>

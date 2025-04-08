@@ -1,0 +1,53 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2101">PE2101: no-ex-assign</h2>
+    <h3>禁止对 `catch` 子句中的异常重新赋值 (no-ex-assign)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2101</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止对 <code>catch</code> 子句中的异常重新赋值 (no-ex-assign)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>在 <code>try</code> 语句中的 <code>catch</code> 子句中，如果意外地（或故意地）给异常参数赋值，是不可能引用那个位置的错误的。由于没有 <code>arguments</code> 对象提供额外的方式访问这个异常，对它进行赋值绝对是毁灭性的。</p>
+<h2>缺陷详因</h2>
+<p>该规则禁止对 <code>catch</code> 子句中的异常重新赋值。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-ex-assign: &quot;error&quot;*/</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// code</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">e</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-ex-assign: &quot;error&quot;*/</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// code</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://bocoup.com/blog/the-catch-with-try-catch">The &quot;catch&quot; with try...catch</a> by Ben Alman explains how the exception identifier can leak into the outer scope in IE 6-8</li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-ex-assign.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-ex-assign.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

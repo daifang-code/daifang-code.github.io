@@ -1,0 +1,48 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4023">PE4023: 可疑的整数除法</h2>
+    <h3>可疑的整数除法</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE4023</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>使用整数除法（可能打算使用浮点除法）。
+根据语言规则，将两个整数类型的值相除（long，unsigned等）会将商计算为整数（整数除法），实际上是四舍五入到零或忽略任何余数。当整数除法发生在需要浮点值的上下文中时，它是可疑的，因为程序员可能希望代表非整数商。当检查器发现此模式时，它会报告缺陷，同时至少还有一个其他指示可能是分数商的指示。</p>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+
+<pre><code>double x=22/7;
+
+double test_tp1() {
+    return x;
+}
+
+double test_tp2() {
+    return 22/7;
+}
+
+double test_tp3() {
+    return double(22/7);
+}
+
+double test_tp4() {
+    return double(22/f());
+}
+
+double test_fp1() {
+    return double(22/2);
+}
+</code></pre>
+
+    </section>
+</article>

@@ -1,0 +1,46 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2089">PE2089: no-dupe-args</h2>
+    <h3>disallow duplicate arguments in `function` definitions (no-dupe-args)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2089</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow duplicate arguments in <code>function</code> definitions (no-dupe-args)</h4>
+<p>If more than one parameter has the same name in a function definition, the last occurrence &quot;shadows&quot; the preceding occurrences. A duplicated name might be a typing error.</p>
+<h2>Rule Details</h2>
+<p>This rule disallows duplicate parameter names in function declarations or expressions. It does not apply to arrow functions or class methods, because the parser reports the error.</p>
+<p>If ESLint parses code in strict mode, the parser (instead of this rule) reports the error.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-dupe-args: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;value of the second a:&quot;</span><span class="p">,</span> <span class="nx">a</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;value of the second a:&quot;</span><span class="p">,</span> <span class="nx">a</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-dupe-args: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+
+    </section>
+</article>

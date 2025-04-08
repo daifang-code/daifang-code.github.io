@@ -1,0 +1,112 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0088">PE0088: Uncontrolled Memory Allocation</h2>
+    <h3>The product allocates memory based on an untrusted size value, but it does not validate or incorrectly validates the size, allowing arbitrary amounts of memory to be allocated. </h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0088</dd>
+                    <dt>Tags</dt>
+                    <dd>C, C++, JAVA, CWE-789</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The product allocates memory based on an untrusted size value, but it does not validate or incorrectly validates the size, allowing arbitrary amounts of memory to be allocated.</p>
+<h4>Vulnerability and risk</h4>
+<p>Not controlling memory allocation can result in a request for too much system memory, possibly leading to a crash of the application due to out-of-memory conditions, or the consumption of a large amount of memory on the system.</p>
+<h4>Potential Mitigations</h4>
+<p>Perform adequate input validation against any value that influences the amount of memory that is allocated. Define an appropriate strategy for handling requests that exceed the limit, and consider supporting a configuration option so that the administrator can extend the amount of memory to be used if necessary.</p>
+<p>Run your program using system-provided resource limits for memory. This might still cause the program to crash or exit, but the impact to the rest of the system will be minimized.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Critical</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code Example 1</h5>
+<p>Consider the following code, which accepts an untrusted size value and allocates a buffer to contain a string of the given size.</p>
+<div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">GetUntrustedInt</span><span class="p">();</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">totBytes</span> <span class="o">=</span> <span class="n">size</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">);</span>
+<span class="kt">char</span> <span class="o">*</span><span class="n">string</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">totBytes</span><span class="p">);</span>
+<span class="n">InitializeString</span><span class="p">(</span><span class="n">string</span><span class="p">);</span>
+</pre></div>
+<p>Suppose an attacker provides a size value of:</p>
+
+<pre><code>12345678
+</code></pre>
+<p>This will cause 305,419,896 bytes (over 291 megabytes) to be allocated for the string.</p>
+<h5>Fixed code Example 1</h5>
+<div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">GetUntrustedInt</span><span class="p">();</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">totBytes</span> <span class="o">=</span> <span class="n">size</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">);</span>
+
+<span class="c1">// Ensure the size is acceptable...</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">totBytes</span> <span class="o">&gt;</span> <span class="mi">100000000</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Out of memory!!!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+ <span class="n">error_handler</span><span class="p">();</span>
+ <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">char</span> <span class="o">*</span><span class="n">string</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">totBytes</span><span class="p">);</span>
+<span class="n">InitializeString</span><span class="p">(</span><span class="n">string</span><span class="p">);</span>
+</pre></div>
+<h5>Vulnerable code Example 2</h5>
+<p>Consider the following code, which accepts an untrusted size value and uses the size as an initial capacity for a HashMap.</p>
+<div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">GetUntrustedInt</span><span class="p">();</span>
+<span class="n">HashMap</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+</pre></div>
+<p>The HashMap constructor will verify that the initial capacity is not negative, however there is no check in place to verify that sufficient memory is present. If the attacker provides a large enough value, the application will run into an OutOfMemoryError.</p>
+<h5>Fixed code Example 2</h5>
+<div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">GetUntrustedInt</span><span class="p">();</span>
+
+<span class="c1">// Ensure the size is acceptable...</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">10000000</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Out of memory!!!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+ <span class="n">error_handler</span><span class="p">();</span>
+ <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">HashMap</span> <span class="n">list</span> <span class="o">=</span> <span class="n">new</span> <span class="n">HashMap</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+</pre></div>
+<h5>Vulnerable code Example 3</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">length</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">length</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">)</span> 
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">buffer</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="n">length</span><span class="p">);</span>
+    <span class="p">...</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+    <span class="n">buffer</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed code Example 3</h5>
+<div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">int</span> <span class="n">MAX_LENGTH</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>  
+<span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">length</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">length</span><span class="o">&gt;</span><span class="n">MAX_LENGTH</span> <span class="o">||</span> <span class="n">length</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">buffer</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="n">length</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">buffer</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="n">free</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+        <span class="n">buffer</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/400.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://www.owasp.org/index.php/Top_10-2017_A1-Injection<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7365">BE7365: 方法尝试访问索引为0的PreparedStatement参数</h2>
+    <h3>方法尝试访问索引为0的PreparedStatement参数</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7365</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>方法尝试访问索引为0的PreparedStatement参数</p>
+<h4>漏洞与风险</h4>
+<p>在参数索引为0的情况下，调用PreparedStatement的setXXX方法。由于参数索引从1开始，这始终会出错。</p>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+
+    </section>
+</article>

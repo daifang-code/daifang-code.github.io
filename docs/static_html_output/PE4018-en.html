@@ -1,0 +1,56 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4018">PE4018: identical branches</h2>
+    <h3>identical branches</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE4018</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>When the branches of a conditional statement execute exactly the same code, the conditional test is redundant and
+it may be a copy-paste error by the programmer.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Remove identical branches.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code Example</h5>
+<p>The following examples are if-else statements with identical branches.</p>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">test_tp1</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    	<span class="k">return</span> <span class="n">y</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">test_tp2</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    	<span class="k">return</span> <span class="n">y</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">test_tp3</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">z</span><span class="p">,</span><span class="n">l</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    	<span class="n">z</span> <span class="o">=</span> <span class="n">y</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+    	<span class="n">l</span> <span class="o">=</span> <span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    	<span class="k">goto</span> <span class="n">label4</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">y</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="nl">label4</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">z</span> <span class="o">+</span> <span class="n">l</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

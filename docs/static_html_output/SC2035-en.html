@@ -1,0 +1,41 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2035">SC2035: Ambiguous wildcard character</h2>
+    <h3>Use ./\*glob* or -- \*glob* so names with dashes won't become options.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2035</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Use ./*glob* or -- *glob* so names with dashes won't become options.</h4>
+<h5>Problematic code:</h5>
+
+<pre><code>rm *
+
+</code></pre>
+<h5>Correct code:</h5>
+
+<pre><code>rm ./*
+
+</code></pre>
+<p>or</p>
+
+<pre><code>rm -- *
+
+</code></pre>
+<h5>Rationale</h5>
+<p>Since files and arguments are strings passed the same way, programs can't properly determine which is which, and rely on dashes to determine what's what.</p>
+<p>A file named <code>-f</code> (<code>touch -- -f</code>) will not be deleted by the problematic code. It will instead be interpreted as a command line option, and <code>rm</code> will even report success.</p>
+<p>Using <code>./*</code> will instead cause the glob to be expanded into <code>./-f</code>, which no program will treat as an option.</p>
+<p>Similarly, <code>--</code> by convention indicates the end of options, and nothing after it will be treated like flags (except for some programs possibly still special casing <code>-</code> as e.g. stdin).</p>
+<p>Note that changing <code>*</code> to <code>./*</code> in GNU Tar parameters will add <code>./</code> prefix to path names in the created archive. This may cause subtle problems (eg. to search for a specific file in archive, the <code>./</code> prefix must be specified as well). So using <code>-- *</code> is a safer fix for GNU Tar commands.</p>
+<p>For more information, see &quot;<a href="http://www.dwheeler.com/essays/filenames-in-shell.html">Filenames and Pathnames in Shell: How to do it Correctly</a>&quot;.</p>
+
+    </section>
+</article>

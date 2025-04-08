@@ -1,0 +1,36 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1087">PE1087: OGNL表达式注入</h2>
+    <h3>当对标签属性中原始的用户输入进行运算时，强制的两次OGNL运算将可能引发远程代码执行攻击</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1087</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>当对标签属性中原始的用户输入进行运算时，强制的两次OGNL（Object-Graph Navigation Language）运算将可能引发远程代码执行攻击。</p>
+<h4>漏洞与风险</h4>
+<p>当外界强制Apache Struts框架对特定标签中的属性值进行两次运算时，Apache Struts只能照做，因此攻击者可能会传入一个特殊的值，使得在该渲染某个标签的值时候再对标签属性值进行多一次计算。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<ul>
+<li>确保在再次将传入参数值赋给Struts的某些标签属性前，先对这些参数进行验证。</li>
+<li>除非你有必要的使用场景，请不要在标签属性中使用除了值之外的%{...}语法。</li>
+<li>可以选择升级到Struts 2.3.20.3、Struts 2.3.24.3或Struts2.3.28。</li>
+</ul>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwiki.apache.org/confluence/display/WW/S2-036<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

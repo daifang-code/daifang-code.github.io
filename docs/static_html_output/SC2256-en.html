@@ -1,0 +1,36 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2256">SC2256: Improper quoted substitution</h2>
+    <h3>This translated string is the name of a variable. Flip leading $ and " if this should be a quoted substitution.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2256</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This translated string is the name of a variable. Flip leading $ and &quot; if this should be a quoted substitution.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">var</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span>
+<span class="nb">echo</span> <span class="s2">$&quot;var&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">var</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p><code>$&quot;..&quot;</code> is a localized string, for example, <code>echo $&quot;Hello $USER&quot;</code> along with the proper translation files can be used to have the script say &quot;Bonjour, youruser&quot; in French locales.</p>
+<p>In this case, ShellCheck found a localized string whose contents is also the name of a variable. This could have happened because the user wanted a far more common quoted substitution, e.g. <code>&quot;$var&quot;</code>, but accidentally switched the leading <code>$</code> and <code>&quot;</code>.</p>
+<h5>Exceptions:</h5>
+<p>If you do want a localized string whose contents is also an active variable, you can [[ignore]] this warning or rename the variable.</p>
+<h5>Related resources:</h5>
+<ul>
+<li>Help by adding links to BashFAQ, StackOverflow, man pages, POSIX, etc!</li>
+</ul>
+
+    </section>
+</article>

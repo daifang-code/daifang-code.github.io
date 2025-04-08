@@ -1,0 +1,275 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2048">PE2048: key-spacing</h2>
+    <h3>enforce consistent spacing between keys and values in object literal properties (key-spacing)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2048</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>enforce consistent spacing between keys and values in object literal properties (key-spacing)</h4>
+<p>This rule enforces spacing around the colon in object literal properties. It can verify each property individually, or it can ensure horizontal alignment of adjacent properties in an object literal.</p>
+<h2>Rule Details</h2>
+<p>This rule enforces consistent spacing between keys and values in object literal properties. In the case of long lines, it is acceptable to add a new line wherever whitespace is allowed.</p>
+<h2>Options</h2>
+<p>This rule has an object option:</p>
+<ul>
+<li><code>&quot;beforeColon&quot;: false (default) | true</code><ul>
+<li><code>false</code>: disallows spaces between the key and the colon in object literals.</li>
+<li><code>true</code>: requires at least one space between the key and the colon in object literals.</li>
+</ul>
+</li>
+<li><code>&quot;afterColon&quot;: true (default) | false</code><ul>
+<li><code>true</code>: requires at least one space between the colon and the value in object literals.</li>
+<li><code>false</code>: disallows spaces between the colon and the value in object literals.</li>
+</ul>
+</li>
+<li><code>&quot;mode&quot;: &quot;strict&quot; (default) | &quot;minimum&quot;</code><ul>
+<li><code>&quot;strict&quot;</code>: enforces exactly one space before or after colons in object literals.</li>
+<li><code>&quot;minimum&quot;</code>: enforces one or more spaces before or after colons in object literals.</li>
+</ul>
+</li>
+<li><code>&quot;align&quot;: &quot;value&quot; | &quot;colon&quot;</code><ul>
+<li><code>&quot;value&quot;</code>: enforces horizontal alignment of values in object literals.</li>
+<li><code>&quot;colon&quot;</code> enforces horizontal alignment of both colons and values in object literals.</li>
+</ul>
+</li>
+<li><code>&quot;align&quot;</code> with an object value allows for fine-grained spacing when values are being aligned in object literals.</li>
+<li><code>&quot;singleLine&quot;</code> specifies a spacing style for single-line object literals.</li>
+<li><code>&quot;multiLine&quot;</code> specifies a spacing style for multi-line object literals.</li>
+</ul>
+<p>Please note that you can either use the top-level options or the grouped options (<code>singleLine</code> and <code>multiLine</code>) but not both.</p>
+<h5>beforeColon</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>{ &quot;beforeColon&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;beforeColon&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span> <span class="o">:</span> <span class="mi">42</span> <span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>{ &quot;beforeColon&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;beforeColon&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="mi">42</span> <span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;beforeColon&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;beforeColon&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="mi">42</span> <span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;beforeColon&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;beforeColon&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span> <span class="o">:</span> <span class="mi">42</span> <span class="p">};</span>
+</pre></div>
+<h5>afterColon</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>{ &quot;afterColon&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;afterColon&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span><span class="o">:</span><span class="mi">42</span> <span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>{ &quot;afterColon&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;afterColon&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="mi">42</span> <span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;afterColon&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;afterColon&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="mi">42</span> <span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;afterColon&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;afterColon&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span><span class="o">:</span><span class="mi">42</span> <span class="p">};</span>
+</pre></div>
+<h5>mode</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>{ &quot;mode&quot;: &quot;strict&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;mode&quot;: &quot;strict&quot; }]*/</span>
+
+<span class="nx">call</span><span class="p">({</span>
+    <span class="nx">foobar</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="nx">bat</span><span class="o">:</span>    <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="p">});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>{ &quot;mode&quot;: &quot;strict&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;mode&quot;: &quot;strict&quot; }]*/</span>
+
+<span class="nx">call</span><span class="p">({</span>
+    <span class="nx">foobar</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="nx">bat</span><span class="o">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="p">});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;mode&quot;: &quot;minimum&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;mode&quot;: &quot;minimum&quot; }]*/</span>
+
+<span class="nx">call</span><span class="p">({</span>
+    <span class="nx">foobar</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="nx">bat</span><span class="o">:</span>    <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="p">});</span>
+</pre></div>
+<h5>align</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;align&quot;: &quot;value&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;align&quot;: &quot;value&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="nx">value</span><span class="p">,</span>
+    <span class="nx">bcde</span><span class="o">:</span>  <span class="mi">42</span><span class="p">,</span>
+    <span class="nx">fg</span> <span class="o">:</span>   <span class="nx">foo</span><span class="p">()</span>
+<span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;align&quot;: &quot;value&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;align&quot;: &quot;value&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span>    <span class="nx">value</span><span class="p">,</span>
+    <span class="nx">bcde</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+
+    <span class="nx">fg</span><span class="o">:</span> <span class="nx">foo</span><span class="p">(),</span>
+    <span class="nx">h</span><span class="o">:</span>  <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">ijkl</span><span class="o">:</span> <span class="s1">&#39;Non-consecutive lines form a new group&#39;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">a</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="nx">longPropertyName</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span> <span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;align&quot;: &quot;colon&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;align&quot;: &quot;colon&quot; }]*/</span>
+
+<span class="nx">call</span><span class="p">({</span>
+    <span class="nx">foobar</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="nx">bat</span><span class="o">:</span>    <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="p">});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;align&quot;: &quot;colon&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, { &quot;align&quot;: &quot;colon&quot; }]*/</span>
+
+<span class="nx">call</span><span class="p">({</span>
+    <span class="nx">foobar</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="nx">bat</span>   <span class="o">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="p">});</span>
+</pre></div>
+<h5>align</h5>
+<p>The <code>align</code> option can take additional configuration through the <code>beforeColon</code>, <code>afterColon</code>, <code>mode</code>, and <code>on</code> options.</p>
+<p>If <code>align</code> is defined as an object, but not all of the parameters are provided, undefined parameters will default to the following:</p>
+<div class="highlight"><pre><span></span><span class="c1">// Defaults</span>
+<span class="nx">align</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;beforeColon&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;afterColon&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">&quot;on&quot;</span><span class="o">:</span> <span class="s2">&quot;colon&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mode&quot;</span><span class="o">:</span> <span class="s2">&quot;strict&quot;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with sample <code>{ &quot;align&quot;: { } }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, {</span>
+<span class="cm">    &quot;align&quot;: {</span>
+<span class="cm">        &quot;beforeColon&quot;: true,</span>
+<span class="cm">        &quot;afterColon&quot;: true,</span>
+<span class="cm">        &quot;on&quot;: &quot;colon&quot;</span>
+<span class="cm">    }</span>
+<span class="cm">}]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;one&quot;</span>   <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;seven&quot;</span> <span class="o">:</span> <span class="mi">7</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, {</span>
+<span class="cm">    &quot;align&quot;: {</span>
+<span class="cm">        &quot;beforeColon&quot;: false,</span>
+<span class="cm">        &quot;afterColon&quot;: false,</span>
+<span class="cm">        &quot;on&quot;: &quot;value&quot;</span>
+<span class="cm">    }</span>
+<span class="cm">}]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;one&quot;</span><span class="o">:</span>  <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;seven&quot;</span><span class="o">:</span><span class="mi">7</span>
+<span class="p">}</span>
+</pre></div>
+<h5>align and multiLine</h5>
+<p>The <code>multiLine</code> and <code>align</code> options can differ, which allows for fine-tuned control over the <code>key-spacing</code> of your files.  <code>align</code> will <strong>not</strong> inherit from <code>multiLine</code> if <code>align</code> is configured as an object.</p>
+<p><code>multiLine</code> is used any time  an object literal spans multiple lines.  The <code>align</code> configuration is used when there is a group of properties in the same object. For example:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">key1</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// uses multiLine</span>
+
+  <span class="nx">key2</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="c1">// uses align (when defined)</span>
+  <span class="nx">key3</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="c1">// uses align (when defined)</span>
+
+  <span class="nx">key4</span><span class="o">:</span> <span class="mi">4</span> <span class="c1">// uses multiLine</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with sample <code>{ &quot;align&quot;: { }, &quot;multiLine&quot;: { } }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, {</span>
+<span class="cm">    &quot;multiLine&quot;: {</span>
+<span class="cm">        &quot;beforeColon&quot;: false,</span>
+<span class="cm">        &quot;afterColon&quot;:true</span>
+<span class="cm">    },</span>
+<span class="cm">    &quot;align&quot;: {</span>
+<span class="cm">        &quot;beforeColon&quot;: true,</span>
+<span class="cm">        &quot;afterColon&quot;: true,</span>
+<span class="cm">        &quot;on&quot;: &quot;colon&quot;</span>
+<span class="cm">    }</span>
+<span class="cm">}]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;myObjectFunction&quot;</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// Do something</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;one&quot;</span>             <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;seven&quot;</span>           <span class="o">:</span> <span class="mi">7</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with sample <code>{ &quot;align&quot;: { }, &quot;multiLine&quot;: { } }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint key-spacing: [&quot;error&quot;, {</span>
+<span class="cm">    &quot;multiLine&quot;: {</span>
+<span class="cm">        &quot;beforeColon&quot;: false,</span>
+<span class="cm">        &quot;afterColon&quot;: true</span>
+
+<span class="cm">    },</span>
+<span class="cm">    &quot;align&quot;: {</span>
+<span class="cm">        &quot;beforeColon&quot;: true,</span>
+<span class="cm">        &quot;afterColon&quot;: true,</span>
+<span class="cm">        &quot;on&quot;: &quot;colon&quot;</span>
+<span class="cm">    }</span>
+<span class="cm">}]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;myObjectFunction&quot;</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// Do something</span>
+        <span class="c1">//</span>
+    <span class="p">},</span> <span class="c1">// These are two separate groups, so no alignment between `myObjectFuction` and `one`</span>
+    <span class="s2">&quot;one&quot;</span>   <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;seven&quot;</span> <span class="o">:</span> <span class="mi">7</span> <span class="c1">// `one` and `seven` are in their own group, and therefore aligned</span>
+<span class="p">}</span>
+</pre></div>
+<h5>singleLine and multiLine</h5>
+<p>Examples of <strong>correct</strong> code for this rule with sample <code>{ &quot;singleLine&quot;: { }, &quot;multiLine&quot;: { } }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint &quot;key-spacing&quot;: [2, {</span>
+<span class="cm">    &quot;singleLine&quot;: {</span>
+<span class="cm">        &quot;beforeColon&quot;: false,</span>
+<span class="cm">        &quot;afterColon&quot;: true</span>
+<span class="cm">    },</span>
+<span class="cm">    &quot;multiLine&quot;: {</span>
+<span class="cm">        &quot;beforeColon&quot;: true,</span>
+<span class="cm">        &quot;afterColon&quot;: true,</span>
+<span class="cm">        &quot;align&quot;: &quot;colon&quot;</span>
+<span class="cm">    }</span>
+<span class="cm">}]*/</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">one</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">three</span><span class="o">:</span> <span class="mi">3</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj2</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;two&quot;</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nx">three</span> <span class="o">:</span> <span class="mi">3</span>
+<span class="p">};</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you have another convention for property spacing that might not be consistent with the available options, or if you want to permit multiple styles concurrently you can safely disable this rule.</p>
+
+    </section>
+</article>

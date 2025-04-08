@@ -1,0 +1,97 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2037">PE2037: on the top-level module scope </h2>
+    <h3>强制在模块顶部调用 require() (global-require)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2037</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制在模块顶部调用 require() (global-require)</h4>
+<p>在 Node.js 中，使用 <code>require()</code> 函数引入依赖的模块，例如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+</pre></div>
+<p>虽然 <code>require()</code> 可以在代码的任何地方被调用，一些风格指南规定，它只能在模块顶层被调用，这样更容易识别依赖关系。例如，当它们在深层次嵌套在函数和其它语句时，就很难识别依赖：</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>因为 <code>require()</code> 是同步加载的，在其它地方使用时，会导致性能问题。</p>
+<p>此外，ES6 模块要求 <code>import</code> 和 <code>export</code> 语句只能放在模块顶部。</p>
+<h2>缺陷详因</h2>
+<p>此规则要求所有调用 <code>require()</code> 必须在模块顶部，与 ES6 中 <code>import</code> 和 <code>export</code>  语句（只能放在顶部）相同。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint global-require: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// calling require() inside of a function is not allowed</span>
+<span class="kd">function</span> <span class="nx">readFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// conditional requires like this are also not allowed</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">DEBUG</span><span class="p">)</span> <span class="p">{</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="c1">// a require() in a switch statement is also flagged</span>
+<span class="k">switch</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">case</span> <span class="s1">&#39;1&#39;</span><span class="o">:</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">);</span> <span class="k">break</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c1">// you may not require() inside an arrow function body</span>
+<span class="kd">var</span> <span class="nx">getModule</span> <span class="o">=</span> <span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">require</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+
+<span class="c1">// you may not require() inside of a function body as well</span>
+<span class="kd">function</span> <span class="nx">getModule</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">require</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="c1">// you may not require() inside of a try/catch block</span>
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nx">require</span><span class="p">(</span><span class="nx">unsafeModule</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint global-require: &quot;error&quot;*/</span>
+
+<span class="c1">// all these variations of require() are ok</span>
+<span class="nx">require</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">z</span><span class="p">;</span>
+<span class="nx">z</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">).</span><span class="nx">initialize</span><span class="p">();</span>
+
+<span class="c1">// requiring a module and using it in a function is ok</span>
+<span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">readFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// you can use a ternary to determine which module to require</span>
+<span class="kd">var</span> <span class="nx">logger</span> <span class="o">=</span> <span class="nx">DEBUG</span> <span class="o">?</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;dev-logger&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;logger&#39;</span><span class="p">);</span>
+
+<span class="c1">// if you want you can require() at the end of your module</span>
+<span class="kd">function</span> <span class="nx">doSomethingA</span><span class="p">()</span> <span class="p">{}</span>
+<span class="kd">function</span> <span class="nx">doSomethingB</span><span class="p">()</span> <span class="p">{}</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">),</span>
+    <span class="nx">z</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;z&quot;</span><span class="p">);</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果一个模块必须使用来至于系统文件的信息初始化或者一个模块仅仅在非常稀少的情况下使用，将导致重大开销去加载模块，禁用此规则将是有意义的。如果你需要在 <code>try</code>/<code>catch</code> 内部使用 <code>require()</code> 一个可选依赖，你可以使用 <code>// eslint-disable-line global-require</code> 注释只对此依赖禁用此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 1.4.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/global-require.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/global-require.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

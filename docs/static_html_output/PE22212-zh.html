@@ -1,0 +1,35 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22212">PE22212: DUO102</h2>
+    <h3>DUO102</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22212</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO102</h4>
+<p>此linter搜索<code>random</code>模块使用不使用<code>随机系统随机</code>.<code>random</code>模块不适用于安全或加密用途。</p>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">browser_cookie</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
+</pre></div>
+<h2>正确代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">SystemRandom</span>
+<span class="n">safe_random</span> <span class="o">=</span> <span class="n">SystemRandom</span><span class="p">()</span>
+
+<span class="n">browser_cookie</span> <span class="o">=</span> <span class="n">safe_random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">)</span>
+</pre></div>
+<p>使用python3.6+时，建议使用<code>secrets</code>模块。</p>
+<h2>来源</h2>
+<h2>特别提及</h2>
+<p>*如果相关代码不用于安全或加密目的，则可以接受正常的<code>随机</code>使用</p>
+
+    </section>
+</article>

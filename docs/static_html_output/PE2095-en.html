@@ -1,0 +1,47 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2095">PE2095: no-empty-character-class</h2>
+    <h3>disallow empty character classes in regular expressions (no-empty-character-class)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2095</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow empty character classes in regular expressions (no-empty-character-class)</h4>
+<p>Because empty character classes in regular expressions do not match anything, they might be typing mistakes.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="sr">/^abc[]/</span><span class="p">;</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule disallows empty character classes in regular expressions.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-empty-character-class: &quot;error&quot;*/</span>
+
+<span class="sr">/^abc[]/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;abcdefg&quot;</span><span class="p">);</span> <span class="c1">// false</span>
+<span class="s2">&quot;abcdefg&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^abc[]/</span><span class="p">);</span> <span class="c1">// null</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-empty-character-class: &quot;error&quot;*/</span>
+
+<span class="sr">/^abc/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;abcdefg&quot;</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="s2">&quot;abcdefg&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^abc/</span><span class="p">);</span> <span class="c1">// [&quot;abc&quot;]</span>
+
+<span class="sr">/^abc[a-z]/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">&quot;abcdefg&quot;</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="s2">&quot;abcdefg&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^abc[a-z]/</span><span class="p">);</span> <span class="c1">// [&quot;abcd&quot;]</span>
+</pre></div>
+<h2>Known Limitations</h2>
+<p>This rule does not report empty character classes in the string argument of calls to the <code>RegExp</code> constructor.</p>
+<p>Example of a <em>false negative</em> when this rule reports correct code:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-empty-character-class: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">abcNeverMatches</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">&quot;^abc[]&quot;</span><span class="p">);</span>
+</pre></div>
+
+    </section>
+</article>

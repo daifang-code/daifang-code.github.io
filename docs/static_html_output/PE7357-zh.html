@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7357">BE7357: TestCase声明了一个糟糕的suite方法</h2>
+    <h3>TestCase声明了一个糟糕的suite方法</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7357</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>TestCase声明了一个糟糕的suite方法</p>
+<h4>漏洞与风险</h4>
+<p>Class是一个JUnit TestCase并定义了suite()方法。然而，这个suite方法也需要被声明为</p>
+<pre><code>public static junit.framework.Test suite()</code></pre><p>或</p><pre><code>public static junit.framework.TestSuite suite()</code></pre>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

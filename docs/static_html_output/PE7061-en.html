@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7061">BE7061: Futile attempt to change max pool size of ScheduledThreadPoolExecutor</h2>
+    <h3>Futile attempt to change max pool size of ScheduledThreadPoolExecutor</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7061</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Futile attempt to change max pool size of ScheduledThreadPoolExecutor</p>
+<h4>Vulnerability and risk</h4>
+<p>(<a href="http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/ScheduledThreadPoolExecutor.html">Javadoc</a>)
+While ScheduledThreadPoolExecutor inherits from ThreadPoolExecutor, a few of the inherited tuning methods are not useful for it. In particular, because it acts as a fixed-sized pool using corePoolSize threads and an unbounded queue, adjustments to maximumPoolSize have no useful effect.
+    </p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

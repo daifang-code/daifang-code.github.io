@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7181">BE7181: 枚举字段是公开的和可变的</h2>
+    <h3>枚举字段是公开的和可变的</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7181</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>枚举字段是公开的和可变的</p>
+<h4>漏洞与风险</h4>
+<p>在公共枚举中定义可变public字段，可以被另一个包中的恶意代码或其它意外改变。。尽管可变的枚举字段可用于延迟初始化，但将它们暴露给外部是一种不好的做法。考虑将此字段声明为final和/或package-private。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

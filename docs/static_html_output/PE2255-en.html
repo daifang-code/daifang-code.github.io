@@ -1,0 +1,89 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2255">PE2255: yield-star-spacing</h2>
+    <h3>Enforce spacing around the `*` in `yield*` expressions (yield-star-spacing)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2255</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Enforce spacing around the <code>*</code> in <code>yield*</code> expressions (yield-star-spacing)</h4>
+<h2>Rule Details</h2>
+<p>This rule enforces spacing around the <code>*</code> in <code>yield*</code> expressions.</p>
+<p>To use this rule you either need to <a href="../user-guide/configuring.md#specifying-environments">use the <code>es6</code> environment</a> or
+<a href="../user-guide/configuring.md#specifying-parser-options">set <code>ecmaVersion</code> to <code>6</code> in <code>parserOptions</code></a>.</p>
+<h2>Options</h2>
+<p>The rule takes one option, an object, which has two keys <code>before</code> and <code>after</code> having boolean values <code>true</code> or <code>false</code>.</p>
+<ul>
+<li><p><code>before</code> enforces spacing between the <code>yield</code> and the <code>*</code>.
+If <code>true</code>, a space is required, otherwise spaces are disallowed.</p>
+</li>
+<li><p><code>after</code> enforces spacing between the <code>*</code> and the argument.
+If it is <code>true</code>, a space is required, otherwise spaces are disallowed.</p>
+</li>
+</ul>
+<p>The default is <code>{&quot;before&quot;: false, &quot;after&quot;: true}</code>.</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;yield-star-spacing&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nt">&quot;before&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&quot;after&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">}]</span>
+</pre></div>
+<p>The option also has a string shorthand:</p>
+<ul>
+<li><code>{&quot;before&quot;: false, &quot;after&quot;: true}</code> → <code>&quot;after&quot;</code></li>
+<li><code>{&quot;before&quot;: true, &quot;after&quot;: false}</code> → <code>&quot;before&quot;</code></li>
+<li><code>{&quot;before&quot;: true, &quot;after&quot;: true}</code> → <code>&quot;both&quot;</code></li>
+<li><code>{&quot;before&quot;: false, &quot;after&quot;: false}</code> → <code>&quot;neither&quot;</code></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="s2">&quot;yield-star-spacing&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;after&quot;</span><span class="p">]</span>
+</pre></div>
+<h2>Examples</h2>
+<h5>after</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;after&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint yield-star-spacing: [&quot;error&quot;, &quot;after&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span><span class="o">*</span> <span class="nx">generator</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">yield</span><span class="o">*</span> <span class="nx">other</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>before</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;before&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint yield-star-spacing: [&quot;error&quot;, &quot;before&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="o">*</span><span class="nx">generator</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">yield</span> <span class="o">*</span><span class="nx">other</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>both</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;both&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint yield-star-spacing: [&quot;error&quot;, &quot;both&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="o">*</span> <span class="nx">generator</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">yield</span> <span class="o">*</span> <span class="nx">other</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>neither</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;neither&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint yield-star-spacing: [&quot;error&quot;, &quot;neither&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span><span class="o">*</span><span class="nx">generator</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">yield</span><span class="o">*</span><span class="nx">other</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If your project will not be using generators or you are not concerned with spacing consistency, you do not need this rule.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://leanpub.com/understandinges6/read/#leanpub-auto-generators">Understanding ES6: Generators</a></li>
+</ul>
+
+    </section>
+</article>

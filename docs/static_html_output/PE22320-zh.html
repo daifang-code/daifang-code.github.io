@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22320">PE22320: B005</h2>
+    <h3>B005</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22320</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>缺陷成因</h2>
+
+<pre><code>B005在多字符字符串中使用.strip（）会误导读者。它看起来像是在剥离一个子串。如果这是有意的，请将变量集移动到常量。使用.replace（）或正则表达式删除字符串片段。  
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

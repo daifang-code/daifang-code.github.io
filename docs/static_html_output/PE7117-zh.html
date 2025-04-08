@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7117">BE7117: equals方法在父类中重写equals，可能不是对称的</h2>
+    <h3>equals方法在父类中重写equals，可能不是对称的</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7117</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>equals方法在父类中重写equals，可能不是对称的</p>
+<h4>漏洞与风险</h4>
+<p>此类定义一个equals方法，该方法重写了超类中的equals方法。两个equals方法在确定两个对象是否相等时使用<code>instanceof</code>，equals方法理论上是对称的（例如， <code>a.equals(b) == b.equals(a)</code>）。
+如果B是A的子类，并且A的equals方法检查参数是A的实例，B的equals方法检查参数是B的实例，那么这些方法定义的equals方法很可能不是对称的。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

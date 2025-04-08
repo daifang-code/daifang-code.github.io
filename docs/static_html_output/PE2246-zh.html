@@ -1,0 +1,83 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2246">PE2246: template-curly-spacing</h2>
+    <h3>强制模板字符串中空格的使用 (template-curly-spacing)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2246</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制模板字符串中空格的使用 (template-curly-spacing)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>我们可以在模板字符串中使用 <code>${</code> 和 <code>}</code> 嵌入表达式。</p>
+<p>该规则可以根据风格指南强制花括号内空格的使用。</p>
+<div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">hello</span> <span class="o">=</span> <span class="sb">`hello, </span><span class="si">${</span><span class="nx">people</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则只在维护模板字面量中空格的一致性。</p>
+<h2>修改方案</h2>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;template-curly-spacing&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;never&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<p>该规则有一个选项：</p>
+<ul>
+<li><code>&quot;never&quot;</code> (默认) - 禁止花括号内出现空格。</li>
+<li><code>&quot;always&quot;</code> - 要求花括号内有一个或多个空格。</li>
+</ul>
+<h2>Examples</h2>
+<h5>never</h5>
+<p>默认选项 <code>&quot;never&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint template-curly-spacing: &quot;error&quot;*/</span>
+
+<span class="sb">`hello, </span><span class="si">${</span> <span class="nx">people</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+<span class="sb">`hello, </span><span class="si">${</span><span class="nx">people</span><span class="p">.</span><span class="nx">name</span> <span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+
+<span class="sb">`hello, </span><span class="si">${</span> <span class="nx">people</span><span class="p">.</span><span class="nx">name</span> <span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+</pre></div>
+<p>默认选项 <code>&quot;never&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint template-curly-spacing: &quot;error&quot;*/</span>
+
+<span class="sb">`hello, </span><span class="si">${</span><span class="nx">people</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+
+<span class="sb">`hello, </span><span class="si">${</span>
+    <span class="nx">people</span><span class="p">.</span><span class="nx">name</span>
+<span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+</pre></div>
+<h5>always</h5>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint template-curly-spacing: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="sb">`hello, </span><span class="si">${</span> <span class="nx">people</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+<span class="sb">`hello, </span><span class="si">${</span><span class="nx">people</span><span class="p">.</span><span class="nx">name</span> <span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+
+<span class="sb">`hello, </span><span class="si">${</span><span class="nx">people</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint template-curly-spacing: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="sb">`hello, </span><span class="si">${</span> <span class="nx">people</span><span class="p">.</span><span class="nx">name</span> <span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+
+<span class="sb">`hello, </span><span class="si">${</span>
+    <span class="nx">people</span><span class="p">.</span><span class="nx">name</span>
+<span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想收到关于模板字符串中空格的使用情况的通知，可以禁用此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 2.0.0-rc.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/template-curly-spacing.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/template-curly-spacing.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

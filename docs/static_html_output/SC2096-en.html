@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2096">SC2096: Incorrect shebang</h2>
+    <h3>On most OS, shebangs can only specify a single parameter.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2096</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>On most OS, shebangs can only specify a single parameter.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash -x</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span> -x
+</pre></div>
+<h5>Rationale:</h5>
+<p>Most operating systems, including POSIX, Linux and FreeBSD, allow only a single parameter in the shebang. The example is equivalent to calling <code>env 'bash -x'</code> instead of <code>env 'bash' '-x'</code>, and it will therefore fail.</p>
+<p>The shebang should be rewritten to use at most one parameter. Shell options can instead be set in the body of the script.</p>
+<h5>Exceptions</h5>
+<p>macOS X currently allows multiple words in the shebang. Scripts running on OSX exclusively can ignore this warning.</p>
+
+    </section>
+</article>

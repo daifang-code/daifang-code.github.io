@@ -1,0 +1,87 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7566">BE7566: 使用ESAPI加密器</h2>
+    <h3>使用ESAPI加密器</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7566</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>使用ESAPI加密器</p>
+<h4>漏洞与风险</h4>
+<p>
+<p>ESAPI在密码学组件中有一个漏洞历史。
+下面是一个快速验证列表，以确保经过验证的加密工作按预期工作。</p>
+ </p>
+ <p><b>1.库版本</b></p>
+ <p>
+<p>这个问题在ESAPI2.1.0版本中得到了纠正。version&lt;=2.0.1很容易受到MAC旁路（c2013-5679）的影响。&lt;br/&gt;</p>
+ </p>
+ <p>
+<p>对于Maven用户，插件&lt;a href=&quot;http://mojo.codehaus.org/versions-maven-plugin/&quot;&gt;versions&lt;/a&gt; 可以使用下面的命令来调用。ESAPI的有效版本将在输出中可用。&lt;br/&gt;</p>
+  <pre>$ mvn versions:display-dependency-updates</pre>
+<p>&lt;br/&gt;Output:&lt;br/&gt;</p>
+  <pre>
+ [...]
+ [INFO] The following dependencies in Dependencies have newer versions:
+ [INFO] org.slf4j:slf4j-api ................................... 1.6.4 -> 1.7.7
+ [INFO] org.owasp.esapi:esapi ................................. 2.0.1 -> 2.1.0
+ [...]
+  </pre>
+ </p>
+ <p>
+<p>或者直接看一下配置。&lt;br/&gt;</p>
+  <pre>
+ <dependency<
+  <groupId<org.owasp.esapi</groupId<
+  <artifactId<esapi</artifactId<
+  <version<2.1.0</version<
+ </dependency<</pre>
+ </p>
+ <p>
+<p>对于ant用户，使用的jar包应该是 &lt;a href=&quot;http://repo1.maven.org/maven2/org/owasp/esapi/esapi/2.1.0/esapi-2.1.0.jar&quot;&gt;esapi-2.1.0.jar&lt;/a&gt;.</p>
+ </p>
+ <p><b>2.配置：</b></p>
+  <p>
+<p>版本2.1.0仍然很容易受到密文定义（c2013-5960）的密钥大小的影响。需要采取一些预防措施。&lt;br/&gt;</p>
+  <br/>
+  <div><b>如果有任何这些元素存在，那么ESAPI的加密配置也会很容易受到攻击：</b><br/>
+<p>&lt;b&gt;不安全配置:&lt;/b&gt;&lt;br/&gt;</p>
+  <pre>
+ Encryptor.CipherText.useMAC=false
+ Encryptor.EncryptionAlgorithm=AES
+ Encryptor.CipherTransformation=AES/CBC/PKCS5Padding
+ Encryptor.cipher_modes.additional_allowed=CBC</pre>
+  </div>
+ </p>
+ <p>
+  <div>
+<p>&lt;b&gt;安全配置：&lt;/b&gt;&lt;br/&gt;</p>
+  <pre>
+ #Needed
+ Encryptor.CipherText.useMAC=true
+ #Needed to have a solid auth. encryption
+ Encryptor.EncryptionAlgorithm=AES
+ Encryptor.CipherTransformation=AES/GCM/NoPadding
+ #CBC mode should be removed to avoid padding oracle
+ Encryptor.cipher_modes.additional_allowed=</pre>
+  </div>
+ </p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://owasp-esapi-java.googlecode.com/svn/trunk/documentation/ESAPI-security-bulletin1.pdf&quot;&gt;ESAPI Security bulletin 1 (CVE-2013-5679)&lt;/a&gt;&lt;br/&gt;
+  &lt;a href=&quot;http://nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-5679&quot;&gt;Vulnerability Summary for CVE-2013-5679&lt;/a&gt;&lt;br/&gt;
+  &lt;a href=&quot;http://www.synacktiv.com/ressources/synacktiv_owasp_esapi_hmac_bypass.pdf&quot;&gt;Synactiv: Bypassing HMAC validation in OWASP ESAPI symmetric encryption&lt;/a&gt;&lt;br/&gt;
+  &lt;a href=&quot;http://cwe.mitre.org/data/definitions/310.html&quot;&gt;CWE-310: Cryptographic Issues&lt;/a&gt;&lt;br/&gt;
+  &lt;a href=&quot;http://lists.owasp.org/pipermail/esapi-dev/2015-March/002533.html&quot;&gt;ESAPI-dev mailing list: Status of CVE-2013-5960&lt;/a&gt;&lt;br/&gt;</p>
+
+    </section>
+</article>

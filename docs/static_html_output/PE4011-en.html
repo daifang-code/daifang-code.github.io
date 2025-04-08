@@ -1,0 +1,59 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4011">PE4011: Rely on reverse proxy</h2>
+    <h3>Obtain the domain name of the IP address through reverse domain name resolution, and then rely on the domain name to authenticate the host.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE4011</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Obtain the domain name of the IP address through reverse domain name parsing, and then rely on the domain name to authenticate the host.</p>
+<h4>Vulnerability and risk</h4>
+<p>The attacker can modify the correspondence between the IP address and the domain name through DNS spoofing, thereby bypassing the host identity authentication relying on the domain name.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>The identity of the host is authenticated by other means such as a username password, a digital certificate, and the like.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;winsock.h&gt;</span><span class="cp"></span>
+<span class="p">...</span>
+<span class="kt">int</span> <span class="n">is_trusted</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">address</span><span class="p">)</span>  <span class="c1">//Verify that the host is trustworthy</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">hostent</span> <span class="o">*</span><span class="n">hp</span><span class="p">;</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">trustedHost</span> <span class="o">=</span> <span class="s">&quot;trustme.com&quot;</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">in_addr</span> <span class="n">myaddress</span><span class="p">;</span>
+    <span class="n">myaddress</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">inet_addr</span><span class="p">(</span><span class="n">address</span><span class="p">);</span>  <span class="c1">//Convert address to 32-bit Ipv4 address</span>
+    <span class="c1">//Get the domain name of myaddr address through reverse parsing</span>
+    <span class="n">hp</span> <span class="o">=</span> <span class="n">gethostbyaddr</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">myaddress</span><span class="p">.</span><span class="n">s_addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">in_addr</span><span class="p">),</span> <span class="n">AF_INET</span><span class="p">);</span>
+    <span class="c1">//Identify the host by domain name</span>
+    <span class="c1">//Attackers can bypass host-dependent identity authentication through DNS spoofing</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">hp</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">hp</span><span class="o">-&gt;</span><span class="n">h_name</span><span class="p">,</span> <span class="n">trustedHost</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">trustedHost</span><span class="p">)))</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed code example</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">is_true</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">);</span>  <span class="c1">//If the username password is correct, it returns 1; otherwise, it returns 0.</span>
+<span class="kt">int</span> <span class="nf">is_trusted</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">username</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span><span class="p">)</span>  <span class="c1">//Verify that the host is trustworthy</span>
+<span class="p">{</span>
+    <span class="c1">//Authenticate the host by username and password</span>
+    <span class="k">return</span> <span class="n">is_true</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

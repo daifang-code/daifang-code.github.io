@@ -1,0 +1,76 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1112">PE1112: Hardcoded Password</h2>
+    <h3>The software contains a hard-coded password, which it uses for its own inbound authentication or for outbound communication to external components</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1112</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The software contains a hard-coded password, which it uses for its own inbound authentication or for outbound communication to external components.</p>
+<h4>Vulnerability and risk</h4>
+<p>A hard-coded password typically leads to a significant authentication failure that can be difficult for the system administrator to detect. Once detected, it can be difficult to fix, so the administrator may be forced into disabling the product entirely. There are two main variations:</p>
+<ul>
+<li>Inbound: the software contains an authentication mechanism that checks for a hard-coded password.</li>
+<li>Outbound: the software connects to another system or component, and it contains hard-coded password for connecting to that component.</li>
+</ul>
+<p>In the Inbound variant, a default administration account is created, and a simple password is hard-coded into the product and associated with that account. This hard-coded password is the same for each installation of the product, and it usually cannot be changed or disabled by system administrators without manually modifying the program, or otherwise patching the software. If the password is ever discovered or published (a common occurrence on the Internet), then anybody with knowledge of this password can access the product. Finally, since all installations of the software will have the same password, even across different organizations, this enables massive attacks such as worms to take place.</p>
+<p>The Outbound variant applies to front-end systems that authenticate with a back-end service. The back-end service may require a fixed password which can be easily discovered. The programmer may simply hard-code those back-end credentials into the front-end software. Any user of that program may be able to extract the password. Client-side systems with hard-coded passwords pose even more of a threat, since the extraction of a password from a binary is usually very simple.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<ul>
+<li>For outbound authentication: store passwords outside of the code in a strongly-protected, encrypted configuration file or database that is protected from access by all outsiders, including other local users on the same system.</li>
+<li>For inbound authentication: Rather than hard-code a default username and password for first time logins, utilize a &quot;first login&quot; mode that requires the user to enter a unique strong password.</li>
+<li>For inbound authentication: apply strong one-way hashes to your passwords and store those hashes in a configuration file or database with appropriate access control.</li>
+</ul>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<p>The following code uses a hard-coded password to connect to a database:</p>
+<div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="s">&quot;scott&quot;</span><span class="o">,</span> <span class="s">&quot;tiger&quot;</span><span class="o">);</span>
+<span class="o">...</span>
+</pre></div>
+<p>This is an example of an external hard-coded password on the client-side of a connection. This code will run successfully, but anyone who has access to it will have access to the password. Once the program has shipped, there is no going back from the database user &quot;scott&quot; with a password of &quot;tiger&quot; unless the program is patched. A devious employee with access to this information can use it to break into the system. Even worse, if attackers have access to the bytecode for application, they can use the javap -c command to access the disassembled code, which will contain the values of the passwords used. The result of this operation might look something like the following for the example above:</p>
+
+<pre><code>javap -c ConnMngr.class
+22: ldc #36; //String jdbc:mysql://ixne.com/rxsql
+24: ldc #38; //String scott
+26: ldc #17; //String tiger
+</code></pre>
+<h5>Vulnerable Code Example 2</h5>
+<p>The following code is an example of an internal hard-coded password in the back-end:</p>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">VerifyAdmin</span><span class="o">(</span><span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+<span class="k">if</span> <span class="o">(!</span><span class="n">password</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;Mew!&quot;</span><span class="o">))</span> <span class="o">{</span>
+<span class="k">return</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="c1">//Diagnostic Mode</span>
+<span class="k">return</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+<p>Every instance of this program can be placed into diagnostic mode with the same password. Even worse is the fact that if this program is distributed as a binary-only distribution, it is very difficult to change that password or disable this &quot;functionality.&quot;</p>
+<p>###Vulnerable Code Example 3</p>
+<p>This Java example shows a properties file with a plaintext username / password pair.</p>
+<div class="highlight"><pre><span></span><span class="err">#</span> <span class="n">Java</span> <span class="n">Web</span> <span class="n">App</span> <span class="n">ResourceBundle</span> <span class="n">properties</span> <span class="n">file</span> 
+<span class="o">...</span>
+<span class="n">webapp</span><span class="o">.</span><span class="na">ldap</span><span class="o">.</span><span class="na">username</span><span class="o">=</span><span class="n">secretUsername</span>
+<span class="n">webapp</span><span class="o">.</span><span class="na">ldap</span><span class="o">.</span><span class="na">password</span><span class="o">=</span><span class="n">secretPassword</span>
+<span class="o">...</span>
+</pre></div>
+<p>Username and password information should not be included in a configuration file or a properties file in plaintext as this will allow anyone who can read the file access to the resource. If possible, encrypt this information and avoid <a href="http://cwe.mitre.org/data/definitions/260.html">CWE-260</a> and <a href="http://cwe.mitre.org/data/definitions/13.html">CWE-13</a>.</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/259.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

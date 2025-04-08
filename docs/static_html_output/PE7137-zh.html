@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7137">BE7137: 类定义equals()但没有定义hashCode()</h2>
+    <h3>类定义equals()但没有定义hashCode()</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7137</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>类定义equals()但没有定义hashCode()</p>
+<h4>漏洞与风险</h4>
+<p>该类重写<code>equals(Object)</code>，但不重写<code>hashCode()</code>。
+<p>因此，这个类可能违反“相等对象必须具有相等的哈希”的约定。&lt;/p&gt;</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

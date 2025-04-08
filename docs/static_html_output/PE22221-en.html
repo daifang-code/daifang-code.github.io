@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22221">PE22221: DUO111</h2>
+    <h3>DUO111</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22221</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO111</h4>
+<p>This linter searches for insecure use of the <code>sys</code> module.</p>
+<p>Use of <code>call_tracing</code>, <code>setprofile</code>, or <code>settrace</code> can allow for
+arbitrary code execution bugs.</p>
+<h2>Problematic code</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">call_tracing</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">setprofile</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">settrace</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+</pre></div>
+<h2>Correct code</h2>
+<p>This functionality can correctly be used to debug code, but rarely, if ever,
+should be used in production code.</p>
+<h2>Rationale</h2>
+<p>Debuggers or code profilers will commonly use these functions, however,
+attackers may use these functions to enable advanced persistent threats (APTs).
+This can be achieved by smuggling code onto a victim's machine then
+persistently calling it via the above functions.</p>
+<p>For more information see <a href="https://www.python.org/dev/peps/pep-0551/">PEP 551</a>
+and <a href="https://www.python.org/dev/peps/pep-0578/">PEP 578</a>. More specifically,
+PEP 578 calls out these functions as &quot;Suggested Audit Hooks.&quot;</p>
+<h2>Exceptions</h2>
+<ul>
+<li>Debugging code in a development environment</li>
+<li>Code that is explicitly used as a debugger, profiler, etc</li>
+</ul>
+
+    </section>
+</article>

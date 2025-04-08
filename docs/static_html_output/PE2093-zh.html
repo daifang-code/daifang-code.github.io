@@ -1,0 +1,65 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2093">PE2093: no-duplicate-imports</h2>
+    <h3>禁止重复导入 (no-duplicate-imports)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2093</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止重复导入 (no-duplicate-imports)</h4>
+<p>为每个模块使用单一的 <code>import</code> 语句会是代码更加清新，因为你会看到从该模块导入的所有内容都在同一行。</p>
+<p>在下面的例子中，行 1 和 行 3 的模块导入是重复的。二者合并会使导入列表更加简洁。</p>
+<div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">merge</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">something</span> <span class="nx">from</span> <span class="s1">&#39;another-module&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">find</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则要求单个模块的所有的导入都在同一个 <code>import</code> 语句中。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-duplicate-imports: &quot;error&quot;*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">merge</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">something</span> <span class="nx">from</span> <span class="s1">&#39;another-module&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">find</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-duplicate-imports: &quot;error&quot;*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">merge</span><span class="p">,</span> <span class="nx">find</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">something</span> <span class="nx">from</span> <span class="s1">&#39;another-module&#39;</span><span class="p">;</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则有一个对象选项，只有一个布尔属性 <code>includeExports</code>。默认为 <code>false</code>。</p>
+<p>如果一个导入的模块又被导出，你应该把这些导入加到 <code>import</code> 语句中，然后直接导出，不要使用 <code>export ... from</code>。</p>
+<p>选项 <code>{ &quot;includeExports&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-duplicate-imports: [&quot;error&quot;, { &quot;includeExports&quot;: true }]*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">merge</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">find</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>{ &quot;includeExports&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-duplicate-imports: [&quot;error&quot;, { &quot;includeExports&quot;: true }]*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">merge</span><span class="p">,</span> <span class="nx">find</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">find</span> <span class="p">};</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 2.5.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-duplicate-imports.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-duplicate-imports.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

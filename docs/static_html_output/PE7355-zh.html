@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7355">BE7355: 方法使用零长度数组作为toArray()的参数</h2>
+    <h3>方法使用零长度数组作为toArray()的参数</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7355</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>方法使用零长度数组作为toArray()的参数</p>
+<h4>漏洞与风险</h4>
+<p>该方法使用派生类集合的toArray()方法，并传递到一个长度为零的原型数组参数中。 这种情况下使用<code>myCollection.toArray(new Foo[myCollection.size()])</code>更有效，因为如果传入的数组足够大以至于可以存储集合中的所有元素，那么它将被填充并直接返回。这就避免了创建第二个数组(通过反射)来返回结果的需求。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

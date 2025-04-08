@@ -1,0 +1,38 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2087">PE2087: no-delete-var</h2>
+    <h3>禁止删除变量 (no-delete-var)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2087</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止删除变量 (no-delete-var)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p><code>delete</code> 的目的是删除对象的属性。使用 <code>delete</code> 操作删除一个变量可能会导致意外情况发生。</p>
+<h2>缺陷详因</h2>
+<p>该规则禁止对变量使用 <code>delete</code> 操作符。</p>
+<p>如果 ESLint 是在严格模式下解析代码，解析器（而不是该规则）会报告错误。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-delete-var: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+<span class="k">delete</span> <span class="nx">x</span><span class="p">;</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-delete-var.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-delete-var.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

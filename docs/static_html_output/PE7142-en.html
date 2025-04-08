@@ -1,0 +1,35 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7142">BE7142: Synchronization on boxed primitive</h2>
+    <h3>Synchronization on boxed primitive</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7142</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Synchronization on boxed primitive</p>
+<h4>Vulnerability and risk</h4>
+<p> The code synchronizes on a boxed primitive constant, such as an Integer.</p>
+<pre><code>private static Integer count = 0;
+...
+synchronized(count) {
+    count++;
+}
+...
+</code></pre>
+<p>Since Integer objects can be cached and shared,
+this code could be synchronizing on the same object as other, unrelated code, leading to unresponsiveness
+and possible deadlock.</p>
+<p>See CERT <a href="https://www.securecoding.cert.org/confluence/display/java/CON08-J.+Do+not+synchronize+on+objects+that+may+be+reused">CON08-J. Do not synchronize on objects that may be reused</a> for more information.</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+
+    </section>
+</article>

@@ -1,0 +1,37 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22215">PE22215: DUO105</h2>
+    <h3>DUO105</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22215</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO105</h4>
+<p>此linter搜索内置<code>exec</code>函数的用法。这个函数当与用户结合时，通常允许任意代码执行错误输入。</p>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="n">malicious_user_input</span> <span class="o">=</span> <span class="s1">&#39;open(&quot;/etc/passwd&quot;, &quot;w&quot;).write(&quot;bad data&quot;)&#39;</span>
+
+<span class="c1"># Python 3</span>
+<span class="k">exec</span><span class="p">(</span><span class="n">malicious_user_input</span><span class="p">)</span>
+
+<span class="c1"># Python 2</span>
+<span class="k">exec</span> <span class="n">malicious_user_input</span>
+</pre></div>
+<h2>正确代码</h2>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">touch_file</span><span class="p">():</span>
+    <span class="c1"># Constant argument</span>
+    <span class="k">exec</span><span class="p">(</span><span class="s1">&#39;open(&quot;/path/to/filename&quot;, &quot;w&quot;).write(&quot;&quot;)&#39;</span><span class="p">)</span>
+</pre></div>
+<h2>来源</h2>
+<h2>特别提及</h2>
+<p><em>如果传递给<code>exec</code>的数据不包含用户输入，则代码可能是安全的</em>如果传递给<code>exec</code>的数据是常量字符串，则代码可能是安全的</p>
+
+    </section>
+</article>

@@ -1,0 +1,42 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2145">PE2145: no-octal</h2>
+    <h3>disallow octal literals (no-octal)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2145</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow octal literals (no-octal)</h4>
+<p>Octal literals are numerals that begin with a leading zero, such as:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">071</span><span class="p">;</span>      <span class="c1">// 57</span>
+</pre></div>
+<p>Because the leading zero which identifies an octal literal has been a source of confusion and error in JavaScript code, ECMAScript 5 deprecates the use of octal numeric literals.</p>
+<h2>Rule Details</h2>
+<p>The rule disallows octal literals.</p>
+<p>If ESLint parses code in strict mode, the parser (instead of this rule) reports the error.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-octal: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">071</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">07</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-octal: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">num</span>  <span class="o">=</span> <span class="s2">&quot;071&quot;</span><span class="p">;</span>
+</pre></div>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSHint</strong>: W115</li>
+</ul>
+
+    </section>
+</article>

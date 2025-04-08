@@ -1,0 +1,34 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4025">PE4025: 编译器与代码不兼容</h2>
+    <h3>编译器与代码不兼容</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE4025</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>随着语言标准的不断更新，编译器也在不断更新支持新的标准。语言标准更新提供新特性的同时，可能也会与之前的版本不兼容。这就造成了编译器不兼容的问题，使用新版本语言标准的代码未必能在支持旧版本标准的编译器中正常运行。</p>
+<h4>漏洞与风险</h4>
+<p>编译器与代码不兼容可能使得软件无法正常运行，甚至无法通过编译。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>根据编译器支持的语言标准编写代码。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">r_it</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="k">auto</span> <span class="n">r_end</span> <span class="o">=</span> <span class="n">r</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+</pre></div>
+<p><code>auto</code>在C++98中，用于声明变量为自动变量，拥有自动的生命期。例如，在C++98中<code>auto int a = 1;</code>声明整型变量a是一个自动变量。
+而在C++11中，<code>auto</code>可以在声明变量的时候根据变量初始值的类型自动为此变量选择匹配的类型。
+这段问题代码在C++98编译器存在兼容性问题。</p>
+
+    </section>
+</article>

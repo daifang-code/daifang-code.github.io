@@ -1,0 +1,47 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7473">BE7473: AWS Query Injection</h2>
+    <h3>AWS Query Injection</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7473</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>AWS Query Injection</p>
+<h4>Vulnerability and risk</h4>
+<p>
+Constructing SimpleDB queries containing user input can allow an attacker to view unauthorized records.<br/>
+The following example dynamically constructs and executes a SimpleDB select() query allowing the user to specify the productCategory. The attacker can modify the query, bypass the required authentication for customerID and view records matching any customer.
+</p>
+<p>
+    <b>Vulnerable Code:</b><br/>
+<pre>...
+String customerID = getAuthenticatedCustomerID(customerName, customerCredentials);
+String productCategory = request.getParameter("productCategory");
+...
+AmazonSimpleDBClient sdbc = new AmazonSimpleDBClient(appAWSCredentials);
+String query = "select * from invoices where productCategory = '"
+            + productCategory + "' and customerID = '"
+            + customerID + "' order by '"
+            + sortColumn + "' asc";
+SelectResult sdbResult = sdbc.select(new SelectRequest(query));
+</pre>
+</p>
+<p>
+    <b>Solution:</b><br/>
+This issue is analogical to SQL Injection. Sanitize user input before using it in a SimpleDB query.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+<h4>References</h4>
+<p>&lt;a href=&quot;https://cwe.mitre.org/data/definitions/943.html&quot;&gt;CWE-943: Improper Neutralization of Special Elements in Data Query Logic&lt;/a&gt;&lt;br/&gt;</p>
+
+    </section>
+</article>

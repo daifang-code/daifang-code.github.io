@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7114">BE7114: 由于子类的方法导致equals方法被破坏</h2>
+    <h3>由于子类的方法导致equals方法被破坏</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7114</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>由于子类的方法导致equals方法被破坏</p>
+<h4>漏洞与风险</h4>
+<p>被子类继承将导致该类的equals方法破坏。
+它将类名称与参数类进行比较（例如，在类<code>Foo</code>中，它可能会检查<code>Foo.class == o.getClass()</code>）。
+最好检查<code>this.getClass() == o.getClass()</code>。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

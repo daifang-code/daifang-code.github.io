@@ -1,0 +1,51 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0047">PE0047: Bad Alloc Strlen</h2>
+    <h3>Use strlen(p+1) as the size argument of an allocation site.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0047</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Assuming that you intended <code>strlen(p)+1</code> to indicate the length of p plus an extra byte for a null terminator, <code>strlen(p+1)</code> is undefined when p is zero length and <code>strlen(p)-1</code> otherwise. The result is a potential buffer overrun on the result of allocation, undefined behavior when p is zero length, or both.</p>
+<p>This defect almost always results in a buffer overflow when data is copied to the new buffer.</p>
+<h4>Vulnerability and risk</h4>
+<h5>buffer overflow</h5>
+<p>This defect almost always results in a buffer overflow when data is copied to the new buffer.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Calculate string length in a correct way.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">bad</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">new_name</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">new_name</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span> <span class="c1">//bad_alloc_strlen</span>
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">new_name</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">new_name</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, use <code>strlen(name+1)</code> to indicate the length of p plus an extra byte for a null terminator.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">good</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">new_name</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">new_name</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> 
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">new_name</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">new_name</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the invulnerable code example, use <code>strlen(name)+1</code> to indicate the length of p plus an extra byte for a null terminator.</p>
+
+    </section>
+</article>

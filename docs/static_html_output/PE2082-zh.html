@@ -1,0 +1,75 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2082">PE2082: no-const-assign</h2>
+    <h3>不允许改变用`const`声明的变量 (no-const-assign)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2082</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>不允许改变用<code>const</code>声明的变量 (no-const-assign)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>We cannot modify variables that are declared using <code>const</code> keyword.
+它会引发一个运行时错误。</p>
+<p>非 ES2015 环境下，它只是可能被忽略。</p>
+<h2>缺陷详因</h2>
+<p>该规则旨在标记修改用<code>const</code>关键字声明的变量。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-const-assign: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-const-assign: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-const-assign: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="o">++</span><span class="nx">a</span><span class="p">;</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-const-assign: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-const-assign: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">a</span> <span class="k">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="p">{</span> <span class="c1">// `a` is re-defined (not modified) on each loop step.</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-const-assign: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">a</span> <span class="k">of</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="p">{</span> <span class="c1">// `a` is re-defined (not modified) on each loop step.</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想收到有关修改用<code>const</code>关键字声明的变量的通知，你可以禁用此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 1.0.0-rc-1 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-const-assign.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-const-assign.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,50 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0122">PE0122: Excessive padding</h2>
+    <h3>The byte position of a member in a struct depends on the compiler's #pragma align and #pragma pack preprocessor directives.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0122</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The byte position of a member in a struct depends on the compiler's <code>#pragma align</code> and <code>#pragma pack</code> preprocessor directives.</p>
+<h4>Vulnerability and risk</h4>
+<p>The byte position of a member in a struct depends on the compiler's <code>#pragma align</code> and <code>#pragma pack</code> preprocessor directives, which can cause problems when the code is ported.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Reorder the members of the struct so that the member's starting position and size are not affected by the compiler's <code>#pragma align</code> and <code>#pragma pack</code> preprocessing directives.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">ST</span> 
+<span class="p">{</span>
+    <span class="n">UINT16_t</span> <span class="n">a</span><span class="p">;</span>
+    <span class="n">UINT32_t</span> <span class="n">b</span><span class="p">;</span>  <span class="c1">//b member may start from the 3rd byte of the struct, </span>
+                 <span class="c1">//or may start from the 5th byte</span>
+    <span class="n">UINT16_t</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">ST</span> 
+<span class="p">{</span>
+     <span class="n">UINT16_t</span> <span class="n">a</span><span class="p">;</span>
+     <span class="n">UINT16_t</span> <span class="n">b</span><span class="p">;</span>
+     <span class="n">UINT32_t</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<h4>Reference</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>SJ/T 11682-2017 6.3.20<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

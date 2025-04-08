@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0077">PE0077: Struct Padding</h2>
+    <h3>Struct Padding.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0077</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Struct members are arranged according to their declared order in the program text. Fill characters may be used in the struct to ensure that the structure is properly aligned in memory. Struct padding is designed to facilitate quick access by members on multiple architectures.
+If the members in the struct are not properly defined, it may cause excessive struct padding, resulting in wasted system memory.</p>
+<h4>Vulnerability and risk</h4>
+<h5>waste of resources</h5>
+<p>If the members in the struct are not properly defined, it may cause excessive struct padding, resulting in wasted system memory.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Check the order in which members of the struct are placed, rearranging members of the struct to save unnecessary space.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">bad</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">c1</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<p>In the above code, because the members of the struct are not properly distributed, each member of the character type(char) takes up a separate int bit length, resulting in excessive struct padding.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">bad</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">c1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<p>In the above code, the member definitions of two char types are connected, occupying an int bit length, which reduces the memory waste caused by excessive struct padding.</p>
+
+    </section>
+</article>

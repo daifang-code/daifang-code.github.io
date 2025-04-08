@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7422">BE7422: Invocation of toString on an array</h2>
+    <h3>Invocation of toString on an array</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7422</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Invocation of toString on an array</p>
+<h4>Vulnerability and risk</h4>
+<p>
+<p>The code invokes toString on an array, which will generate a fairly useless result
+ such as &lt;code&gt;myArray.toString()&lt;/code&gt;. Consider using &lt;code&gt;Arrays.toString&lt;/code&gt; to convert the array into a readable
+ String that gives the contents of the array.</p>
+ </p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

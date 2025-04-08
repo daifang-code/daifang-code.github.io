@@ -1,0 +1,50 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4016">PE4016: RSA算法未使用最优非对称加密填充</h2>
+    <h3>使用RSA加密算法时未使用最优非对称加密填充。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE4016</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>使用RSA加密算法时未使用最优非对称加密填充。</p>
+<h4>漏洞与风险</h4>
+<p>未使用最优非对称加密填充将降低攻击者解密的难度。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>要避免该漏洞，你应该：</p>
+<ul>
+<li>使用RSA加密算法时使用最优非对称加密填充。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;rsa.h&quot;</span><span class="cp"></span>
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">CryptoPP</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">encryptor</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">input</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">output</span><span class="p">)</span>  <span class="c1">//加密函数，输出参数返回加密后的字符串</span>
+<span class="p">{</span>
+    <span class="n">RSAES_PKCS1v15_Encryptor</span> <span class="n">rsapkcs1</span><span class="p">;</span>  <span class="c1">//使用Pkcs1填充</span>
+    <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">rsapkcs1</span><span class="p">.</span><span class="n">enc</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">output</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<h5>规范用法示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;rsa.h&quot;</span><span class="cp"></span>
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">CryptoPP</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">encryptor</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">input</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">output</span><span class="p">)</span>  <span class="c1">//加密函数，输出参数返回加密后的字符串</span>
+<span class="p">{</span>
+    <span class="n">RSAES_OAEP_SHA_Encryptor</span> <span class="n">rsaoaep</span><span class="p">;</span>  <span class="c1">//使用OAEP加密填充</span>
+    <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">rsaoaep</span><span class="p">.</span><span class="n">enc</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">output</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

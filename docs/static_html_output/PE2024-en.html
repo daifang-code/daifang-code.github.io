@@ -1,0 +1,121 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2024">PE2024: default-case</h2>
+    <h3>Require Default Case in Switch Statements (default-case)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2024</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Require Default Case in Switch Statements (default-case)</h4>
+<p>Some code conventions require that all <code>switch</code> statements have a <code>default</code> case, even if the default case is empty, such as:</p>
+<div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">default</span><span class="o">:</span>
+        <span class="c1">// do nothing</span>
+<span class="p">}</span>
+</pre></div>
+<p>The thinking is that it's better to always explicitly state what the default behavior should be so that it's clear whether or not the developer forgot to include the default behavior by mistake.</p>
+<p>Other code conventions allow you to skip the <code>default</code> case so long as there is a comment indicating the omission is intentional, such as:</p>
+<div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="c1">// no default</span>
+<span class="p">}</span>
+</pre></div>
+<p>Once again, the intent here is to show that the developer intended for there to be no default behavior.</p>
+<h2>Rule Details</h2>
+<p>This rule aims to require <code>default</code> case in <code>switch</code> statements. You may optionally include a <code>// no default</code> after the last <code>case</code> if there is no <code>default</code> case. The comment may be in any desired case, such as <code>// No Default</code>.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint default-case: &quot;error&quot;*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint default-case: &quot;error&quot;*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">default</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="c1">// no default</span>
+<span class="p">}</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="c1">// No Default</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Options</h2>
+<p>This rule accepts a single options argument:</p>
+<ul>
+<li>Set the <code>commentPattern</code> option to a regular expression string to change the default <code>/^no default$/i</code> comment test pattern</li>
+</ul>
+<h5>commentPattern</h5>
+<p>Examples of <strong>correct</strong> code for the <code>{ &quot;commentPattern&quot;: &quot;^skip\\sdefault&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint default-case: [&quot;error&quot;, { &quot;commentPattern&quot;: &quot;^skip\\sdefault&quot; }]*/</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="c1">// skip default</span>
+<span class="p">}</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="c1">// skip default case</span>
+<span class="p">}</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to enforce a <code>default</code> case for <code>switch</code> statements, you can safely disable this rule.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-fallthrough.md">no-fallthrough</a></li>
+</ul>
+
+    </section>
+</article>

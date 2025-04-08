@@ -1,0 +1,48 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7579">BE7579: 启用JavaScript的WebView（Android）</h2>
+    <h3>启用JavaScript的WebView（Android）</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7579</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>启用JavaScript的WebView（Android）</p>
+<h4>漏洞与风险</h4>
+<p>
+<p>为WebView启用JavaScript意味着它现在容易受到XSS攻击。
+呈现的页面应该检查潜在的反射XSS、存储XSS和DOM XSS。&lt;br/&gt;</p>
+ <pre>
+ WebView myWebView = (WebView) findViewById(R.id.webView);
+ WebSettings webSettings = myWebView.getSettings();
+ webSettings.setJavaScriptEnabled(true);
+</pre>
+ </p>
+ <p>
+<p>&lt;b&gt;有风险的代码：&lt;/b&gt;&lt;br/&gt;</p>
+<p>启用JavaScript并不是一种糟糕的做法。这只是意味着后端代码需要对潜在的XSS进行审计。</p>
+<p>XSS也可以用DOM XSS引入客户端。</p>
+ <pre>
+ function updateDescription(newDescription) {
+  $("#userDescription").html("<p<"+newDescription+"</p<");
+ }</pre>
+ </p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://www.technotalkative.com/issue-using-setjavascriptenabled-can-introduce-xss-vulnerabilities-application-review-carefully/&quot;&gt;Issue: Using setJavaScriptEnabled can introduce XSS vulnerabilities&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://developer.android.com/guide/webapps/webview.html#UsingJavaScript&quot;&gt;Android Official Doc: WebView&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://projects.webappsec.org/w/page/13246920/Cross%20Site%20Scripting&quot;&gt;WASC-8: Cross Site Scripting&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet&quot;&gt;OWASP: XSS Prevention Cheat Sheet&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://www.owasp.org/index.php/Top_10_2013-A3-Cross-Site_Scripting_%28XSS%29&quot;&gt;OWASP: Top 10 2013-A3: Cross-Site Scripting (XSS)&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/79.html&quot;&gt;CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')&lt;/a&gt;</p>
+
+    </section>
+</article>

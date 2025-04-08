@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7464">BE7464: 方法放宽对返回值的无效注释的要求</h2>
+    <h3>方法放宽对返回值的无效注释的要求</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7464</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>方法放宽对返回值的无效注释的要求</p>
+<h4>漏洞与风险</h4>
+<p>一个方法应该总是实现它重写方法的合约。因此，如果一个方法被注释为返回@Nonnull值，你不应该在子类中重写这个方法，它的方法是返回一个@Nullable或@CheckForNull值。这样做违反了该方法不能返回null的合约。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

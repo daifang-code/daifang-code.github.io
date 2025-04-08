@@ -1,0 +1,52 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1062">PE1062: Incorrect use memory allocation APIs</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1062</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The application tried to return memory resources to the system, but it called a release function that was incompatible with the function originally used to allocate the resource. This drawback was often described as a mismatched memory management routine. (1) Memory is allocated (automatically) on the stack, but it is destroyed using the memory management routine free(). (2) Memory is allocated explicitly using a set of memory management functions and destroyed using a different set of memory management functions. For example, memory can be allocated using c++'s malloc() instead of the new operator, and then allocated with the delete operator.</p>
+<h4>Vulnerability and risk</h4>
+<h5>Mismatched Memory Management</h5>
+<p>If memory management functions do not match, problems such as code execution, memory corruption, or program crash may occur.</p>
+<h4>Likelihood of Exploit</h4>
+<p>The function that allocates memory and the function that releases the memory use matching ones.</p>
+<h4>Potential Mitigations</h4>
+<p>high</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">BarObj</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BarObj</span><span class="p">()</span>
+<span class="cm">/* do some work with ptr here */</span>
+   <span class="p">...</span>
+   <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">)</span><span class="c1">//detect</span>
+<span class="p">}</span>
+</pre></div>
+<p>This example uses the new operator in C++ to allocate a BarObj object, but the programmer uses free() to free the memory, which may cause unexpected behavior.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">BarObj</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BarObj</span><span class="p">()</span>
+<span class="cm">/* do some work with ptr here */</span>
+  <span class="p">...</span>
+  <span class="n">delete</span> <span class="n">ptr</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, we just need to change the destructor of class A to a virtual function, then we can solve above problem.</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/762.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

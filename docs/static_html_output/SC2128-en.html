@@ -1,0 +1,65 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2128">SC2128: Improper expansion of array</h2>
+    <h3>Expanding an array without an index only gives the first element.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2128</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Expanding an array without an index only gives the first element.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">myarray</span><span class="o">=(</span>foo bar<span class="o">)</span>
+<span class="k">for</span> f in <span class="nv">$myarray</span>
+<span class="k">do</span>
+  cat <span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">myarray</span><span class="o">=(</span>foo bar<span class="o">)</span>
+<span class="k">for</span> f in <span class="s2">&quot;</span><span class="si">${</span><span class="nv">myarray</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">do</span>
+  cat <span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>When referencing arrays, <code>$myarray</code> is equivalent to <code>${myarray[0]}</code> -- it results in only the first of multiple elements.</p>
+<p>To get all elements as separate parameters, use the index <code>@</code> (and make sure to double quote). In the example, <code>echo &quot;${myarray[@]}&quot;</code> is equivalent to <code>echo &quot;foo&quot; &quot;bar&quot;</code>.</p>
+<p>To get all elements as a single parameter, concatenated by the first character in <code>IFS</code>, use the index <code>*</code>. In the example, <code>echo &quot;${myarray[*]}&quot;</code> is equivalent to <code>echo &quot;foo bar&quot;</code>.</p>
+<h5>Exceptions</h5>
+<p>ShellCheck can get confused by variable scope if the same variable name was used as an array previously, but is a string in the current context. You can [[ignore]] it in this case.</p>
+<p>In the case of local variables, a workaround is to declare the local variable separately from assigning to it:</p>
+<p><strong>Problematic Code:</strong></p>
+<div class="highlight"><pre><span></span>foo <span class="o">()</span> <span class="o">{</span>
+   <span class="nb">local</span> -a baz
+   <span class="nv">baz</span><span class="o">+=(</span><span class="s2">&quot;foo&quot;</span> <span class="s2">&quot;bar&quot;</span><span class="o">)</span>
+   <span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">baz</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+
+bar <span class="o">()</span> <span class="o">{</span>
+   <span class="nb">local</span> <span class="nv">baz</span><span class="o">=</span><span class="s2">&quot;qux&quot;</span>
+   <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$baz</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+</pre></div>
+<p><strong>Correct Code:</strong></p>
+<div class="highlight"><pre><span></span>foo <span class="o">()</span> <span class="o">{</span>
+   <span class="nb">local</span> -a baz
+   <span class="nv">baz</span><span class="o">+=(</span><span class="s2">&quot;foo&quot;</span> <span class="s2">&quot;bar&quot;</span><span class="o">)</span>
+   <span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">baz</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+
+bar <span class="o">()</span> <span class="o">{</span>
+   <span class="nb">local</span> baz
+   <span class="nv">baz</span><span class="o">=</span><span class="s2">&quot;qux&quot;</span>
+   <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$baz</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+</pre></div>
+
+    </section>
+</article>

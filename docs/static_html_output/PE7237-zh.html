@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7237">BE7237: 非静态内部类和线程本地变量有死锁的可能</h2>
+    <h3>非静态内部类和线程本地变量有死锁的可能</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7237</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>非静态内部类和线程本地变量有死锁的可能</p>
+<h4>漏洞与风险</h4>
+<p>这个类是一个内部类，但应该是一个静态的内部类。实际上，内部类和外部类中的本地线程之间存在出现死锁的严重危险。因为内部类不是静态的，所以它保留了对外部类的引用。如果线程本地包含对内部类的实例的引用，则内部和外部实例都将是可访问的且不符合垃圾回收的条件。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

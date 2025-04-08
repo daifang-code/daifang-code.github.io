@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7379">BE7379: Method defines a variable that obscures a field</h2>
+    <h3>Method defines a variable that obscures a field</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7379</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Method defines a variable that obscures a field</p>
+<h4>Vulnerability and risk</h4>
+<p> This method defines a local variable with the same name as a field
+in this class or a superclass.  This may cause the method to
+read an uninitialized value from the field, leave the field uninitialized,
+or both.</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

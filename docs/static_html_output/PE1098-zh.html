@@ -1,0 +1,35 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1098">PE1098: 服务器端模板注入</h2>
+    <h3>当没有恰当地对模板中的用户输入数据进行验证时，将有可能出现服务器端模板注入攻击</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1098</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>为了在网页或邮件中呈现动态数据，Web应用广泛使用模板引擎。</p>
+<h4>漏洞与风险</h4>
+<p>当没有恰当地对模板中的用户输入数据进行验证时，将有可能出现服务器端模板注入攻击，这是一种严重的缺陷，且很可能会被当做跨站脚本攻击，或者说完完全全就没有被察觉。与跨站脚本攻击不同，模板注入可以直接地攻击服务器的内部结构，且常常能找到远程代码执行的机会，将每个存在缺陷的程序转变成潜在的支点。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<ul>
+<li>使用一个简单的模板引擎。</li>
+<li>将模板引擎沙箱化，限制在相对安全的Docker容器中。</li>
+</ul>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.blackhat.com/docs/us-15/materials/us-15-Kettle-Server-Side-Template-Injection-RCE-For-The-Modern-Web-App-wp.pdf<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

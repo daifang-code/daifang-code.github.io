@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7364">BE7364: 方法尝试访问索引为0的结果集合（set）字段</h2>
+    <h3>方法尝试访问索引为0的结果集合（set）字段</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7364</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>方法尝试访问索引为0的结果集合（set）字段</p>
+<h4>漏洞与风险</h4>
+<p>在字段索引为0的情况下，调用结果集的getXXX或updateXXX方法。当ResultSet字段从索引1开始时，这将始终会出错。</p>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+
+    </section>
+</article>

@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7110">BE7110: 显式调用finalizer</h2>
+    <h3>显式调用finalizer</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7110</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>显式调用finalizer</p>
+<h4>漏洞与风险</h4>
+<p>此方法包含对对象的<code>finalize()</code>方法的显式调用。 因为finalizer方法应该只执行一次，而且只能由VM执行，如此调用的代码很容易出问题。
+</p>
+<p>例如，如果一组连接的对象可终结，可能同时在不同的线程中，VM将在所有可终结对象上调用finalize方法。
+因此，在类X的finalize方法中，调用X引用对象的finalize是非常糟糕的，因为它们可能已经在单独的线程中完成了。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

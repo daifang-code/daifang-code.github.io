@@ -1,0 +1,46 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0106">PE0106: 主机字节顺序与网络字节顺序的错误转换</h2>
+    <h3>主机字节顺序与网络字节顺序的错误转换。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0106</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>来源于主机边界的多字节的值在发送或者写入到环境之前，未将主机字节顺序转换为网路字节顺序或从外界获取或者读取一个多字节到主机边界时，没有把网络字节顺序转换为主机字节顺序。</p>
+<h4>漏洞与风险</h4>
+<p>程序在系统下运行伴随不同的字节顺序方法，这些方法需相互之间连通。错误地转换字节顺序可能导致程序功能实现不正确。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>应使用htons函数把unsigned short类型从主机序转换到网络序；应使用htonl 函数把unsigned long类型从主机序转换到网络序；应使用ntohs 函数把unsigned short类型从网络序转换到主机序；应使用ntohl 函数把unsigned long类型从网络序转换到主机序。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">long</span> <span class="n">b</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="k">sizeof</span> <span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>   <span class="c1">// b传递时没有被转换为网络字节顺序</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞修复代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">long</span> <span class="n">b</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">htonl</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="k">sizeof</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>SJ/T 11682-2017 6.3.16<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

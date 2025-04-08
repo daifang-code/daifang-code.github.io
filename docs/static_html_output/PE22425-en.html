@@ -1,0 +1,39 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22425">PE22425: E731</h2>
+    <h3>Do not assign a lambda expression, use a def</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22425</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Lambdas should not be assigned to a variable. Instead, they should be
+defined as functions.</p>
+<p>The primary reason for this is debugging. Lambdas show as <code>&lt;lambda&gt;</code> in
+tracebacks, where functions will display the function’s name.</p>
+<h5>Anti-pattern</h5>
+
+<pre><code>root = lambda folder_name: os.path.join(BASE_DIR, folder_name)
+
+</code></pre>
+<h5>Best practice</h5>
+
+<pre><code>def root(folder_name):
+    return os.path.join(BASE_DIR, folder_name)
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#programming-recommendations<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

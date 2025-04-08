@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1094">SC1094: Parser error</h2>
+    <h3>Parsing of sourced file failed. Ignoring it.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1094</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Parsing of sourced file failed. Ignoring it.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">source</span> mylib
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="c1"># shellcheck disable=SC1094</span>
+<span class="nb">source</span> mylib
+</pre></div>
+<p>(or fix <code>mylib</code>)</p>
+<h5>Rationale:</h5>
+<p>ShellCheck encountered a parsing error in a sourced file, <code>mylib</code> in the example.</p>
+<p>Fix parsing error, or just disable it with a directive.</p>
+<h5>Exceptions:</h5>
+<p>If the file is fine and this is due to a known <code>shellcheck</code> bug, you can ignore it with a [[directive]] as in the example.</p>
+
+    </section>
+</article>

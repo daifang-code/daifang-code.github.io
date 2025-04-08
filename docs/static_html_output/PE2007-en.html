@@ -1,0 +1,87 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2007">PE2007: arrow-spacing</h2>
+    <h3>Require space before/after arrow function's arrow (arrow-spacing)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2007</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Require space before/after arrow function's arrow (arrow-spacing)</h4>
+<p>This rule normalize style of spacing before/after an arrow function's arrow(<code>=&gt;</code>).</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// { &quot;before&quot;: true, &quot;after&quot;: true }</span>
+<span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{}</span>
+
+<span class="c1">// { &quot;before&quot;: false, &quot;after&quot;: false }</span>
+<span class="p">(</span><span class="nx">a</span><span class="p">)=&gt;{}</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule takes an object argument with <code>before</code> and <code>after</code> properties, each with a Boolean value.</p>
+<p>The default configuration is <code>{ &quot;before&quot;: true, &quot;after&quot;: true }</code>.</p>
+<p><code>true</code> means there should be <strong>one or more spaces</strong> and <code>false</code> means <strong>no spaces</strong>.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>{ &quot;before&quot;: true, &quot;after&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-spacing: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="p">()=&gt;</span> <span class="p">{};</span>
+<span class="p">()</span> <span class="p">=&gt;{};</span>
+<span class="p">(</span><span class="nx">a</span><span class="p">)=&gt;</span> <span class="p">{};</span>
+<span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;{};</span>
+<span class="nx">a</span> <span class="p">=&gt;</span><span class="nx">a</span><span class="p">;</span>
+<span class="nx">a</span><span class="p">=&gt;</span> <span class="nx">a</span><span class="p">;</span>
+<span class="p">()=&gt;</span> <span class="p">{</span><span class="s1">&#39;\n&#39;</span><span class="p">};</span>
+<span class="p">()</span> <span class="p">=&gt;{</span><span class="s1">&#39;\n&#39;</span><span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>{ &quot;before&quot;: true, &quot;after&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-spacing: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+<span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+<span class="nx">a</span> <span class="p">=&gt;</span> <span class="nx">a</span><span class="p">;</span>
+<span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span><span class="s1">&#39;\n&#39;</span><span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;before&quot;: false, &quot;after&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-spacing: [&quot;error&quot;, { &quot;before&quot;: false, &quot;after&quot;: false }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="p">()</span> <span class="p">=&gt;{};</span>
+<span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+<span class="p">()=&gt;</span> <span class="p">{</span><span class="s1">&#39;\n&#39;</span><span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;before&quot;: false, &quot;after&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-spacing: [&quot;error&quot;, { &quot;before&quot;: false, &quot;after&quot;: false }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="p">()=&gt;{};</span>
+<span class="p">(</span><span class="nx">a</span><span class="p">)=&gt;{};</span>
+<span class="p">()=&gt;{</span><span class="s1">&#39;\n&#39;</span><span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;before&quot;: false, &quot;after&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-spacing: [&quot;error&quot;, { &quot;before&quot;: false, &quot;after&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="p">()</span> <span class="p">=&gt;{};</span>
+<span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+<span class="p">()=&gt;{</span><span class="s1">&#39;\n&#39;</span><span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;before&quot;: false, &quot;after&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-spacing: [&quot;error&quot;, { &quot;before&quot;: false, &quot;after&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="p">()=&gt;</span> <span class="p">{};</span>
+<span class="p">(</span><span class="nx">a</span><span class="p">)=&gt;</span> <span class="p">{};</span>
+<span class="p">()=&gt;</span> <span class="p">{</span><span class="s1">&#39;\n&#39;</span><span class="p">};</span>
+</pre></div>
+
+    </section>
+</article>

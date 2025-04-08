@@ -1,0 +1,144 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2157">PE2157: no-restricted-imports</h2>
+    <h3>Disallow specific imports (no-restricted-imports)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2157</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow specific imports (no-restricted-imports)</h4>
+<p>Imports are an ES6/ES2015 standard for making the functionality of other modules available in your current module. In CommonJS this is implemented through the <code>require()</code> call which makes this ESLint rule roughly equivalent to its CommonJS counterpart <code>no-restricted-modules</code>.</p>
+<p>Why would you want to restrict imports?</p>
+<ul>
+<li><p>Some imports might not make sense in a particular environment. For example, Node.js' <code>fs</code> module would not make sense in an environment that didn't have a file system.</p>
+</li>
+<li><p>Some modules provide similar or identical functionality, think <code>lodash</code> and <code>underscore</code>. Your project may have standardized on a module. You want to make sure that the other alternatives are not being used as this would unnecessarily bloat the project and provide a higher maintenance cost of two dependencies when one would suffice.</p>
+</li>
+</ul>
+<h2>Rule Details</h2>
+<p>This rule allows you to specify imports that you don't want to use in your application.</p>
+<h2>Options</h2>
+<p>The syntax to specify restricted imports looks like this:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-imports&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;import1&quot;</span><span class="p">,</span> <span class="s2">&quot;import2&quot;</span><span class="p">]</span>
+</pre></div>
+<p>or like this:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-imports&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;paths&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;import1&quot;</span><span class="p">,</span> <span class="s2">&quot;import2&quot;</span><span class="p">]</span> <span class="p">}]</span>
+</pre></div>
+<p>When using the object form, you can also specify an array of gitignore-style patterns:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-imports&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nt">&quot;paths&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;import1&quot;</span><span class="p">,</span> <span class="s2">&quot;import2&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;patterns&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;import1/private/*&quot;</span><span class="p">,</span> <span class="s2">&quot;import2/*&quot;</span><span class="p">,</span> <span class="s2">&quot;!import2/good&quot;</span><span class="p">]</span>
+<span class="p">}]</span>
+</pre></div>
+<p>You may also specify a custom message for any paths you want to restrict as follows:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-imports&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">[{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;import-foo&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Please use import-bar instead.&quot;</span>
+<span class="p">}]]</span>
+</pre></div>
+<p>or like this:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-imports&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nt">&quot;paths&quot;</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;import-foo&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Please use import-bar instead.&quot;</span>
+  <span class="p">}]</span>
+<span class="p">}]</span>
+</pre></div>
+<p>or like this if you need to restrict only certain imports from a module:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-imports&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nt">&quot;paths&quot;</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;import-foo&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;importNames&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Bar&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Please use Bar from /import-bar/baz/ instead.&quot;</span>
+  <span class="p">}]</span>
+<span class="p">}]</span>
+</pre></div>
+<p>The custom message will be appended to the default error message. Please note that you may not specify custom error messages for restricted patterns as a particular import may match more than one pattern.</p>
+<p>To restrict the use of all Node.js core imports (via https://github.com/nodejs/node/tree/master/lib):</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-imports&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;assert&quot;</span><span class="p">,</span><span class="s2">&quot;buffer&quot;</span><span class="p">,</span><span class="s2">&quot;child_process&quot;</span><span class="p">,</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span><span class="s2">&quot;crypto&quot;</span><span class="p">,</span><span class="s2">&quot;dgram&quot;</span><span class="p">,</span><span class="s2">&quot;dns&quot;</span><span class="p">,</span><span class="s2">&quot;domain&quot;</span><span class="p">,</span><span class="s2">&quot;events&quot;</span><span class="p">,</span><span class="s2">&quot;freelist&quot;</span><span class="p">,</span><span class="s2">&quot;fs&quot;</span><span class="p">,</span><span class="s2">&quot;http&quot;</span><span class="p">,</span><span class="s2">&quot;https&quot;</span><span class="p">,</span><span class="s2">&quot;module&quot;</span><span class="p">,</span><span class="s2">&quot;net&quot;</span><span class="p">,</span><span class="s2">&quot;os&quot;</span><span class="p">,</span><span class="s2">&quot;path&quot;</span><span class="p">,</span><span class="s2">&quot;punycode&quot;</span><span class="p">,</span><span class="s2">&quot;querystring&quot;</span><span class="p">,</span><span class="s2">&quot;readline&quot;</span><span class="p">,</span><span class="s2">&quot;repl&quot;</span><span class="p">,</span><span class="s2">&quot;smalloc&quot;</span><span class="p">,</span><span class="s2">&quot;stream&quot;</span><span class="p">,</span><span class="s2">&quot;string_decoder&quot;</span><span class="p">,</span><span class="s2">&quot;sys&quot;</span><span class="p">,</span><span class="s2">&quot;timers&quot;</span><span class="p">,</span><span class="s2">&quot;tls&quot;</span><span class="p">,</span><span class="s2">&quot;tracing&quot;</span><span class="p">,</span><span class="s2">&quot;tty&quot;</span><span class="p">,</span><span class="s2">&quot;url&quot;</span><span class="p">,</span><span class="s2">&quot;util&quot;</span><span class="p">,</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span><span class="s2">&quot;zlib&quot;</span>
+    <span class="p">]</span><span class="err">,</span>
+</pre></div>
+<h2>Examples</h2>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-imports: [&quot;error&quot;, &quot;fs&quot;]*/</span>
+
+<span class="kr">import</span> <span class="nx">fs</span> <span class="nx">from</span> <span class="s1">&#39;fs&#39;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-imports: [&quot;error&quot;, &quot;fs&quot;]*/</span>
+
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">fs</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;fs&#39;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-imports: [&quot;error&quot;, &quot;fs&quot;]*/</span>
+
+<span class="kr">export</span> <span class="o">*</span> <span class="nx">from</span> <span class="s1">&#39;fs&#39;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-imports: [&quot;error&quot;, { &quot;paths&quot;: [&quot;cluster&quot;] }]*/</span>
+
+<span class="kr">import</span> <span class="nx">cluster</span> <span class="nx">from</span> <span class="s1">&#39;cluster&#39;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-imports: [&quot;error&quot;, { &quot;patterns&quot;: [&quot;lodash/*&quot;] }]*/</span>
+
+<span class="kr">import</span> <span class="nx">pick</span> <span class="nx">from</span> <span class="s1">&#39;lodash/pick&#39;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-imports: [&quot;error&quot;, { paths: [{</span>
+<span class="cm">    name: &quot;foo&quot;,</span>
+<span class="cm">    importNames: [&quot;default&quot;],</span>
+<span class="cm">    message: &quot;Please use the default import from &#39;/bar/baz/&#39; instead.&quot;</span>
+<span class="cm">}]}]*/</span>
+
+<span class="kr">import</span> <span class="nx">DisallowedObject</span> <span class="nx">from</span> <span class="s2">&quot;foo&quot;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-imports: [&quot;error&quot;, { paths: [{</span>
+<span class="cm">    name: &quot;foo&quot;,</span>
+<span class="cm">    importNames: [&quot;DisallowedObject&quot;],</span>
+<span class="cm">    message: &quot;Please import &#39;DisallowedObject&#39; from &#39;/bar/baz/&#39; instead.&quot;</span>
+<span class="cm">}]}]*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">DisallowedObject</span> <span class="nx">as</span> <span class="nx">AllowedObject</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;foo&quot;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-imports: [&quot;error&quot;, { paths: [{</span>
+<span class="cm">    name: &quot;foo&quot;,</span>
+<span class="cm">    importNames: [&quot;DisallowedObject&quot;],</span>
+<span class="cm">    message: &quot;Please import &#39;DisallowedObject&#39; from &#39;/bar/baz/&#39; instead.&quot;</span>
+<span class="cm">}]}]*/</span>
+
+<span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">Foo</span> <span class="nx">from</span> <span class="s2">&quot;foo&quot;</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-imports: [&quot;error&quot;, &quot;fs&quot;]*/</span>
+
+<span class="kr">import</span> <span class="nx">crypto</span> <span class="nx">from</span> <span class="s1">&#39;crypto&#39;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;bar&quot;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-imports: [&quot;error&quot;, { &quot;paths&quot;: [&quot;fs&quot;], &quot;patterns&quot;: [&quot;eslint/*&quot;] }]*/</span>
+
+<span class="kr">import</span> <span class="nx">crypto</span> <span class="nx">from</span> <span class="s1">&#39;crypto&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">eslint</span> <span class="nx">from</span> <span class="s1">&#39;eslint&#39;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="o">*</span> <span class="nx">from</span> <span class="s2">&quot;path&quot;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-imports: [&quot;error&quot;, { paths: [{ name: &quot;foo&quot;, importNames: [&quot;DisallowedObject&quot;] }] }]*/</span>
+
+<span class="kr">import</span> <span class="nx">DisallowedObject</span> <span class="nx">from</span> <span class="s2">&quot;foo&quot;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-imports: [&quot;error&quot;, { paths: [{</span>
+<span class="cm">    name: &quot;foo&quot;,</span>
+<span class="cm">    importNames: [&quot;DisallowedObject&quot;],</span>
+<span class="cm">    message: &quot;Please import &#39;DisallowedObject&#39; from &#39;/bar/baz/&#39; instead.&quot;</span>
+<span class="cm">}]}]*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AllowedObject</span> <span class="nx">as</span> <span class="nx">DisallowedObject</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;foo&quot;</span><span class="p">;</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>Don't use this rule or don't include a module in the list for this rule if you want to be able to import a module in your project without an ESLint error or warning.</p>
+
+    </section>
+</article>

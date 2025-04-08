@@ -1,0 +1,51 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1055">PE1055: Inefficient expression</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1055</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Using the post + +/-- operation will have one more copying action than the pre + +/- - operation, and the execution efficiency is low. String::find() is used as a condition in conditional evaluation, but it is slower than string::compare(). It is more efficient to use the 'empty' function than the 'size' function to determine if the container is empty. Returning c_str() for a function that returns a value of type std::string is redundant and it will reduce code execution speed. Passing c_str() as an argument to a formal parameter that requires std::string is redundant and reduces code execution speed</p>
+<h4>Vulnerability and risk</h4>
+<h5>Inefficient Expression</h5>
+<p>Using inefficient expressions will make the whole program less efficient and less optimized.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Replacing inefficient expressions with more efficient expressions.</p>
+<h4>Potential Mitigations</h4>
+<p>medium</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">sum</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+  <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">sum</span><span class="o">&lt;</span><span class="mi">20</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">sum</span><span class="o">=</span><span class="n">sum</span><span class="o">+</span><span class="n">count</span><span class="p">;</span>
+    <span class="n">count</span><span class="o">++</span><span class="p">;</span><span class="c1">//detect</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">sum</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+  <span class="n">count</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">sum</span><span class="o">&lt;</span><span class="mi">20</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">sum</span><span class="o">=</span><span class="n">sum</span><span class="o">+</span><span class="p">(</span><span class="o">++</span><span class="n">count</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

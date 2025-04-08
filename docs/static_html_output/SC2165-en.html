@@ -1,0 +1,44 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2165">SC2165: Improper loop</h2>
+    <h3>This nested loop overrides the index variable of its parent.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2165</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This nested loop overrides the index variable of its parent.</h2>
+<p>And companion warning &quot;This parent loop has its index variable overridden.&quot;</p>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span> i&lt;<span class="m">10</span><span class="p">;</span> i++<span class="o">))</span>
+<span class="k">do</span>
+  <span class="k">for</span> i in *
+  <span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span>
+  <span class="k">done</span>
+<span class="k">done</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span> i&lt;<span class="m">10</span><span class="p">;</span> i++<span class="o">))</span>
+<span class="k">do</span>
+  <span class="k">for</span> j in *
+  <span class="k">do</span>
+    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$j</span><span class="s2">&quot;</span>
+  <span class="k">done</span>
+<span class="k">done</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>When nesting loops, especially arithmetic for loops, using the same loop variable can cause unexpected results.</p>
+<p>In the problematic code, <code>i</code> will contain the last filename from the inner loop, which will be interpreted as a value in the next iteration out the outer loop. This results in either an infinite loop or a syntax error, depending on whether the last filename is a valid shell variable name.</p>
+<p>In nested for-in loops, variable merely shadow each other and won't cause infinite loops or syntax errors, but reusing the variable name is rarely intentional.</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

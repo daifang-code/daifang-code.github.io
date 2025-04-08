@@ -1,0 +1,39 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2129">SC2129: Better directive choice exists</h2>
+    <h3>Consider using { cmd1; cmd2; } >> file instead of individual redirects.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2129</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Consider using { cmd1; cmd2; } &gt;&gt; file instead of individual redirects.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> foo &gt;&gt; file
+date &gt;&gt; file
+cat stuff  &gt;&gt; file
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="o">{</span>
+  <span class="nb">echo</span> foo
+  date
+  cat stuff
+<span class="o">}</span> &gt;&gt; file
+</pre></div>
+<h5>Rationale:</h5>
+<p>Rather than adding <code>&gt;&gt; something</code> after every single line, you can simply group the relevant commands and redirect the group. So the file has to be opened and closed only once and it means a performance gain.</p>
+<h5>Exceptions:</h5>
+<p>This is mainly a stylistic issue, and can freely be ignored.</p>
+<h5>Related resources:</h5>
+<ul>
+<li><a href="https://mywiki.wooledge.org/BashFAQ/014">BashFaq: How can I redirect the output of multiple commands at once?</a></li>
+</ul>
+
+    </section>
+</article>

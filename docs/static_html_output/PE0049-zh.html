@@ -1,0 +1,55 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0049">PE0049: 字符串缺少终止符</h2>
+    <h3>字符串缺少终止符。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0049</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在C和C++语言中，字符串通常以'\0'结尾。求解字符串的长度时，通常是从字符串起始位置统计字符个数直到找到'\0'。
+很多以字符串作为参数的函数，都会要求该字符串带有null终结符。传入不带有null终结符的字符序列作为参数给该类函数，会导致对该对象外的内存的访问。</p>
+<h4>漏洞与风险</h4>
+<h5>越界访问内存</h5>
+<p>很多以字符串作为参数的函数，都会要求该字符串带有null终结符。传入不带有null终结符的字符序列作为参数给该类函数，会导致对该对象外的内存的访问。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>在使用字符串之前，保证字符串以'\0'结尾。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">extension</span><span class="p">;</span>
+  <span class="c1">// read from net, no null-termination</span>
+  <span class="n">string_from_net</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">1023</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span> 
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">SOME_CHAR</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">extension</span> <span class="o">=</span> <span class="n">process_filename</span><span class="p">(</span><span class="n">name</span><span class="p">);</span> <span class="c1">// process until &#39;\0&#39; found</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在第6行使用字符串name时，并没有验证其以'\0'结尾。如果字符串name不是以'\0'结尾，可以导致process_filename()越界访问内存。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">extension</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">string_from_net</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">1023</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span> 
+    <span class="k">if</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">len</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">SOME_CHAR</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">extension</span> <span class="o">=</span> <span class="n">process_filename</span><span class="p">(</span><span class="n">name</span><span class="p">);</span> <span class="c1">// process until &#39;\0&#39; found</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在使用字符串name之前，验证了它是以'\0'结尾。保证process_filename()不会越界访问内存。</p>
+
+    </section>
+</article>

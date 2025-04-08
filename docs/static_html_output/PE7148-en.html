@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7148">BE7148: Naked notify</h2>
+    <h3>Naked notify</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7148</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Naked notify</p>
+<h4>Vulnerability and risk</h4>
+<p> A call to <code>notify()</code> or <code>notifyAll()</code>
+  was made without any (apparent) accompanying
+  modification to mutable object state.&nbsp; In general, calling a notify
+  method on a monitor is done because some condition another thread is
+  waiting for has become true.&nbsp; However, for the condition to be meaningful,
+  it must involve a heap object that is visible to both threads.</p>
+  <p> This bug does not necessarily indicate an error, since the change to
+  mutable object state may have taken place in a method which then called
+  the method containing the notification.</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+
+    </section>
+</article>

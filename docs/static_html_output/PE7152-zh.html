@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7152">BE7152: 可以通过将可变对象存储到静态字段中来暴露内部静态状态</h2>
+    <h3>可以通过将可变对象存储到静态字段中来暴露内部静态状态</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7152</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>可以通过将可变对象存储到静态字段中来暴露内部静态状态</p>
+<h4>漏洞与风险</h4>
+<p>此代码将外部可变对象的引用存储到静态字段中。
+<p>如果对可变对象的未检查更改会危及安全性或其它重要属性，则需要做一些不同的操作。</p>
+<p>在许多情况下，存储对象的副本是更好的方法。</p>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

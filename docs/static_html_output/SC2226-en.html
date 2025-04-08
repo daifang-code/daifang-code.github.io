@@ -1,0 +1,37 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2226">SC2226: Improper 'ln' directive</h2>
+    <h3>This ln has no destination. Check the arguments, or specify '.' explicitly.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2226</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This ln has no destination. Check the arguments, or specify '.' explicitly.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>ln <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2"> </span><span class="nv">$dir</span><span class="s2">&quot;</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span>ln /foo/bar/baz
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>ln <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$dir</span><span class="s2">&quot;</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span>ln /foo/bar/baz .
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck found a <code>ln</code> command with a single parameter. This may be because the source and destination was accidentally merged into a single argument, because the line was broken in an invalid way, or because you're using a non-standard invocation of <code>ln</code> that defaults to linking the argument into the current directory.</p>
+<p>If you wanted to specify both source and destination, fix the <code>ln</code> statement.</p>
+<p>If you wanted to link a file into the current directory, prefer using the more explicit and POSIX standard invocation <code>ln /your/file .</code></p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

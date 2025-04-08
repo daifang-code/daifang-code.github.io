@@ -1,0 +1,56 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0064">PE0064: Variable Length Array Size</h2>
+    <h3>Incorrectly declare variable length arrays.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0064</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>When declaring a variable-length array, the array length must meet the following requirements:</p>
+<ol>
+<li>The length of the array cannot be negative or 0.</li>
+<li>The array length must be an initialized value.</li>
+<li>The length of the array cannot be a taint data.</li>
+</ol>
+<h4>Vulnerability and risk</h4>
+<h5>unexpected result</h5>
+<p>If the above requirements are not met while declaring a variable-length array, the array that may be applied does not match the expected, resulting in unexpected results.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>When declaring a variable-length array, the array length must meet the following requirements:</p>
+<ol>
+<li>The length of the array cannot be negative or 0.</li>
+<li>The array length must be an initialized value.</li>
+<li>The length of the array cannot be a taint data.</li>
+</ol>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{Declared variable-length array (VLA) has zero size}</span>
+  <span class="p">}</span> 
+  <span class="kt">int</span> <span class="n">vla</span><span class="p">[</span><span class="n">x</span><span class="p">];</span> 
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, when the variable length array vla is declared, the array length x is 0.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">vla</span><span class="p">[</span><span class="n">x</span><span class="p">];</span> 
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, when the variable length array vla is declared, the array length x is not 0.</p>
+
+    </section>
+</article>

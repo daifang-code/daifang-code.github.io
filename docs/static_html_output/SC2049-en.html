@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2049">SC2049: Ambiguous wildcard character</h2>
+    <h3>=~ is for regex, but this looks like a glob. Use = instead.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2049</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>=~ is for regex, but this looks like a glob. Use = instead.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="o">[[</span> <span class="nv">$file</span> <span class="o">=</span>~ *.txt <span class="o">]]</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="o">[[</span> <span class="nv">$file</span> <span class="o">=</span> *.txt <span class="o">]]</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>You are using <code>=~</code> to match against a regex -- specifically a Extended Regular Expression (ERE) -- but the right-hand side looks more like a glob:</p>
+<ul>
+<li><p>It may have a leading <code>*</code>, like in <code>*.txt</code></p>
+<ul>
+<li>In a glob, this matches strings ending in <code>.txt</code>, like <code>readme.txt</code> but not <code>foo.sh</code></li>
+<li>In an ERE, this matches a literal asterisk, followed by any character, and then <code>txt</code>, such as <code>*itxt</code> but not <code>test.txt</code></li>
+</ul>
+</li>
+<li><p>It may be a single letter followed by a <code>*</code>, like in <code>s*</code>.</p>
+<ul>
+<li>In a glob, this matches strings starting with <code>s</code>, such as <code>shell</code> and <code>set</code>.</li>
+<li>In an ERE, this matches zero or more <code>s</code>s, such as <code>dog</code> (because it does in fact contain zero or more <code>s</code>'s)</li>
+</ul>
+</li>
+</ul>
+<p>Please ensure that the pattern is correct as an ERE, or switch to glob matching if that's what you intended.</p>
+<p>This is similar to [[SC2063]], where <code>grep &quot;*foo*&quot;</code> produces an equivalent warning.</p>
+<h5>Exceptions:</h5>
+<p>If you are aware of the difference, you can [[ignore]] this message, but this warning is not emitted for the more probable EREs <code>\*.txt</code>, <code>\.txt$</code>, <code>^s</code> or <code>s+</code>, so it should rarely be necessary.</p>
+<h5>Related resources:</h5>
+<ul>
+<li>Help by adding links to BashFAQ, StackOverflow, man pages, POSIX, etc!</li>
+</ul>
+
+    </section>
+</article>

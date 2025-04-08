@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1053">SC1053: Improper Semicolons directly after 'else'</h2>
+    <h3>Semicolons directly after 'else' are not allowed. Just remove it.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1053</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Semicolons directly after 'else' are not allowed. Just remove it.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">if</span> mycommand<span class="p">;</span> <span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;True&quot;</span><span class="p">;</span> <span class="k">else</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;False&quot;</span><span class="p">;</span> <span class="k">fi</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">if</span> mycommand<span class="p">;</span> <span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;True&quot;</span><span class="p">;</span> <span class="k">else</span> <span class="nb">echo</span> <span class="s2">&quot;False&quot;</span><span class="p">;</span> <span class="k">fi</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p><code>else</code> keywords should not be followed by semicolons. It's not valid shell syntax.</p>
+<p>You can follow them directly with a line break or another command.</p>
+<h5>Exceptions:</h5>
+<p>None</p>
+
+    </section>
+</article>

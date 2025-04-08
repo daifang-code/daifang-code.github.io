@@ -1,0 +1,100 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0041">PE0041: No Effect</h2>
+    <h3>Many statements or expressions that do not accomplish anything, or statements that perform an action that is not the intended action.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0041</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Many statements or expressions that do not accomplish anything, or statements that perform an action that is not the intended action.</p>
+<p>For example:</p>
+<p>1.The left operand of a comma operator has no side effects.</p>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">extra_comma</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">,</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">a</span><span class="o">++</span><span class="p">,</span> <span class="n">b</span><span class="o">++</span><span class="p">){</span> 
+    <span class="cm">/* Extra comma, and so a &lt; 10 is not used */</span>
+      <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>2.Patterns delete a, b, where only the first pointer is deleted.</p>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">incomplete_delete</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span><span class="p">;</span>
+  <span class="n">delete</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">;</span> <span class="c1">// The pointer q is not deleted</span>
+<span class="p">}</span>
+</pre></div>
+<p>3.Useless dereferences of pointers.</p>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">no_effect_deref</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="o">*</span><span class="n">p</span><span class="o">++</span><span class="p">;</span> <span class="c1">// *p has no effect</span>
+<span class="p">}</span>
+</pre></div>
+<p>4.An intended assignment instead of a comparison.</p>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">no_effect_test</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+  <span class="c1">// Test has no effect</span>
+  <span class="c1">// and is likely intended to be the assignment a = b </span>
+  <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+<p>5.Switching on a comparison and indicates a likely intended assignment</p>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">bool_switch</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Boolean switch</span>
+  <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>6.Unsigned comparisons against 0, unless the expression's parent is a manual signed cast.</p>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">unsigned_compare</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">// a is unsigned, and so the comparison is never true</span>
+    <span class="n">a</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>7.Assignments of fields or globals to self.</p>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">self_assign</span><span class="p">(</span><span class="k">struct</span> <span class="n">foo</span> <span class="o">*</span><span class="n">ptr</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>           <span class="c1">// assignment to self, global</span>
+  <span class="n">ptr</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">=</span> <span class="n">ptr</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">;</span> <span class="c1">// assignment to self, field</span>
+<span class="p">}</span>
+</pre></div>
+<p>8.Self assigns to local variables or parameters.</p>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">self_assign_local</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span> <span class="c1">// assignment to self, local</span>
+<span class="p">}</span>
+</pre></div>
+<h4>Vulnerability and risk</h4>
+<h5>poor code quality</h5>
+<p>The code has features that do not directly introduce a weakness or vulnerability, but indicate that the product has not been carefully developed or maintained.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>Understand the logical of the code and remove useless code.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+  <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// detect</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, the test at line 3 has no effect, and is likely intended to be the assignment a = b.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example, using assignment instead of comparison at line 3.</p>
+
+    </section>
+</article>

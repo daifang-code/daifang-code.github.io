@@ -1,0 +1,70 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4020">PE4020: 无意义的语句</h2>
+    <h3>无意义的语句</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE4020</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>语句或表达式的实例不执行任何操作，或执行并非预期动作。通常，此问题是由印刷错误，疏忽或对语言规则（例如运算符优先级）的误解引起的。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>演示实例</h4>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">incomplete_delete</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="o">*</span><span class="n">z</span><span class="p">,</span> <span class="o">*</span><span class="n">e</span><span class="p">;</span>
+    <span class="n">delete</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">;</span>   <span class="c1">// 指针p没有被释放</span>
+    <span class="n">delete</span> <span class="n">x</span><span class="p">,</span> <span class="n">delete</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">e</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">no_effect_deref</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">p</span><span class="o">++</span><span class="p">;</span>        <span class="c1">// *p的值没有被使用</span>
+    <span class="o">*</span><span class="n">p</span><span class="o">++</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">no_effect_test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">;</span>         <span class="c1">// 无用的判断，程序员的本意可能是赋值</span>
+    <span class="n">a</span> <span class="o">|</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">foo</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">self_assign</span><span class="p">(</span><span class="k">struct</span> <span class="n">foo</span> <span class="o">*</span><span class="n">ptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>           <span class="c1">// 赋值给自己</span>
+    <span class="n">ptr</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">=</span> <span class="n">ptr</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">;</span> <span class="c1">// 赋值给自己</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">self_assign_local</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span> <span class="c1">// 赋值给自己</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">C</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="p">)</span> <span class="p">{};</span>
+    <span class="k">static</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">static_through_instance</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">ptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">;</span>
+    <span class="n">c</span><span class="o">-&gt;</span><span class="n">foo</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>         <span class="c1">// 没有必要用c来调用静态成员函数</span>
+    <span class="n">c</span><span class="o">-&gt;</span><span class="n">y</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">C</span> <span class="n">stackc</span><span class="p">;</span>
+    <span class="n">stackc</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

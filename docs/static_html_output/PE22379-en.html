@@ -1,0 +1,44 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22379">PE22379: E125</h2>
+    <h3>Continuation line with same indent as next logical line</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22379</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Continuation lines should not be indented at the same level as the next
+logical line. Instead, they should be indented to one more level so as
+to distinguish them from the next line.</p>
+<h5>Anti-pattern</h5>
+<p>In this example the second line is indented at the same level as the
+line below it. This makes it difficult to tell what is in the <code>if</code> block
+and what is a part of the boolean expression.</p>
+
+<pre><code>if user is not None and user.is_admin or 
+    user.name == 'Grant':
+    blah = 'yeahnah'
+
+</code></pre>
+<h5>Best practice</h5>
+
+<pre><code>if user is not None and user.is_admin or 
+        user.name == 'Grant':
+    blah = 'yeahnah'
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#indentation<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

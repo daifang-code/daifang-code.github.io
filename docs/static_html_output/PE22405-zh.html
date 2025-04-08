@@ -1,0 +1,39 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22405">PE22405: E274</h2>
+    <h3>Tab before keyword</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22405</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>关键字前应该只有一个空格。</p>
+<h5>示例错误片段</h5>
+<p>在本例中，<code>in</code>关键字前有一个选项卡。</p>
+<p>*<em>注意：</em><code>→</code>字符表示制表符。</p>
+
+<pre><code>def func():
+    if 1→in [1, 2, 3]:
+        print('yep!')
+
+</code></pre>
+<h5>最佳修复</h5>
+<p>在<code>in</code>运算符前只使用一个空格。</p>
+
+<pre><code>def func():
+    if 1 in [1, 2, 3]:
+        print('yep!')
+
+
+
+</code></pre>
+<h4>References</h4>
+
+    </section>
+</article>

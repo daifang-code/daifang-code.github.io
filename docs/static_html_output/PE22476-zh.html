@@ -1,0 +1,36 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22476">PE22476: F901</h2>
+    <h3>raise NotImplemented should be raise NotImplementedError</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22476</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p><code>NotImplemented</code>是一个特殊值，应该由指示操作未实现的二进制特殊方法相对于另一种类型。将<code>NotImplementedError</code>提升到指示未实现超类方法，并且该子级类应该实现它。</p>
+<h5>示例错误片段</h5>
+
+<pre><code>class BaseClass:
+    def abstract_method(self):
+        raise NotImplemented
+
+</code></pre>
+<h5>最佳修复</h5>
+
+<pre><code>class BaseClass:
+    def abstract_method(self):
+        raise NotImplementedError
+
+
+
+</code></pre>
+<h4>References</h4>
+
+    </section>
+</article>

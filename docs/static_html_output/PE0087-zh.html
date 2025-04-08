@@ -1,0 +1,79 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0087">PE0087: 泄漏敏感数据</h2>
+    <h3>不能将敏感数据泄漏到日志文件或控制台。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0087</dd>
+                    <dt>标签</dt>
+                    <dd>C, C++, Java, CWE-319 ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>记录对于调试，事件响应和收集数据至关重要。 尽管如此，记录敏感数据引发了许多担忧，包括利益相关方的隐私权，法律对个人信息收集的限制，以及内部人员暴露数据的可能性。 敏感信息包括但不限于IP地址，用户名和密码，电子邮件地址，信用卡号以及任何个人身份信息，如社会安全号码。 许多国家禁止或限制收集个人资料; 其他人仅允许以匿名形式保留个人数据。 例如，将未加密的信用卡号码泄漏到日志文件中可能违反了PCI DSS（支付卡行业数据安全标准）规定[PCI 2010]。 因此，日志不得包含敏感数据，特别是在法律禁止的情况下。</p>
+<h4>漏洞与风险</h4>
+<p>不幸的是，违反这一规则是很常见的。例如，在版本0.8.1之前，LineControl Java客户端记录了敏感信息，包括本地用户的密码，如CVE-2005-2990所述。</p>
+<p>java.util.logging类为JDK 1.4及更高版本提供了基本的日志框架。其他日志框架存在，但基本原则适用于所选的特定日志框架。</p>
+<p>程序通常支持不同级别的保护。某些信息（如访问时间）可以安全记录。一些信息可以被记录下来，但是日志文件必须受限于每个人，但特定的管理员。其他信息（如信用卡号）只能以加密形式包含在日志中。密码等信息不应该被记录。</p>
+<p>对于下面的代码示例，日志位于正在记录的信息的信任边界之外。此外，正常的日志消息应该包含其他参数，例如日期，时间，源事件等等。为简洁起见，下面的代码示例中省略了这些信息。</p>
+<h4>缓解与预防</h4>
+<p>在传输之前使用可靠的加密方案加密数据。</p>
+<p>在使用带有SSL的Web应用程序时，请将SSL用于整个会话，从登录到登出，而不仅仅是初始登录页面。</p>
+<p>使用需要手动（人工）分析的工具和技术，例如渗透测试，威胁建模和交互式工具，以便测试人员记录和修改活动会话。 这些可能比严格的自动化技术更有效。 尤其是与设计和业务规则相关的弱点。</p>
+<p>配置服务器以使用加密通道进行通信，其中可能包括SSL或其他安全协议。</p>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例 1</h5>
+<p>在这个漏洞代码示例中，服务器在出现安全异常时记录远程客户端的IP地址。例如，这些数据可能会被误用来构建用户浏览习惯的配置文件。 这种日志记录可能会违反许多国家的法律限制。</p>
+<p>当日志不能包含IP地址时，它不应该包含有关SecurityException的任何信息，因为它可能会泄漏IP地址。 当异常包含敏感信息时，自定义的MyExceptionReporter类应该在将控制权返回给catch块中的下一条语句之前提取或清除它。</p>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logRemoteIPAddress</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">&quot;com.organization.Log&quot;</span><span class="o">);</span>
+  <span class="n">InetAddress</span> <span class="n">machine</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="k">try</span> <span class="o">{</span>
+    <span class="n">machine</span> <span class="o">=</span> <span class="n">InetAddress</span><span class="o">.</span><span class="na">getByName</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">UnknownHostException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Exception</span> <span class="n">e</span> <span class="o">=</span> <span class="n">MyExceptionReporter</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SecurityException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Exception</span> <span class="n">e</span> <span class="o">=</span> <span class="n">MyExceptionReporter</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">severe</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&quot;,&quot;</span> <span class="o">+</span> <span class="n">machine</span><span class="o">.</span><span class="na">getHostAddress</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;,&quot;</span> <span class="o">+</span>
+                  <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h5>漏洞代码修复示例 1</h5>
+<p>除了由MyExceptionReporter隐式执行的日志记录外，此漏洞代码修复示例不记录安全性异常：</p>
+<div class="highlight"><pre><span></span><span class="c1">// ...</span>
+<span class="k">catch</span> <span class="o">(</span><span class="n">SecurityException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Exception</span> <span class="n">e</span> <span class="o">=</span> <span class="n">MyExceptionReporter</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+<h5>漏洞代码示例 2</h5>
+<p>出于安全原因，包含敏感信息的日志消息不应打印到控制台显示屏上（敏感信息的一个可能示例是乘客年龄）。 java.util.logging.Logger类支持不同的日志记录级别，可用于对这些信息进行分类：FINEST，FINER，FINE，CONFIG，INFO，WARNING和SEVERE。 默认情况下，INFO，WARNING和SEVERE级别将消息打印到控制台，最终用户和系统管理员可以访问该控制台。
+如果我们假设乘客年龄可能出现在当前系统的日志文件中，但不在控制台显示屏上，则此代码示例不合规。</p>
+<div class="highlight"><pre><span></span><span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Age: &quot;</span> <span class="o">+</span> <span class="n">passengerAge</span><span class="o">);</span>
+</pre></div>
+<h5>漏洞代码修复示例 2</h5>
+<p>此漏洞代码修复示例将乘客使用年限记录在FINEST级别，以防止在控制台上显示此信息。如前所述，我们假设年龄可能出现在系统日志文件中，但不在控制台上。</p>
+<div class="highlight"><pre><span></span><span class="c1">// Make sure that all handlers only print log messages rated INFO or higher</span>
+<span class="n">Handler</span> <span class="n">handlers</span><span class="o">[]</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="na">getHandlers</span><span class="o">();</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">handlers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+  <span class="n">handlers</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">setLevel</span><span class="o">(</span><span class="n">Level</span><span class="o">.</span><span class="na">INFO</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="c1">// ...</span>
+<span class="n">logger</span><span class="o">.</span><span class="na">finest</span><span class="o">(</span><span class="s">&quot;Age: &quot;</span> <span class="o">+</span> <span class="n">passengerAge</span><span class="o">);</span>
+</pre></div>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/319.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://wiki.sei.cmu.edu/confluence/display/java/FIO13-J.+Do+not+log+sensitive+information+outside+a+trust+boundary.html<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

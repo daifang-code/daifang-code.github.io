@@ -1,0 +1,111 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0082">PE0082: LDAP Injection Vulnerability</h2>
+    <h3>LDAP Injection is an attack used to exploit web based applications that construct LDAP statements based on user input. </h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0082</dd>
+                    <dt>Tags</dt>
+                    <dd>Web, Java, Injection, CWE-116 ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The Lightweight Directory Access Protocol (LDAP) allows an application to remotely perform operations such as searching and modifying records in directories. LDAP injection results from inadequate input sanitization and validation and allows malicious users to glean restricted information using the directory service.</p>
+<p>A whitelist can be used to restrict input to a list of valid characters. Characters and character sequences that must be excluded from whitelists—including Java Naming and Directory Interface (JNDI) metacharacters and LDAP special characters—are listed in the following table.</p>
+<p>Characters and Sequences to Exclude from Whitelists</p>
+<p>|Character | name | 
+|--- | --- | 
+|   # |	Hash character at the beginning of the string |
+|   ' and &quot; |Single and double quote|
+|   ( and ) |Round braces|
+|   + and * |Addition and multiplication operators|
+|   , and ; |Comma and semicolon|
+|   / and \ |Forward slash and backslash|
+|   &lt; and &gt; |Angle brackets|
+|   \\ |Double slashes*|
+|   \u0000 |Unicode NULL character|
+|   space |Space character at beginning or end of string|
+This is a character sequence.</p>
+<h4>Vulnerability and risk</h4>
+<p>The table below specifies different individual consequences associated with the weakness. The Scope identifies the application security area that is violated, while the Impact describes the negative technical impact that arises if an adversary succeeds in exploiting this weakness. The Likelihood provides information about how likely the specific consequence is expected to be seen relative to the other consequences in the list. For example, there may be high likelihood that a weakness will be exploited to achieve a certain impact, but a low likelihood that it will be exploited to achieve a different impact.</p>
+<p>|Scope	|Impact|
+|--- | --- | 
+|Confidentiality|Technical Impact: Execute Unauthorized Code or Commands; Read Application Data; Modify Application Data|
+|Integrity Availability|An attacker could include input that changes the LDAP query which allows unintended commands or code to be executed, allows sensitive data to be read or modified or causes other unintended behavior. |</p>
+<h4>Potential Mitigations</h4>
+<p>1 Escape all variables using the right LDAP encoding function
+2 Use Frameworks that Automatically Protect from LDAP Injection
+3 Additional Defenses</p>
+<h4>Likelihood of Exploit</h4>
+<p>Critical</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code Example</h5>
+<p>This noncompliant code example allows a caller of the method searchRecord() to search for a record in the directory using the LDAP protocol. The string filter is used to filter the result set for those entries that match a user name and password supplied by the caller.</p>
+<div class="highlight"><pre><span></span><span class="c1">// String userSN = &quot;S*&quot;; // Invalid</span>
+<span class="c1">// String userPassword = &quot;*&quot;; // Invalid</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LDAPInjection</span> <span class="o">{</span>       
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">searchRecord</span><span class="o">(</span><span class="n">String</span> <span class="n">userSN</span><span class="o">,</span> <span class="n">String</span> <span class="n">userPassword</span><span class="o">)</span> 
+  <span class="kd">throws</span> <span class="n">NamingException</span> <span class="o">{</span>        
+    <span class="n">Hashtable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span>  <span class="n">env</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hashtable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;();</span>
+    <span class="n">env</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">INITIAL_CONTEXT_FACTORY</span><span class="o">,</span> <span class="s">&quot;com.sun.jndi.ldap.LdapCtxFactory&quot;</span><span class="o">);</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">DirContext</span> <span class="n">dctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InitialDirContext</span><span class="o">(</span><span class="n">env</span><span class="o">);</span>
+
+      <span class="n">SearchControls</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SearchControls</span><span class="o">();</span>
+      <span class="n">String</span><span class="o">[]</span> <span class="n">attributeFilter</span> <span class="o">=</span> <span class="o">{</span><span class="s">&quot;cn&quot;</span><span class="o">,</span> <span class="s">&quot;mail&quot;</span><span class="o">};</span>
+      <span class="n">sc</span><span class="o">.</span><span class="na">setReturningAttributes</span><span class="o">(</span><span class="n">attributeFilter</span><span class="o">);</span>
+      <span class="n">sc</span><span class="o">.</span><span class="na">setSearchScope</span><span class="o">(</span><span class="n">SearchControls</span><span class="o">.</span><span class="na">SUBTREE_SCOPE</span><span class="o">);</span>
+      <span class="n">String</span> <span class="n">base</span> <span class="o">=</span> <span class="s">&quot;dc=example,dc=com&quot;</span><span class="o">;</span>
+
+      <span class="c1">// The following resolves to (&amp;(sn=S*)(userPassword=*))     </span>
+      <span class="n">String</span> <span class="n">filter</span> <span class="o">=</span> <span class="s">&quot;(&amp;(sn=&quot;</span> <span class="o">+</span> <span class="n">userSN</span> <span class="o">+</span> <span class="s">&quot;)(userPassword=&quot;</span> <span class="o">+</span> <span class="n">userPassword</span> <span class="o">+</span> <span class="s">&quot;))&quot;</span><span class="o">;</span>
+
+      <span class="n">NamingEnumeration</span><span class="o">&lt;?&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">dctx</span><span class="o">.</span><span class="na">search</span><span class="o">(</span><span class="n">base</span><span class="o">,</span> <span class="n">filter</span><span class="o">,</span> <span class="n">sc</span><span class="o">);</span>
+      <span class="k">while</span> <span class="o">(</span><span class="n">results</span><span class="o">.</span><span class="na">hasMore</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">SearchResult</span> <span class="n">sr</span> <span class="o">=</span> <span class="o">(</span><span class="n">SearchResult</span><span class="o">)</span> <span class="n">results</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+        <span class="n">Attributes</span> <span class="n">attrs</span> <span class="o">=</span> <span class="o">(</span><span class="n">Attributes</span><span class="o">)</span> <span class="n">sr</span><span class="o">.</span><span class="na">getAttributes</span><span class="o">();</span>
+        <span class="n">Attribute</span> <span class="n">attr</span> <span class="o">=</span> <span class="o">(</span><span class="n">Attribute</span><span class="o">)</span> <span class="n">attrs</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;cn&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">attr</span><span class="o">);</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="o">(</span><span class="n">Attribute</span><span class="o">)</span> <span class="n">attrs</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;mail&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">attr</span><span class="o">);</span>
+      <span class="o">}</span>    
+      <span class="n">dctx</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NamingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// Forward to handler</span>
+    <span class="o">}</span>
+  <span class="o">}</span> 
+<span class="o">}</span>
+</pre></div>
+<p>When a malicious user enters specially crafted input, as outlined previously, this elementary authentication scheme fails to confine the output of the search query to the information for which the user has access privileges.</p>
+<h5>Fixed Code Example</h5>
+<p>This compliant solution uses a whitelist to sanitize user input so that the filter string contains only valid characters. In this code, userSN may contain only letters and spaces, whereas a password may contain only alphanumeric characters.</p>
+<div class="highlight"><pre><span></span><span class="c1">// String userSN = &quot;Sherlock Holmes&quot;; // Valid</span>
+<span class="c1">// String userPassword = &quot;secret2&quot;;   // Valid</span>
+
+<span class="c1">// ... beginning of LDAPInjection.searchRecord()...</span>
+<span class="n">sc</span><span class="o">.</span><span class="na">setSearchScope</span><span class="o">(</span><span class="n">SearchControls</span><span class="o">.</span><span class="na">SUBTREE_SCOPE</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">base</span> <span class="o">=</span> <span class="s">&quot;dc=example,dc=com&quot;</span><span class="o">;</span>
+
+<span class="k">if</span> <span class="o">(!</span><span class="n">userSN</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="s">&quot;[\\w\\s]*&quot;</span><span class="o">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">userPassword</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="s">&quot;[\\w]*&quot;</span><span class="o">))</span> <span class="o">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;Invalid input&quot;</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="n">String</span> <span class="n">filter</span> <span class="o">=</span> <span class="s">&quot;(&amp;(sn = &quot;</span> <span class="o">+</span> <span class="n">userSN</span> <span class="o">+</span> <span class="s">&quot;)(userPassword=&quot;</span> <span class="o">+</span> <span class="n">userPassword</span> <span class="o">+</span> <span class="s">&quot;))&quot;</span><span class="o">;</span>
+
+<span class="c1">// ... remainder of LDAPInjection.searchRecord()...</span>
+</pre></div>
+<p>When a database field such as a password must include special characters, it is critical to ensure that the authentic data is stored in sanitized form in the database and also that any user input is normalized before the validation or comparison takes place. Using characters that have special meanings in JNDI and LDAP in the absence of a comprehensive normalization and whitelisting-based routine is discouraged. Special characters must be transformed to sanitized, safe values before they are added to the whitelist expression against which input will be validated. Likewise, normalization of user input should occur before the validation step.</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/116.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://www.owasp.org/index.php/Top_10-2017_A1-Injection<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,58 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2093">PE2093: no-duplicate-imports</h2>
+    <h3>Disallow duplicate imports (no-duplicate-imports)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2093</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow duplicate imports (no-duplicate-imports)</h4>
+<p>Using a single <code>import</code> statement per module will make the code clearer because you can see everything being imported from that module on one line.</p>
+<p>In the following example the <code>module</code> import on line 1 is repeated on line 3. These can be combined to make the list of imports more succinct.</p>
+<div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">merge</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">something</span> <span class="nx">from</span> <span class="s1">&#39;another-module&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">find</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rules requires that all imports from a single module exists in a single <code>import</code> statement.</p>
+<p>Example of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-duplicate-imports: &quot;error&quot;*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">merge</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">something</span> <span class="nx">from</span> <span class="s1">&#39;another-module&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">find</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+</pre></div>
+<p>Example of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-duplicate-imports: &quot;error&quot;*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">merge</span><span class="p">,</span> <span class="nx">find</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">something</span> <span class="nx">from</span> <span class="s1">&#39;another-module&#39;</span><span class="p">;</span>
+</pre></div>
+<h2>Options</h2>
+<p>This rule takes one optional argument, an object with a single key, <code>includeExports</code> which is a <code>boolean</code>. It defaults to <code>false</code>.</p>
+<p>If re-exporting from an imported module, you should add the imports to the <code>import</code>-statement, and export that directly, not use <code>export ... from</code>.</p>
+<p>Example of <strong>incorrect</strong> code for this rule with the <code>{ &quot;includeExports&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-duplicate-imports: [&quot;error&quot;, { &quot;includeExports&quot;: true }]*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">merge</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">find</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+</pre></div>
+<p>Example of <strong>correct</strong> code for this rule with the <code>{ &quot;includeExports&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-duplicate-imports: [&quot;error&quot;, { &quot;includeExports&quot;: true }]*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">merge</span><span class="p">,</span> <span class="nx">find</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">find</span> <span class="p">};</span>
+</pre></div>
+
+    </section>
+</article>

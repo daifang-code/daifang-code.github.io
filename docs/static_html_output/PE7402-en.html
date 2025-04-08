@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7402">BE7402: Questionable cast to concrete collection</h2>
+    <h3>Questionable cast to concrete collection</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7402</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Questionable cast to concrete collection</p>
+<h4>Vulnerability and risk</h4>
+<p>
+This code casts an abstract collection (such as a Collection, List, or Set)
+to a specific concrete implementation (such as an ArrayList or HashSet).
+This might not be correct, and it may make your code fragile, since
+it makes it harder to switch to other concrete implementations at a future
+point. Unless you have a particular reason to do so, just use the abstract
+collection class.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

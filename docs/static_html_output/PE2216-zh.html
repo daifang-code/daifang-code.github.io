@@ -1,0 +1,185 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2216">PE2216: prefer-const</h2>
+    <h3>建议使用`const` (prefer-const)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2216</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>建议使用<code>const</code> (prefer-const)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>如果一个变量不会被重新赋值，最好使用<code>const</code>进行声明。</p>
+<p><code>const</code> 声明告诉读者，“这个变量从不会被重新赋值”，从而减少认知负荷，提高可维护性。</p>
+<h2>缺陷详因</h2>
+<p>该规则旨在标记那些使用 <code>let</code> 声明，但在初始化赋值后从未被修改过的变量。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-const: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// it&#39;s initialized and never reassigned.</span>
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">a</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+
+<span class="c1">// `i` is redefined (not reassigned) on each loop step.</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="k">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// `a` is redefined (not reassigned) on each loop step.</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">a</span> <span class="k">of</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-const: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// using const.</span>
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// it&#39;s never initialized.</span>
+<span class="kd">let</span> <span class="nx">a</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+
+<span class="c1">// it&#39;s reassigned after initialized.</span>
+<span class="kd">let</span> <span class="nx">a</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+
+<span class="c1">// it&#39;s initialized in a different block from the declaration.</span>
+<span class="kd">let</span> <span class="nx">a</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+
+<span class="c1">// it&#39;s initialized at a place that we cannot write a variable declaration.</span>
+<span class="kd">let</span> <span class="nx">a</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+
+<span class="c1">// `i` gets a new binding each iteration</span>
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">i</span> <span class="k">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// `a` gets a new binding each iteration</span>
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">a</span> <span class="k">of</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// `end` is never reassigned, but we cannot separate the declarations without modifying the scope.</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">end</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">end</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// suggest to use `no-var` rule.</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span>
+</pre></div>
+<h2>修改方案</h2>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;prefer-const&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nt">&quot;destructuring&quot;</span><span class="p">:</span> <span class="s2">&quot;any&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;ignoreReadBeforeAssign&quot;</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+<h5>destructuring</h5>
+<p>在解构中有多种方式处理变量。</p>
+<p>有 2 个值：</p>
+<ul>
+<li><code>&quot;any&quot;</code> (默认) - 在解构中，任何变量都应该是<code>const</code>，该规则将发出警告。</li>
+<li><code>&quot;all&quot;</code> - 在解构中，所有变量都应该是<code>const</code>，该规则将发出警告。否则，忽略它们。</li>
+</ul>
+<p>默认选项<code>{&quot;destructuring&quot;: &quot;any&quot;}</code>的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-const: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="p">{</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>    <span class="cm">/*error &#39;b&#39; is never reassigned, use &#39;const&#39; instead.*/</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+<p>默认选项 <code>{&quot;destructuring&quot;: &quot;any&quot;}</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-const: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// using const.</span>
+<span class="kr">const</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="nx">a0</span><span class="p">,</span> <span class="nx">b</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">a0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">// all variables are reassigned.</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">b</span> <span class="o">=</span> <span class="nx">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>{&quot;destructuring&quot;: &quot;all&quot;}</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-const: [&quot;error&quot;, {&quot;destructuring&quot;: &quot;all&quot;}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// all of `a` and `b` should be const, so those are warned.</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>    <span class="cm">/*error &#39;a&#39; is never reassigned, use &#39;const&#39; instead.</span>
+<span class="cm">                             &#39;b&#39; is never reassigned, use &#39;const&#39; instead.*/</span>
+</pre></div>
+<p>选项 <code>{&quot;destructuring&quot;: &quot;all&quot;}</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-const: [&quot;error&quot;, {&quot;destructuring&quot;: &quot;all&quot;}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// &#39;b&#39; is never reassigned, but all of `a` and `b` should not be const, so those are ignored.</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+<h5>ignoreReadBeforeAssign</h5>
+<p>这是一个避免与 <code>no-use-before-define</code> 规则（不带 <code>&quot;nofunc&quot;</code> 选项）产生冲突的选项。如果为 <code>true</code>，该规则将忽略声明和第一次赋值之间的变量。默认为 <code>false</code>。</p>
+<p>选项 <code>{&quot;ignoreReadBeforeAssign&quot;: true}</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-const: [&quot;error&quot;, {&quot;ignoreReadBeforeAssign&quot;: true}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">timer</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">initialize</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="nx">initialize</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+</pre></div>
+<p>默认选项 <code>{&quot;ignoreReadBeforeAssign&quot;: false}</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-const: [&quot;error&quot;, {&quot;ignoreReadBeforeAssign&quot;: false}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kr">const</span> <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="nx">initialize</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">initialize</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">())</span> <span class="p">{</span>
+        <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想被通知哪些变量初始化赋值后再没有被修改过，禁用此规则即可。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-var">no-var</a></li>
+<li><a href="no-use-before-define">no-use-before-define</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.23.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/prefer-const.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/prefer-const.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

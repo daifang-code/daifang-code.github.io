@@ -1,0 +1,196 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2243">PE2243: strict</h2>
+    <h3>要求或禁止使用严格模式指令 (strict)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2243</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求或禁止使用严格模式指令 (strict)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>严格模式指令是在脚本或函数体开始位置放置一个 <code>&quot;use strict&quot;</code> 字面量。它启用了严格模式语义。</p>
+<p>当指令出现在全局作用域，严格模式指令适用于整个脚本：</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="c1">// strict mode</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// strict mode</span>
+<span class="p">}</span>
+</pre></div>
+<p>当指令出现在函数体开始位置，严格模式指令只适用于那个函数，包括其内部函数：</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="c1">// strict mode</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo2</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// not strict mode</span>
+<span class="p">};</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// strict mode</span>
+    <span class="p">}</span>
+<span class="p">}());</span>
+</pre></div>
+<p>在 <strong>CommonJS</strong> 模块系统，a hidden function wraps each module and limits the scope of a &quot;global&quot; strict mode directive。</p>
+<p>在 <strong>ECMAScript</strong> 模块中，总是处于严格模式语义下，严格模式指令也就没必要了。</p>
+<h2>缺陷详因</h2>
+<p>该规则要求或禁止严格模式指令。</p>
+<p>该规则禁止严格模式指令，无论指定了下面的哪个选项 <a href="/docs/user-guide/configuring">parser options</a>：</p>
+<ul>
+<li><code>&quot;sourceType&quot;: &quot;module&quot;</code> 也就是说，文件是 <strong>ECMAScript</strong> 模块</li>
+<li><code>&quot;impliedStrict&quot;: true</code> <code>ecmaFeatures</code> 对象中的属性</li>
+</ul>
+<p>在有非常规参数列表（例如，有默认参数值）的函数中，不管指定的了什么选项，该规则禁止指定严格模式指令，因为 在 <strong>ECMAScript 2016</strong> 和以后的版本中将会报语法错误。查看<a href="#function">function</a> 选项。</p>
+<p>命令行的 <code>--fix</code> 选项不会插入新的 <code>&quot;use strict&quot;</code> 语句，只会移除不再需要的语句。</p>
+<h2>修改方案</h2>
+<p>该规则有一个字符串选项：</p>
+<ul>
+<li><code>&quot;safe&quot;</code> (默认) 对应下面的选项：<ul>
+<li><code>&quot;global&quot;</code> 如果 ESLint 认为一个文件是 <strong>CommonJS</strong> 模块</li>
+<li><code>&quot;function&quot;</code> 如果 ESLint 认为一个文件不是 <strong>CommonJS</strong> 模块</li>
+</ul>
+</li>
+<li><code>&quot;global&quot;</code> 要求在全局作用域下有一个严格模式指令（不允许任何其它严格模式指令）</li>
+<li><code>&quot;function&quot;</code> 要求在函数声明或表达式开始位置有一个严格模式指令（不允许任何其它严格模式指令）</li>
+<li><code>&quot;never&quot;</code> 禁用严格模式指令</li>
+</ul>
+<h5>safe</h5>
+<p>如果 ESLint 认为一个文件是 <strong>Node.js</strong> 或 <strong>CommonJS</strong> 模块，<code>&quot;safe&quot;</code> 选项就对应 <code>&quot;global&quot;</code> 选项，因为配置指定了下面中的一个：</p>
+<ul>
+<li><code>node</code> 或 <code>commonjs</code> <a href="/docs/user-guide/configuring">environments</a></li>
+<li><code>&quot;globalReturn&quot;: true</code> <a href="/docs/user-guide/configuring">parser options</a> 的 <code>ecmaFeatures</code> 对象中的属性</li>
+</ul>
+<p>否则 <code>&quot;safe&quot;</code> 选项就对应 <code>&quot;function&quot;</code> 选项。注意，如果在配置中显示指定了 <code>&quot;globalReturn&quot;: false</code>，则  <code>&quot;safe&quot;</code> 选项等同于 <code>&quot;function&quot;</code> 选项，不受限于所指定的环境。</p>
+<h5>global</h5>
+<p>选项 <code>&quot;global&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;global&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;global&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;global&quot;]*/</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>&quot;global&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;global&quot;]*/</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<h5>function</h5>
+<p>该个选项确保所有的函数体都是严格模式代码，而全局代码不是。特别是如果一个构建步骤链接多个脚本，一个脚本中的全局作用域的严格模式指令会无意间启用另一个脚本的严格模式。</p>
+<p>选项 <code>&quot;function&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;function&quot;]*/</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;function&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}());</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;function&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// Illegal &quot;use strict&quot; directive in function with non-simple parameter list.</span>
+<span class="c1">// This is a syntax error since ES2016.</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// We cannot write &quot;use strict&quot; directive in this function.</span>
+<span class="c1">// So we have to wrap this function with a function with &quot;use strict&quot; directive.</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>&quot;function&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;function&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">baz</span><span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">}());</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">};</span>
+<span class="p">}());</span>
+</pre></div>
+<h5>never</h5>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>在既有严格模式也有非严格模式的代码库中，可以关闭此规则，或必要时<a href="/docs/user-guide/configuring">选择性地禁用严格模式</a>。例如，函数引用 <code>arguments.callee</code>在严格模式下是无效的。可以看一下 MDN 上的这篇文章<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode/Transitioning_to_strict_mode#Differences_from_non-strict_to_strict">《严格模式的区别》</a>。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.1.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/strict.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/strict.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

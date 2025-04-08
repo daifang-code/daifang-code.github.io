@@ -1,0 +1,203 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2013">PE2013: capitalized-comments</h2>
+    <h3>强制或禁止对注释的第一个字母大写 (capitalized-comments)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2013</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制或禁止对注释的第一个字母大写 (capitalized-comments)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>注释可以为将来的开发人员留下信息，这很有用。为了使这些信息有用而不是分散注意力，有时候，注释需要遵循某种特定的风格。有一种注释格式化风格是注释的第一个字是否应该大写或小写。</p>
+<p>一般来说，没有任何注释风格比其他注释风格更有效，但是许多开发人员都认为一致的风格可以提高项目的可维护性。</p>
+<h2>缺陷详因</h2>
+<p>该规则的目的是在你的代码库中强制使用一种一致的注释风格，特别是在注释中要求或禁止第一个字母为大写字母。当使用非大小写的字母时，该规则将不会发出警告。</p>
+<p>默认情况下，该规则要求在注释的开始位置有一个非小写的字母。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint capitalized-comments: [&quot;error&quot;] */</span>
+
+<span class="c1">// lowercase comment</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="c1">// Capitalized comment</span>
+
+<span class="c1">// 1. Non-letter at beginning of comment</span>
+
+<span class="c1">// 丈 Non-Latin character at beginning of comment</span>
+
+<span class="cm">/* eslint semi:off */</span>
+<span class="cm">/* eslint-env node */</span>
+<span class="cm">/* eslint-disable */</span>
+<span class="cm">/* eslint-enable */</span>
+<span class="cm">/* istanbul ignore next */</span>
+<span class="cm">/* jscs:enable */</span>
+<span class="cm">/* jshint asi:true */</span>
+<span class="cm">/* global foo */</span>
+<span class="cm">/* globals foo */</span>
+<span class="cm">/* exported myVar */</span>
+<span class="c1">// eslint-disable-line</span>
+<span class="c1">// eslint-disable-next-line</span>
+<span class="c1">// https://github.com</span>
+</pre></div>
+<h5>修改方案</h5>
+<p>该规则有两个选项：一个值为 <code>&quot;always&quot;</code> 或 <code>&quot;never&quot;</code> 的字符串，来决定是否要求或禁止一个注释的第一个字母，以及一个可包含更多配置参数的对象选项。</p>
+<p>以下是对象选项：</p>
+<ul>
+<li><code>ignorePattern</code>: 应该被该规则忽略的单词的正则表达式。如果注释的第一个字母与模式匹配，该规则将不会报告该注释。<ul>
+<li>注意，以下单词总是被该规则忽略：<code>[&quot;jscs&quot;, &quot;jshint&quot;, &quot;eslint&quot;, &quot;istanbul&quot;, &quot;global&quot;, &quot;globals&quot;, &quot;exported&quot;]</code>。</li>
+</ul>
+</li>
+<li><code>ignoreInlineComments</code>: 如果为 <code>true</code>， 该规则将不会报告行内注释。默认为 <code>false</code>。</li>
+<li><code>ignoreConsecutiveComments</code>: 如果为 <code>true</code>，该规则将不会报告违反此规则的注释，只要该注释紧随另一注释。。默认为 <code>false</code>。</li>
+</ul>
+<p>以下是一个示例配置：</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;capitalized-comments&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;always&quot;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;ignorePattern&quot;</span><span class="p">:</span> <span class="s2">&quot;pragma|ignored&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;ignoreInlineComments&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<h5><code>&quot;always&quot;</code></h5>
+<p><code>&quot;always&quot;</code> 选项意味着该规则将报告任何以小写字母开始的注释。这是该规则的默认配置。</p>
+<p>注意，该规则不会报告 eslint 的配置注释 和 以 URL 开始的注释。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint capitalized-comments: [&quot;error&quot;, &quot;always&quot;] */</span>
+
+<span class="c1">// lowercase comment</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint capitalized-comments: [&quot;error&quot;, &quot;always&quot;] */</span>
+
+<span class="c1">// Capitalized comment</span>
+
+<span class="c1">// 1. Non-letter at beginning of comment</span>
+
+<span class="c1">// 丈 Non-Latin character at beginning of comment</span>
+
+<span class="cm">/* eslint semi:off */</span>
+<span class="cm">/* eslint-env node */</span>
+<span class="cm">/* eslint-disable */</span>
+<span class="cm">/* eslint-enable */</span>
+<span class="cm">/* istanbul ignore next */</span>
+<span class="cm">/* jscs:enable */</span>
+<span class="cm">/* jshint asi:true */</span>
+<span class="cm">/* global foo */</span>
+<span class="cm">/* globals foo */</span>
+<span class="cm">/* exported myVar */</span>
+<span class="c1">// eslint-disable-line</span>
+<span class="c1">// eslint-disable-next-line</span>
+<span class="c1">// https://github.com</span>
+</pre></div>
+<h5><code>&quot;never&quot;</code></h5>
+<p><code>&quot;never&quot;</code> 选项意味着该规则将报告任何以大写字母开始的注释。</p>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint capitalized-comments: [&quot;error&quot;, &quot;never&quot;] */</span>
+
+<span class="c1">// Capitalized comment</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint capitalized-comments: [&quot;error&quot;, &quot;never&quot;] */</span>
+
+<span class="c1">// lowercase comment</span>
+
+<span class="c1">// 1. Non-letter at beginning of comment</span>
+
+<span class="c1">// 丈 Non-Latin character at beginning of comment</span>
+</pre></div>
+<h5><code>ignorePattern</code></h5>
+<p><code>ignorePattern</code> 值为字符串，该字符串作为一个正则表达式应用到注释的第一个字母。</p>
+<p>选项 <code>{ &quot;ignorePattern&quot;: &quot;pragma&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint capitalized-comments: [&quot;error&quot;, &quot;always&quot;, { &quot;ignorePattern&quot;: &quot;pragma&quot; }] */</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="cm">/* pragma wrap(true) */</span>
+<span class="p">}</span>
+</pre></div>
+<h5><code>ignoreInlineComments</code></h5>
+<p>设置选项 <code>ignoreInlineComments</code> 为 <code>true</code> 意味着该规则不会报告代码中的注释（在同一行中，一个标记作为注释的开始，另一个标记作为注释的结尾）。</p>
+<p>选项 <code>{ &quot;ignoreInlineComments&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint capitalized-comments: [&quot;error&quot;, &quot;always&quot;, { &quot;ignoreInlineComments&quot;: true }] */</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="cm">/* ignored */</span> <span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<h5><code>ignoreConsecutiveComments</code></h5>
+<p>设置选项 <code>ignoreInlineComments</code> 为 <code>true</code>，违反此规则的注释将不会被报告，只要该注释紧随另一个注释。可以被应用多次。</p>
+<p>选项 <code>{ &quot;ignoreConsecutiveComments&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint capitalize-comments: [&quot;error&quot;, &quot;always&quot;, { &quot;ignoreConsecutiveComments&quot;: true }] */</span>
+
+<span class="c1">// This comment is valid since it has the correct capitalization.</span>
+<span class="c1">// this comment is ignored since it follows another comment,</span>
+<span class="c1">// and this one as well because it follows yet another comment.</span>
+
+<span class="cm">/* Here is a block comment which has the correct capitalization, */</span>
+<span class="cm">/* but this one is ignored due to being consecutive; */</span>
+<span class="cm">/*</span>
+<span class="cm"> * in fact, even if any of these are multi-line, that is fine too.</span>
+<span class="cm"> */</span>
+</pre></div>
+<p>选项 <code>{ &quot;ignoreConsecutiveComments&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint capitalize-comments: [&quot;error&quot;, &quot;always&quot;, { &quot;ignoreConsecutiveComments&quot;: true }] */</span>
+
+<span class="c1">// this comment is invalid, but only on this line.</span>
+<span class="c1">// this comment does NOT get reported, since it is a consecutive comment.</span>
+</pre></div>
+<h5>Using Different 修改方案 for Line and Block Comments</h5>
+<p>如果你想对行注释和块注释进行不同的配置，你可以用两个不同的配置对象（注意，对行注释和块注释，将强制使用一致的大写选项）：</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;capitalized-comments&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;always&quot;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;line&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;ignorePattern&quot;</span><span class="p">:</span> <span class="s2">&quot;pragma|ignored&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;block&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;ignoreInlineComments&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nt">&quot;ignorePattern&quot;</span><span class="p">:</span> <span class="s2">&quot;ignored&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<p>不同的行和块注释配置的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint capitalized-comments: [&quot;error&quot;, &quot;always&quot;, { &quot;block&quot;: { &quot;ignorePattern&quot;: &quot;blockignore&quot; } }] */</span>
+
+<span class="c1">// capitalized line comment, this is incorrect, blockignore does not help here</span>
+<span class="cm">/* lowercased block comment, this is incorrect too */</span>
+</pre></div>
+<p>不同的行和块注释配置的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint capitalized-comments: [&quot;error&quot;, &quot;always&quot;, { &quot;block&quot;: { &quot;ignorePattern&quot;: &quot;blockignore&quot; } }] */</span>
+
+<span class="c1">// Uppercase line comment, this is correct</span>
+<span class="cm">/* blockignore lowercase block comment, this is correct due to ignorePattern */</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不关心代码库中注释的语法风格，你可以禁用此规则。</p>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS</strong>: <a href="http://jscs.info/rule/requireCapitalizedComments">requireCapitalizedComments</a> and <a href="http://jscs.info/rule/disallowCapitalizedComments">disallowCapitalizedComments</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 3.11.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/capitalized-comments.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/capitalized-comments.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

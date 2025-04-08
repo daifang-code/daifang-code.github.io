@@ -1,0 +1,35 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2027">SC2027: Improper quote usage</h2>
+    <h3>The surrounding quotes actually unquote this. Remove or escape them.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2027</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>The surrounding quotes actually unquote this. Remove or escape them.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;You enter &quot;</span><span class="nv">$HOSTNAME</span><span class="s2">&quot;. You can smell the wumpus.&quot;</span> &gt;&gt; /etc/issue
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;You enter </span><span class="nv">$HOSTNAME</span><span class="s2">. You can smell the wumpus.&quot;</span> &gt;&gt; /etc/issue
+</pre></div>
+<h5>Rationale:</h5>
+<p>Always quoting variables and command expansions is good practice, but blindly putting quotes left and right of them is not.</p>
+<p>In this case, ShellCheck has noticed that the quotes around the expansion are unquoting it, because the left quote is terminating an existing double quoted string, while the right quote starts a new one:</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;You enter &quot;</span><span class="nv">$HOSTNAME</span><span class="s2">&quot;. You can smell the wumpus.&quot;</span>
+     <span class="p">|</span>----------<span class="p">|</span>         <span class="p">|</span>---------------------------<span class="p">|</span>
+        Quoted   No quotes           Quoted
+</pre></div>
+<p>If the quotes were supposed to be literal, they should be escaped. If the quotes were supposed to quote an expansion (as in the example), they should be removed because this is already a double quoted string.</p>
+<h5>Exceptions</h5>
+<p>None.</p>
+
+    </section>
+</article>

@@ -1,0 +1,134 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2191">PE2191: no-use-before-define</h2>
+    <h3>Disallow Early Use (no-use-before-define)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2191</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow Early Use (no-use-before-define)</h4>
+<p>In JavaScript, prior to ES6, variable and function declarations are hoisted to the top of a scope, so it's possible to use identifiers before their formal declarations in code. This can be confusing and some believe it is best to always declare variables and functions before using them.</p>
+<p>In ES6, block-level bindings (<code>let</code> and <code>const</code>) introduce a &quot;temporal dead zone&quot; where a <code>ReferenceError</code> will be thrown with any attempt to access the variable before its declaration.</p>
+<h2>Rule Details</h2>
+<p>This rule will warn when it encounters a reference to an identifier that has not yet been declared.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-use-before-define: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="nx">f</span><span class="p">();</span>
+<span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="kd">function</span> <span class="nx">g</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">c</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-use-before-define: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{}</span>
+<span class="nx">f</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">g</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">c</span><span class="p">;</span>
+    <span class="nx">c</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Options</h2>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;no-use-before-define&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;functions&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&quot;classes&quot;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+<ul>
+<li><code>functions</code> (<code>boolean</code>) -
+The flag which shows whether or not this rule checks function declarations.
+If this is <code>true</code>, this rule warns every reference to a function before the function declaration.
+Otherwise, ignores those references.
+Function declarations are hoisted, so it's safe.
+Default is <code>true</code>.</li>
+<li><code>classes</code> (<code>boolean</code>) -
+The flag which shows whether or not this rule checks class declarations of upper scopes.
+If this is <code>true</code>, this rule warns every reference to a class before the class declaration.
+Otherwise, ignores those references if the declaration is in upper function scopes.
+Class declarations are not hoisted, so it might be danger.
+Default is <code>true</code>.</li>
+<li><code>variables</code> (<code>boolean</code>) -
+This flag determines whether or not the rule checks variable declarations in upper scopes.
+If this is <code>true</code>, the rule warns every reference to a variable before the variable declaration.
+Otherwise, the rule ignores a reference if the declaration is in an upper scope, while still reporting the reference if it's in the same scope as the declaration.
+Default is <code>true</code>.</li>
+</ul>
+<p>This rule accepts <code>&quot;nofunc&quot;</code> string as an option.
+<code>&quot;nofunc&quot;</code> is the same as <code>{ &quot;functions&quot;: false, &quot;classes&quot;: true }</code>.</p>
+<h5>functions</h5>
+<p>Examples of <strong>correct</strong> code for the <code>{ &quot;functions&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-use-before-define: [&quot;error&quot;, { &quot;functions&quot;: false }]*/</span>
+
+<span class="nx">f</span><span class="p">();</span>
+<span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{}</span>
+</pre></div>
+<h5>classes</h5>
+<p>Examples of <strong>incorrect</strong> code for the <code>{ &quot;classes&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-use-before-define: [&quot;error&quot;, { &quot;classes&quot;: false }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the <code>{ &quot;classes&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-use-before-define: [&quot;error&quot;, { &quot;classes&quot;: false }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<h5>variables</h5>
+<p>Examples of <strong>incorrect</strong> code for the <code>{ &quot;variables&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-use-before-define: [&quot;error&quot;, { &quot;variables&quot;: false }]*/</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the <code>{ &quot;variables&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-use-before-define: [&quot;error&quot;, { &quot;variables&quot;: false }]*/</span>
+
+<span class="kd">function</span> <span class="nx">baz</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+
+    </section>
+</article>

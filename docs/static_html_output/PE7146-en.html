@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7146">BE7146: Mutable servlet field</h2>
+    <h3>Mutable servlet field</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7146</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Mutable servlet field</p>
+<h4>Vulnerability and risk</h4>
+<p>A web server generally only creates one instance of servlet or JSP class (i.e., treats
+the class as a Singleton),
+and will
+have multiple threads invoke methods on that instance to service multiple
+simultaneous requests.
+Thus, having a mutable instance field generally creates race conditions.
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

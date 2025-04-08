@@ -1,0 +1,125 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0061">PE0061: Resource Leak</h2>
+    <h3>Limited resources such as file descriptors and network connections are not properly released after using, possibly slowing down the software or causing a denial of service.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0061</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP, JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Limited resources include memory, file system storage, database connection pool entries, and CPU. If an attacker can trigger the allocation of these limited resources, but the number or size of the resources is not controlled, then the attacker could cause a denial of service that consumes all available resources. This would prevent valid users from accessing the software, and it could potentially have an impact on the surrounding environment. For example, a memory exhaustion attack against an application could slow down the application as well as its host operating system.</p>
+<p>There are at least three distinct scenarios which can commonly lead to resource exhaustion:</p>
+<ul>
+<li>Lack of throttling for the number of allocated recources.</li>
+<li>Losing all references to a resource before reaching the shutdown stage.</li>
+<li>Not closing/returning resource after processing .</li>
+</ul>
+<p>Resource exhaustion problems are often result due to an incorrect implementation of the following situations:</p>
+<ul>
+<li>Error conditions and other exceptional circumstances.</li>
+<li>Confusion over which part of the program is responsible for releasing the resource.</li>
+</ul>
+<h4>Vulnerability and risk</h4>
+<ul>
+<li>The most common result of resource exhaustion is denial of service. The software may slow down, crash due to unhandled errors, or lock out legitimate users.</li>
+<li>In some cases it may be possible to force the software to &quot;fail open&quot; in the event of resource exhaustion. The state of the software -- and possibly the security functionality - may then be compromised.</li>
+</ul>
+<h4>Likelihood of Exploit</h4>
+<p>High</p>
+<h4>Potential Mitigations</h4>
+<p>Release or close the resource descriptor after its use.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code Example1</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">bad</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">FILE</span> <span class="o">*</span><span class="n">f</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">some_error</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// Resource leak</span>
+  <span class="n">fclose</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed Code Example1</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">good</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">FILE</span> <span class="o">*</span><span class="n">f</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">some_error</span><span class="p">){</span>
+    <span class="n">fclose</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">fclose</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Vulnerable code Example2</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">file_desc_leak</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">some_error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">some_error</span><span class="p">)</span> <span class="c1">// The resource leak when if case is true.</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed Code Example2</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">file_desc_leak</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">some_error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">some_error</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+      <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Vulnerable code Example3</h5>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Example</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">FileInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;test&quot;</span><span class="o">));</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">inputStream</span><span class="o">.</span><span class="na">read</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p>In the above code, the &quot;inputStream&quot; is no longer used after being allocated, and the &quot;inputStream&quot; that is not released after the main () is executed, a resource leak occurs.</p>
+<h5>Fixed Code Example3</h5>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Example</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">FileInputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;test&quot;</span><span class="o">));</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">inputStream</span><span class="o">.</span><span class="na">read</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">inputStream</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="n">inputStream</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span> <span class="n">e</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p>In finally{}, the &quot;inputStream&quot; is closed.</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://wiki.sei.cmu.edu/confluence/display/c/FIO42-C.+Close+files+when+they+are+no+longer+needed<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://wiki.sei.cmu.edu/confluence/display/cplusplus/FIO51-CPP.+Close+files+when+they+are+no+longer+needed<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+<li id="fn-3"><p>https://cwe.mitre.org/data/definitions/400.html<a href="#fnref-3" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

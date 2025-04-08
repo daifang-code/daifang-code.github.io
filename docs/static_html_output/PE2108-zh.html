@@ -1,0 +1,170 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2108">PE2108: no-fallthrough</h2>
+    <h3>禁止 case 语句落空 (no-fallthrough)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2108</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止 case 语句落空 (no-fallthrough)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>在 JavaScript 中，<code>switch</code> 语句是一种比较容易出错的结构，在某种程度上这要归功于 <code>case</code> 的落空能力。比如：</p>
+<div class="highlight"><pre><span></span><span class="k">switch</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomethingElse</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>在这个例子中，如果 <code>foo</code> 值为 <code>1</code>，两个 case 语句都会执行。你可以使用 <code>break</code> 阻止这种情况，例如以下例子：</p>
+<div class="highlight"><pre><span></span><span class="k">switch</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomethingElse</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>当你不想要落空时是没有问题的，但是，如果落空是有意为之呢，没有办法来表明这一点。使用匹配 <code>/falls?\s?through/i</code> 的正则表达式的注释来表明落空是有意为之的，，被认为是一个最佳实际。</p>
+<div class="highlight"><pre><span></span><span class="k">switch</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="c1">// falls through</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomethingElse</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="c1">// fall through</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomethingElse</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="c1">// fallsthrough</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomethingElse</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>在这个例子中，不会再引起困惑。很明显，第一个 case 的意思是要落空到第二个 case。</p>
+<h2>缺陷详因</h2>
+<p>该规则旨在消除非故意 case 落空行为。因此，它会标记处没有使用注释标明的落空情况。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-fallthrough: &quot;error&quot;*/</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-fallthrough: &quot;error&quot;*/</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">bar</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+            <span class="nx">doSomething</span><span class="p">();</span>
+            <span class="k">return</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+            <span class="nx">doSomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Boo!&quot;</span><span class="p">);</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="c1">// falls through</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>注意，在上面的例子中，最后的 <code>case</code> 语句，不会引起警告，因为没有可落空的语句了。</p>
+<h2>修改方案</h2>
+<p>该规则接受单个选项参数：</p>
+<ul>
+<li>设置 <code>commentPattern</code> 选项为一个正则表达式字符串，来改变对有意为之的落空注释的检索</li>
+</ul>
+<h5>commentPattern</h5>
+<p>选项 <code>{ &quot;commentPattern&quot;: &quot;break[\\s\\w]*omitted&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-fallthrough: [&quot;error&quot;, { &quot;commentPattern&quot;: &quot;break[\\s\\w]*omitted&quot; }]*/</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="c1">// break omitted</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="c1">// caution: break is omitted intentionally</span>
+
+    <span class="k">default</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想强制每个 <code>case</code> 语句中都要以 <code>throw</code>、<code>return</code>、<code>break</code>或者注释作为结束，你可以关闭此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="default-case">default-case</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.7 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-fallthrough.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-fallthrough.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

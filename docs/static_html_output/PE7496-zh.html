@@ -1,0 +1,40 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7496">BE7496: FilenameUtils不过滤空字节</h2>
+    <h3>FilenameUtils不过滤空字节</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7496</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>FilenameUtils不过滤空字节</p>
+<h4>漏洞与风险</h4>
+<p>一些FilenameUtils的方法不过滤NULL字节 （<code>0x00</code>）。</p>
+<p>如果一个空字节被注入到一个文件名中，如果这个文件名被传递给底层操作系统，
+检索的文件将是在NULL字节之前指定的文件的名称，
+因为在操作系统级别，所有字符串都被null字节终止，尽管Java本身并不关心null字节或对其进行特殊处理。
+这个操作系统的行为可以用来绕过在文件名末尾的文件名验证（例如，以“.log”结尾），以确保它是一个安全的文件。</p>
+<p>为了解决这个问题，下面两件事是推荐的：
+<ul>
+<li>升级到Java 7更新40或更高版本，或者Java 8+，因为
+<a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=8014846">NULL byte injection in filenames is fixed in those versions</a>.</li>
+<li>强烈验证不可信用户提供的任何文件名以确保它们是有效的（例如不包含null，不包括路径字符，等等。）</li>
+</ul>
+<p>如果您知道您正在使用一个对NULL字节注入免疫的最新版本的Java，您也可以会禁用这个规则。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://projects.webappsec.org/w/page/13246949/Null%20Byte%20Injection&quot;&gt;WASC-28: Null Byte Injection&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/158.html&quot;&gt;CWE-158: Improper Neutralization of Null Byte or NUL Character&lt;/a&gt;</p>
+</p>
+
+    </section>
+</article>

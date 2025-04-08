@@ -1,0 +1,61 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2155">PE2155: no-regex-spaces</h2>
+    <h3>禁止正则表达式字面量中出现多个空格 (no-regex-spaces)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2155</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止正则表达式字面量中出现多个空格 (no-regex-spaces)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>正则表达式可以很复杂和难以理解，这就是为什么要保持它们尽可能的简单，以避免出现错误。你在使用正则表达式时最容易出错的是使用了多个空格，例如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">re</span> <span class="o">=</span> <span class="sr">/foo   bar/</span><span class="p">;</span>
+</pre></div>
+<p>在这个正则表达式中，很难断定想要匹配多少个空格。最好是只使用一个空格，然后指定需要多少个，例如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">re</span> <span class="o">=</span> <span class="sr">/foo {3}bar/</span><span class="p">;</span>
+</pre></div>
+<p>现在非常清楚地知道需要匹配 3 个空格。</p>
+<h2>缺陷详因</h2>
+<p>该规则禁止在正则表达式字面量中出现多个空格。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-regex-spaces: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">re</span> <span class="o">=</span> <span class="sr">/foo   bar/</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">re</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">&quot;foo   bar&quot;</span><span class="p">);</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-regex-spaces: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">re</span> <span class="o">=</span> <span class="sr">/foo {3}bar/</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">re</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">&quot;foo {3}bar&quot;</span><span class="p">);</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你允许多个空格出现在正则表达式中，你可以关闭此规则。</p>
+<h2>更多解释</h2>
+<ul>
+<li><a href="http://jslinterrors.com/spaces-are-hard-to-count-use-a/">Spaces are hard to count</a></li>
+</ul>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-div-regex">no-div-regex</a></li>
+<li><a href="no-control-regex">no-control-regex</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.4.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-regex-spaces.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-regex-spaces.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

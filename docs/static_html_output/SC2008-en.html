@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2008">SC2008: Using pipe for 'echo'</h2>
+    <h3>echo doesn't read from stdin, are you sure you should be piping to it?</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2008</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>echo doesn't read from stdin, are you sure you should be piping to it?</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>find . <span class="p">|</span> <span class="nb">echo</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>find .
+</pre></div>
+<h5>Rationale:</h5>
+<p>You are piping command output to <code>echo</code>, but <code>echo</code> ignores all piped input.</p>
+<p>In particular, <code>echo</code> is not responsible for putting output on screen. Commands already output data, and with no further actions that will end up on screen.</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

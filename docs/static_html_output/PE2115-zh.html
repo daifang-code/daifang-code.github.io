@@ -1,0 +1,53 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2115">PE2115: no-inline-comments</h2>
+    <h3>禁止使用内联注释 (no-inline-comments)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2115</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止使用内联注释 (no-inline-comments)</h4>
+<p>一些风格指南禁止注释和代码出现在同一行。如果注释紧随代码，会使代码是变得难以阅读。另一方面，将注释放在代码后面会快更明显。</p>
+<h2>缺陷详因</h2>
+<p>该规则禁止注释和代码出现在同一行。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-inline-comments: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// declaring a to 1</span>
+
+<span class="kd">function</span> <span class="nx">getRandomNumber</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// chosen by fair dice roll.</span>
+              <span class="c1">// guaranteed to be random.</span>
+<span class="p">}</span>
+
+<span class="cm">/* A block comment before code */</span> <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="cm">/* A block comment after code */</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-inline-comments: &quot;error&quot;*/</span>
+
+<span class="c1">// This is a comment above a line of code</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="c1">//This is a comment below a line of code</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.10.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-inline-comments.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-inline-comments.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

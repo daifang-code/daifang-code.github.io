@@ -1,0 +1,48 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0004">PE0004: 不正确地使用sizeof</h2>
+    <h3>不正确地使用sizeof计算类型的大小。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0004</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP, JAVA, CSHARP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在代码中使用memset函数来重置内存的值会与期望获取的大小不符。这种情况通常发生在sizeof关键字的使用上面。意图使用sizeof计算实际类型的大小，结果却计算了指针的大小。这种情况会导致重置内存少于期望重置的大小，最后导致未定义行为。</p>
+<h4>漏洞与风险</h4>
+<h5>未定义行为</h5>
+<p>使用sizeof计算实际类型的大小，结果却计算了指针的大小，可能会导致未定义的行为。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>正确地使用sizeof操作符。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BB</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">BB</span> <span class="n">buf</span><span class="p">;</span>
+    <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">));</span> <span class="c1">// bad</span>
+<span class="p">}</span>
+</pre></div>
+<p>在第6行代码调用memset时，使用sizeof(&amp;buf)而非sizeof(buf)来获取结构体buf的bytes，100个bytes中只有4个或8个bytes被置为0。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BB</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">BB</span> <span class="n">buf</span><span class="p">;</span>
+    <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span> <span class="c1">// good</span>
+<span class="p">}</span>
+</pre></div>
+<p>在第6行代码调用memset时，正确地使用sizeof(buf)来获取结构体buf的bytes，100个bytes都会被置为0。</p>
+
+    </section>
+</article>

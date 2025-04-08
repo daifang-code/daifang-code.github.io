@@ -1,0 +1,46 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1012">SC1012: Invalid printing of \t</h2>
+    <h3>`\t` is just literal `t` here. For tab, use `"$(printf '\t')"` instead.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1012</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2><code>\t</code> is just literal <code>t</code> here. For tab, use <code>&quot;$(printf '\t')&quot;</code> instead.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="c1"># Want tab</span>
+<span class="nv">var</span><span class="o">=</span>foo<span class="se">\t</span>bar
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><span class="c1"># Want linefeed</span>
+<span class="nv">var</span><span class="o">=</span>foo<span class="se">\n</span>bar
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">var</span><span class="o">=</span><span class="s2">&quot;foo</span><span class="k">$(</span><span class="nb">printf</span> <span class="s1">&#39;\t&#39;</span><span class="k">)</span><span class="s2">bar&quot;</span>  <span class="c1"># As suggested in warning</span>
+<span class="nv">var</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">printf</span> <span class="s1">&#39;foo\tbar&#39;</span><span class="k">)</span><span class="s2">&quot;</span>  <span class="c1"># Equivalent alternative</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><span class="c1"># Literal, quoted linefeed</span>
+<span class="nv">line</span><span class="o">=</span><span class="s2">&quot;foo</span>
+<span class="s2">bar&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck has found a <code>\t</code>, <code>\n</code> or <code>\r</code> in a context where they just become regular letter <code>t</code>, <code>n</code> or <code>r</code>. Most likely, it was intended as a tab, linefeed or carriage return.</p>
+<p>To generate such characters (plus other less common ones including <code>\a</code>, <code>\f</code> and octal escapes) , use <code>printf</code> as in the example. The exception is for linefeeds that would be stripped by command substitution; in these cases, use a literal quoted linefeed instead.</p>
+<p>Other characters like <code>\z</code> generate a [[SC1001]] info message, as the intent is less certain.</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+<h5>Related resources:</h5>
+<ul>
+<li>Help by adding links to BashFAQ, StackOverflow, man pages, POSIX, etc!</li>
+</ul>
+
+    </section>
+</article>

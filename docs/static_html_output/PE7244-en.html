@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7244">BE7244: Useless non-empty void method</h2>
+    <h3>Useless non-empty void method</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7244</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Useless non-empty void method</p>
+<h4>Vulnerability and risk</h4>
+<p>Our analysis shows that this non-empty void method does not actually perform any useful work.
+Please check it: probably there's a mistake in its code or its body can be fully removed.
+</p>
+<p>We are trying to reduce the false positives as much as possible, but in some cases this warning might be wrong.
+Common false-positive cases include:</p>
+<ul>
+<li>The method is intended to trigger loading of some class which may have a side effect.</li>
+<li>The method is intended to implicitly throw some obscure exception.</li>
+</ul>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

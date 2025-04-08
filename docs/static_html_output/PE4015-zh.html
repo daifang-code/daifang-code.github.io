@@ -1,0 +1,84 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4015">PE4015: 未使用盐值计算散列值</h2>
+    <h3>软件针对口令等不应可逆的输入使用了单向加密散列，但未使用盐值。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE4015</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>软件针对口令等不应可逆的输入使用了单向加密散列，但未使用盐值。</p>
+<h4>漏洞与风险</h4>
+<p>如果未使用盐值计算散列值，攻击者就更容易利用彩虹表等字典攻击技术破解口令。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>要避免该漏洞，你应该：</p>
+<ul>
+<li>使用盐值计算散列值，增加攻击者破解口令的难度。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;sha.h&quot;</span><span class="cp"></span>
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">CryptoPP</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">encryptor</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">input</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">output</span><span class="p">)</span>  <span class="c1">//加密函数，输出参数返回加密后的字符串</span>
+<span class="p">{</span>
+    <span class="n">SHA256</span> <span class="n">sha256</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">Sha256</span><span class="p">.</span><span class="n">enc</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">output</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">password</span><span class="p">)</span>  <span class="c1">//password最大长度为20个字符</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+    <span class="kt">char</span> <span class="n">psw</span><span class="p">[</span><span class="mi">1024</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">encryptor</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">psw</span><span class="p">);</span>  <span class="c1">//仅使用单向加密，还是容易被攻击者用彩虹表等方式破解口令</span>
+    <span class="c1">//将加密得到的psw字符串存储到数据库中</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<h5>规范用法示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;sha.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;aes.h&quot;</span><span class="cp"></span>
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">CryptoPP</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">encryptor</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">input</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">output</span><span class="p">)</span>  <span class="c1">//加密函数，输出参数返回加密后的字符串</span>
+<span class="p">{</span>
+    <span class="n">SHA256</span> <span class="n">sha256</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">Sha256</span><span class="p">.</span><span class="n">enc</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">output</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">send_salt</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">salt</span><span class="p">)</span>  <span class="c1">//用AES算法加密盐值后传输到另一台服务器上</span>
+<span class="p">{</span>
+    <span class="n">AESEncryption</span> <span class="n">aesEncryptor</span><span class="p">;</span>
+    <span class="p">...</span>
+    <span class="kt">char</span> <span class="n">output</span><span class="p">[</span><span class="mi">1024</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">aesEncryptor</span><span class="p">.</span><span class="n">enc</span><span class="p">(</span><span class="n">salt</span><span class="p">,</span> <span class="n">output</span><span class="p">);</span>
+    <span class="c1">//发送加密后盐值（output）到另一台服务器上</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+<span class="kt">char</span><span class="o">*</span> <span class="nf">random_str</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>  <span class="c1">//随机生成字符串</span>
+<span class="kt">int</span> <span class="n">saltLength</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">password</span><span class="p">)</span>  <span class="c1">//password最大长度为20个字符</span>
+<span class="p">{</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">salt</span> <span class="o">=</span> <span class="n">random_str</span><span class="p">(</span><span class="n">saltLength</span><span class="p">);</span>  <span class="c1">//获得一个长度为saltLength的随机字符串</span>
+    <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+    <span class="n">strcat</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">password</span><span class="p">);</span>
+    <span class="n">strcat</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">salt</span><span class="p">);</span>  <span class="c1">//加入salt值</span>
+    <span class="kt">char</span> <span class="n">psw</span><span class="p">[</span><span class="mi">1024</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">encryptor</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">psw</span><span class="p">);</span>  <span class="c1">//为攻击者破解口令增加难度</span>
+    <span class="c1">//将加密得到的psw字符串存储到数据库中</span>
+    <span class="p">...</span>
+    <span class="c1">//将salt字符串加密后存储到另一台服务器的数据库中</span>
+    <span class="n">send_salt</span><span class="p">(</span><span class="n">salt</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

@@ -1,0 +1,108 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2054">PE2054: lines-between-class-members</h2>
+    <h3>require or disallow an empty line between class members (lines-between-class-members)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2054</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>require or disallow an empty line between class members (lines-between-class-members)</h4>
+<p>This rule improves readability by enforcing lines between class members. It will not check empty lines before the first member and after the last member, since that is already taken care of by padded-blocks.</p>
+<h2>Rule Details</h2>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint lines-between-class-members: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="kr">class</span> <span class="nx">MyClass</span> <span class="p">{</span>
+  <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//...</span>
+  <span class="p">}</span>
+  <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint lines-between-class-members: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="kr">class</span> <span class="nx">MyClass</span> <span class="p">{</span>
+  <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//...</span>
+  <span class="p">}</span>
+
+  <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Options</h5>
+<p>This rule has a string option and an object option.</p>
+<p>String option:</p>
+<ul>
+<li><code>&quot;always&quot;</code>(default) require an empty line after class members</li>
+<li><code>&quot;never&quot;</code> disallows an empty line after class members</li>
+</ul>
+<p>Object option:</p>
+<ul>
+<li><code>&quot;exceptAfterSingleLine&quot;: false</code>(default) <strong>do not</strong> skip checking empty lines after single-line class members</li>
+<li><code>&quot;exceptAfterSingleLine&quot;: true</code> skip checking empty lines after single-line class members</li>
+</ul>
+<p>Examples of <strong>incorrect</strong> code for this rule with the string option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint lines-between-class-members: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="kr">class</span> <span class="nx">Foo</span><span class="p">{</span>
+  <span class="nx">bar</span><span class="p">(){}</span>
+  <span class="nx">baz</span><span class="p">(){}</span>
+<span class="p">}</span>
+
+<span class="cm">/* eslint lines-between-class-members: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="kr">class</span> <span class="nx">Foo</span><span class="p">{</span>
+  <span class="nx">bar</span><span class="p">(){}</span>
+
+  <span class="nx">baz</span><span class="p">(){}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the string option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint lines-between-class-members: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="kr">class</span> <span class="nx">Foo</span><span class="p">{</span>
+  <span class="nx">bar</span><span class="p">(){}</span>
+
+  <span class="nx">baz</span><span class="p">(){}</span>
+<span class="p">}</span>
+
+<span class="cm">/* eslint lines-between-class-members: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="kr">class</span> <span class="nx">Foo</span><span class="p">{</span>
+  <span class="nx">bar</span><span class="p">(){}</span>
+  <span class="nx">baz</span><span class="p">(){}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the object option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint lines-between-class-members: [&quot;error&quot;, &quot;always&quot;, { exceptAfterSingleLine: true }]*/</span>
+<span class="kr">class</span> <span class="nx">Foo</span><span class="p">{</span>
+  <span class="nx">bar</span><span class="p">(){}</span> <span class="c1">// single line class member</span>
+  <span class="nx">baz</span><span class="p">(){</span>
+    <span class="c1">// multi line class member</span>
+  <span class="p">}</span>
+
+  <span class="nx">qux</span><span class="p">(){}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to enforce empty lines between class members, you can disable this rule.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="padded-blocks.md">padded-blocks</a></li>
+<li><a href="padding-line-between-statements.md">padding-line-between-statements</a></li>
+</ul>
+<h2>Compatibility</h2>
+<ul>
+<li><a href="https://jscs-dev.github.io/rule/requirePaddingNewLinesAfterBlocks">requirePaddingNewLinesAfterBlocks</a></li>
+<li><a href="https://jscs-dev.github.io/rule/disallowPaddingNewLinesAfterBlocks">disallowPaddingNewLinesAfterBlocks</a></li>
+</ul>
+
+    </section>
+</article>

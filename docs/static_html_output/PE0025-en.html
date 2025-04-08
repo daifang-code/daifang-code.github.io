@@ -1,0 +1,62 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0025">PE0025: Less Open Function Mode</h2>
+    <h3>Calling open() with the O_CREAT option less mode argument.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0025</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The open() system call converts a pathname into a file descriptor. You can pass flags to open() specifying various options including the file's access permissions (read/write, read only, or write only), whether to create the file if it does not exist (O_CREAT), and whether the file can be appended to.</p>
+<p>If you call open() with the O_CREAT option, you should also, for safety, pass an argument (mode argument) that explicitly sets the file's permissions.</p>
+<h4>Vulnerability and risk</h4>
+<h5>Insecure File Permissions</h5>
+<p>Creating a file with insufficiently restrictive access permissions may allow an unprivileged user to access that file. Although access permissions are heavily dependent on the file system, many file-creation functions provide mechanisms to set (or at least influence) access permissions. When these functions are used to create files, appropriate access permissions should be specified to prevent unintended access.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>when call open() with the O_CREAT option, add mode argument.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">file_name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+     
+    <span class="cm">/* Initialize file_name */</span>
+     
+    <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_WRONLY</span><span class="p">);</span>
+    <span class="cm">/* Access permissions were missing */</span>
+     
+    <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+    	<span class="cm">/* Handle error */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, Using the POSIX open() function to create a file but failing to provide access permissions for that file may cause the file to be created with overly permissive access permissions. This omission has been known to lead to vulnerabilities—for example, CVE-2006-1174.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">file_name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">file_access_permissions</span><span class="p">;</span>
+     
+    <span class="cm">/* Initialize file_name and file_access_permissions */</span>
+    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span>
+    	<span class="n">file_name</span><span class="p">,</span>
+    	<span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_WRONLY</span><span class="p">,</span>
+    	<span class="n">file_access_permissions</span>
+    <span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+    	<span class="cm">/* Handle error */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example, Access permissions for the newly created file should be specified in the third argument to open(). Again, the permissions are modified by the value of umask().</p>
+
+    </section>
+</article>

@@ -1,0 +1,94 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2103">PE2103: no-extra-bind</h2>
+    <h3>禁止不必要的函数绑定 (no-extra-bind)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2103</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止不必要的函数绑定 (no-extra-bind)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p><code>bind()</code> 方法使用特定的 <code>this</code> 值来创建函数，并可选地将参数绑定到特定的值。当使用 <code>this</code> 时，在函数体中实际上使用的 <code>this</code> 值。例如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">boundGetName</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="nx">getName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+<span class="p">}).</span><span class="nx">bind</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;ESLint&quot;</span> <span class="p">});</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">boundGetName</span><span class="p">());</span>      <span class="c1">// &quot;ESLint&quot;</span>
+</pre></div>
+<p>这段代码就是一个很好的例子，它使用 <code>bind()</code> 来设置 <code>this</code> 值。</p>
+<p>有时，在代码维护过程中，<code>bind()</code> 不再传入 <code>this</code>。在这种情况下，你可以不调用 <code>bind()</code>，因为它没有做任何事情。</p>
+<div class="highlight"><pre><span></span><span class="c1">// useless bind</span>
+<span class="kd">var</span> <span class="nx">boundGetName</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="nx">getName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">&quot;ESLint&quot;</span><span class="p">;</span>
+<span class="p">}).</span><span class="nx">bind</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;ESLint&quot;</span> <span class="p">});</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">boundGetName</span><span class="p">());</span>      <span class="c1">// &quot;ESLint&quot;</span>
+</pre></div>
+<p>在这段代码中，<code>this</code> 的引用已经被删除，但是 <code>bind()</code> 仍在使用。在这种情况下，<code>bind()</code> 就成了不必要的开销（和性能损耗），可以安全地删除。</p>
+<h2>缺陷详因</h2>
+<p>此规则目的在于避免不必要的 <code>bind()</code> 使用，并且当立即执行的函数表达式 (IIFE) 使用 <code>bind()</code>，但是没有一个合适的 <code>this</code> 值时，该规则会发出警告。此规则不会标记有函数参数绑定的<code>bind()</code> 的使用情况。</p>
+<p><strong>注意：</strong>箭头函数不能通过使用 <code>bind()</code> 设置它们的自己 <code>this</code> 值。此规则把所有使用<code>bind()</code> 的箭头函数标记为是有问题的。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-extra-bind: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">();</span>
+<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">bar</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">bind</span><span class="p">(</span><span class="nx">bar</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">foo</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">bind</span><span class="p">(</span><span class="nx">bar</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">foo</span><span class="p">();</span>
+    <span class="p">}());</span>
+<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">bar</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">bar</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">baz</span><span class="p">);</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-extra-bind: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">foo</span><span class="p">();</span>
+<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">bar</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">foo</span><span class="p">,</span> <span class="nx">bar</span><span class="p">);</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不担心不必要的 <code>bind()</code> 调用，你可以禁用此规则。</p>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">Function.prototype.bind</a></li>
+<li><a href="https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/">Understanding JavaScript's Function.prototype.bind</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.8.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-extra-bind.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-extra-bind.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

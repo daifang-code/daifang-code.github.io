@@ -1,0 +1,51 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1055">PE1055: 低效的表达式</h2>
+    <h3>程序中使用的一些表达式运行效率低，可以转换为另一种表达式提高效率</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1055</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>使用后置++/--运算比前置++/--运算多一次拷贝行为，执行效率低。在条件判断中使用string::find()作为判断条件，没有string::compare()执行速度快。使用empty函数比size函数判断容器是否为空更加有效。给一个返回值类型为std::string的函数返回c_str()是多余的，并且降低代码执行速度。将c_str()作为实参传给一个需要std::string类型的形参是多余的操作，并且降低代码执行速度</p>
+<h4>漏洞与风险</h4>
+<h5>低效表达式</h5>
+<p>使用运行效率低的表达式将会使得整个程序的效率低下，使得程序不够优化。</p>
+<h4>缓解与预防</h4>
+<p>使用运行效率高的表达式替代运行效率低的表达式。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>演示示例</h4>
+<h5>漏洞缺陷示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">sum</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+  <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">sum</span><span class="o">&lt;</span><span class="mi">20</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">sum</span><span class="o">=</span><span class="n">sum</span><span class="o">+</span><span class="n">count</span><span class="p">;</span>
+    <span class="n">count</span><span class="o">++</span><span class="p">;</span><span class="c1">//detect</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞缺陷修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">sum</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+  <span class="n">count</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">sum</span><span class="o">&lt;</span><span class="mi">20</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">sum</span><span class="o">=</span><span class="n">sum</span><span class="o">+</span><span class="p">(</span><span class="o">++</span><span class="n">count</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

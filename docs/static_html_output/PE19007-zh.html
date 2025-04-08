@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE19007">PE19007: 硬编码Token/Key</h2>
+    <h3>硬编码Token/Key</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE19007</dd>
+                    <dt>标签</dt>
+                    <dd>cobra</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>安全风险</h2>
+
+<pre><code>    硬编码密码
+
+</code></pre>
+<h2>修复方案</h2>
+
+<pre><code>    将密码抽出统一放在配置文件中，配置文件不放在git中
+
+</code></pre>
+<h2>匹配规则</h2>
+<p><a href="?%21%5B%5Cd%5D%7B32%7D">^\/</a>(?![a-fA-F]{32})([a-f\d]{32}|[A-F\d]{32})[^.]</p>
+<h4>References</h4>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+
+    </section>
+</article>

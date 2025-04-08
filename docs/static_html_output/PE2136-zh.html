@@ -1,0 +1,53 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2136">PE2136: no-negated-in-lhs</h2>
+    <h3>该规则已在ESLint v3.3.0中被弃用，由`no-unsafe-negation`替代</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2136</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<p>该规则已在ESLint v3.3.0中被<strong>弃用</strong>，由<code>no-unsafe-negation</code>替代。</p>
+<h2>缺陷详因</h2>
+<p>Just as developers might type <code>-a + b</code> when they mean <code>-(a + b)</code> for the negative of a sum, they might type <code>!key in object</code> by mistake when they almost certainly mean <code>!(key in object)</code> to test that a key is not in an object.</p>
+<h2>缺陷详因</h2>
+<p>This rule disallows negating the left operand in <code>in</code> expressions.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-negated-in-lhs: &quot;error&quot;*/</span>
+
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// operator precedence makes it equivalent to (!key) in object</span>
+    <span class="c1">// and type conversion makes it equivalent to (key ? &quot;false&quot; : &quot;true&quot;) in object</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-negated-in-lhs: &quot;error&quot;*/</span>
+
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">object</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// key is not in object</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">((</span><span class="s1">&#39;&#39;</span> <span class="o">+</span> <span class="o">!</span><span class="nx">key</span><span class="p">)</span> <span class="k">in</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// make operator precedence and type conversion explicit</span>
+    <span class="c1">// in a rare situation when that is the intended meaning</span>
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>Never.</p>
+<h2>Eslint版本</h2>
+<p>This rule was introduced in ESLint 0.1.2.</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-negated-in-lhs.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-negated-in-lhs.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

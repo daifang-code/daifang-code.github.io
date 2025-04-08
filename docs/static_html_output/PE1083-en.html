@@ -1,0 +1,60 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1083">PE1083: Insecure Randomness</h2>
+    <h3>Two instances of the java.util.Random class that are created using the same seed will generate identical sequences of numbers in all Java implementations</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1083</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Pseudorandom number generators (PRNGs) use deterministic mathematical algorithms to produce a sequence of numbers with good statistical properties. However, the sequences of numbers produced fail to achieve true randomness. PRNGs usually start with an arithmetic seed value. The algorithm uses this seed to generate an output value and a new seed, which is used to generate the next value, and so on.</p>
+<h4>Vulnerability and risk</h4>
+<p>The Java API provides a PRNG, the java.util.Random class. This PRNG is portable and repeatable. Consequently, two instances of the java.util.Random class that are created using the same seed will generate identical sequences of numbers in all Java implementations. Seed values are often reused on application initialization or after every system reboot. In other cases, the seed is derived from the current time obtained from the system clock. An attacker can learn the value of the seed by performing some reconnaissance on the vulnerable target and can then build a lookup table for estimating future seed values.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>Use a more secure random number generator, such as the java.security.SecureRandom class.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<p>This vulnerable code example uses the insecure java.util.Random class. This class produces an identical sequence of numbers for each given seed value; consequently, the sequence of numbers is predictable.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+<span class="c1">// ...</span>
+
+<span class="n">Random</span> <span class="n">number</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">(</span><span class="mi">123L</span><span class="o">);</span>
+<span class="c1">//...</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+  <span class="c1">// Generate another random integer in the range [0, 20]</span>
+  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">21</span><span class="o">);</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+<h5>Fixed Code Example</h5>
+<p>This compliant solution uses the java.security.SecureRandom class to produce high-quality random numbers:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.security.SecureRandom</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.NoSuchAlgorithmException</span><span class="o">;</span>
+<span class="c1">// ...</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span> <span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+  <span class="n">SecureRandom</span> <span class="n">number</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SecureRandom</span><span class="o">();</span>
+  <span class="c1">// Generate 20 integers 0..20</span>
+  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">21</span><span class="o">));</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://wiki.sei.cmu.edu/confluence/display/java/MSC02-J.+Generate+strong+random+numbers<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

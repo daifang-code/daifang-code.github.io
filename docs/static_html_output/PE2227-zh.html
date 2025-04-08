@@ -1,0 +1,69 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2227">PE2227: require-await</h2>
+    <h3>禁止使用不带 `await` 表达式的 async 函数 (require-await)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2227</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止使用不带 <code>await</code> 表达式的 async 函数 (require-await)</h4>
+<p>Async 函数不包含 <code>await</code> 函数可能不是重构想要的结果。</p>
+<h2>缺陷详因</h2>
+<p>该规则对不包含 <code>await</code> 表达式的 async 函数发出警告。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint require-await: &quot;error&quot;*/</span>
+
+<span class="nx">async</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">bar</span><span class="p">(</span><span class="nx">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint require-await: &quot;error&quot;*/</span>
+
+<span class="nx">async</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">await</span> <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">bar</span><span class="p">(</span><span class="nx">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">await</span> <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">bar</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="c1">// Allow empty functions.</span>
+<span class="nx">async</span> <span class="kd">function</span> <span class="nx">noop</span><span class="p">()</span> <span class="p">{}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想收到 async 函数不包含 <code>await</code> 表达式的通知，可以禁用此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="require-yield">require-yield</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 3.11.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/require-await.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/require-await.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

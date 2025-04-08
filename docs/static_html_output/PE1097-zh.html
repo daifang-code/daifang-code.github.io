@@ -1,0 +1,86 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1097">PE1097: LDAP操纵</h2>
+    <h3>LDAP注入源于不充分的用户输入清洗、验证，进而允许恶意用户使用目录服务来窃取限制性的信息</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1097</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>轻量级目录访问协议（Lightweight Directory Access Protocol, LDAP）使得程序能够远程地进行像查找或修改目录中的记录的操作。</p>
+<h4>漏洞与风险</h4>
+<p>LDAP注入源于不充分的用户输入清洗、验证，进而允许恶意用户使用目录服务来窃取限制性的信息。不足以防御LDAP注入的认证过程使得未经认证用户能够登录到系统。同样的，攻击者可以通过查找例程来发掘目录中的部分或全部信息。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>视所有的输入为危险的数据，通过使用白名单等的受信输入验证策略来严格清洗输入数据。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>以下的缺陷代码允许<code>searchRecord()</code>方法的调用者使用LDAP协议来搜索目录中的某个记录：</p>
+<div class="highlight"><pre><span></span><span class="c1">// String userSN = &quot;S*&quot;; // Invalid</span>
+<span class="c1">// String userPassword = &quot;*&quot;; // Invalid</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LDAPInjection</span> <span class="o">{</span>       
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">searchRecord</span><span class="o">(</span><span class="n">String</span> <span class="n">userSN</span><span class="o">,</span> <span class="n">String</span> <span class="n">userPassword</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">NamingException</span> <span class="o">{</span>        
+    <span class="n">Hashtable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span>  <span class="n">env</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hashtable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;();</span>
+    <span class="n">env</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">INITIAL_CONTEXT_FACTORY</span><span class="o">,</span> <span class="s">&quot;com.sun.jndi.ldap.LdapCtxFactory&quot;</span><span class="o">);</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">DirContext</span> <span class="n">dctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InitialDirContext</span><span class="o">(</span><span class="n">env</span><span class="o">);</span>
+
+      <span class="n">SearchControls</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SearchControls</span><span class="o">();</span>
+      <span class="n">String</span><span class="o">[]</span> <span class="n">attributeFilter</span> <span class="o">=</span> <span class="o">{</span><span class="s">&quot;cn&quot;</span><span class="o">,</span> <span class="s">&quot;mail&quot;</span><span class="o">};</span>
+      <span class="n">sc</span><span class="o">.</span><span class="na">setReturningAttributes</span><span class="o">(</span><span class="n">attributeFilter</span><span class="o">);</span>
+      <span class="n">sc</span><span class="o">.</span><span class="na">setSearchScope</span><span class="o">(</span><span class="n">SearchControls</span><span class="o">.</span><span class="na">SUBTREE_SCOPE</span><span class="o">);</span>
+      <span class="n">String</span> <span class="n">base</span> <span class="o">=</span> <span class="s">&quot;dc=example,dc=com&quot;</span><span class="o">;</span>
+
+      <span class="c1">// The following resolves to (&amp;(sn=S*)(userPassword=*))     </span>
+      <span class="n">String</span> <span class="n">filter</span> <span class="o">=</span> <span class="s">&quot;(&amp;(sn=&quot;</span> <span class="o">+</span> <span class="n">userSN</span> <span class="o">+</span> <span class="s">&quot;)(userPassword=&quot;</span> <span class="o">+</span> <span class="n">userPassword</span> <span class="o">+</span> <span class="s">&quot;))&quot;</span><span class="o">;</span>
+
+      <span class="n">NamingEnumeration</span><span class="o">&lt;?&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">dctx</span><span class="o">.</span><span class="na">search</span><span class="o">(</span><span class="n">base</span><span class="o">,</span> <span class="n">filter</span><span class="o">,</span> <span class="n">sc</span><span class="o">);</span>
+      <span class="k">while</span> <span class="o">(</span><span class="n">results</span><span class="o">.</span><span class="na">hasMore</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">SearchResult</span> <span class="n">sr</span> <span class="o">=</span> <span class="o">(</span><span class="n">SearchResult</span><span class="o">)</span> <span class="n">results</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+        <span class="n">Attributes</span> <span class="n">attrs</span> <span class="o">=</span> <span class="o">(</span><span class="n">Attributes</span><span class="o">)</span> <span class="n">sr</span><span class="o">.</span><span class="na">getAttributes</span><span class="o">();</span>
+        <span class="n">Attribute</span> <span class="n">attr</span> <span class="o">=</span> <span class="o">(</span><span class="n">Attribute</span><span class="o">)</span> <span class="n">attrs</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;cn&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">attr</span><span class="o">);</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="o">(</span><span class="n">Attribute</span><span class="o">)</span> <span class="n">attrs</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;mail&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">attr</span><span class="o">);</span>
+      <span class="o">}</span>    
+      <span class="n">dctx</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NamingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// Forward to handler</span>
+    <span class="o">}</span>
+  <span class="o">}</span> 
+<span class="o">}</span>
+</pre></div>
+<h5>漏洞代码修复示例</h5>
+<p>以下合规的解决方案使用了白名单来清洗用户输入，清洗后得出的字符串中只包含有效的字符。在这段代码中，<code>userSN</code>可能只包含字母或空格字符，而<code>password</code>则只可能包含有效的字母数字字符：</p>
+<div class="highlight"><pre><span></span><span class="c1">// String userSN = &quot;Sherlock Holmes&quot;; // Valid</span>
+<span class="c1">// String userPassword = &quot;secret2&quot;;   // Valid</span>
+
+<span class="c1">// ... beginning of LDAPInjection.searchRecord()...</span>
+<span class="n">sc</span><span class="o">.</span><span class="na">setSearchScope</span><span class="o">(</span><span class="n">SearchControls</span><span class="o">.</span><span class="na">SUBTREE_SCOPE</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">base</span> <span class="o">=</span> <span class="s">&quot;dc=example,dc=com&quot;</span><span class="o">;</span>
+
+<span class="k">if</span> <span class="o">(!</span><span class="n">userSN</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="s">&quot;[\\w\\s]*&quot;</span><span class="o">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">userPassword</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="s">&quot;[\\w]*&quot;</span><span class="o">))</span> <span class="o">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;Invalid input&quot;</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="n">String</span> <span class="n">filter</span> <span class="o">=</span> <span class="s">&quot;(&amp;(sn = &quot;</span> <span class="o">+</span> <span class="n">userSN</span> <span class="o">+</span> <span class="s">&quot;)(userPassword=&quot;</span> <span class="o">+</span> <span class="n">userPassword</span> <span class="o">+</span> <span class="s">&quot;))&quot;</span><span class="o">;</span>
+
+<span class="c1">// ... remainder of LDAPInjection.searchRecord()...</span>
+</pre></div>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://wiki.sei.cmu.edu/confluence/display/java/IDS54-J.+Prevent+LDAP+injection<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2216">SC2216: Bad piping</h2>
+    <h3>Piping to 'rm', a command that doesn't read stdin. Wrong command or missing xargs?</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2216</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Piping to 'rm', a command that doesn't read stdin. Wrong command or missing xargs?</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>ls <span class="p">|</span> <span class="nb">echo</span>                      <span class="c1"># Want to print result</span>
+cat files <span class="p">|</span> rm                 <span class="c1"># Want to delete items from a file</span>
+find . -type f <span class="p">|</span> cp dir        <span class="c1"># Want to process &#39;find&#39; output</span>
+rm file <span class="p">|</span> <span class="nb">true</span>                 <span class="c1"># Want to ignore errors</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>ls
+cat files <span class="p">|</span> <span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span> <span class="nb">read</span> -r file<span class="p">;</span> <span class="k">do</span> rm -- <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">done</span>
+find . -type f -exec cp <span class="o">{}</span> dir <span class="se">\;</span>
+rm file <span class="o">||</span> <span class="nb">true</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>You are piping to one of several commands that don't read from stdin.</p>
+<p>This may happen when:</p>
+<ul>
+<li>Confusing one command for another, e.g. using <code>echo</code> where <code>cat</code> was intended.</li>
+<li>Incorrectly refactoring, leaving a <code>|</code> on the previous line.</li>
+<li>Missing <code>xargs</code>, because stdin should be passed as positional parameters instead (use <code>xargs -0</code> if at all possible).</li>
+<li>Intending to use <code>||</code> instead of <code>|</code></li>
+</ul>
+<p>Check your logic, and rewrite the command so data is passed correctly.</p>
+<h5>Exceptions:</h5>
+<p>If you've overridden a command to return output, you can either rename it to make this obvious, or [[ignore]] this message.</p>
+
+    </section>
+</article>

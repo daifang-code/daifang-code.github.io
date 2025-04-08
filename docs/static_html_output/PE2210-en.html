@@ -1,0 +1,473 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2210">PE2210: one-var</h2>
+    <h3>enforce variables to be declared either together or separately in functions (one-var)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2210</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>enforce variables to be declared either together or separately in functions (one-var)</h4>
+<p>Variables can be declared at any point in JavaScript code using <code>var</code>, <code>let</code>, or <code>const</code>. There are many styles and preferences related to the declaration of variables, and one of those is deciding on how many variable declarations should be allowed in a single function.</p>
+<p>There are two schools of thought in this regard:</p>
+<ol>
+<li>There should be just one variable declaration for all variables in the function. That declaration typically appears at the top of the function.</li>
+<li>You should use one variable declaration for each variable you want to define.</li>
+</ol>
+<p>For instance:</p>
+<div class="highlight"><pre><span></span><span class="c1">// one variable declaration per function</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// multiple variable declarations per function</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">baz</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>The single-declaration school of thought is based in pre-ECMAScript 6 behaviors, where there was no such thing as block scope, only function scope. Since all <code>var</code> statements are hoisted to the top of the function anyway, some believe that declaring all variables in a single declaration at the top of the function removes confusion around scoping rules.</p>
+<h2>Rule Details</h2>
+<p>This rule enforces variables to be declared either together or separately per function ( for <code>var</code>) or block (for <code>let</code> and <code>const</code>) scope.</p>
+<h2>Options</h2>
+<p>This rule has one option, which can be a string option or an object option.</p>
+<p>String option:</p>
+<ul>
+<li><code>&quot;always&quot;</code> (default) requires one variable declaration per scope</li>
+<li><code>&quot;never&quot;</code> requires multiple variable declarations per scope</li>
+<li><code>&quot;consecutive&quot;</code> allows multiple variable declarations per scope but requires consecutive variable declarations to be combined into a single declaration</li>
+</ul>
+<p>Object option:</p>
+<ul>
+<li><code>&quot;var&quot;: &quot;always&quot;</code> requires one <code>var</code> declaration per function</li>
+<li><code>&quot;var&quot;: &quot;never&quot;</code> requires multiple <code>var</code> declarations per function</li>
+<li><code>&quot;var&quot;: &quot;consecutive&quot;</code> requires consecutive <code>var</code> declarations to be a single declaration</li>
+<li><code>&quot;let&quot;: &quot;always&quot;</code> requires one <code>let</code> declaration per block</li>
+<li><code>&quot;let&quot;: &quot;never&quot;</code> requires multiple <code>let</code> declarations per block</li>
+<li><code>&quot;let&quot;: &quot;consecutive&quot;</code> requires consecutive <code>let</code> declarations to be a single declaration</li>
+<li><code>&quot;const&quot;: &quot;always&quot;</code> requires one <code>const</code> declaration per block</li>
+<li><code>&quot;const&quot;: &quot;never&quot;</code> requires multiple <code>const</code> declarations per block</li>
+<li><code>&quot;const&quot;: &quot;consecutive&quot;</code> requires consecutive <code>const</code> declarations to be a single declaration</li>
+<li><code>&quot;separateRequires&quot;: true</code> enforces <code>requires</code> to be separate from declarations</li>
+</ul>
+<p>Alternate object option:</p>
+<ul>
+<li><code>&quot;initialized&quot;: &quot;always&quot;</code> requires one variable declaration for initialized variables per scope</li>
+<li><code>&quot;initialized&quot;: &quot;never&quot;</code> requires multiple variable declarations for initialized variables per scope</li>
+<li><code>&quot;initialized&quot;: &quot;consecutive&quot;</code> requires consecutive variable declarations for initialized variables to be a single declaration</li>
+<li><code>&quot;uninitialized&quot;: &quot;always&quot;</code> requires one variable declaration for uninitialized variables per scope</li>
+<li><code>&quot;uninitialized&quot;: &quot;never&quot;</code> requires multiple variable declarations for uninitialized variables per scope</li>
+<li><code>&quot;uninitialized&quot;: &quot;consecutive&quot;</code> requires consecutive variable declarations for uninitialized variables to be a single declaration</li>
+</ul>
+<h5>always</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">baz</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">qux</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">norf</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+    <span class="kr">const</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">baz</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">qux</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">norf</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">baz</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">qux</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">,</span>
+        <span class="nx">baz</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">qux</span><span class="p">,</span>
+        <span class="nx">norf</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+    <span class="kr">const</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">baz</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">qux</span><span class="p">,</span>
+        <span class="nx">norf</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">,</span>
+        <span class="nx">qux</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">baz</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">qux</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+    <span class="kd">let</span> <span class="nx">bar</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">baz</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">qux</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>never</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">,</span>
+        <span class="nx">baz</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">baz</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">,</span>
+        <span class="nx">qux</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">baz</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">qux</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+    <span class="kd">let</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">baz</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">baz</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">baz</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">qux</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">bar</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">baz</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">qux</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>consecutive</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;consecutive&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, &quot;consecutive&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">baz</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">baz</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+    <span class="nx">qux</span><span class="p">();</span>
+
+    <span class="kd">var</span> <span class="nx">qux</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">quux</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;consecutive&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, &quot;consecutive&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">,</span>
+        <span class="nx">baz</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">baz</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+    <span class="nx">qux</span><span class="p">();</span>
+
+    <span class="kd">var</span> <span class="nx">qux</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nx">quux</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h5>var, let, and const</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ var: &quot;always&quot;, let: &quot;never&quot;, const: &quot;never&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { var: &quot;always&quot;, let: &quot;never&quot;, const: &quot;never&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">baz</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">qux</span><span class="p">,</span>
+        <span class="nx">norf</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nx">baz</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">qux</span><span class="p">,</span>
+        <span class="nx">norf</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ var: &quot;always&quot;, let: &quot;never&quot;, const: &quot;never&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { var: &quot;always&quot;, let: &quot;never&quot;, const: &quot;never&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">,</span>
+        <span class="nx">baz</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">qux</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">norf</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">baz</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">qux</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">norf</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ var: &quot;never&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { var: &quot;never&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">,</span>
+        <span class="nx">baz</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ var: &quot;never&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { var: &quot;never&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar</span><span class="p">,</span>
+        <span class="nx">baz</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// `const` and `let` declarations are ignored if they are not specified</span>
+    <span class="kr">const</span> <span class="nx">baz</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">qux</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">norf</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ separateRequires: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { separateRequires: true, var: &quot;always&quot; }]*/</span>
+<span class="cm">/*eslint-env node*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">),</span>
+    <span class="nx">bar</span> <span class="o">=</span> <span class="s2">&quot;bar&quot;</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ separateRequires: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { separateRequires: true, var: &quot;always&quot; }]*/</span>
+<span class="cm">/*eslint-env node*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="s2">&quot;bar&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">),</span>
+    <span class="nx">bar</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ var: &quot;never&quot;, let: &quot;consecutive&quot;, const: &quot;consecutive&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { var: &quot;never&quot;, let: &quot;consecutive&quot;, const: &quot;consecutive&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">a</span><span class="p">,</span>
+        <span class="nx">b</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">c</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">d</span><span class="p">,</span>
+        <span class="nx">e</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">d</span><span class="p">,</span>
+        <span class="nx">e</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ var: &quot;never&quot;, let: &quot;consecutive&quot;, const: &quot;consecutive&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { var: &quot;never&quot;, let: &quot;consecutive&quot;, const: &quot;consecutive&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">a</span><span class="p">,</span>
+        <span class="nx">b</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">d</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">e</span><span class="p">;</span>
+
+    <span class="kd">let</span> <span class="nx">f</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">c</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">d</span><span class="p">;</span>
+
+    <span class="kr">const</span> <span class="nx">e</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ var: &quot;consecutive&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { var: &quot;consecutive&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ var: &quot;consecutive&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { var: &quot;consecutive&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span><span class="p">,</span>
+        <span class="nx">b</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// `const` and `let` declarations are ignored if they are not specified</span>
+    <span class="kr">const</span> <span class="nx">d</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">e</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">f</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h5>initialized and uninitialized</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;initialized&quot;: &quot;always&quot;, &quot;uninitialized&quot;: &quot;never&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { &quot;initialized&quot;: &quot;always&quot;, &quot;uninitialized&quot;: &quot;never&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;initialized&quot;: &quot;always&quot;, &quot;uninitialized&quot;: &quot;never&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { &quot;initialized&quot;: &quot;always&quot;, &quot;uninitialized&quot;: &quot;never&quot; }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">b</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">c</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">bar</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">z</span> <span class="k">of</span> <span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">(</span><span class="nx">z</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">z</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="nx">z</span> <span class="k">of</span> <span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">(</span><span class="nx">z</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;initialized&quot;: &quot;never&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { &quot;initialized&quot;: &quot;never&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">bar</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;initialized&quot;: &quot;never&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { &quot;initialized&quot;: &quot;never&quot; }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">;</span> <span class="c1">// Uninitialized variables are ignored</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;initialized&quot;: &quot;consecutive&quot;, &quot;uninitialized&quot;: &quot;never&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { &quot;initialized&quot;: &quot;consecutive&quot;, &quot;uninitialized&quot;: &quot;never&quot; }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">c</span><span class="p">,</span>
+        <span class="nx">d</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;initialized&quot;: &quot;consecutive&quot;, &quot;uninitialized&quot;: &quot;never&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { &quot;initialized&quot;: &quot;consecutive&quot;, &quot;uninitialized&quot;: &quot;never&quot; }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">c</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">d</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nx">f</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;initialized&quot;: &quot;consecutive&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { &quot;initialized&quot;: &quot;consecutive&quot; }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+    <span class="nx">foo</span><span class="p">();</span>
+
+    <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;initialized&quot;: &quot;consecutive&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint one-var: [&quot;error&quot;, { &quot;initialized&quot;: &quot;consecutive&quot; }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+    <span class="nx">foo</span><span class="p">();</span>
+
+    <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nx">d</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSHint</strong>: This rule maps to the <code>onevar</code> JSHint rule, but allows <code>let</code> and <code>const</code> to be configured separately.</li>
+<li><strong>JSCS</strong>: This rule roughly maps to <a href="https://jscs-dev.github.io/rule/disallowMultipleVarDecl">disallowMultipleVarDecl</a>.</li>
+<li><strong>JSCS</strong>: This rule option <code>separateRequires</code> roughly maps to <a href="https://jscs-dev.github.io/rule/requireMultipleVarDecl">requireMultipleVarDecl</a>.</li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7244">BE7244: 无用的非空void方法</h2>
+    <h3>无用的非空void方法</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7244</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>无用的非空void方法</p>
+<h4>漏洞与风险</h4>
+<p>我们的分析表明，这种非空的void方法实际上并没有执行任何有用的工作。
+请检查一下：可能是代码中有错，或者可以完全删除方法中的正文。
+</p>
+<p>我们正试图尽可能地减少误报，但在某些情况下，这种warning可能是错的。
+常见的误报例子包括：</p>
+<ul>
+<li>该方法旨在触发可能具有附作用的某些类的加载。</li>
+<li>
+该方法旨在隐含地抛出一些模糊的异常。</li>
+</ul>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

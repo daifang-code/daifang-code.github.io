@@ -1,0 +1,118 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2197">PE2197: no-useless-rename</h2>
+    <h3>禁止在 import 和 export 和解构赋值时将引用重命名为相同的名字 (no-useless-rename)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2197</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止在 import 和 export 和解构赋值时将引用重命名为相同的名字 (no-useless-rename)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>ES2015允许在 import ，export 和结构赋值时对引用进行重命名。这给了开发者简洁的语法来执行这些操作同时对引用进行重命名</p>
+<div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">bar</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;baz&quot;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">bar</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">bar</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">baz</span><span class="p">;</span>
+</pre></div>
+<p>有了这个语法，引用有可能被重命名成相同的名字。因为这和没有重命名是等价的，因此这种操作完全冗余。例如：</p>
+<div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;bar&quot;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">foo</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">foo</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+</pre></div>
+<p>等价于：</p>
+<div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;bar&quot;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>这条规则进行在 import 和 export 和解构赋值时将引用重命名为相同的名字</p>
+<h2>修改方案</h2>
+<p>这条规则支持用下面的选项进行更细粒度的配置：</p>
+<ul>
+<li><p><code>ignoreImport</code>: 当设置为 <code>true</code>，这条规则不会检查 imports</p>
+</li>
+<li><p><code>ignoreExport</code>: 当设置为 <code>true</code>，这条规则不会检查 exports</p>
+</li>
+<li><p><code>ignoreDestructuring</code>: 当设置为 <code>true</code>, 这条规则不会检查解构赋值</p>
+</li>
+</ul>
+<p>这些选项默认都被设置为 <code>false</code>：</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-useless-rename&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nt">&quot;ignoreDestructuring&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;ignoreImport&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;ignoreExport&quot;</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}]</span>
+</pre></div>
+<p>默认配置时 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-useless-rename: &quot;error&quot;*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;bar&quot;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">foo</span> <span class="p">};</span>
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;bar&quot;</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">foo</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="nx">foo</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">bar</span><span class="o">:</span> <span class="nx">bar</span> <span class="p">})</span> <span class="p">{}</span>
+<span class="p">({</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">foo</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{}</span>
+</pre></div>
+<p>默认配置时 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-useless-rename: &quot;error&quot;*/</span>
+
+<span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">foo</span> <span class="nx">from</span> <span class="s2">&quot;foo&quot;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;bar&quot;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">bar</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;baz&quot;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">};</span>
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">bar</span> <span class="p">};</span>
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">bar</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;foo&quot;</span><span class="p">;</span>
+
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">bar</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">baz</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="p">[</span><span class="nx">foo</span><span class="p">]</span><span class="o">:</span> <span class="nx">foo</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">bar</span> <span class="p">})</span> <span class="p">{}</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">bar</span><span class="o">:</span> <span class="nx">baz</span> <span class="p">})</span> <span class="p">{}</span>
+
+<span class="p">({</span> <span class="nx">foo</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{}</span>
+<span class="p">({</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">bar</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{}</span>
+</pre></div>
+<p>选项 <code>{ ignoreImport: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-useless-rename: [&quot;error&quot;, { ignoreImport: true }]*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;bar&quot;</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>{ ignoreExport: true }</code> 时 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-useless-rename: [&quot;error&quot;, { ignoreExport: true }]*/</span>
+
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">foo</span> <span class="p">};</span>
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;bar&quot;</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>{ ignoreDestructuring: true }</code> 时 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-useless-rename: [&quot;error&quot;, { ignoreDestructuring: true }]*/</span>
+
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">foo</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">bar</span><span class="o">:</span> <span class="nx">bar</span> <span class="p">})</span> <span class="p">{}</span>
+<span class="p">({</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">foo</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不关心在 import , export 和解构赋值时冗余的重命名，关闭此规则即可。</p>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS</strong>: <a href="http://jscs.info/rule/disallowIdenticalDestructuringNames">disallowIdenticalDestructuringNames</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 2.11.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-useless-rename.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-useless-rename.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

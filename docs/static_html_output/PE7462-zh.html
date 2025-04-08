@@ -1,0 +1,39 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7462">BE7462: 由于OpenJDK中的弱引用，可能导致logger配置丢失</h2>
+    <h3>由于OpenJDK中的弱引用，可能导致logger配置丢失</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7462</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>由于OpenJDK中的弱引用，可能导致logger配置丢失</p>
+<h4>漏洞与风险</h4>
+<p>OpenJDK引入了一个潜在的不兼容性。特别是，java.util.logging.Logger的行为已经发生了改变。它不再使用强引用，而是在内部使用弱引用。
+这是一个合理的更改，但不幸的是，有些代码依赖于旧的行为——当更改logger配置时，它只是简单地删除logger引用。
+这意味着垃圾回收器可以自由地回收该内存，这意味着logger的配置丢失。
+例如，请参考下面的例子：</p>
+<pre><code>public static void initLogging() throws Exception {
+    Logger logger = Logger.getLogger("edu.umd.cs");
+    logger.addHandler(new FileHandler()); // 为了改变Logger的配置而调用
+     logger.setUseParentHandlers(false); // 为了改变Logger配置的另一次调用}
+</code></pre>
+<p>Logger引用在方法的末尾丢失（它不能转义该方法），
+因此，如果您在调用initLogging之后有一个垃圾回收周期，那么logger配置就会丢失(因为Logger只保留弱引用)。</p>
+<pre><code>public static void main(String[] args) throws Exception {
+    initLogging(); //向记录器中添加文件处理程序
+    System.gc(); // 丢失了日志配置
+    Logger.getLogger("edu.umd.cs").info("Some messag"); // 这不会像预期的那样被记录到文件中
+ </code></pre>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

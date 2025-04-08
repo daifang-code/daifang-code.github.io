@@ -1,0 +1,52 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0016">PE0016: 多余的分号</h2>
+    <h3>在if，for，while语句后面误用多余的分号，改变代码的逻辑。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0016</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>当一个if语句被分号提前终止时，then语句将永远被执行，从而改变了if语句的逻辑。在while,for等循环语句被分号提前终止时，可能会导致死循环或者循环体部分只被执行一次。</p>
+<h4>漏洞与风险</h4>
+<h5>逻辑错误</h5>
+<p>当一个if语句被分号提前终止时，then语句将永远被执行，从而改变了if语句的逻辑。在while,for等循环语句被分号提前终止时，可能会导致死循环或者循环体部分只被执行一次。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>仔细检查if，for，while语句后面的逗号，移除多余的分号。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">){};</span>
+    
+  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// detect</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在第4行while语句后面存在一个多余的分号，导致死循环。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">){};</span>
+    
+  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在第4行移除while语句后面的分号，使得程序逻辑正常执行。</p>
+
+    </section>
+</article>

@@ -1,0 +1,2405 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='../../../theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="../../../theme/stylesheet/normalize.min.css">
+    <script src="../../../theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="../../../theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../../../theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="../../../theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">      <meta name="author" content="Pinpoint Team"/>
+    <meta name="description" content="Manual and documents for Sourcebrella Pinpoint"/> <meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Pinpoint Document"/>
+<meta property="og:description" content="Manual and documents for Sourcebrella Pinpoint"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="../../.."/>
+ 
+    <title>Pinpoint Document &ndash; Category</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href="../../..">
+                <img src="../../../theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href="../../..">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="../../../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="../../../standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="../../../standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="../../../standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="../../../standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="../../../standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="../../../standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="../../../standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="../../../standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+          <article>
+            <h1>
+            API abuse (21)
+            </h1>
+        </article>
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0028">Error Sleep</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#unexpected-behavior">unexpected behavior</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Until the blocking function is executed, locks aren't released and other threads may be blocked. These situations can result in unexpected behavior, so it's best to avoid calling blocking functions in critical section.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="unexpected-behavior">unexpected behavior</h4>
+<p>Until the blocking function is executed, locks aren't released and other threads may be blocked. These situations can result in unexpected behavior.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Avoid calling blocking functions in critical section.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="n">pthread_mutex_t</span> <span class="o">*</span><span class="n">mutex</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">30000</span><span class="p">);</span>       <span class="c1">// detect</span>
+    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, the call to blocking function sleep occurs at line 5 when the mutex was locked at line 4.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="n">pthread_mutex_t</span> <span class="o">*</span><span class="n">mutex</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+    <span class="c1">//...</span>
+    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the fixed code example, remove calling functon sleep.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0071">Invalid Use of strncat</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 2 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#buffer-overflows">buffer overflows</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Prototype: <code>extern char *strncat(char *dest,char *src,int n)</code>
+Parameter description: src is the source string, dest is the destination string, and n is the first n characters in the specified src.
+Function: Add the first n characters of the string pointed to by src to the end of dest, and cover the '\0' at the end of dest to implement string concatenation.</p>
+<p>The last argument to strncat() should not be the total length of the buffer, but rather the length of the buffer remaining after strncpy() is called. Both of these functions require the remaining length to be specified instead of the total length of the buffer. Since the remaining length changes every time data is added or deleted, the programmer must track these changes or recalculate the remaining length. This process is prone to errors and can cause buffer overflows.
+The following call correctly calculates the remaining space before using the strncat() connection string:  </p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">strncat</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="n">strlen</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</td></tr></table>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="buffer-overflows">buffer overflows</h4>
+<p>Incorrectly calculating the value of n may cause the string spliced ​​to dest to exceed the memory size of dest, causing buffer overflow.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Correctly calculate the length you need to copy.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">src</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">dest</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">'a'</span><span class="p">,</span> <span class="sc">'b'</span><span class="p">,</span> <span class="sc">'c'</span><span class="p">};</span>
+  <span class="n">strncat</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="s">"AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="c1">// expected-warning {{Potential buffer overflow.</span>
+  <span class="c1">// Replace with 'sizeof(dest) - strlen(dest) - 1' or use a safer 'strlcat' API}} </span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, the length calculated using sizeof(dest) - 1 exceeds the remaining length of dest, causing buffer overflow.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">src</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">dest</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">'a'</span><span class="p">,</span> <span class="sc">'b'</span><span class="p">,</span> <span class="sc">'c'</span><span class="p">};</span>
+  <span class="n">strncat</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="s">"AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"</span><span class="p">,</span> \
+          <span class="k">sizeof</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="n">strlen</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, the length of the copy to be copied is correctly calculated.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1054">Wrong pipe parameter size</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+</ul>
+</div>
+
+            <div>
+                <p>Summary：The pipe()/pipe2() function is called with inconsistent parameters</p>
+
+<h1 id="description">Description</h1>
+<p>The pipe()/pipe2() function is called with inconsistent parameters</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Using the same parameters when the pipe()/pipe2() function is called</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0073">Copy To Self</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#unexpected-result">Unexpected result</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Self-assignment is usually a typing error that can lead to program errors or incorrect program functionality.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="unexpected-result">Unexpected result</h4>
+<p>Self-assignment is usually a typing error that can lead to program errors or incorrect program functionality.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Check the code logic to remove invalid self-assigned code.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, line 4 is an invalid self-assignment code.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, remove the invalid self-assignment code.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1051">Implementation dependent behavior</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+</ul>
+</div>
+
+            <div>
+                <p>Summary：Error using functions in the cmath library, using incorrect parameters</p>
+
+<h1 id="description">Description</h1>
+<p>Error using functions in the cmath library, using incorrect parameters</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>Causing a program error or malfunction</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Using the right functions and parameters in the cmath library.</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0059">Bad Use Chroot</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#privilege-escalation">Privilege escalation</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>The program created a jail by calling the chroot() function, but did not change the working path. This behavior doesn't ensure the files accessed by the program do not exceed this limit.
+Improper use of chroot() will allow an attacker to jump out of the limits set by chroot.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="privilege-escalation">Privilege escalation</h4>
+<p>The attacker can jump out of the restrictions set by the chroot and perform operations on sensitive data, such as deleting files and modifying the home page.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>After calling chroot(), call chdir("/") to change the working path.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// root changed.</span>
+  <span class="n">chroot</span><span class="p">(</span><span class="s">"/usr/local"</span><span class="p">);</span> 
+  <span class="c1">// expected-warning {{No call of chdir("/") immediately after chroot}} </span>
+  <span class="n">foo</span><span class="p">();</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, after calling chroot(), there is no further call to chdir("/") to change the working path.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">chroot</span><span class="p">(</span><span class="s">"/usr/local"</span><span class="p">);</span> <span class="c1">// root changed.</span>
+  <span class="n">chdir</span><span class="p">(</span><span class="s">"/"</span><span class="p">);</span>
+  <span class="n">foo</span><span class="p">();</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code，after calling chroot(), call chdir("/") to change the working path.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1007">Illegal whence argument in fseek</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable code Example</a></li>
+<li><a href="#fixed-code-example">Fixed code example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">fseek</span> <span class="p">(</span> <span class="kt">FILE</span> <span class="o">*</span> <span class="n">stream</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">int</span> <span class="n">origin</span> <span class="p">);</span>
+</pre></div>
+</td></tr></table>
+<p>The third argument origin: Position used as reference for the offset. It is specified by one of the following constants defined in <code>&lt;cstdio&gt;</code> exclusively to be used as arguments for this function:</p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Reference position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SEEK_SET</td>
+<td>Beginning of file</td>
+</tr>
+<tr>
+<td>SEEK_CUR</td>
+<td>Current position of the file pointer</td>
+</tr>
+<tr>
+<td>SEEK_END</td>
+<td>End of file</td>
+</tr>
+</tbody>
+</table>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>If the third argument to fseek() not be SEEK_SET, SEEK_END, or SEEK_CUR, the behavior is undefined.</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>The whence argument to fseek() should be SEEK_SET, SEEK_END, or SEEK_CUR.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#define N 5</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">student</span><span class="p">{</span>
+  <span class="kt">long</span> <span class="n">sno</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+  <span class="kt">float</span> <span class="n">score</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="p">}</span><span class="n">STU</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="n">filename</span><span class="p">,</span><span class="n">STU</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span><span class="p">;</span>
+  <span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">"rb+"</span><span class="p">);</span>
+  <span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="o">-</span><span class="mi">1L</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="mi">4</span><span class="p">);</span> <span class="c1">// 4 is not a valid whence argument</span>
+  <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="n">fp</span><span class="p">);</span>
+  <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed code example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#define N 5</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">student</span><span class="p">{</span>
+  <span class="kt">long</span> <span class="n">sno</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+  <span class="kt">float</span> <span class="n">score</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="p">}</span><span class="n">STU</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="n">filename</span><span class="p">,</span><span class="n">STU</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span><span class="p">;</span>
+  <span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">"rb+"</span><span class="p">);</span>
+  <span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="o">-</span><span class="mi">1L</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="n">SEEK_END</span><span class="p">);</span>
+  <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="n">fp</span><span class="p">);</span>
+  <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/c.html">C++</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1009">Null pointer argument in call to string functions</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable code Example</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Do not use the null value in any instance where an object is required, including the following cases:</p>
+<ul>
+<li>Calling the instance method of a null object</li>
+<li>Accessing or modifying the field of a null object</li>
+<li>Taking the length of null as if it were an array</li>
+<li>Accessing or modifying the elements of null as if it were an array</li>
+<li>Throwing null as if it were a Throwable value</li>
+</ul>
+<p>Using a null in cases where an object is required results in a NullPointerException being thrown, which interrupts execution of the program or thread.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>Using a null in cases where an object is required results in a NullPointerException being thrown, which interrupts execution of the program or thread. </p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Do not use the null value in any instance where an object is required.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Critical</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">strcpy_null_dst</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// expected-warning{{Null pointer argument in call to string copy function}}</span>
+  <span class="n">strcpy</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span> 
+
+  <span class="c1">// expected-warning{{Null pointer argument in call to string length function}}</span>
+  <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> 
+
+  <span class="kt">char</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="s">"123"</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{Null pointer argument in call to string comparison</span>
+  <span class="c1">// function}}</span>
+  <span class="n">strcmp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cert">
+<p>https://wiki.sei.cmu.edu/confluence/display/java/EXP01-J.+Do+not+use+a+null+in+a+case+where+an+object+is+required.html <a class="footnote-backref" href="#fnref-cert" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1067">Incorrect use of IO API</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 3 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#improper-control-of-a-resource-through-its-lifetimequestion12345">Improper Control of a Resource Through its Lifetime(Question1,2,3,4,5)</a></li>
+<li><a href="#use-of-expired-file-descriptorquestion1">Use of Expired File Descriptor(Question1)</a></li>
+<li><a href="#improper-restriction-of-operations-within-the-bounds-of-a-memory-bufferquestion6">Improper Restriction of Operations within the Bounds of a Memory Buffer(Question6)</a></li>
+<li><a href="#function-call-with-incorrect-number-of-argumentsquestion7">Function Call With Incorrect Number of Arguments(Question7)</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a><ul>
+<li><a href="#phase-testing">Phase: Testing</a></li>
+<li><a href="#phase-testing_1">Phase: Testing</a></li>
+</ul>
+</li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#bad-examplequestion6-without-field-width-limits">bad example(Question6: Without field width limits)</a></li>
+<li><a href="#good-examplequestion6-without-field-width-limits">good example(Question6: Without field width limits)</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Incorrect use of IO API contains questions as follows:</p>
+<ol>
+<li>
+<p>Invalid usage of output stream.such as in fclose();fread() use closed file.</p>
+</li>
+<li>
+<p>fflush() called on input stream may result in undefined behaviour on non-linux systems.</p>
+</li>
+<li>
+<p>Read and write operations without a call to a positioning function (fseek, fsetpos or rewind) or fflush in between result in undefined behaviour.", CWE664,</p>
+</li>
+<li>
+<p>Read operation on a file that was opened only for writing.
+Write operation on a file that was opened only for reading.
+Used file that is not opened.</p>
+</li>
+<li>
+<p>Repositioning operation performed on a file opened in append mode has no effect.</p>
+</li>
+<li>
+<p>Without field width limits can crash with huge input data. Add a field width "specifier to fix this problem.</p>
+</li>
+<li>
+<p>Wrong Printf Scanf Arg Num or wrong Printf Scanf Parameter Position Error.</p>
+</li>
+</ol>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="improper-control-of-a-resource-through-its-lifetimequestion12345">Improper Control of a Resource Through its Lifetime(Question1,2,3,4,5)</h4>
+<p>The software does not maintain or incorrectly maintains control over a resource throughout its lifetime of creation, use, and release.</p>
+<p>Resources often have explicit instructions on how to be created, used and destroyed. When software does not follow these instructions, it can lead to unexpected behaviors and potentially exploitable states.</p>
+<p>Even without explicit instructions, various principles are expected to be adhered to, such as "Do not use an object until after its creation is complete," or "do not use an object after it has been slated for destruction."</p>
+<h4 id="use-of-expired-file-descriptorquestion1">Use of Expired File Descriptor(Question1)</h4>
+<p>The software uses or accesses a file descriptor after it has been closed.</p>
+<p>After a file descriptor for a particular file or device has been released, it can be reused. The code might not write to the original file, since the reused file descriptor might reference a different file or device.</p>
+<h4 id="improper-restriction-of-operations-within-the-bounds-of-a-memory-bufferquestion6">Improper Restriction of Operations within the Bounds of a Memory Buffer(Question6)</h4>
+<p>The software performs operations on a memory buffer, but it can read from or write to a memory location that is outside of the intended boundary of the buffer.</p>
+<p>Certain languages allow direct addressing of memory locations and do not automatically ensure that these locations are valid for the memory buffer that is being referenced. This can cause read or write operations to be performed on memory locations that may be associated with other variables, data structures, or internal program data.</p>
+<p>As a result, an attacker may be able to execute arbitrary code, alter the intended control flow, read sensitive information, or cause the system to crash.</p>
+<h4 id="function-call-with-incorrect-number-of-argumentsquestion7">Function Call With Incorrect Number of Arguments(Question7)</h4>
+<p>The software calls a function, procedure, or routine, but the caller specifies too many arguments, or too few arguments, which may lead to undefined behavior and resultant weaknesses.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<h4 id="phase-testing">Phase: Testing</h4>
+<p>Use Static analysis tools to check for unreleased resources.</p>
+<h4 id="phase-testing_1">Phase: Testing</h4>
+<p>Because this function call often produces incorrect behavior it will usually be detected during testing or normal operation of the software. During testing exercise all possible control paths will typically expose this weakness except in rare cases when the incorrect function call accidentally produces the correct results or if the provided argument type is very similar to the expected argument type.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="bad-examplequestion6-without-field-width-limits">bad example(Question6: Without field width limits)</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>Typing in 5 or more characters may make the program crash.</p>
+<h3 id="good-examplequestion6-without-field-width-limits">good example(Question6: Without field width limits)</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%4s"</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>The correct usage here is 'scanf("%4s", c);', as the maximum field width does not include the terminating null byte.</p>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cwe">
+<p>https://cwe.mitre.org/data/definitions/685.html <a class="footnote-backref" href="#fnref-cwe" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn-linux">
+<p>http://linux.die.net/man/3/scanf <a class="footnote-backref" href="#fnref-linux" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn-opensource">
+<p>http://www.opensource.apple.com/source/xnu/xnu-1456.1.26/libkern/stdio/scanf.c <a class="footnote-backref" href="#fnref-opensource" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0015">Secure Temp</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 2 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#outside-attack">outside attack</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Many programs create temporary files in shared directories such as /tmp. There are C library routines that assist in creating unique temporary files, but many of them are insecure as they make a program vulnerable to race condition attacks.</p>
+<p>If the name of a temporary file is easily guessed, or the filename is used unsafely after temp file creation, or the umask is not safely set before calling a safe routine, an attacker can take control of a vulnerable application and system.</p>
+<p>Avoid using insecure temporary file creation routines. Instead, use mkstemp() for creating temp files. When using mkstemp(), remember to safely set the umask before to restrict the resulting temporary file permissions to only the owner. Also, do not pass on the filename to another privileged system call. Use the returned file descriptor instead.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="outside-attack">outside attack</h4>
+<p>If the name of a temporary file is easily guessed, or the filename is used unsafely after temp file creation, or the umask is not safely set before calling a safe routine, an attacker can take control of a vulnerable application and system.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Avoid using insecure temporary file creation routines. </p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="n">mktemp</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, use mktemp() routine to create temporary file, it is easy to guess the name of the temporary file it creates.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"a.txt"</span><span class="p">;</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="n">mkstemp</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the fixed code example  use mkstemp() routine to create temporary file.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1044">Improper use of memset</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 2 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#mismatched-memory-management-routines">Mismatched Memory Management Routines</a></li>
+<li><a href="#improper-initialization">Improper Initialization</a></li>
+<li><a href="#reliance-on-undefined-unspecified-or-implementation-defined-behavior">Reliance on Undefined, Unspecified, or Implementation-Defined Behavior</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable code Example</a></li>
+<li><a href="#fixed-code-example">Fixed code example</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>It is dangerous using memset on classes, e.g. it may override the virtual table and break the constructor logic. Using memset to set a value to zero is only safe on integer types, not
+floating point types or pointers.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="mismatched-memory-management-routines">Mismatched Memory Management Routines</h4>
+<p>The application attempts to return a memory resource to the system, but it calls a release function that is not compatible with the function that was originally used to allocate that resource.</p>
+<h4 id="improper-initialization">Improper Initialization</h4>
+<p>The software does not initialize or incorrectly initializes a resource, which might leave the resource in an unexpected state when it is accessed or used.</p>
+<h4 id="reliance-on-undefined-unspecified-or-implementation-defined-behavior">Reliance on Undefined, Unspecified, or Implementation-Defined Behavior</h4>
+<p>The software uses an API function, data structure, or other entity in a way that relies on properties that are not always guaranteed to hold for that entity.
+This can lead to resultant weaknesses when the required properties change, such as when the software is ported to a different platform or if an interaction error (CWE-435) occurs.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Don't memset on classes.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">Bad</span><span class="p">{</span>
+<span class="nl">private</span><span class="p">:</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">test</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Bad</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">memset</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Bad</span><span class="p">));</span> <span class="c1">// Bad</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed code example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">Good</span><span class="p">{</span>
+<span class="nl">private</span><span class="p">:</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">b</span><span class="p">;</span>
+<span class="nl">public</span><span class="p">:</span>
+  <span class="kt">void</span> <span class="n">setA</span><span class="p">(</span><span class="kt">int</span> <span class="n">pa</span><span class="p">)</span> <span class="p">{</span> <span class="n">a</span> <span class="o">=</span> <span class="n">pa</span><span class="p">;</span> <span class="p">}</span>
+  <span class="n">setB</span><span class="p">(</span><span class="kt">int</span> <span class="n">pb</span><span class="p">)</span> <span class="p">{</span> <span class="n">b</span> <span class="o">=</span> <span class="n">pb</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">test</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Good</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">b</span><span class="p">.</span><span class="n">setA</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">b</span><span class="p">.</span><span class="n">setB</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cwe">
+<p>https://cwe.mitre.org/data/definitions/758.html <a class="footnote-backref" href="#fnref-cwe" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1066">Incorrect use of memset function</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 2 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#improper-release-of-memory-before-removing-last-reference-memory-leak">Improper Release of Memory Before Removing Last Reference ('Memory Leak')</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a><ul>
+<li><a href="#phase-implementation">Phase: Implementation</a></li>
+<li><a href="#phase-architecture-and-design">Phase: Architecture and Design</a></li>
+<li><a href="#phases-architecture-and-design-build-and-compilation">Phases: Architecture and Design; Build and Compilation</a></li>
+</ul>
+</li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#bad-example">bad example</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>The program does not sufficiently track and release allocated memory after it has been used, which slowly consumes remaining memory.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="improper-release-of-memory-before-removing-last-reference-memory-leak">Improper Release of Memory Before Removing Last Reference ('Memory Leak')</h4>
+<p>The software does not sufficiently track and release allocated memory after it has been used, which slowly consumes remaining memory.</p>
+<p>This is often triggered by improper handling of malformed data or unexpectedly interrupted sessions.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<h4 id="phase-implementation">Phase: Implementation</h4>
+<p>Strategy: Libraries or Frameworks</p>
+<p>Choose a language or tool that provides automatic memory management, or makes manual memory management less error-prone.</p>
+<p>For example, glibc in Linux provides protection against free of invalid pointers.</p>
+<p>When using Xcode to target OS X or iOS, enable automatic reference counting (ARC) [REF-391].</p>
+<p>To help correctly and consistently manage memory when programming in C++, consider using a smart pointer class such as std::auto_ptr (defined by ISO/IEC ISO/IEC 14882:2003), std::shared_ptr and std::unique_ptr (specified by an upcoming revision of the C++ standard, informally referred to as C++ 1x), or equivalent solutions such as Boost.</p>
+<h4 id="phase-architecture-and-design">Phase: Architecture and Design</h4>
+<p>Use an abstraction library to abstract away risky APIs. Not a complete solution.</p>
+<h4 id="phases-architecture-and-design-build-and-compilation">Phases: Architecture and Design; Build and Compilation</h4>
+<p>The Boehm-Demers-Weiser Garbage Collector or valgrind can be used to detect leaks in code.</p>
+<p>Note: This is not a complete solution as it is not 100% effective</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="bad-example">bad example</h3>
+<p>example1</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="o">*</span> <span class="nf">getBlock</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">buf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">buf</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">BLOCK_SIZE</span><span class="p">)</span> <span class="o">!=</span> <span class="n">BLOCK_SIZE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">buf</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>The C function leaks a block of allocated memory if the call to read() does not return the expected number of bytes:</p>
+<p>example2</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">bar</span> <span class="nf">connection</span><span class="p">(){</span>
+    <span class="n">foo</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">1024</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">foo</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">endConnection</span><span class="p">(</span><span class="n">bar</span> <span class="n">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1">//thread 1</span>
+    <span class="c1">//On a connection</span>
+    <span class="n">foo</span><span class="o">=</span><span class="n">connection</span><span class="p">();</span> <span class="c1">//thread 2</span>
+    <span class="c1">//When the connection ends</span>
+    <span class="n">endConnection</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>Here the problem is that every time a connection is made, more memory is allocated. So if one just opened up more and more connections, eventually the machine would run out of memory.</p>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cwe">
+<p>https://cwe.mitre.org/data/definitions/401.html <a class="footnote-backref" href="#fnref-cwe" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0095">Free a null pointer</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>void free (void* ptr); // Deallocate memory block
+</pre></div>
+</td></tr></table>
+<p>A block of memory previously allocated by a call to malloc, calloc or realloc is deallocated, making it available again for further allocations. <br/>
+If ptr does not point to a block of memory allocated with the above functions, it causes undefined behavior.<br/>
+If ptr is a null pointer, the function does nothing.  </p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>Freeing a null pointer will have no effect in the execution.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Do not free a null pointer.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">test</span><span class="p">(){</span>
+  <span class="n">free</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, freeing a null pointer will have no effect in the execution.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1000">String copy functions with memory overlapping</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable code Example</a></li>
+<li><a href="#fixed-code-example">Fixed code example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>In general, memcpy is implemented in a simple (but fast) manner. Simplistically, it just loops over the data(in order), copying from one location to the other. This can result in the source being overwritten while it's being read.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>The copying is done directly on the memory so that when there is memory overlap, we get unexpected results.</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Using memmove() instead of memcpy() to copy memory.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+  <span class="kt">char</span> <span class="n">a</span><span class="p">[]</span><span class="o">=</span><span class="s">"hare rama hare rama"</span><span class="p">;</span>
+  <span class="n">memcpy</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">puts</span><span class="p">(</span><span class="n">a</span><span class="p">);</span> <span class="c1">// "hare hare hare hare hare hare rama hare rama"</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed code example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(){</span>
+  <span class="kt">char</span> <span class="n">a</span><span class="p">[]</span><span class="o">=</span><span class="s">"hare rama hare rama"</span><span class="p">;</span>
+  <span class="n">memmove</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">puts</span><span class="p">(</span><span class="n">a</span><span class="p">);</span> <span class="c1">// "hare hare rama hare rama"</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1006">Call functions with the wrong number of arguments</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable code Example</a></li>
+<li><a href="#fixed-code-example">Fixed code example</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Functions that are appropriately declared  will typically generate a compiler diagnostic message if they are supplied with the wrong number of arguments. However, there are cases in which supplying the incorrect arguments to a function will, at best, generate compiler warnings. Although such warnings should be resolved, they do not prevent program compilation.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>Calling a function with incorrect arguments can result in unexpected or unintended program behavior.</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Call functions with the correct number of arguments</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
+  <span class="n">func</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed code example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
+  <span class="n">func</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-CERT">
+<p>https://wiki.sei.cmu.edu/confluence/display/c/EXP37-C.+Call+functions+with+the+correct+number+and+type+of+arguments.html <a class="footnote-backref" href="#fnref-CERT" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/c.html">C++</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1063">Passing null to a variadic parameter</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 2 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#undefined-behavior">Undefined behavior</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                <p>Summary：Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.
+License: <a href="../../licenses/MITRE-LICENSE">MITRE</a></p>
+
+<h1 id="description">Description</h1>
+<p>Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.　The C99 standard states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h3 id="undefined-behavior">Undefined behavior</h3>
+<p>In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Prohibit passing NULL to the last argument of a variable argument function</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>low</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">ap</span><span class="p">;</span>
+  <span class="n">va_start</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%018p, %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">p</span> <span class="o">&amp;</span> <span class="mi">255</span> <span class="o">?</span> <span class="nl">p</span> <span class="p">:</span> <span class="s">""</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span>
+      <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">va_end</span><span class="p">(</span><span class="n">ap</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">g</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s2</span> <span class="o">=</span> <span class="s">"x"</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s3</span> <span class="o">=</span> <span class="s">"ERROR"</span><span class="p">;</span>
+  <span class="n">f</span><span class="p">(</span><span class="s">"first"</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s3</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">);</span><span class="c1">//detect</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">g</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>To reproduce you might be able to use this little code example on 64bit platforms. If the output includes "ERROR", the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the "ERROR" output go away.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">ap</span><span class="p">;</span>
+  <span class="n">va_start</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%018p, %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">p</span> <span class="o">&amp;</span> <span class="mi">255</span> <span class="o">?</span> <span class="nl">p</span> <span class="p">:</span> <span class="s">""</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span>
+      <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">va_end</span><span class="p">(</span><span class="n">ap</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">g</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s2</span> <span class="o">=</span> <span class="s">"x"</span><span class="p">;</span>
+  <span class="c1">// changing 0 to 0L for the 7th argument </span>
+  <span class="c1">// (which is intended to act as sentinel) makes </span>
+  <span class="c1">// the error go away on x86_64</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s3</span> <span class="o">=</span> <span class="s">"ERROR"</span><span class="p">;</span>
+  <span class="n">f</span><span class="p">(</span><span class="s">"first"</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="mi">0L</span><span class="p">,</span> <span class="n">s3</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">g</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cwe">
+<p>https://cwe.mitre.org/data/definitions/475.html <a class="footnote-backref" href="#fnref-cwe" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0047">Bad Alloc Strlen</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#buffer-overflow">buffer overflow</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Assuming that you intended <code>strlen(p)+1</code> to indicate the length of p plus an extra byte for a null terminator, <code>strlen(p+1)</code> is undefined when p is zero length and <code>strlen(p)-1</code> otherwise. The result is a potential buffer overrun on the result of allocation, undefined behavior when p is zero length, or both.</p>
+<p>This defect almost always results in a buffer overflow when data is copied to the new buffer.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="buffer-overflow">buffer overflow</h4>
+<p>This defect almost always results in a buffer overflow when data is copied to the new buffer.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Calculate string length in a correct way.   </p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">bad</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">new_name</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">new_name</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span> <span class="c1">//bad_alloc_strlen</span>
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">new_name</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">new_name</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, use <code>strlen(name+1)</code> to indicate the length of p plus an extra byte for a null terminator.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">good</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">new_name</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">new_name</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> 
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">new_name</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">new_name</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the invulnerable code example, use <code>strlen(name)+1</code> to indicate the length of p plus an extra byte for a null terminator.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0069">Invalid Use of UNIX/Posix Function</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#unexpecpted-result">unexpecpted result</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>When using the following UNIX/Posix library functions, you need to follow the specified rules:
+<code>open, openat, pthread_once, calloc, malloc, realloc, reallocf, alloca, __builtin_alloca, __builtin_alloca_with_align, valloc</code>。</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="unexpecpted-result">unexpecpted result</h4>
+<p>Incorrectly use of UNIX/Posix function may cause unexpected result.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Correctly use UNIX/Posix Function.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">mode</span> <span class="o">=</span> <span class="mh">0x0</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{Call to 'open' with more than 3 arguments}}</span>
+  <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span> 
+  <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>The above code incorrectly used open() function. When open function() is called, 4 parameters are passed, which exceeds the limit of the number of parameters of open() function.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+  <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">);</span> <span class="c1">// no-warning</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>The above code correctly used open() function.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0070">Malloc Sizeof</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#buffer-overflow">buffer overflow</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Using malloc, calloc, or realloc functions to allocate memory will not match the size you expect to get. The intent is to use sizeof to calculate the size of the actual type, but the result is the size of the pointer.
+This situation causes the allocated memory to be less than the expected allocation size, and finally results in undefined behavior, such as buffer overflow.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="buffer-overflow">buffer overflow</h4>
+<p>The sizeof operation of the pointer during memory allocation causes the allocated memory to be less than the expected allocation size, and finally causes undefined behavior, such as buffer overflow.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Calculate the size of the memory correctly when applying for memory.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap1</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">A</span><span class="p">));</span>
+  <span class="c1">// expected-warning {{Result of 'calloc' is converted to a pointer of //type 'struct A', which is incompatible with sizeof operand type </span>
+  <span class="c1">// 'struct A *'}} </span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap2</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ap1</span><span class="p">));</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, the sizeof operation is performed on the pointer during memory allocation, resulting in less memory allocation than expected.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap1</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">A</span><span class="p">));</span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap2</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ap1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, the memory size is correctly calculated when applying for memory.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0074">Invalid Use of va_list</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#unexpected-results">Unexpected results</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example-1">Vulnerable code Example 1</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Steps to use VA_LIST</p>
+<ol>
+<li>declare a variable with VA_LIST data type, it will point to vary arguments.</li>
+<li>use VA_START macro to initialize the VA_LIST variable we just defined.</li>
+<li>use VA_ARG macro to obtain each argument, the second parameter of VA_ARG indicates data type of the argument you are obtaining. Call VA_ARG repeatedly to obtain more vary arguments.</li>
+<li>use VA_END to end the process of getting vary arguments.</li>
+</ol>
+<p>Using VA_LIST incorrectly could produce unexpected results.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="unexpected-results">Unexpected results</h4>
+<p>Using VA_LIST incorrectly could produce unexpected results.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Use VA_LIST correctly.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example-1">Vulnerable code Example 1</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad1</span><span class="p">(</span><span class="kt">int</span> <span class="n">fst</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">va</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{va_arg() is called on an uninitialized va_list}} </span>
+  <span class="c1">// expected-note{{va_arg() is called on an uninitialized va_list}} </span>
+  <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">va_arg</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>Use of uninitilized <code>va_list</code> variable <code>va</code>.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad2</span><span class="p">(</span><span class="kt">int</span> <span class="n">fst</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">va</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{va_list 'va' is copied onto itself}} </span>
+  <span class="c1">// expected-note{{va_list 'va' is copied onto itself}} </span>
+  <span class="n">va_copy</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="n">va</span><span class="p">);</span>
+<span class="p">}</span> 
+
+<span class="err">```</span><span class="n">c</span>
+<span class="n">There</span> <span class="n">is</span> <span class="n">no</span> <span class="n">meaning</span> <span class="n">on</span> <span class="n">copying</span> <span class="err">`</span><span class="n">va</span><span class="err">`</span> <span class="n">itself</span><span class="p">.</span>
+
+<span class="cp">### Fixed Code Example 1</span>
+
+<span class="err">```</span><span class="n">c</span>
+<span class="kt">void</span> <span class="n">good</span><span class="p">(</span><span class="kt">int</span> <span class="n">fst</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">va</span><span class="p">;</span>
+  <span class="n">va_start</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="n">fst</span><span class="p">);</span> <span class="c1">// Initialized va_list</span>
+  <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">va_arg</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>Initialize <code>va_list</code> variable <code>va</code> before use.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API abuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0025">Less Open Function Mode</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/api-abuse.html">API abuse</a>
+
+                    &#8226; 2 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#insecure-file-permissions">Insecure File Permissions</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>The open() system call converts a pathname into a file descriptor. You can pass flags to open() specifying various options including the file's access permissions (read/write, read only, or write only), whether to create the file if it does not exist (O_CREAT), and whether the file can be appended to.</p>
+<p>If you call open() with the O_CREAT option, you should also, for safety, pass an argument (mode argument) that explicitly sets the file's permissions.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="insecure-file-permissions">Insecure File Permissions</h4>
+<p>Creating a file with insufficiently restrictive access permissions may allow an unprivileged user to access that file. Although access permissions are heavily dependent on the file system, many file-creation functions provide mechanisms to set (or at least influence) access permissions. When these functions are used to create files, appropriate access permissions should be specified to prevent unintended access.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>when call open() with the O_CREAT option, add mode argument.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">file_name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+
+    <span class="cm">/* Initialize file_name */</span>
+
+    <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_WRONLY</span><span class="p">);</span>
+    <span class="cm">/* Access permissions were missing */</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+        <span class="cm">/* Handle error */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, Using the POSIX open() function to create a file but failing to provide access permissions for that file may cause the file to be created with overly permissive access permissions. This omission has been known to lead to vulnerabilities—for example, CVE-2006-1174.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">file_name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">file_access_permissions</span><span class="p">;</span>
+
+    <span class="cm">/* Initialize file_name and file_access_permissions */</span>
+    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span>
+        <span class="n">file_name</span><span class="p">,</span>
+        <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_WRONLY</span><span class="p">,</span>
+        <span class="n">file_access_permissions</span>
+    <span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+        <span class="cm">/* Handle error */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the fixed code example, Access permissions for the newly created file should be specified in the third argument to open(). Again, the permissions are modified by the value of umask().</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : "../../..",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

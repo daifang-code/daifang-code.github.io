@@ -1,0 +1,114 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2270">PE2270: space-before-keywords</h2>
+    <h3>该规则已被ESLint v2.0移除，且由`keyword-spacing`规则替代</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2270</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<p>该规则已被ESLint v2.0<strong>移除</strong>，且由<code>keyword-spacing</code>规则<strong>替代</strong>。</p>
+<p>(fixable) The <code>--fix</code> option on the <a href="../user-guide/command-line-interface#fix">command line</a> automatically fixed problems reported by this rule.</p>
+<p>Keywords are syntax elements of JavaScript, such as <code>function</code> and <code>if</code>. These identifiers have special meaning to the language and so often appear in a different color in code editors. As an important part of the language, style guides often refer to the spacing that should be used around keywords. For example, you might have a style guide that says keywords should be always be preceded by spaces, which would mean <code>if-else</code> statements must look like this:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+<p>Of course, you could also have a style guide that disallows spaces before keywords.</p>
+<h2>缺陷详因</h2>
+<p>This rule will enforce consistency of spacing before the keywords <code>if</code>, <code>else</code>, <code>for</code>,
+<code>while</code>, <code>do</code>, <code>switch</code>, <code>throw</code>, <code>try</code>, <code>catch</code>, <code>finally</code>, <code>with</code>, <code>break</code>, <code>continue</code>,
+<code>return</code>, <code>function</code>, <code>yield</code>, <code>class</code> and variable declarations (<code>let</code>, <code>const</code>, <code>var</code>)
+and label statements.</p>
+<p>This rule takes one argument: <code>&quot;always&quot;</code> or <code>&quot;never&quot;</code>. If <code>&quot;always&quot;</code> then the keywords
+must be preceded by at least one space. If <code>&quot;never&quot;</code> then no spaces will be allowed before
+the keywords <code>else</code>, <code>while</code> (do...while), <code>finally</code> and <code>catch</code>. The default value is <code>&quot;always&quot;</code>.</p>
+<p>This rule will allow keywords to be preceded by an opening curly brace (<code>{</code>). If you wish to alter
+this behavior, consider using the <a href="block-spacing">block-spacing</a> rule.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-keywords: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span><span class="k">else</span> <span class="p">{}</span>
+
+<span class="kr">const</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span><span class="kd">let</span> <span class="nx">baz</span> <span class="o">=</span> <span class="s1">&#39;qux&#39;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span><span class="kd">function</span> <span class="nx">bar</span> <span class="p">()</span> <span class="p">{}</span>
+
+<span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-keywords: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{}</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{})()</span>
+
+<span class="o">&lt;</span><span class="nx">Foo</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{}}</span> <span class="o">/&gt;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">foo</span> <span class="k">of</span> <span class="p">[</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">,</span> <span class="s1">&#39;qux&#39;</span><span class="p">])</span> <span class="p">{}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-keywords: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{}</span>
+
+<span class="k">do</span> <span class="p">{</span>
+
+<span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+
+<span class="k">try</span> <span class="p">{}</span> <span class="k">finally</span> <span class="p">{}</span>
+
+<span class="k">try</span> <span class="p">{}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-keywords: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span><span class="k">else</span> <span class="p">{}</span>
+
+<span class="k">do</span> <span class="p">{}</span><span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+
+<span class="k">try</span> <span class="p">{}</span><span class="k">finally</span> <span class="p">{}</span>
+
+<span class="k">try</span><span class="p">{}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>If you do not wish to enforce consistency on keyword spacing.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="space-after-keywords">space-after-keywords</a></li>
+<li><a href="block-spacing">block-spacing</a></li>
+<li><a href="space-return-throw-case">space-return-throw-case</a></li>
+<li><a href="space-unary-ops">space-unary-ops</a></li>
+<li><a href="space-infix-ops">space-infix-ops</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>This rule was introduced in ESLint 1.4.0 and removed in 2.0.0-beta.3.</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/space-before-keywords.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,111 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2062">PE2062: multiline-comment-style</h2>
+    <h3>enforce a particular style for multiline comments (multiline-comment-style)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2062</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>enforce a particular style for multiline comments (multiline-comment-style)</h4>
+<p>Many style guides require a particular style for comments that span multiple lines. For example, some style guides prefer the use of a single block comment for multiline comments, whereas other style guides prefer consecutive line comments.</p>
+<h2>Rule Details</h2>
+<p>This rule aims to enforce a particular style for multiline comments.</p>
+<h5>Options</h5>
+<p>This rule has a string option, which can have one of the following values:</p>
+<ul>
+<li><code>&quot;starred-block&quot;</code> (default): Disallows consecutive line comments in favor of block comments. Additionally, requires block comments to have an aligned <code>*</code> character before each line.</li>
+<li><code>&quot;bare-block&quot;</code>: Disallows consecutive line comments in favor of block comments, and disallows block comments from having a <code>&quot;*&quot;</code> character before each line.</li>
+<li><code>&quot;separate-lines&quot;</code>: Disallows block comments in favor of consecutive line comments</li>
+</ul>
+<p>The rule always ignores directive comments such as <code>/* eslint-disable */</code>. Additionally, unless the mode is <code>&quot;starred-block&quot;</code>, the rule ignores JSDoc comments.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;starred-block&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint multiline-comment-style: [&quot;error&quot;, &quot;starred-block&quot;] */</span>
+
+<span class="c1">// this line</span>
+<span class="c1">// calls foo()</span>
+<span class="nx">foo</span><span class="p">();</span>
+
+<span class="cm">/* this line</span>
+<span class="cm">calls foo() */</span>
+<span class="nx">foo</span><span class="p">();</span>
+
+<span class="cm">/* this comment</span>
+<span class="cm"> * is missing a newline after /*</span>
+<span class="cm"> */</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * this comment</span>
+<span class="cm"> * is missing a newline at the end */</span>
+
+<span class="cm">/*</span>
+<span class="cm">* the star in this line should have a space before it</span>
+<span class="cm"> */</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * the star on the following line should have a space before it</span>
+<span class="cm">*/</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;starred-block&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint multiline-comment-style: [&quot;error&quot;, &quot;starred-block&quot;] */</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * this line</span>
+<span class="cm"> * calls foo()</span>
+<span class="cm"> */</span>
+<span class="nx">foo</span><span class="p">();</span>
+
+<span class="c1">// single-line comment</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;bare-block&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint multiline-comment-style: [&quot;error&quot;, &quot;bare-block&quot;] */</span>
+
+<span class="c1">// this line</span>
+<span class="c1">// calls foo()</span>
+<span class="nx">foo</span><span class="p">();</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * this line</span>
+<span class="cm"> * calls foo()</span>
+<span class="cm"> */</span>
+<span class="nx">foo</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;bare-block&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint multiline-comment-style: [&quot;error&quot;, &quot;bare-block&quot;] */</span>
+
+<span class="cm">/* this line</span>
+<span class="cm">   calls foo() */</span>
+<span class="nx">foo</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;separate-lines&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint multiline-comment-style: [&quot;error&quot;, &quot;separate-lines&quot;] */</span>
+
+<span class="cm">/* This line</span>
+<span class="cm">calls foo() */</span>
+<span class="nx">foo</span><span class="p">();</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * This line</span>
+<span class="cm"> * calls foo()</span>
+<span class="cm"> */</span>
+<span class="nx">foo</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;separate-lines&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint multiline-comment-style: [&quot;error&quot;, &quot;separate-lines&quot;] */</span>
+
+<span class="c1">// This line</span>
+<span class="c1">// calls foo()</span>
+<span class="nx">foo</span><span class="p">();</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to enforce a particular style for multiline comments, you can disable the rule.</p>
+
+    </section>
+</article>

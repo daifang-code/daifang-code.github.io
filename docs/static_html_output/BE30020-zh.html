@@ -1,0 +1,22 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE30020">BE30020: The pseudo-random numbers generated are predictable</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE30020</dd>
+                    <dt>标签</dt>
+                    <dd>csharp</dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>The pseudo-random numbers generated are predictable. When the software generates predictable values in a context that requires unpredictability. it may be possible for an attacker to guess the next value that will be generated and use that guess to impersonate another user or access confidential information. To generate a cryptographically secure random number. such as the one suitable for creating a random password. use the RNGCryptoServiceProvider class or derive a class from System.Security.Cryptography.RandomNumberGenerator.https: //docs.microsoft.com/en-us/dotnet/ api / system.random? view = netframework-4.8</p>
+<h4>漏洞利用威胁</h4>
+<p>建议改进</p>
+
+    </section>
+</article>

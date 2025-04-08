@@ -1,0 +1,125 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2079">PE2079: no-cond-assign</h2>
+    <h3>disallow assignment operators in conditional statements (no-cond-assign)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2079</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow assignment operators in conditional statements (no-cond-assign)</h4>
+<p>In conditional statements, it is very easy to mistype a comparison operator (such as <code>==</code>) as an assignment operator (such as <code>=</code>). For example:</p>
+<div class="highlight"><pre><span></span><span class="c1">// Check the user&#39;s job title</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">jobTitle</span> <span class="o">=</span> <span class="s2">&quot;manager&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// user.jobTitle is now incorrect</span>
+<span class="p">}</span>
+</pre></div>
+<p>There are valid reasons to use assignment operators in conditional statements. However, it can be difficult to tell whether a specific assignment was intentional.</p>
+<h2>Rule Details</h2>
+<p>This rule disallows ambiguous assignment operators in test conditions of <code>if</code>, <code>for</code>, <code>while</code>, and <code>do...while</code> statements.</p>
+<h2>Options</h2>
+<p>This rule has a string option:</p>
+<ul>
+<li><code>&quot;except-parens&quot;</code> (default) allows assignments in test conditions <em>only if</em> they are enclosed in parentheses (for example, to allow reassigning a variable in the test of a <code>while</code> or <code>do...while</code> loop)</li>
+<li><code>&quot;always&quot;</code> disallows all assignments in test conditions</li>
+</ul>
+<h5>except-parens</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;except-parens&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-cond-assign: &quot;error&quot;*/</span>
+
+<span class="c1">// Unintentional assignment</span>
+<span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Practical example that is similar to an error</span>
+<span class="kd">function</span> <span class="nx">setHeight</span><span class="p">(</span><span class="nx">someNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="nx">someNode</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;100px&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nx">someNode</span> <span class="o">=</span> <span class="nx">someNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;except-parens&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-cond-assign: &quot;error&quot;*/</span>
+
+<span class="c1">// Assignment replaced by comparison</span>
+<span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Practical example that wraps the assignment in parentheses</span>
+<span class="kd">function</span> <span class="nx">setHeight</span><span class="p">(</span><span class="nx">someNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="nx">someNode</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;100px&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">((</span><span class="nx">someNode</span> <span class="o">=</span> <span class="nx">someNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">// Practical example that wraps the assignment and tests for &#39;null&#39;</span>
+<span class="kd">function</span> <span class="nx">setHeight</span><span class="p">(</span><span class="nx">someNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="nx">someNode</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;100px&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">((</span><span class="nx">someNode</span> <span class="o">=</span> <span class="nx">someNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>always</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-cond-assign: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="c1">// Unintentional assignment</span>
+<span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Practical example that is similar to an error</span>
+<span class="kd">function</span> <span class="nx">setHeight</span><span class="p">(</span><span class="nx">someNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="nx">someNode</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;100px&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nx">someNode</span> <span class="o">=</span> <span class="nx">someNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Practical example that wraps the assignment in parentheses</span>
+<span class="kd">function</span> <span class="nx">setHeight</span><span class="p">(</span><span class="nx">someNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="nx">someNode</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;100px&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">((</span><span class="nx">someNode</span> <span class="o">=</span> <span class="nx">someNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">// Practical example that wraps the assignment and tests for &#39;null&#39;</span>
+<span class="kd">function</span> <span class="nx">setHeight</span><span class="p">(</span><span class="nx">someNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="nx">someNode</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;100px&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">((</span><span class="nx">someNode</span> <span class="o">=</span> <span class="nx">someNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-cond-assign: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="c1">// Assignment replaced by comparison</span>
+<span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-extra-parens.md">no-extra-parens</a></li>
+</ul>
+
+    </section>
+</article>

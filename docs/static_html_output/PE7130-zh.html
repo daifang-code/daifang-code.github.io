@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7130">BE7130: 在散列结构中使用签名声明为不可哈希的类</h2>
+    <h3>在散列结构中使用签名声明为不可哈希的类</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7130</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在散列结构中使用签名声明为不可哈希的类</p>
+<h4>漏洞与风险</h4>
+<p>方法，字段或类声明了一个通用签名，需要可哈希类的上下文中使用不可哈希的类。
+声明equals方法但从Object继承hashCode()方法的类是不可用的，因为它不满足相等的两个对象具有相等的hashCodes的要求。 </p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

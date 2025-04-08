@@ -1,0 +1,84 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2039">PE2039: handle-callback-err</h2>
+    <h3>强制回调错误处理 (handle-callback-err)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2039</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制回调错误处理 (handle-callback-err)</h4>
+<p>在 Node.js 中，最普遍的处理异步行为是回调模式。</p>
+<p>这个模式期望一个 <code>Error</code> 对象或 <code>null</code> 作为回调的第一个参数。</p>
+<p>如果忘记处理这些错误会导致你的应用程序出现一些非常奇怪的行为。</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">loadData</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span> <span class="c1">// forgot to handle error</span>
+<span class="p">}</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则期望当你在 Node.js 中使用回调模式时，你将处理错误。</p>
+<h2>修改方案</h2>
+<p>该规则只有一个字符串选项：错误参数的名称。默认是 <code>err</code>。</p>
+<p>默认参数 <code>&quot;err&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint handle-callback-err: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">loadData</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>默认参数 <code>&quot;err&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint handle-callback-err: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">loadData</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">stack</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">generateError</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+<p>参数 <code>&quot;error&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint handle-callback-err: [&quot;error&quot;, &quot;error&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">loadData</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">stack</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>regular expression</h5>
+<p>有时候（特别是在大项目中）错误变量名不都一致在整个项目中，所以你需要一个更加灵活的配置去确保未处理的错误得到此规则的认可。</p>
+<p>如果错误变量的配置名以 <code>^</code> 开头被认为是一个正则模式。</p>
+<ul>
+<li>如果这个选项是 <code>&quot;^(err|error|anySpecificError)$&quot;</code>，当参数名为 <code>err</code>, <code>error</code> or <code>anySpecificError</code> 时，该规则会报告有未处理的错误。</li>
+<li>如果这个选项是 <code>&quot;^.+Error$&quot;</code>，当参数名以 <code>Error</code> 结尾时（例如，<code>connectionError</code> 或 <code>validationError</code>），该规则会报告有未处理的错误。</li>
+<li>如果这个选项是 <code>&quot;^.*(e|E)rr&quot;</code>，当参数名匹配任何字符串中含有 <code>err</code> 或 <code>Err</code>的（例如，err<code>，</code>error<code>，</code>anyError<code>，</code>some_err`）该规则会报告有未处理的错误。</li>
+</ul>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果一些情况下忽略错误处理并不影响应用的安全，并且你相信一些其他形式的监督将帮助你发现问题，这时可以不使用此规则。</p>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://github.com/maxogden/art-of-node#callbacks">The Art Of Node: Callbacks</a></li>
+<li><a href="https://docs.nodejitsu.com/articles/errors/what-are-the-error-conventions/">Nodejitsu: What are the error conventions?</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.4.5 被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/handle-callback-err.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/handle-callback-err.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

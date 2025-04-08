@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2165">PE2165: no-self-compare</h2>
+    <h3>禁止自身比较（no-self-compare）</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2165</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止自身比较（no-self-compare）</h4>
+<p>变量与其自身进行比较通常来说是一个错误，要么是打字错误要么是重构错误。它都会给读者造成困扰并且可能会引入运行错误。</p>
+<p>唯一肯能会对变量自身做比较时候是当你在测试变量是否是 <code>NaN</code>。然而，在这种情况下，更适合使用 <code>typeof x === 'number' &amp;&amp; isNaN(x)</code> 或者 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN">Number.isNaN ES2015 函数</a> 而不是变量自身比较。</p>
+<h2>缺陷详因</h2>
+<p>该规则为了突出一个潜在的令人困惑的、无意义的代码。几乎没有场景需要你比较变量本身。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-self-compare: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">x</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>更多解释</h2>
+<ul>
+<li><a href="http://jslinterrors.com/weird-relation/">Weird Relation</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-self-compare.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-self-compare.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

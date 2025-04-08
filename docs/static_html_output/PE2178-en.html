@@ -1,0 +1,93 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2178">PE2178: no-undef</h2>
+    <h3>Disallow Undeclared Variables (no-undef)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2178</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow Undeclared Variables (no-undef)</h4>
+<p>This rule can help you locate potential ReferenceErrors resulting from misspellings of variable and parameter names, or accidental implicit globals (for example, from forgetting the <code>var</code> keyword in a <code>for</code> loop initializer).</p>
+<h2>Rule Details</h2>
+<p>Any reference to an undeclared variable causes a warning, unless the variable is explicitly mentioned in a <code>/*global ...*/</code> comment, or specified in the <a href="https://eslint.org/docs/user-guide/configuring#specifying-globals"><code>globals</code> key in the configuration file</a>. A common use case for these is if you intentionally use globals that are defined elsewhere (e.g. in a script sourced from HTML).</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-undef: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">someFunction</span><span class="p">();</span>
+<span class="nx">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with <code>global</code> declaration:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*global someFunction b:true*/</span>
+<span class="cm">/*eslint no-undef: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">someFunction</span><span class="p">();</span>
+<span class="nx">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</pre></div>
+<p>The <code>b:true</code> syntax in <code>/*global */</code> indicates that assignment to <code>b</code> is correct.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule with <code>global</code> declaration:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*global b*/</span>
+<span class="cm">/*eslint no-undef: &quot;error&quot;*/</span>
+
+<span class="nx">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</pre></div>
+<p>By default, variables declared in <code>/*global */</code> are read-only, therefore assignment is incorrect.</p>
+<h2>Options</h2>
+<ul>
+<li><code>typeof</code> set to true will warn for variables used inside typeof check (Default false).</li>
+</ul>
+<h5>typeof</h5>
+<p>Examples of <strong>correct</strong> code for the default <code>{ &quot;typeof&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-undef: &quot;error&quot;*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">UndefinedIdentifier</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something ...</span>
+<span class="p">}</span>
+</pre></div>
+<p>You can use this option if you want to prevent <code>typeof</code> check on a variable which has not been declared.</p>
+<p>Examples of <strong>incorrect</strong> code for the <code>{ &quot;typeof&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-undef: [&quot;error&quot;, { &quot;typeof&quot;: true }] */</span>
+
+<span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">a</span> <span class="o">===</span> <span class="s2">&quot;string&quot;</span><span class="p">){}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the <code>{ &quot;typeof&quot;: true }</code> option with <code>global</code> declaration:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*global a*/</span>
+<span class="cm">/*eslint no-undef: [&quot;error&quot;, { &quot;typeof&quot;: true }] */</span>
+
+<span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">a</span> <span class="o">===</span> <span class="s2">&quot;string&quot;</span><span class="p">){}</span>
+</pre></div>
+<h2>Environments</h2>
+<p>For convenience, ESLint provides shortcuts that pre-define global variables exposed by popular libraries and runtime environments. This rule supports these environments, as listed in <a href="../user-guide/configuring.md#specifying-environments">Specifying Environments</a>.  A few examples are given below.</p>
+<h5>browser</h5>
+<p>Examples of <strong>correct</strong> code for this rule with <code>browser</code> environment:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-undef: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env browser*/</span>
+
+<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<h5>Node.js</h5>
+<p>Examples of <strong>correct</strong> code for this rule with <code>node</code> environment:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-undef: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env node*/</span>
+
+<span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">fs</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If explicit declaration of global variables is not to your taste.</p>
+<h2>Compatibility</h2>
+<p>This rule provides compatibility with treatment of global variables in <a href="http://jshint.com/">JSHint</a> and <a href="http://www.jslint.com">JSLint</a>.</p>
+
+    </section>
+</article>

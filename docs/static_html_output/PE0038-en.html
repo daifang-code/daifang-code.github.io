@@ -1,0 +1,54 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0038">PE0038: Dead Code</h2>
+    <h3>The code which can never be executed. </h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0038</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Faulty code assumptions or other logic errors are often responsible for dead code. These defects can have a broad range of effects. For example, if you make a logic error, such as &lt;= instead of a &lt;, or &amp;&amp; instead of ||, the resulting behavior might be incorrect. At best, dead code increases the size of source code (and associated binaries). More seriously, logic errors can cause important code to never execute, which can adversely affect program results or cause a program to crash.</p>
+<p>Some dead code might be intended. Defensive error checks, for example, might cause some currently unreachable error paths, but are included to guard against future changes. Also, code that uses #if preprocessor statements to conditionally compile different blocks for different configurations might have dead code in certain configurations.</p>
+<h4>Vulnerability and risk</h4>
+<h5>logic error</h5>
+<p>Faulty code assumptions or other logic errors are often responsible for dead code. These defects can have a broad range of effects.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Fixing these defects depends on what the code was intended to do. Removing truly dead code will eliminate the defect.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;Yes&quot;</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">s</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Dead</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, the condition for the second if statement is impossible to satisfy. It requires that the variables be non-null, while on the only path where s can be assigned a non-null value there is a return statement.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;Yes&quot;</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example, remove dead code.</p>
+
+    </section>
+</article>

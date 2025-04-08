@@ -1,0 +1,35 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE19052">PE19052: webshell30</h2>
+    <h3>webshell30</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE19052</dd>
+                    <dt>标签</dt>
+                    <dd>cobra</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>安全风险</h2>
+
+<pre><code>    代码中存在webshell
+
+    特征 `$back_connect=&quot;IyEvdXNyL2Jpbi9wZXJsDQp1c2UgU2` 对应webshell样例
+    [link](https://github.com/tennc/webshell/blob/4ca96011884b892ec15de130f76eb2a047b77493/138shell/N/NIX%20REMOTE%20WEB-SHELL%20v.0.5%20alpha%20Lite%20Public%20Version.txt)
+
+</code></pre>
+<h2>修复方案</h2>
+
+<pre><code>    将该标记片段代码删除
+
+</code></pre>
+<h2>匹配规则</h2>
+<p>preg_replace\s<em>(\s</em>['&quot;][^;]<em>e[^;]</em>['&quot;],([^;]{0,30}\x|[^;)]{200,300})|$back_connect=&quot;IyEvdXNyL2Jpbi9wZXJsDQp1c2UgU2|define('gzip',function_exists(&quot;ob_gzhandler&quot;)|chr(112).chr(97).chr(115).chr(115)|687474703a2f2f377368656c</p>
+<h4>References</h4>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+
+    </section>
+</article>

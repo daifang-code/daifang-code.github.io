@@ -1,0 +1,76 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1059">PE1059: 类成员重名定义</h2>
+    <h3>子类中定义与父类同名的成员变量</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1059</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>子类中定义与父类同名的成员变量，在继承的时候，子类并不覆盖父类的成员变量，而是与父类中的同名成员变量共存。</p>
+<h4>漏洞与风险</h4>
+<h5>代码质量</h5>
+<p>子类和父类中若有同名成员变量共存，这就会导致赋值时，子类和父类中的同名成员变量将会出现混淆。</p>
+<h4>缓解与预防</h4>
+<p>减少子类和父类中的同名成员变量。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>演示示例</h4>
+<h5>漏洞缺陷示例</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">Base</span>
+<span class="p">{</span>
+  <span class="nl">public</span><span class="p">:</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+    <span class="n">Base</span><span class="p">()</span> <span class="p">{</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;I`m base Begin&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">Print</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+    <span class="o">~</span><span class="n">Base</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;I`m base End&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+<span class="n">class</span> <span class="nl">Simple</span><span class="p">:</span><span class="n">public</span> <span class="n">Base</span>
+<span class="p">{</span>
+  <span class="nl">public</span><span class="p">:</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+    <span class="n">Simple</span><span class="p">()</span> <span class="p">{</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;I`m Simple Begin&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">print</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;}</span> <span class="c1">//detect</span>
+    <span class="o">~</span><span class="n">Simple</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;I`m Simple End&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Simple</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">b</span><span class="p">.</span><span class="n">Print</span><span class="p">();</span>
+  <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">b</span><span class="p">.</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞缺陷修复示例</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">Base</span>
+<span class="p">{</span>
+  <span class="nl">public</span><span class="p">:</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+    <span class="n">Base</span><span class="p">()</span> <span class="p">{</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;I`m base Begin&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">Print_a</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+    <span class="o">~</span><span class="n">Base</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;I`m base End&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+<span class="n">class</span> <span class="nl">Simple</span><span class="p">:</span><span class="n">public</span> <span class="n">Base</span>
+<span class="p">{</span>
+  <span class="nl">public</span><span class="p">:</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+    <span class="n">Simple</span><span class="p">()</span> <span class="p">{</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;I`m Simple Begin&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">print_b</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;}</span>
+    <span class="o">~</span><span class="n">Simple</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;I`m Simple End&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="nf">good</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Simple</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">b</span><span class="p">.</span><span class="n">Print_b</span><span class="p">();</span>
+  <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">b</span><span class="p">.</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

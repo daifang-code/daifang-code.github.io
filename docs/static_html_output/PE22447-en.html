@@ -1,0 +1,46 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22447">PE22447: F403</h2>
+    <h3>'from module import *' used; unable to detect undefined names</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22447</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p><code>from module import *</code> is discouraged because the programmer often won’t
+know where an imported object is defined. The imported module, class, or
+function should be explicitly defined.</p>
+<h5>Anti-pattern</h5>
+<p>In the following example, it is unclear whether the <code>User</code> class is
+defined in the <code>users.models</code> module or the <code>auth.models</code> module.</p>
+
+<pre><code>from users.models import *
+from auth.models import *
+
+user = User.objects.get(name='Grant')
+
+</code></pre>
+<h5>Best practice</h5>
+
+<pre><code>from users.models import User
+from auth.models import check_password
+
+user = User.objects.get(name='Grant')
+check_password(user.username, 'password')
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#imports<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

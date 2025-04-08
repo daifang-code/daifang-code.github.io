@@ -1,0 +1,56 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2245">SC2245: Better directive choice exists</h2>
+    <h3>-d only applies to the first expansion of this glob. Use a loop to check any/all.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2245</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>-d only applies to the first expansion of this glob. Use a loop to check any/all.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> -f ksh* <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;The file exists&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span> f in ksh*
+<span class="k">do</span>
+  <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span> <span class="o">]</span>
+  <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Found a matching file: </span><span class="nv">$f</span><span class="s2">&quot;</span>
+  <span class="k">fi</span>
+<span class="k">done</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>Ksh has the curious behavior of ignoring anything after an unrecognized flag to <code>test</code>/<code>[</code>, which means that file checking operators against globs will effectively apply the operator to the first expansion:</p>
+<div class="highlight"><pre><span></span><span class="o">[</span> -f ksh* <span class="o">]</span>                              <span class="c1"># This</span>
+<span class="o">[</span> -f ksh93u ksh93u.tar ksh93u.tar.gz <span class="o">]</span>   <span class="c1"># Becomes this</span>
+<span class="o">[</span> -f ksh93u <span class="o">]</span>                            <span class="c1"># And is interpreted like this</span>
+</pre></div>
+<p>This is an issue when you have multiple matches for a glob. Instead of checking some or all, it only checks the first result and ignores the rest. To ensure that all results are considered (either to check that <em>any</em> or <em>all</em> results match the operator), use a loop explicitly.</p>
+<p>If you really only want to match the first result of the glob expansion as sorted alphabetically in the current locale, you can make this intention explicit:</p>
+
+<pre><code>matches=( ksh* )
+if [ -f &quot;${matches[0]}&quot; ]
+then
+  echo &quot;The first result is a file&quot;
+fi
+
+</code></pre>
+<h5>Exceptions:</h5>
+<p>If you only care that entries exists, use <code>-e</code>. ShellCheck does not warn in this case, since all files resulting from glob expansion necessarily exist.</p>
+<h5>Related resources:</h5>
+<ul>
+<li>Help by adding links to BashFAQ, StackOverflow, man pages, POSIX, etc!</li>
+</ul>
+
+    </section>
+</article>

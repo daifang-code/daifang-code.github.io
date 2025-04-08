@@ -1,0 +1,64 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0074">PE0074: Invalid Use of va_list</h2>
+    <h3>Invalid use of va_list</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0074</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Steps to use VA_LIST</p>
+<ol>
+<li>declare a variable with VA_LIST data type, it will point to vary arguments.</li>
+<li>use VA_START macro to initialize the VA_LIST variable we just defined.</li>
+<li>use VA_ARG macro to obtain each argument, the second parameter of VA_ARG indicates data type of the argument you are obtaining. Call VA_ARG repeatedly to obtain more vary arguments.</li>
+<li>use VA_END to end the process of getting vary arguments.</li>
+</ol>
+<p>Using VA_LIST incorrectly could produce unexpected results.</p>
+<h4>Vulnerability and risk</h4>
+<h5>Unexpected results</h5>
+<p>Using VA_LIST incorrectly could produce unexpected results.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Use VA_LIST correctly.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code Example 1</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad1</span><span class="p">(</span><span class="kt">int</span> <span class="n">fst</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">va</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{va_arg() is called on an uninitialized va_list}} </span>
+  <span class="c1">// expected-note{{va_arg() is called on an uninitialized va_list}} </span>
+  <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">va_arg</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+<p>Use of uninitilized <code>va_list</code> variable <code>va</code>.</p>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad2</span><span class="p">(</span><span class="kt">int</span> <span class="n">fst</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">va</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{va_list &#39;va&#39; is copied onto itself}} </span>
+  <span class="c1">// expected-note{{va_list &#39;va&#39; is copied onto itself}} </span>
+  <span class="n">va_copy</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="n">va</span><span class="p">);</span>
+<span class="p">}</span> 
+
+<span class="err">```</span><span class="n">c</span>
+<span class="n">There</span> <span class="n">is</span> <span class="n">no</span> <span class="n">meaning</span> <span class="n">on</span> <span class="n">copying</span> <span class="err">`</span><span class="n">va</span><span class="err">`</span> <span class="n">itself</span><span class="p">.</span>
+
+<span class="cp">### Fixed Code Example 1</span>
+
+<span class="err">```</span><span class="n">c</span>
+<span class="kt">void</span> <span class="n">good</span><span class="p">(</span><span class="kt">int</span> <span class="n">fst</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">va</span><span class="p">;</span>
+  <span class="n">va_start</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="n">fst</span><span class="p">);</span> <span class="c1">// Initialized va_list</span>
+  <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">va_arg</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>Initialize <code>va_list</code> variable <code>va</code> before use.</p>
+
+    </section>
+</article>

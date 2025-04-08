@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1036">SC1036: Missing escape</h2>
+    <h3>`(` is invalid here. Did you forget to escape it?</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1036</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2><code>(</code> is invalid here. Did you forget to escape it?</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="o">(</span>foo<span class="o">)</span> bar
+</pre></div>
+<h5>Correct code:</h5>
+<p>Depends on your intention:</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;(foo) bar&quot;</span>  <span class="c1"># Literal parentheses</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>foo<span class="k">)</span><span class="s2"> bar&quot;</span> <span class="c1"># Command expansion</span>
+<span class="nb">echo</span> <span class="s2">&quot;foo bar&quot;</span>    <span class="c1"># Tried to use parentheses for grouping or function invocation</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck expected an ordinary shell word but found an opening parenthesis instead.</p>
+<p>Determine what you intended the parenthesis to do and rewrite accordingly. Common issues include:</p>
+<ul>
+<li>Wanting them to be literal, as in <code>echo (FAIL) Some tests failed</code>. In this case, it requires quoting.</li>
+<li>Wanting command expansion, as in <code>echo Today is (date)</code>. Add the missing <code>$</code>: <code>echo &quot;Today is $(date)&quot;</code></li>
+<li>Adding parentheses because other languages need them in that context, such as <code>foo (bar, 42)</code> to call a function. This should be <code>foo bar 42</code>. Also, shells do not support tuples or passing arrays as single parameters.</li>
+</ul>
+<h5>Exceptions:</h5>
+<p>Bash allows some parentheses as part of assignment-like tokens to certain commands, including <code>export</code> and <code>eval</code>. This is a workaround in Bash to allow commands that normally would not be valid:</p>
+
+<pre><code>eval foo=(bar)       # Valid command
+echo foo=(bar)       # Invalid syntax
+f=foo; eval $f=(bar) # Also invalid
+
+</code></pre>
+<p>In these cases, please quote the command, such as `eval &quot;foo=(bar)&quot;. This does not change the behavior, but stops relying on bash specific parsing quirks.</p>
+<h5>Related resources:</h5>
+<ul>
+<li>Help by adding links to BashFAQ, StackOverflow, man pages, POSIX, etc!</li>
+</ul>
+
+    </section>
+</article>

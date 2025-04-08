@@ -1,0 +1,61 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0075">PE0075: Virtual Call In Construction Or Destruction</h2>
+    <h3>Virtual Call In Construction Or Destruction.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0075</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Call a virtual function directly or indirectly from a constructor or destructor. Since the object's construction order starts from the parent class and then the derived class, it is dangerous to try to call the derived class from the parent class during the construction process. This is why calling a virtual function from a constructor does not cause a function in the derived class to be called. In this process, the derived class object has not yet been initialized. Similarly, objects are destroyed in the reverse order of construction, so attempting to call a function in a derived class in the destructor results in accessing an object that has already been destroyed.</p>
+<h4>Vulnerability and risk</h4>
+<h5>unexpected result</h5>
+<p>Call a virtual function directly or indirectly from a constructor or destructor. Since the object's construction order starts from the parent class and then the derived class, it is dangerous to try to call the derived class from the parent class during the construction process. This is why calling a virtual function from a constructor does not cause a function in the derived class to be called. In this process, the derived class object has not yet been initialized. Similarly, objects are destroyed in the reverse order of construction, so attempting to call a function in a derived class in the destructor results in accessing an object that has already been destroyed.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Do not call virtual functions in constructors or destructors.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+  <span class="n">A</span><span class="p">(){</span> <span class="n">f</span><span class="p">();</span> <span class="p">};</span>
+  <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">);</span>
+
+  <span class="o">~</span><span class="n">A</span><span class="p">()</span> <span class="p">{};</span>
+
+  <span class="n">virtual</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// from Sema: expected-note {{&#39;foo&#39; declared here}}</span>
+  <span class="n">virtual</span> <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Call to pure virtual function during construction has undefined behavior</span>
+    <span class="n">foo</span><span class="p">();</span> 
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>In the above code, the virtual function foo() is called in the constructor of class A.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+  <span class="n">A</span><span class="p">(){};</span>
+  <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">);</span>
+
+  <span class="o">~</span><span class="n">A</span><span class="p">()</span> <span class="p">{};</span>
+
+  <span class="n">virtual</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+  <span class="n">virtual</span> <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">foo</span><span class="p">();</span> 
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>In the above code, remove the call to the virtual function foo() in the constructor of class A.</p>
+
+    </section>
+</article>

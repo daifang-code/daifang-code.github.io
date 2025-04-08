@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0067">PE0067: Dead Store</h2>
+    <h3>Dead Store.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0067</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP, JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The assignment is not used until the next assignment or the end of the function, so such assignment or initialization is actually invalid. Such code may introduce logic errors.</p>
+<h4>Vulnerability and risk</h4>
+<h5>Invalid code</h5>
+<p>The assignment is not used until the next assignment or the end of the function, so such assignment or initialization is actually invalid.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Remove invalid code.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// Value stored to x is never read.</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, the <code>x = 20</code> is a dead store.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>The above example remove the invalid code.</p>
+
+    </section>
+</article>

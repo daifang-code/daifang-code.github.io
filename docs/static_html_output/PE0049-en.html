@@ -1,0 +1,65 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0049">PE0049: String Null</h2>
+    <h3>Non null-terminated strings are used unsafely.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0049</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>In C and C++, a C string, or a null-terminated string, is a character sequence terminated with a null character (\0). The length of a C string is found by searching for the null character.</p>
+<p>Because they are pointers to blocks of characters in memory, it is imperative that string arguments be null-terminated before functions manipulate them. When passed to functions such as strlen(), non-null terminated strings can cause looping or overflow defects.</p>
+<h4>Vulnerability and risk</h4>
+<h5>Buffer Overflow</h5>
+<p>The null termination has historically created security problems. For example:</p>
+<ol>
+<li>a null character inserted into a string can truncate it unexpectedly.</li>
+<li>it's a common bug not to allocate enough space for the null character or to forget the null.</li>
+<li>many programs don't check the length before copying a string to a fixed-size buffer, causing a buffer overflow when it's too long.</li>
+<li>the inability to store a null character means that string and binary data needs to be handled by different functions, which can cause problems if the wrong function is used.</li>
+</ol>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<ol>
+<li>add special code to validate null termination of string buffers if performance constraints permit.</li>
+<li>switch to bounded-string manipulation functions like strncpy.</li>
+<li>inspect buffer lengths involved in the buffer overrun traceback.</li>
+</ol>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">extension</span><span class="p">;</span>
+  <span class="c1">// read from net, no null-termination</span>
+  <span class="n">string_from_net</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">1023</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span> 
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">SOME_CHAR</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">extension</span> <span class="o">=</span> <span class="n">process_filename</span><span class="p">(</span><span class="n">name</span><span class="p">);</span> <span class="c1">// process until &#39;\0&#39; found</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, the name string is not null-terminated and is passed to process_filename(), which searches name until it finds a null terminator. If name lacks a null-terminator process_filename() could potentially corrupt memory.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">extension</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">string_from_net</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">1023</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span> 
+    <span class="k">if</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">len</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">SOME_CHAR</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">extension</span> <span class="o">=</span> <span class="n">process_filename</span><span class="p">(</span><span class="n">name</span><span class="p">);</span> <span class="c1">// process until &#39;\0&#39; found</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the invulnerable code example,  null-terminate strings after reading them in from a string null source such as string_from_net() and before passing them to a string null sink such as process_filename().</p>
+
+    </section>
+</article>

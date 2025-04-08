@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7411">BE7411: Questionable cast to abstract collection</h2>
+    <h3>Questionable cast to abstract collection</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7411</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Questionable cast to abstract collection</p>
+<h4>Vulnerability and risk</h4>
+<p>
+This code casts a Collection to an abstract collection
+(such as <code>List</code>, <code>Set</code>, or <code>Map</code>).
+Ensure that you are guaranteed that the object is of the type
+you are casting to. If all you need is to be able
+to iterate through a collection, you don't need to cast it to a Set or List.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

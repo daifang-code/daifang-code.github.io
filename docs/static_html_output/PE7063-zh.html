@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7063">BE7063: 用零个线程创建ScheduledThreadPoolExecutor</h2>
+    <h3>用零个线程创建ScheduledThreadPoolExecutor</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7063</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>用零个线程创建ScheduledThreadPoolExecutor</p>
+<h4>漏洞与风险</h4>
+<p>(<a href="http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/ScheduledThreadPoolExecutor.html#ScheduledThreadPoolExecutor%28int%29">Javadoc</a>)
+用零个线程创建的ScheduledThreadPoolExecutor永远不会执行任何操作。后续更改线程池大小也无济于事。因为ScheduledThreadPoolExecutor在执行中修改线程数是无效的，在创建的时候设置线程数量将会一直保持。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

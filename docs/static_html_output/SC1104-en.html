@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1104">SC1104: Incorrect shebang</h2>
+    <h3>Use #!, not just !, for the shebang.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1104</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Use #!, not just !, for the shebang.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>!/bin/sh
+<span class="nb">echo</span> <span class="s2">&quot;Hello&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="nb">echo</span> <span class="s2">&quot;Hello&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>You appear to be specifying an interpreter in a shebang, but it's missing the hash part. The shebang must always start with <code>#!</code>.</p>
+<p>Even the name &quot;shebang&quot; itself comes from &quot;hash&quot; (<code>#</code>) + &quot;bang&quot; (<code>!</code>).</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

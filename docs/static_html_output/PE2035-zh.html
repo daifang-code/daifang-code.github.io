@@ -1,0 +1,182 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2035">PE2035: generator-star-spacing</h2>
+    <h3>强制 generator 函数中 * 号周围有空格 (generator-star-spacing)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2035</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制 generator 函数中 * 号周围有空格 (generator-star-spacing)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>在 ECMAScript 6 中，Generators 是一个新的函数类型，随着时间的推移可以返回多个值。这些特殊的函数是在 <code>function</code> 关键字后放置一个 <code>*</code>。</p>
+<p>以下是个 generator 函数的示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span><span class="o">*</span> <span class="nx">generator</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">yield</span> <span class="s2">&quot;44&quot;</span><span class="p">;</span>
+    <span class="k">yield</span> <span class="s2">&quot;55&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>这个同样有效：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="o">*</span><span class="nx">generator</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">yield</span> <span class="s2">&quot;44&quot;</span><span class="p">;</span>
+    <span class="k">yield</span> <span class="s2">&quot;55&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>这个也是有效的：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="o">*</span> <span class="nx">generator</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">yield</span> <span class="s2">&quot;44&quot;</span><span class="p">;</span>
+    <span class="k">yield</span> <span class="s2">&quot;55&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>为了保持使用 generators 函数的一致性，该规则对 <code>*</code> 强制设置一个单独的位置。</p>
+<h2>缺陷详因</h2>
+<p>该规则旨在约束 generator 函数的 <code>*</code> 周围的空格。</p>
+<h2>修改方案</h2>
+<p>该规则只有一个可选项，是个对象，有两个键<code>before</code> 和 <code>after</code>对应的值可以为<code>true</code>或<code>false</code>。</p>
+<ul>
+<li><p><code>before</code> 强制在 <code>*</code> 和 <code>function</code> 关键字之间有空格。如果设置为 <code>true</code> ，要求有空格，否则不允许有空格。在对象文本的缩写方法中，<code>*</code>之前的空格不会被检查，因为它们缺少 <code>function</code> 关键字。</p>
+</li>
+<li><p><code>after</code> 强制在 <code>*</code> 和函数名之间有空格 (或匿名 generator 函数的左括号)。如果设置为 <code>true</code>，要求有空格，否则不允许有空格。</p>
+</li>
+</ul>
+<p>默认为 <code>{&quot;before&quot;: true, &quot;after&quot;: false}</code>。</p>
+<p>一个示例配置：</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;generator-star-spacing&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nt">&quot;before&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&quot;after&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">}]</span>
+</pre></div>
+<p>这些选项可缩写为一个字符串关键字：</p>
+<ul>
+<li><code>{&quot;before&quot;: true, &quot;after&quot;: false}</code> → <code>&quot;before&quot;</code></li>
+<li><code>{&quot;before&quot;: true, &quot;after&quot;: false}</code> → <code>&quot;before&quot;</code></li>
+<li><code>{&quot;before&quot;: false, &quot;after&quot;: true}</code> → <code>&quot;after&quot;</code></li>
+<li><code>{&quot;before&quot;: false, &quot;after&quot;: true}</code> → <code>&quot;after&quot;</code></li>
+<li><code>{&quot;before&quot;: true, &quot;after&quot;: true}</code> → <code>&quot;both&quot;</code></li>
+<li><code>{&quot;before&quot;: true, &quot;after&quot;: true}</code> → <code>&quot;both&quot;</code></li>
+<li><code>{&quot;before&quot;: false, &quot;after&quot;: false}</code> → <code>&quot;neither&quot;</code></li>
+<li><code>{&quot;before&quot;: false, &quot;after&quot;: false}</code> → <code>&quot;neither&quot;</code></li>
+</ul>
+<p>一个简写配置示例：</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;generator-star-spacing&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;after&quot;</span><span class="p">]</span>
+</pre></div>
+<p>另外，该规则允许通过覆盖每个函数类型进行进一步配置。</p>
+<ul>
+<li><code>named</code> 覆盖命名的函数</li>
+<li><code>anonymous</code> 覆盖匿名函数</li>
+<li><code>method</code> 覆盖类方法或简写属性函数</li>
+</ul>
+<p>一个覆盖的配置示例：</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;generator-star-spacing&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nt">&quot;before&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;after&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;anonymous&quot;</span><span class="p">:</span> <span class="s2">&quot;neither&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;before&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&quot;after&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">}</span>
+<span class="p">}]</span>
+</pre></div>
+<p>在上面的配置示例中，顶层 &quot;before&quot; 和 &quot;after&quot; 选项定义该规则的默认行为，而 &quot;anonymous&quot; 和 &quot;method&quot; 选项覆盖默认行为。覆盖可以是带有 &quot;before&quot; 和 &quot;after&quot; 属性的对象，也可以是上面的简写字符串。</p>
+<h2>Examples</h2>
+<h5>before</h5>
+<p>选项 <code>&quot;before&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint generator-star-spacing: [&quot;error&quot;, {&quot;before&quot;: true, &quot;after&quot;: false}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="o">*</span><span class="nx">generator</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">anonymous</span> <span class="o">=</span> <span class="kd">function</span> <span class="o">*</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">shorthand</span> <span class="o">=</span> <span class="p">{</span> <span class="o">*</span><span class="nx">generator</span><span class="p">()</span> <span class="p">{}</span> <span class="p">};</span>
+</pre></div>
+<h5>after</h5>
+<p>选项 <code>&quot;after&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint generator-star-spacing: [&quot;error&quot;, {&quot;before&quot;: false, &quot;after&quot;: true}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span><span class="o">*</span> <span class="nx">generator</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">anonymous</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span> <span class="p">()</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">shorthand</span> <span class="o">=</span> <span class="p">{</span> <span class="o">*</span> <span class="nx">generator</span><span class="p">()</span> <span class="p">{}</span> <span class="p">};</span>
+</pre></div>
+<h5>both</h5>
+<p>选项 <code>&quot;both&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint generator-star-spacing: [&quot;error&quot;, {&quot;before&quot;: true, &quot;after&quot;: true}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="o">*</span> <span class="nx">generator</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">anonymous</span> <span class="o">=</span> <span class="kd">function</span> <span class="o">*</span> <span class="p">()</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">shorthand</span> <span class="o">=</span> <span class="p">{</span> <span class="o">*</span> <span class="nx">generator</span><span class="p">()</span> <span class="p">{}</span> <span class="p">};</span>
+</pre></div>
+<h5>neither</h5>
+<p>选项 <code>&quot;neither&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint generator-star-spacing: [&quot;error&quot;, {&quot;before&quot;: false, &quot;after&quot;: false}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span><span class="o">*</span><span class="nx">generator</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">anonymous</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">shorthand</span> <span class="o">=</span> <span class="p">{</span> <span class="o">*</span><span class="nx">generator</span><span class="p">()</span> <span class="p">{}</span> <span class="p">};</span>
+</pre></div>
+<p>带有覆盖的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint generator-star-spacing: [&quot;error&quot;, {</span>
+<span class="cm">    &quot;before&quot;: false,</span>
+<span class="cm">    &quot;after&quot;: true,</span>
+<span class="cm">    &quot;anonymous&quot;: &quot;neither&quot;,</span>
+<span class="cm">    &quot;method&quot;: {&quot;before&quot;: true, &quot;after&quot;: true}</span>
+<span class="cm">}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="o">*</span> <span class="nx">generator</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">anonymous</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span> <span class="p">()</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">shorthand</span> <span class="o">=</span> <span class="p">{</span> <span class="o">*</span><span class="nx">generator</span><span class="p">()</span> <span class="p">{}</span> <span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">Class</span> <span class="p">{</span> <span class="kr">static</span><span class="o">*</span> <span class="nx">method</span><span class="p">()</span> <span class="p">{}</span> <span class="p">}</span>
+</pre></div>
+<p>带有覆盖的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint generator-star-spacing: [&quot;error&quot;, {</span>
+<span class="cm">    &quot;before&quot;: false,</span>
+<span class="cm">    &quot;after&quot;: true,</span>
+<span class="cm">    &quot;anonymous&quot;: &quot;neither&quot;,</span>
+<span class="cm">    &quot;method&quot;: {&quot;before&quot;: true, &quot;after&quot;: true}</span>
+<span class="cm">}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span><span class="o">*</span> <span class="nx">generator</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">anonymous</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">shorthand</span> <span class="o">=</span> <span class="p">{</span> <span class="o">*</span> <span class="nx">generator</span><span class="p">()</span> <span class="p">{}</span> <span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">Class</span> <span class="p">{</span> <span class="kr">static</span> <span class="o">*</span> <span class="nx">method</span><span class="p">()</span> <span class="p">{}</span> <span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你的项目不使用 generators 或者你不关心空格的一致性，可以关闭此规则。</p>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://leanpub.com/understandinges6/read/#leanpub-auto-generators">Understanding ES6: Generators</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.17.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/generator-star-spacing.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/generator-star-spacing.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

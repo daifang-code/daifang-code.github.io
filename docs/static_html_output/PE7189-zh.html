@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7189">BE7189: 非常容易混淆的方法命名（但也许是故意的）</h2>
+    <h3>非常容易混淆的方法命名（但也许是故意的）</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7189</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>非常容易混淆的方法命名（但也许是故意的）</p>
+<h4>漏洞与风险</h4>
+<p>
+引用的方法的名称仅以大写字母不同。
+ 
+如果大小写相同则其中一种方法会重写另一种方法。若是有意为之，两个方法的使用会令人难以理解。
+ 
+ 您应该尽力删除其中一个，除非您因为冻结的API而被迫同时使用它们。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

@@ -1,0 +1,84 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0703">PE0703: 使用释放后的内存/内存多重释放</h2>
+    <h3>使用被释放后的内存，或释放已释放的内存</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0703</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>描述</h4>
+<p>使用已释放的内存或重复释放已经被释放的内存，根据缺陷的具体实例化和时序关系，可能导致程序崩溃或任意代码执行等多种不良后果。最常见的情况是系统使用了被释放的内存导致崩溃。使用被释放的内存有两种常见原因：</p>
+<ul>
+<li>对释放的错误判断及其他异常情况；</li>
+<li>程序中哪一部分负责释放内存定义不清；</li>
+</ul>
+<p>在这种情况下，被释放的指针在某些时候会处在另一个有效指针的作用范围内。原始的已经被释放的指针再次被使用进行数据更改时，会导致有效的内存数据被破坏，这将在程序中引起不确定的行为。</p>
+<p>如果新分配的指针拥有一个对象。例如在C++中，不同的函数指针被分散在堆内存中。如果其中一个函数指针被shellcode的地址覆盖，就会导致任意代码执行漏洞。</p>
+<h4>风险评估</h4>
+<ul>
+<li>如果有问题的内存区域在其它地方被正确分配和使用，则使用先前释放的内存可能会破坏其中的有效数据。</li>
+<li>如果在内存释放之后发生了数据合并，则无效数据被用作内存块信息时，该过程可能会崩溃。</li>
+<li>如果在内存块合并发生前输入了恶意数据，则可能被用来执行任意代码。</li>
+</ul>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+<h4>缓解与预防</h4>
+<ul>
+<li>确保内存不再使用后再释放。</li>
+<li>在释放一个指针后，将其置为空指针。但是，使用多个或复杂的数据结构可能会降低该策略的实用性。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>缺陷代码示例 1</h5>
+<div class="highlight"><pre><span></span><span class="kt">char</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span> <span class="p">(</span><span class="n">SIZE</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">abrt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">abrt</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">logError</span><span class="p">(</span><span class="s">&quot;operation aborted before commit&quot;</span><span class="p">,</span> <span class="n">ptr</span><span class="p">);</span> <span class="c1">// ptr is freed by free(ptr)</span>
+<span class="p">}</span>
+</pre></div>
+<h5>修复代码示例 1</h5>
+<div class="highlight"><pre><span></span><span class="kt">char</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span> <span class="p">(</span><span class="n">SIZE</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">abrt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">abrt</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">logError</span><span class="p">(</span><span class="s">&quot;operation aborted before commit&quot;</span><span class="p">,</span> <span class="n">ptr</span><span class="p">);</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>缺陷代码示例 2</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad2</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+    <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="c1">// double free</span>
+<span class="p">}</span>
+</pre></div>
+<h5>修复代码示例 2</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good2</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+    <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/415.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://cwe.mitre.org/data/definitions/416.html<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+<li id="fn-3"><p>https://wiki.sei.cmu.edu/confluence/display/c/MEM30-C.+Do+not+access+freed+memory<a href="#fnref-3" class="footnote">&#8617;</a></p></li>
+<li id="fn-4"><p>https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM50-CPP.+Do+not+access+freed+memory<a href="#fnref-4" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

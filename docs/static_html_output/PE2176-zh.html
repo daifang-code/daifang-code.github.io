@@ -1,0 +1,86 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2176">PE2176: no-throw-literal</h2>
+    <h3>限制可以被抛出的异常 (no-throw-literal)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2176</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>限制可以被抛出的异常 (no-throw-literal)</h4>
+<p>仅仅 <code>抛出</code>(<code>throw</code>) <code>Error</code> 对象本身或者用户自定义的以 <code>Error</code> 对象为基础的异常，被认为是一个很好的实践。使用 <code>Error</code> 对象最基本的好处是它们能自动地追踪到异常产生和起源的地方。</p>
+<p>此规则限制了能被抛出的异常。当初次被创建时，它只是阻止字面量被抛出，但是现在已经被扩展到只允许具有 <code>Error</code> 对象能力的表达式。</p>
+<h2>缺陷详因</h2>
+<p>此规则目的在于保持异常抛出的一致性，通过禁止抛出字面量和那些不可能是 <code>Error</code> 对象的表达式。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-throw-literal: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="k">throw</span> <span class="s2">&quot;error&quot;</span><span class="p">;</span>
+
+<span class="k">throw</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">throw</span> <span class="kc">undefined</span><span class="p">;</span>
+
+<span class="k">throw</span> <span class="kc">null</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">err</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">();</span>
+<span class="k">throw</span> <span class="s2">&quot;an &quot;</span> <span class="o">+</span> <span class="nx">err</span><span class="p">;</span>
+<span class="c1">// err is recast to a string literal</span>
+
+<span class="kd">var</span> <span class="nx">err</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">();</span>
+<span class="k">throw</span> <span class="sb">`</span><span class="si">${</span><span class="nx">err</span><span class="si">}</span><span class="sb">`</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-throw-literal: &quot;error&quot;*/</span>
+
+<span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">();</span>
+
+<span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">);</span>
+<span class="k">throw</span> <span class="nx">e</span><span class="p">;</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="nx">e</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Known Limitations</h2>
+<p>由于静态分析的局限性，此规则不能保证你只会抛出 <code>Error</code> 对象。</p>
+<p><strong>正确</strong> 代码示例如下，该示例不会抛出 <code>Error</code> 对象：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-throw-literal: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">err</span> <span class="o">=</span> <span class="s2">&quot;error&quot;</span><span class="p">;</span>
+<span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bar</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">throw</span> <span class="nx">foo</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">);</span>
+
+<span class="k">throw</span> <span class="k">new</span> <span class="nb">String</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;error&quot;</span>
+<span class="p">};</span>
+<span class="k">throw</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">bar</span><span class="p">;</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.15.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-throw-literal.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-throw-literal.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

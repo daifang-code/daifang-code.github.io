@@ -1,0 +1,136 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2066">PE2066: newline-after-var</h2>
+    <h3>require or disallow an empty line after variable declarations (newline-after-var)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2066</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>require or disallow an empty line after variable declarations (newline-after-var)</h4>
+<p>This rule was <strong>deprecated</strong> in ESLint v4.0.0 and replaced by the <a href="padding-line-between-statements.md">padding-line-between-statements</a> rule.</p>
+<p>As of today there is no consistency in separating variable declarations from the rest of the code. Some developers leave an empty line between var statements and the rest of the code like:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
+
+<span class="c1">// do something with foo</span>
+</pre></div>
+<p>Whereas others don't leave any empty newlines at all.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
+<span class="c1">// do something with foo</span>
+</pre></div>
+<p>The problem is when these developers work together in a project. This rule enforces a coding style where empty newlines are allowed or disallowed after <code>var</code>, <code>let</code>, or <code>const</code> statements. It helps the code to look consistent across the entire project.</p>
+<h2>Rule Details</h2>
+<p>This rule enforces a coding style where empty lines are required or disallowed after <code>var</code>, <code>let</code>, or <code>const</code> statements to achieve a consistent coding style across the project.</p>
+<h2>Options</h2>
+<p>This rule has a string option:</p>
+<ul>
+<li><p><code>&quot;always&quot;</code> (default) requires an empty line after <code>var</code>, <code>let</code>, or <code>const</code></p>
+<p>Comments on a line directly after var statements are treated like additional var statements.</p>
+</li>
+<li><p><code>&quot;never&quot;</code> disallows empty lines after <code>var</code>, <code>let</code>, or <code>const</code></p>
+</li>
+</ul>
+<h5>always</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint newline-after-var: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">,</span>
+    <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">,</span>
+    <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">NAME</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">NAME</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+<span class="c1">// var name = require(&quot;world&quot;);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint newline-after-var: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">,</span>
+    <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">,</span>
+    <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">NAME</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">NAME</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+<span class="c1">// var name = require(&quot;world&quot;);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+</pre></div>
+<h5>never</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint newline-after-var: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">,</span>
+    <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">,</span>
+    <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">NAME</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">NAME</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+<span class="c1">// var name = require(&quot;world&quot;);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint newline-after-var: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">,</span>
+    <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">,</span>
+    <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">NAME</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">NAME</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">greet</span> <span class="o">=</span> <span class="s2">&quot;hello,&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span><span class="p">;</span>
+<span class="c1">// var name = require(&quot;world&quot;);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greet</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+</pre></div>
+
+    </section>
+</article>

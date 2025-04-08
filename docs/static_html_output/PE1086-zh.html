@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1086">PE1086: NoSQL注入</h2>
+    <h3>尽管NoSQL不使用传统的SQL语法，他们同样存在受到注入攻击的风险</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1086</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>相比于传统的SQL数据库，NoSQL的一致性要求相对宽松。通过削弱关系上的限制以及减少一致性检查，NoSQL拥有更好的性能以及在拓展时更易受益。尽管NoSQL不使用传统的SQL语法，他们同样存在受到注入攻击的风险。</p>
+<h4>漏洞与风险</h4>
+<p>相比发生在声明式SQL语言中，因为NoSQL注入攻击可能发生在过程式语言里，NoSQL注入攻击可能会造成比传统的SQL注入攻击更严重的后果。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<ul>
+<li>尽可能用最低的运行权限来完成需要完成的任务。</li>
+<li>视所有的输入为危险的数据，通过使用白名单等的受信输入验证策略来严格清洗输入数据。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>下面的缺陷代码没有对用户输入进行清洗，直接将用户输入传到了MongoDB的查询语句中：</p>
+<div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">myCollection</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span> <span class="nx">active</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">$where</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">credits</span> <span class="o">-</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">debits</span> <span class="o">&lt;</span> <span class="nx">$userInput</span><span class="p">;</span> <span class="p">}</span> <span class="p">}</span> <span class="p">);;</span>
+</pre></div>
+<p>尽管查询语句中没有任何有关用户数据的依赖，攻击者还是能够利用MongoDB的缺陷，用恶意数据替换掉操作符：</p>
+<div class="highlight"><pre><span></span><span class="nx">db</span><span class="p">.</span><span class="nx">myCollection</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="p">{</span> <span class="nx">$where</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">credits</span> <span class="o">-</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">debits</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="p">}</span> <span class="p">);</span>
+</pre></div>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.owasp.org/index.php/Testing_for_NoSQL_injection<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

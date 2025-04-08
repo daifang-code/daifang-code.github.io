@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7161">BE7161: Uninitialized read of field method called from constructor of superclass</h2>
+    <h3>Uninitialized read of field method called from constructor of superclass</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7161</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Uninitialized read of field method called from constructor of superclass</p>
+<h4>Vulnerability and risk</h4>
+<p> This method is invoked in the constructor of the superclass. At this point,
+    the fields of the class have not yet initialized.</p>
+<p>To make this more concrete, consider the following classes:</p>
+<pre><code>abstract class A {
+    int hashCode;
+    abstract Object getValue();
+    A() {
+        hashCode = getValue().hashCode();
+    }
+}
+class B extends A {
+    Object value;
+    B(Object v) {
+        this.value = v;
+    }
+    Object getValue() {
+        return value;
+    }
+}
+</code></pre>
+<p>When a <code>B</code> is constructed,
+the constructor for the <code>A</code> class is invoked
+<em>before</em> the constructor for <code>B</code> sets <code>value</code>.
+Thus, when the constructor for <code>A</code> invokes <code>getValue</code>,
+an uninitialized value is read for <code>value</code>.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7097">BE7097: 从0到1的随机值被强制转换为整数0</h2>
+    <h3>从0到1的随机值被强制转换为整数0</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7097</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>从0到1的随机值被强制转换为整数0</p>
+<h4>漏洞与风险</h4>
+<p>从0到1的随机值被强制转换为整数值0。您可以在它被强制转换为整数之前，将随机值乘以其它值，或者使用<code>Random.nextInt(n)</code>方法。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

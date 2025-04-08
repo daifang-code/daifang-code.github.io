@@ -1,0 +1,38 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1091">SC1091: Not following directive</h2>
+    <h3>Not following: (error message here)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1091</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Not following: (error message here)</h2>
+<p>Reasons include: file not found, no permissions, not included on the command line, not allowing <code>shellcheck</code> to follow files with <code>-x</code>, etc.</p>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">source</span> somefile
+</pre></div>
+<h5>Correct code:</h5>
+<p>In case you have access to the file, e.g. if it is included in your source code repository:</p>
+<div class="highlight"><pre><span></span><span class="c1"># shellcheck source=somefile</span>
+<span class="nb">source</span> somefile
+</pre></div>
+<p>In case you do not have access to the file:</p>
+<div class="highlight"><pre><span></span><span class="c1"># shellcheck disable=SC1091</span>
+<span class="nb">source</span> somefile
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck, for whichever reason, is not able to access the source file.</p>
+<p>This could be because you did not include it on the command line, did not use <code>shellcheck -x</code> to allow following other files, don't have permissions or a variety of other problems.</p>
+<p>Feel free to ignore the error with a [[directive]].</p>
+<h5>Exceptions:</h5>
+<p>If you're fine with it, ignore the message with a [[directive]].</p>
+
+    </section>
+</article>

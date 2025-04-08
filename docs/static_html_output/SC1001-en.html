@@ -1,0 +1,37 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1001">SC1001: Improper escape</h2>
+    <h3>This `\o` will be a regular 'o' in this context.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1001</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This <code>\o</code> will be a regular 'o' in this context.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="c1"># Want literal backslash</span>
+<span class="nb">echo</span> Yay <span class="se">\o</span>/
+
+<span class="c1"># Want other characters</span>
+<span class="nv">bell</span><span class="o">=</span><span class="se">\a</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;Yay \o/&#39;</span>
+
+<span class="nv">bell</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">printf</span> <span class="s1">&#39;\a&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>You have escaped something that has no special meaning when escaped. The backslash will be simply be ignored.</p>
+<p>If the backslash was supposed to be literal, single quote or escape it.</p>
+<p>If you wanted it to expand to something, rewrite the expression to use <code>printf</code> (or in bash, <code>$'\t'</code>). If the sequence in question is <code>\n</code>, <code>\t</code> or <code>\r</code>, you instead get a [[SC1012]] that describes this.</p>
+<h5>Exceptions</h5>
+<p>None. ShellCheck (as of 2017-07-03, commit 31bb02d6) will not warn when the first letter of a command is unnecessarily escaped, as this is frequently used to suppress aliases interactively.</p>
+
+    </section>
+</article>

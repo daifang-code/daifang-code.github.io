@@ -1,0 +1,60 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2069">PE2069: no-alert</h2>
+    <h3>禁用 Alert (no-alert)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2069</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁用 Alert (no-alert)</h4>
+<p>JavaScript 的 <code>alert</code>、<code>confirm</code> 和 <code>prompt</code> 被广泛认为是突兀的 UI 元素，应该被一个更合适的自定义的 UI 界面代替。此外, <code>alert</code> 经常被用于调试代码，部署到生产环境之前应该删除。</p>
+<div class="highlight"><pre><span></span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;here!&quot;</span><span class="p">);</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则旨在捕获本应移除的调试代码和应该被替换为不那么突兀的 UI 元素。因此，当遇到 <code>alert</code>、<code>prompt</code> 和 <code>confirm</code> 时，该规则将发出警告。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-alert: &quot;error&quot;*/</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;here!&quot;</span><span class="p">);</span>
+
+<span class="nx">confirm</span><span class="p">(</span><span class="s2">&quot;Are you sure?&quot;</span><span class="p">);</span>
+
+<span class="nx">prompt</span><span class="p">(</span><span class="s2">&quot;What&#39;s your name?&quot;</span><span class="p">,</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">);</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-alert: &quot;error&quot;*/</span>
+
+<span class="nx">customAlert</span><span class="p">(</span><span class="s2">&quot;Something happened!&quot;</span><span class="p">);</span>
+
+<span class="nx">customConfirm</span><span class="p">(</span><span class="s2">&quot;Are you sure?&quot;</span><span class="p">);</span>
+
+<span class="nx">customPrompt</span><span class="p">(</span><span class="s2">&quot;Who are you?&quot;</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">alert</span> <span class="o">=</span> <span class="nx">myCustomLib</span><span class="p">.</span><span class="nx">customAlert</span><span class="p">;</span>
+    <span class="nx">alert</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-console">no-console</a></li>
+<li><a href="no-debugger">no-debugger</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.5 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-alert.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-alert.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

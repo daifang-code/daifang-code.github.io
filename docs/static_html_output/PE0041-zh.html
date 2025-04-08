@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0041">PE0041: 无效的代码</h2>
+    <h3>没有效果的语句或表达式对程序没用任何作用，并且降低代码的可读性。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0041</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>无效的代码很可能是由于代码编写错误所致，会导致未定义的行为。这样的代码在编译期间通常被优化掉。但是，为了提高可读性并保证逻辑错误能够解决，应该标识、理解并消除无效代码。</p>
+<p>没有效果的语句或表达式应该从代码中标识并删除。大多数现有的编译器可以对许多情况下的无效代码发出警告。</p>
+<h4>漏洞与风险</h4>
+<h5>代码质量问题</h5>
+<p>无效的代码或从来不被执行的代码很可能是由于代码编写错误所致，会导致未定义的行为。这样的代码在编译期间通常被优化掉，并且会降低代码的可读性。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>理解代码的逻辑，消除无效代码。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+  <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// detect</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，第3行中的比较操作是一个无效的代码，这很可能是由于程序员错误地使用了相等操作符==代替了赋值操作符=所致。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在第三行中正确地执行将b的值赋值给a。</p>
+
+    </section>
+</article>

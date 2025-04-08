@@ -1,0 +1,98 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0060">PE0060: 加解锁错误</h2>
+    <h3>不正确地加锁解锁操作，导致死锁、资源竞争等问题。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0060</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>所有的针对互斥量的加锁解锁操作，都必须针对同一模块，并且在同一抽象层面进行。否则，将会可能导致某些加锁/解锁操作不会依照多线程设计而被执行，甚至依照锁的类型，最终导致死锁、资源竞争等其他漏洞的爆发。在对加锁对象进行解锁过程中，错误的解锁顺序，容易造成死锁。</p>
+<h4>漏洞与风险</h4>
+<h5>死锁</h5>
+<p>不正确地加锁解锁操作，导致死锁、资源竞争等问题。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>正确地执行加锁解锁操作。对于死锁问题，可以采取例如可以调整资源请求顺序，或者加上sleep操作等方式。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例1: Double locking</h5>
+<div class="highlight"><pre><span></span><span class="n">pthread_mutex_t</span> <span class="n">mtx1</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// no-warning</span>
+  <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx1</span><span class="p">);</span>	
+  <span class="c1">// expected-warning{{This lock has already been acquired}}</span>
+  <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx1</span><span class="p">);</span>	
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，对同一个对象mtx1进行重复加锁。</p>
+<h5>漏洞代码修复示例1</h5>
+<div class="highlight"><pre><span></span><span class="n">pthread_mutex_t</span> <span class="n">mtx1</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx1</span><span class="p">);</span>	<span class="c1">// no-warning</span>
+  <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx1</span><span class="p">);</span>	<span class="c1">// no-warning</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，对mtx1先加锁，后解锁。</p>
+<h5>漏洞代码示例2: Locking order reversal</h5>
+<div class="highlight"><pre><span></span><span class="n">Mutex</span> <span class="n">M1</span><span class="p">,</span> <span class="n">M2</span><span class="p">;</span>
+
+<span class="cm">/* Thread 1 */</span>
+<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">NonCriticalSection</span><span class="p">()</span>
+   <span class="n">Mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M1</span><span class="p">);</span>
+   <span class="n">Mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M2</span><span class="p">);</span>
+   <span class="n">CriticalSection</span><span class="p">();</span>
+   <span class="n">Mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M2</span><span class="p">);</span>
+   <span class="n">Mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* Thread 2 */</span>
+<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">NonCriticalSection</span><span class="p">()</span>
+   <span class="n">Mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M2</span><span class="p">);</span>
+   <span class="n">Mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M1</span><span class="p">);</span>
+   <span class="n">CriticalSection</span><span class="p">();</span>
+   <span class="n">Mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M1</span><span class="p">);</span>
+   <span class="n">Mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M2</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，线程1和线程2分别抢占到M1,M2资源并等待对方释放资源，将导致死锁问题。</p>
+<h5>漏洞代码修复示例2</h5>
+<div class="highlight"><pre><span></span><span class="n">Mutex</span> <span class="n">M1</span><span class="p">,</span> <span class="n">M2</span><span class="p">;</span>
+
+<span class="cm">/* Thread 1 */</span>
+<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">NonCriticalSection</span><span class="p">()</span>
+   <span class="n">Mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M1</span><span class="p">);</span>
+   <span class="n">Mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M2</span><span class="p">);</span>
+   <span class="n">CriticalSection</span><span class="p">();</span>
+   <span class="n">Mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M2</span><span class="p">);</span>
+   <span class="n">Mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* Thread 2 */</span>
+<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">NonCriticalSection</span><span class="p">()</span>
+   <span class="n">Mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M1</span><span class="p">);</span>
+   <span class="n">Mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M2</span><span class="p">);</span>
+   <span class="n">CriticalSection</span><span class="p">();</span>
+   <span class="n">Mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M2</span><span class="p">);</span>
+   <span class="n">Mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">M1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，修改了进程1、进程2请求资源M1、M2的顺序从而预防了死锁的发生。</p>
+
+    </section>
+</article>

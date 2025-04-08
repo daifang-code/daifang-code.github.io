@@ -1,0 +1,197 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2039">SC2039: Portability issue</h2>
+    <h3>In POSIX sh, *something* is undefined.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2039</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>In POSIX sh, <em>something</em> is undefined.</h2>
+<p>You have declared that your script works with <code>/bin/sh</code>, but you are using features that have undefined behavior according to the POSIX specification.</p>
+<p>It may currently work for you, but it can or will fail on other OS, the same OS with different configurations, from different contexts (like initramfs/chroot), or in different versions of the same OS, including future updates to your current system.</p>
+<p>Either declare that your script requires a specific shell like <code>#!/bin/bash</code> or <code>#!/bin/dash</code>, or rewrite the script in a portable way.</p>
+<p>For help with rewrites, the Ubuntu wiki has <a href="https://wiki.ubuntu.com/DashAsBinSh">a list of portability issues</a> that broke people's <code>#!/bin/sh</code> scripts when Ubuntu switched from Bash to Dash. See also <a href="http://mywiki.wooledge.org/Bashism">Bashism</a> on wooledge's wiki. ShellCheck may not warn about all these issues.</p>
+<h5><code>$'c-style-escapes'</code></h5>
+<p>bash, ksh:</p>
+<div class="highlight"><pre><span></span><span class="nv">a</span><span class="o">=</span><span class="s1">$&#39; \t\n&#39;</span>
+</pre></div>
+<p>POSIX:</p>
+<div class="highlight"><pre><span></span><span class="nv">a</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">printf</span> <span class="s1">&#39;%b_&#39;</span> <span class="s1">&#39; \t\n&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="p">;</span> <span class="nv">a</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="p">%_</span><span class="si">}</span><span class="s2">&quot;</span> <span class="c1"># protect trailing \n</span>
+</pre></div>
+<p>Want some good news? See http://austingroupbugs.net/view.php?id=249#c590.</p>
+<h5>Testing Equality</h5>
+<p><code>==</code> operator is not supported in POSIX <code>sh</code></p>
+<p>Bash:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="nv">$b</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;equal&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<p>POSIX:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="nv">$b</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;equal&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<h5><code>$&quot;msgid&quot;</code></h5>
+<p>Bash:</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> $<span class="s2">&quot;foo </span><span class="k">$(</span>bar<span class="k">)</span><span class="s2"> baz&quot;</span>
+</pre></div>
+<p>POSIX:</p>
+<div class="highlight"><pre><span></span>. gettext.sh <span class="c1"># GNU Gettext sh library</span>
+<span class="c1"># ...</span>
+<span class="nv">barout</span><span class="o">=</span><span class="k">$(</span>bar<span class="k">)</span>
+eval_gettext <span class="s1">&#39;foo $barout baz&#39;</span> <span class="c1"># See GNU Gettext doc for more info.</span>
+</pre></div>
+<p>Or you can change them to normal double quotes so you go without <code>gettext</code>.</p>
+<h5><code>${var:1}</code> (substring expansion)</h5>
+<p>https://wiki.ubuntu.com/DashAsBinSh#A.24.7Bfoo:3.5B:1.5D.7D</p>
+<h5>Arithmetic <code>for</code> loops</h5>
+<p>Bash:</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="o">((</span>init<span class="p">;</span> test<span class="p">;</span> next<span class="o">))</span><span class="p">;</span> <span class="k">do</span> foo<span class="p">;</span> <span class="k">done</span>
+</pre></div>
+<p>POSIX:</p>
+<div class="highlight"><pre><span></span>: <span class="k">$((</span>init<span class="k">))</span>
+<span class="k">while</span> <span class="o">[</span> <span class="k">$((</span><span class="nb">test</span><span class="k">))</span> -ne <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span> foo<span class="p">;</span> : <span class="k">$((</span>next<span class="k">))</span><span class="p">;</span> <span class="k">done</span>
+</pre></div>
+<h5>Arithmetic exponentiation</h5>
+<p>Bash:</p>
+<div class="highlight"><pre><span></span><span class="nb">printf</span> <span class="s2">&quot;%s\n&quot;</span> <span class="s2">&quot;</span><span class="k">$((</span> <span class="m">2</span><span class="o">**</span><span class="m">63</span> <span class="k">))</span><span class="s2">&quot;</span>
+</pre></div>
+<p>POSIX:</p>
+<p>The POSIX standard does not allow for exponents.  However, you can replicate them completely built-in using a POSIX compatible function.  As an example, the <code>pow</code> function from <a href="http://unix.stackexchange.com/a/7925">here</a>.</p>
+<div class="highlight"><pre><span></span>pow <span class="o">()</span> <span class="o">{</span>
+    <span class="nb">set</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> <span class="m">1</span>
+    <span class="k">while</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span> -gt <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span>
+      <span class="nb">set</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="k">$((</span><span class="nv">$2</span><span class="o">-</span><span class="m">1</span><span class="k">))</span> <span class="k">$((</span><span class="nv">$1</span><span class="o">*</span><span class="nv">$3</span><span class="k">))</span>
+    <span class="k">done</span>
+    <span class="c1"># %d = signed decimal, %u = unsigned decimal</span>
+    <span class="c1"># Either should overflow to 0</span>
+    <span class="nb">printf</span> <span class="s2">&quot;%d\n&quot;</span> <span class="s2">&quot;</span><span class="nv">$3</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+</pre></div>
+<p>To compare:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$((</span> <span class="m">2</span><span class="o">**</span><span class="m">62</span> <span class="k">))</span><span class="s2">&quot;</span>
+<span class="m">4611686018427387904</span>
+$ pow <span class="m">2</span> <span class="m">62</span>
+<span class="m">4611686018427387904</span>
+</pre></div>
+<p>Alternatively, if you don't mind using an external program, you can use <code>bc</code>.  Be aware though: <code>bash</code> and other programs may abide by a certain maximum integer that <code>bc</code> does not (for <code>bash</code> that's: 64-bit signed long int, failing back to 32-bit signed long int).</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Note the overflow that gives a negative number</span>
+$ <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$((</span> <span class="m">2</span><span class="o">**</span><span class="m">63</span> <span class="k">))</span><span class="s2">&quot;</span>
+-9223372036854775808
+
+<span class="c1"># No such problem</span>
+$ <span class="nb">echo</span> <span class="m">2</span>^63 <span class="p">|</span> bc
+<span class="m">9223372036854775808</span>
+
+<span class="c1"># &#39;bc&#39; just keeps on going</span>
+$ <span class="nb">echo</span> <span class="m">2</span>^1280 <span class="p">|</span> bc
+<span class="m">20815864389328798163850480654728171077230524494533409610638224700807</span><span class="se">\</span>
+<span class="m">21611934672059602447888346464836968484322790856201558276713249664692</span><span class="se">\</span>
+<span class="m">98162798132113546415258482590187784406915463666993231671009459188410</span><span class="se">\</span>
+<span class="m">95379622423387354295096957733925002768876520583464697770622321657076</span><span class="se">\</span>
+<span class="m">83317005651120933244966378183760369413644440628104205339687097746591</span><span class="se">\</span>
+<span class="m">6057756101739472373801429441421111406337458176</span>
+</pre></div>
+<h5>standalone <code>((..))</code></h5>
+<p>Bash:</p>
+<div class="highlight"><pre><span></span><span class="o">((</span><span class="nv">a</span><span class="o">=</span>c+d<span class="o">))</span>
+<span class="o">((</span>d<span class="o">))</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> d is true.
+</pre></div>
+<p>POSIX:</p>
+<div class="highlight"><pre><span></span>: <span class="k">$((</span><span class="nv">a</span><span class="o">=</span>c+d<span class="k">))</span> <span class="c1"># discard the output of the arith expn with `:` command</span>
+<span class="o">[</span> <span class="k">$((</span>d<span class="k">))</span> -ne <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> d is true. <span class="c1"># manually check non-zero =&gt; true</span>
+</pre></div>
+<h5><code>select</code> loops</h5>
+<p>It takes extra care over terminal columns to make select loop look like bash's, which generates a list with multiple items on one line, or like <code>ls</code>.</p>
+<p>It is, however, still possible to make a naive translation for <code>select foo in bar baz; do eat; done</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">while</span>
+  <span class="nv">_i</span><span class="o">=</span><span class="m">0</span> <span class="nv">_foo</span><span class="o">=</span> <span class="nv">foo</span><span class="o">=</span>
+  <span class="k">for</span> _name in bar baz<span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$((</span><span class="nv">_i</span><span class="o">+=</span><span class="m">1</span><span class="k">))</span><span class="s2">) </span><span class="nv">$_name</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">done</span>
+  <span class="nb">printf</span> <span class="s1">&#39;$# &#39;</span><span class="p">;</span> <span class="nb">read</span> _foo
+<span class="k">do</span>
+  <span class="k">case</span> _foo in <span class="m">1</span><span class="o">)</span> <span class="nv">foo</span><span class="o">=</span>bar<span class="p">;;</span> <span class="m">2</span><span class="o">)</span> <span class="nv">foo</span><span class="o">=</span>baz<span class="p">;;</span> *<span class="o">)</span> <span class="k">continue</span><span class="p">;;</span> <span class="k">esac</span>
+  eat
+<span class="k">done</span>
+</pre></div>
+<h5>Here-strings</h5>
+<p>Bash, ksh:</p>
+<div class="highlight"><pre><span></span>grep aaa <span class="o">&lt;&lt;&lt;</span> <span class="s2">&quot;</span><span class="nv">$g</span><span class="s2">&quot;</span>
+</pre></div>
+<p>POSIX:</p>
+<div class="highlight"><pre><span></span><span class="c1"># not exactly the same -- &lt;&lt;&lt; adds a trailing \n if $g doesn&#39;t end with \n</span>
+<span class="nb">printf</span> <span class="s1">&#39;%s&#39;</span> <span class="s2">&quot;</span><span class="nv">$g</span><span class="s2">&quot;</span> <span class="p">|</span> grep aaa
+</pre></div>
+<h5>echo flags</h5>
+<p>See https://unix.stackexchange.com/tags/echo/info.</p>
+<h5><code>${var/pat/replacement}</code></h5>
+<p>Bash:</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TERM</span><span class="p">/%-256*</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+<p>POSIX:</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$TERM</span><span class="s2">&quot;</span> <span class="p">|</span> sed -e <span class="s1">&#39;s/-256.*$//g&#39;</span>
+<span class="c1"># Special case for this since we are matching the end:</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">TERM</span><span class="p">%-256*</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+<h5><code>printf %q</code></h5>
+<p>Bash:</p>
+<div class="highlight"><pre><span></span><span class="nb">printf</span> <span class="s1">&#39;%q &#39;</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+<p>POSIX:</p>
+<div class="highlight"><pre><span></span><span class="c1"># TODO: Interpret it back to printf escapes for hard-to-copy chars like \t?</span>
+<span class="c1"># See also: http://git.savannah.gnu.org/cgit/libtool.git/tree/gl/build-aux/funclib.sh?id=c60e054#n1029</span>
+reuse_quote<span class="o">()(</span>
+  <span class="k">for</span> i<span class="p">;</span> <span class="k">do</span>
+    <span class="nv">__i_quote</span><span class="o">=</span><span class="k">$(</span><span class="nb">printf</span> <span class="s1">&#39;%s\n&#39;</span> <span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span> <span class="p">|</span> sed -e <span class="s2">&quot;s/&#39;/&#39;\\\\&#39;&#39;/g&quot;</span><span class="p">;</span> <span class="nb">echo</span> x<span class="k">)</span>
+    <span class="nb">printf</span> <span class="s2">&quot;&#39;%s&#39;&quot;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">__i_quote</span><span class="p">%x</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="k">done</span>
+<span class="o">)</span>
+reuse_quote <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+<h5><code>jobs</code> flags</h5>
+<p>The only acceptable flags under POSIX sh for <code>jobs</code> are <code>-l</code> and <code>-p</code> (<a href="https://pubs.opengroup.org/onlinepubs/9699919799/utilities/jobs.html">see spec</a>). Common flags supported by other shells are <code>-s</code> and <code>-r</code>, to check for stopped/suspended jobs and running jobs. A portable alternative is using <code>grep</code> or <code>awk</code>:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">jobs</span> <span class="p">|</span> awk <span class="s1">&#39;/(S|s)(topped|uspended)/&#39;</span><span class="k">)</span><span class="s2">&quot;</span> <span class="c1"># instead of jobs -s</span>
+<span class="s2">&quot;</span><span class="k">$(</span><span class="nb">jobs</span> <span class="p">|</span> awk <span class="s1">&#39;/(R|r)(unning)/&#39;</span><span class="k">)</span><span class="s2">&quot;</span>          <span class="c1"># instead of jobs -r</span>
+</pre></div>
+<p>Although the state of stopped jobs is <code>Stopped</code> in Bash and dash, and it's the one specified by POSIX, <code>Suspended</code> is also a valid alternative (but Zsh happens to not respect the capitalization, that's why we try to match <code>suspended</code>). Similarly, the state of running jobs is <code>Running</code> according to POSIX. Bash and dash respect this, but Zsh uses <code>running</code>.</p>
+<h5>Redirect both stdout and stderr</h5>
+<p>Change:</p>
+
+<pre><code>&gt;&amp; and &amp;&gt;
+</code></pre>
+<p>To:</p>
+
+<pre><code>command &gt; file 2&gt;&amp;1 or command 2&gt;&amp;1 | othercommand
+</code></pre>
+<p>No Comments / Exceptions</p>
+<h5>Heredoc</h5>
+<p>Change:</p>
+
+<pre><code>sed 's/some_replacement//g' &lt;&lt;&lt; &quot;${var}&quot;
+</code></pre>
+<p>To:</p>
+
+<pre><code>printf '%s' &quot;${var}&quot; | sed 's/some_replacement//g'
+</code></pre>
+<p>No Comments / Exceptions</p>
+<h5>Prefixing signal names with <code>SIG</code></h5>
+<p>Instead of e.g.:</p>
+<div class="highlight"><pre><span></span><span class="nb">trap</span> my_handler SIGTERM
+</pre></div>
+<p>use:</p>
+<div class="highlight"><pre><span></span><span class="nb">trap</span> my_handler TERM
+<span class="c1"># or (`trap -l` for a list of signal numbers):</span>
+<span class="nb">trap</span> my_handler <span class="m">15</span>
+</pre></div>
+<h2>Exception</h2>
+<p>Depends on what your expected POSIX shell providers would use.</p>
+
+    </section>
+</article>

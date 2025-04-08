@@ -1,0 +1,144 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2206">PE2206: object-curly-spacing</h2>
+    <h3>强制在花括号中使用一致的空格 (object-curly-spacing)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2206</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制在花括号中使用一致的空格 (object-curly-spacing)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>虽然格式化首选项都非常个人化，大量的风格指南要求或禁止在下列情况下的花括号之间有空格：</p>
+<div class="highlight"><pre><span></span><span class="c1">// simple object literals</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span> <span class="p">};</span>
+
+<span class="c1">// nested object literals</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="p">{</span> <span class="nx">zoo</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span> <span class="p">}</span> <span class="p">};</span>
+
+<span class="c1">// destructuring assignment (EcmaScript 6)</span>
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+
+<span class="c1">// import/export declarations (EcmaScript 6)</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;bar&quot;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">};</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则强制在对象字面量、解构赋值 和 import/export 说明符的花括号中使用一致的空格。</p>
+<h2>修改方案</h2>
+<p>该规则有两个选项，一个是字符串，一个是对象。</p>
+<p>字符串选项：</p>
+<ul>
+<li><code>&quot;never&quot;</code> (默认) 不允许花括号中有空格</li>
+<li><code>&quot;always&quot;</code> 要求花括号内有空格 (除了 <code>{}</code>)</li>
+</ul>
+<p>对象选项：</p>
+<ul>
+<li><code>&quot;arraysInObjects&quot;: true</code> 要求以数组元素开始或结尾的对象的花括号中有空格 (当第一个选项为 <code>never</code> 时生效)</li>
+<li><code>&quot;arraysInObjects&quot;: false</code> 禁止以数组元素开始或结尾的对象的花括号中有空格 (当第一个选项为 <code>always</code> 时生效)</li>
+<li><code>&quot;objectsInObjects&quot;: true</code> 要求以对象元素开始或结尾的对象的花括号中有空格 (当第一个选项为 <code>never</code> 时生效)</li>
+<li><code>&quot;objectsInObjects&quot;: false</code> 禁止以对象元素开始或结尾的对象的花括号中有空格 (当第一个选项为 <code>always</code> 时生效)</li>
+</ul>
+<h5>never</h5>
+<p>默认选项 <code>&quot;never&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">baz</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;qux&#39;</span><span class="p">},</span> <span class="nx">bar</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">baz</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;qux&#39;</span><span class="p">},</span> <span class="nx">bar</span><span class="p">};</span>
+<span class="kd">var</span> <span class="p">{</span><span class="nx">x</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span>
+</pre></div>
+<p>默认选项 <code>&quot;never&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;bar&#39;</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">},</span> <span class="s1">&#39;qux&#39;</span><span class="o">:</span> <span class="s1">&#39;quxx&#39;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;foo&#39;</span><span class="o">:</span><span class="s1">&#39;bar&#39;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="p">{</span><span class="nx">x</span><span class="p">}</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">foo</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span>
+</pre></div>
+<h5>always</h5>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">baz</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;qux&#39;</span><span class="p">},</span> <span class="nx">bar</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">baz</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;qux&#39;</span> <span class="p">},</span> <span class="nx">bar</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;foo&#39;</span><span class="o">:</span><span class="s1">&#39;bar&#39;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="p">{</span><span class="nx">x</span><span class="p">}</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;bar&#39;</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span> <span class="p">},</span> <span class="s1">&#39;qux&#39;</span><span class="o">:</span> <span class="s1">&#39;quxx&#39;</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">x</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span>
+</pre></div>
+<h5>arraysInObjects</h5>
+<p>选项 <code>&quot;never&quot;, { &quot;arraysInObjects&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;never&quot;, { &quot;arraysInObjects&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">]</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span> <span class="p">]</span> <span class="p">};</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;, { &quot;arraysInObjects&quot;: false }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;always&quot;, { &quot;arraysInObjects&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">]};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span> <span class="p">]};</span>
+</pre></div>
+<h5>objectsInObjects</h5>
+<p>选项 <code>&quot;never&quot;, { &quot;objectsInObjects&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;never&quot;, { &quot;objectsInObjects&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;baz&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">}</span> <span class="p">};</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;, { &quot;objectsInObjects&quot;: false }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;always&quot;, { &quot;objectsInObjects&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;baz&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="o">:</span> <span class="mi">2</span> <span class="p">}};</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你并不关心花括号之间空格的一致性，可以关闭此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="comma-spacing">comma-spacing</a></li>
+<li><a href="space-in-parens">space-in-parens</a></li>
+<li><a href="space-in-brackets">space-in-brackets</a> (deprecated)</li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.22.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/object-curly-spacing.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/object-curly-spacing.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

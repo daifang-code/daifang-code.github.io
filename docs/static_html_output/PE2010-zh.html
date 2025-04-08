@@ -1,0 +1,288 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2010">PE2010: brace-style</h2>
+    <h3>大括号风格要求 (brace-style)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2010</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>大括号风格要求 (brace-style)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>在编程过程中，大括号风格与<a href="https://en.wikipedia.org/wiki/Indent_style">缩进风格</a>紧密联系，用来描述大括号相对控制语句和代码块的位置，少说也有十几种。</p>
+<p>在 Javascript 中，<em>one true brace style</em>也是最常见的一种，它将大括号放在控制语句或声明语句同一行的位置。例如：</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p><em>one true brace style</em>的一种常见的变体形式叫做 <em>Stroustrup</em>，<code>if-else</code>中的<code>else</code>语句，连同<code>catch</code> 和 <code>finally</code>，都必须在右括号后另起一行，如下面这个例子：</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>括号必须单独成行且没有任何缩进：</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>尽管没有哪种风格被认为会比另一种更好，但大多数开发者一致认为在同一项目中保持一致的风格对于长期的可维护性是很重要的。</p>
+<h2>缺陷详因</h2>
+<p>该规则旨在强制在Javascript中使用特定的括号风格。因此，如果某条语句或声明没有遵守该该风格，该规则将发出警告。</p>
+<h2>修改方案</h2>
+<p>该规则有一个字符串选项：</p>
+<ul>
+<li><code>&quot;1tbs&quot;</code> (default) enforces one true brace style</li>
+<li><code>&quot;1tbs&quot;</code> (默认) 强制 one true brace style</li>
+<li><code>&quot;stroustrup&quot;</code> enforces Stroustrup style</li>
+<li><code>&quot;stroustrup&quot;</code> 强制 Stroustrup style</li>
+<li><code>&quot;allman&quot;</code> enforces Allman style</li>
+<li><code>&quot;allman&quot;</code> 强制 Allman style</li>
+</ul>
+<p>该规则可以有例外情况，用对象表示：</p>
+<ul>
+<li><code>&quot;allowSingleLine&quot;: true</code> (默认 <code>false</code>) 允许块的开括号和闭括号在 <em>同一行</em></li>
+</ul>
+<h5>1tbs</h5>
+<p>选项<code>&quot;1tbs&quot;</code>的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">try</span>
+<span class="p">{</span>
+  <span class="nx">somethingRisky</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">handleError</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项<code>&quot;1tbs&quot;</code>的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">try</span> <span class="p">{</span>
+  <span class="nx">somethingRisky</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">handleError</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// when there are no braces, there are no problems</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">baz</span><span class="p">)</span> <span class="nx">boom</span><span class="p">();</span>
+</pre></div>
+<p>选项<code>&quot;1tbs&quot;, { &quot;allowSingleLine&quot;: true }</code>的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;1tbs&quot;, { &quot;allowSingleLine&quot;: true }]*/</span>
+
+<span class="kd">function</span> <span class="nx">nop</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="nx">baz</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">try</span> <span class="p">{</span> <span class="nx">somethingRisky</span><span class="p">();</span> <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="nx">handleError</span><span class="p">();</span> <span class="p">}</span>
+</pre></div>
+<h5>stroustrup</h5>
+<p>选项<code>&quot;stroustrup&quot;</code>的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;stroustrup&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">try</span>
+<span class="p">{</span>
+  <span class="nx">somethingRisky</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">handleError</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项<code>&quot;stroustrup&quot;</code>的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;stroustrup&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">try</span> <span class="p">{</span>
+  <span class="nx">somethingRisky</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">handleError</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// when there are no braces, there are no problems</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">baz</span><span class="p">)</span> <span class="nx">boom</span><span class="p">();</span>
+</pre></div>
+<p>选项<code>&quot;stroustrup&quot;, { &quot;allowSingleLine&quot;: true }</code>的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;stroustrup&quot;, { &quot;allowSingleLine&quot;: true }]*/</span>
+
+<span class="kd">function</span> <span class="nx">nop</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span> <span class="nx">baz</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">try</span> <span class="p">{</span> <span class="nx">somethingRisky</span><span class="p">();</span> <span class="p">}</span>
+<span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="nx">handleError</span><span class="p">();</span> <span class="p">}</span>
+</pre></div>
+<h5>allman</h5>
+<p>选项<code>&quot;allman&quot;</code>的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;allman&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">try</span>
+<span class="p">{</span>
+  <span class="nx">somethingRisky</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">handleError</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项<code>&quot;allman&quot;</code>的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;allman&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">try</span>
+<span class="p">{</span>
+  <span class="nx">somethingRisky</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">handleError</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// when there are no braces, there are no problems</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">baz</span><span class="p">)</span> <span class="nx">boom</span><span class="p">();</span>
+</pre></div>
+<p>选项<code>&quot;allman&quot;, { &quot;allowSingleLine&quot;: true }</code>的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;allman&quot;, { &quot;allowSingleLine&quot;: true }]*/</span>
+
+<span class="kd">function</span> <span class="nx">nop</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span> <span class="nx">baz</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">try</span> <span class="p">{</span> <span class="nx">somethingRisky</span><span class="p">();</span> <span class="p">}</span>
+<span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="nx">handleError</span><span class="p">();</span> <span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果伱不想强制使用一种括号风格，关闭此规则即可。</p>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Indent_style">Indent style</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.7 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/brace-style.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/brace-style.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,111 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2112">PE2112: no-implicit-coercion</h2>
+    <h3>禁止使用较短的符号实现类型转换 (no-implicit-coercion)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2112</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止使用较短的符号实现类型转换 (no-implicit-coercion)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>在 JavaScript 中，有许多不同的方式进行类型转换。其中有些可能难于阅读和理解。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="o">!!</span><span class="nx">foo</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="o">~</span><span class="nx">foo</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="o">+</span><span class="nx">foo</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="nx">foo</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="o">+</span> <span class="nx">foo</span><span class="p">;</span>
+<span class="nx">foo</span> <span class="o">+=</span> <span class="sb">``</span><span class="p">;</span>
+</pre></div>
+<p>可以使用下面的代码替换:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nb">Boolean</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则目的是标记出使用较短的符号进行类型转换的情况，建议使用一个更明确的符号。</p>
+<h2>修改方案</h2>
+<p>该规则有三个主要选项和一个覆盖选项，覆盖选项允许一些强制要求。</p>
+<ul>
+<li><code>&quot;boolean&quot;</code>(默认是 <code>true</code>)－当为 <code>true</code> 时，规则会对简短的 <code>boolean</code> 类型转换发出警告。</li>
+<li><code>&quot;number&quot;</code>(默认是 <code>true</code>)－当为 <code>true</code> 时，规则会对简短的 <code>number</code> 类型转换发出警告。</li>
+<li><code>&quot;string&quot;</code>(默认是 <code>true</code>)－当为 <code>true</code> 时，规则会对简短的 <code>string</code> 类型转换发出警告。</li>
+<li><code>&quot;allow&quot;</code> (默认是 <code>empty</code>) - 这个数组的每一项可以是 <code>~</code>、<code>!!</code>、<code>+</code> 或 <code>*</code>。</li>
+</ul>
+<p>注意，在 <code>allow</code> 列表中，操作符 <code>+</code> 同时允许 <code>+foo</code>（数字）和 <code>&quot;&quot; + foo</code> (字符串)</p>
+<h5>boolean</h5>
+<p>默认选项 <code>{ &quot;boolean&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-implicit-coercion: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="o">!!</span><span class="nx">foo</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="o">~</span><span class="nx">foo</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">);</span>
+<span class="c1">// bitwise not is incorrect only with `indexOf`/`lastIndexOf` method calling.</span>
+</pre></div>
+<p>默认选项 <code>{ &quot;boolean&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-implicit-coercion: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nb">Boolean</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="o">~</span><span class="nx">foo</span><span class="p">;</span> <span class="c1">// This is a just bitwise not.</span>
+</pre></div>
+<h5>number</h5>
+<p>默认选项 <code>{ &quot;number&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-implicit-coercion: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="o">+</span><span class="nx">foo</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="nx">foo</span><span class="p">;</span>
+</pre></div>
+<p>默认选项 <code>{ &quot;number&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-implicit-coercion: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">foo</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</pre></div>
+<h5>string</h5>
+<p>默认选项 <code>{ &quot;string&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-implicit-coercion: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="o">+</span> <span class="nx">foo</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="sb">``</span> <span class="o">+</span> <span class="nx">foo</span><span class="p">;</span>
+<span class="nx">foo</span> <span class="o">+=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="nx">foo</span> <span class="o">+=</span> <span class="sb">``</span><span class="p">;</span>
+</pre></div>
+<p>默认选项 <code>{ &quot;string&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-implicit-coercion: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+</pre></div>
+<h5>allow</h5>
+<p>使用 <code>allow</code> 列表，我们可以覆盖和允许特定的操作符。</p>
+<p>默认选项 <code>{ &quot;allow&quot;: [&quot;!!&quot;, &quot;~&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-implicit-coercion: [2, { &quot;allow&quot;: [&quot;!!&quot;, &quot;~&quot;] } ]*/</span>
+
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="o">!!</span><span class="nx">foo</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="o">~</span><span class="nx">foo</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">);</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想收到关于使用较短符号进行类型转换的通知，可以禁用此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 1.0.0-rc-2 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-implicit-coercion.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-implicit-coercion.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

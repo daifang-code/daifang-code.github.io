@@ -1,0 +1,277 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2010">PE2010: brace-style</h2>
+    <h3>Require Brace Style (brace-style)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2010</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Require Brace Style (brace-style)</h4>
+<p>Brace style is closely related to <a href="https://en.wikipedia.org/wiki/Indent_style">indent style</a> in programming and describes the placement of braces relative to their control statement and body. There are probably a dozen, if not more, brace styles in the world.</p>
+<p>The <em>one true brace style</em> is one of the most common brace styles in JavaScript, in which the opening brace of a block is placed on the same line as its corresponding statement or declaration. For example:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>One common variant of one true brace style is called Stroustrup, in which the <code>else</code> statements in an <code>if-else</code> construct, as well as <code>catch</code> and <code>finally</code>, must be on its own line after the preceding closing brace. For example:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Another style is called <a href="https://en.wikipedia.org/wiki/Indent_style#Allman_style">Allman</a>, in which all the braces are expected to be on their own lines without any extra indentation. For example:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>While no style is considered better than the other, most developers agree that having a consistent style throughout a project is important for its long-term maintainability.</p>
+<h2>Rule Details</h2>
+<p>This rule enforces consistent brace style for blocks.</p>
+<h2>Options</h2>
+<p>This rule has a string option:</p>
+<ul>
+<li><code>&quot;1tbs&quot;</code> (default) enforces one true brace style</li>
+<li><code>&quot;stroustrup&quot;</code> enforces Stroustrup style</li>
+<li><code>&quot;allman&quot;</code> enforces Allman style</li>
+</ul>
+<p>This rule has an object option for an exception:</p>
+<ul>
+<li><code>&quot;allowSingleLine&quot;: true</code> (default <code>false</code>) allows the opening and closing braces for a block to be on the <em>same</em> line</li>
+</ul>
+<h5>1tbs</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;1tbs&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">try</span>
+<span class="p">{</span>
+  <span class="nx">somethingRisky</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">handleError</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;1tbs&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">try</span> <span class="p">{</span>
+  <span class="nx">somethingRisky</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">handleError</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// when there are no braces, there are no problems</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">baz</span><span class="p">)</span> <span class="nx">boom</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;1tbs&quot;, { &quot;allowSingleLine&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;1tbs&quot;, { &quot;allowSingleLine&quot;: true }]*/</span>
+
+<span class="kd">function</span> <span class="nx">nop</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="nx">baz</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">try</span> <span class="p">{</span> <span class="nx">somethingRisky</span><span class="p">();</span> <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="nx">handleError</span><span class="p">();</span> <span class="p">}</span>
+</pre></div>
+<h5>stroustrup</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;stroustrup&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;stroustrup&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">try</span>
+<span class="p">{</span>
+  <span class="nx">somethingRisky</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">handleError</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;stroustrup&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;stroustrup&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">try</span> <span class="p">{</span>
+  <span class="nx">somethingRisky</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">handleError</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// when there are no braces, there are no problems</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">baz</span><span class="p">)</span> <span class="nx">boom</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;stroustrup&quot;, { &quot;allowSingleLine&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;stroustrup&quot;, { &quot;allowSingleLine&quot;: true }]*/</span>
+
+<span class="kd">function</span> <span class="nx">nop</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span> <span class="nx">baz</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">try</span> <span class="p">{</span> <span class="nx">somethingRisky</span><span class="p">();</span> <span class="p">}</span>
+<span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="nx">handleError</span><span class="p">();</span> <span class="p">}</span>
+</pre></div>
+<h5>allman</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;allman&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;allman&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">try</span>
+<span class="p">{</span>
+  <span class="nx">somethingRisky</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">handleError</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;allman&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;allman&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">try</span>
+<span class="p">{</span>
+  <span class="nx">somethingRisky</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="nx">handleError</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// when there are no braces, there are no problems</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">baz</span><span class="p">)</span> <span class="nx">boom</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;allman&quot;, { &quot;allowSingleLine&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint brace-style: [&quot;error&quot;, &quot;allman&quot;, { &quot;allowSingleLine&quot;: true }]*/</span>
+
+<span class="kd">function</span> <span class="nx">nop</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span> <span class="nx">baz</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">try</span> <span class="p">{</span> <span class="nx">somethingRisky</span><span class="p">();</span> <span class="p">}</span>
+<span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="nx">handleError</span><span class="p">();</span> <span class="p">}</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to enforce a particular brace style, don't enable this rule.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Indent_style">Indent style</a></li>
+</ul>
+
+    </section>
+</article>

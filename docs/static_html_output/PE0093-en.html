@@ -1,0 +1,65 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0093">PE0093: Cross-Site Request Forgery(CSRF)</h2>
+    <h3>Cross-Site Request Forgery (CSRF) is an attack that forces an end user to execute unwanted actions on a web application in which they're currently authenticated. </h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0093</dd>
+                    <dt>Tags</dt>
+                    <dd>C, C++, JAVA, CWE-352 ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Cross-Site Request Forgery (CSRF) is an attack that forces an end user to execute unwanted actions on a web application in which they're currently authenticated. CSRF attacks specifically target state-changing requests, not theft of data, since the attacker has no way to see the response to the forged request. With a little help of social engineering (such as sending a link via email or chat), an attacker may trick the users of a web application into executing actions of the attacker's choosing. If the victim is a normal user, a successful CSRF attack can force the user to perform state changing requests like transferring funds, changing their email address, and so forth. If the victim is an administrative account, CSRF can compromise the entire web application.</p>
+<h4>Vulnerability and risk</h4>
+<p>The consequences will vary depending on the nature of the functionality that is vulnerable to CSRF. An attacker could effectively perform any operations as the victim. If the victim is an administrator or privileged user, the consequences may include obtaining complete control over the web application - deleting or stealing data, uninstalling the product, or using it to launch other attacks against all of the product's users. Because the attacker has the identity of the victim, the scope of CSRF is limited only by the victim's privileges.</p>
+<h4>Potential Mitigations</h4>
+<ol>
+<li>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid. For example, use anti-CSRF packages such as the OWASP CSRFGuard.</li>
+<li>Ensure that the application is free of cross-site scripting issues(CWE-79), because most CSRF defenses can be bypassed using attacker-controlled script.</li>
+<li>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</li>
+<li>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</li>
+<li>Do not use the GET method for any request that triggers a state change.</li>
+<li>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</li>
+</ol>
+<h4>Likelihood of Exploit</h4>
+<p>Critical</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code Example</h5>
+<p>Assume that your bank's website provides a form that allows transferring money from the currently logged in user to another bank account. For example, the HTTP request might look like:</p>
+
+<pre><code>POST /transfer HTTP/1.1
+Host: bank.example.com
+Cookie: JSESSIONID=randomid; Domain=bank.example.com; Secure; HttpOnly
+Content-Type: application/x-www-form-urlencoded
+
+amount=100.00&amp;routingNumber=1234&amp;account=9876
+</code></pre>
+<p>Now pretend you authenticate to your bank's website and then, without logging out, visit an evil website. The evil website contains an HTML page with the following form:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;https://bank.example.com/transfer&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;amount&quot;</span>
+    <span class="na">value=</span><span class="s">&quot;100.00&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;routingNumber&quot;</span>
+    <span class="na">value=</span><span class="s">&quot;evilsRoutingNumber&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;account&quot;</span>
+    <span class="na">value=</span><span class="s">&quot;evilsAccountNumber&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span>
+    <span class="na">value=</span><span class="s">&quot;Win Money!&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+<p>You like to win money, so you click on the submit button. In the process, you have unintentionally transferred $100 to a malicious user. This happens because, while the evil website cannot see your cookies, the cookies associated with your bank are still sent along with the request.</p>
+<p>How to fix: See &quot;Potential Mitigations&quot;
+References
+================
+[^CWE352]: https://cwe.mitre.org/data/definitions/352.html
+[^OWASP]: https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF).html</p>
+
+    </section>
+</article>

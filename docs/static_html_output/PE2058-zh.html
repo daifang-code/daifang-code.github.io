@@ -1,0 +1,95 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2058">PE2058: max-nested-callbacks</h2>
+    <h3>强制回调函数最大嵌套深度 (max-nested-callbacks)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2058</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制回调函数最大嵌套深度 (max-nested-callbacks)</h4>
+<p>很多 JavaScript 类库是使用回调模式处理异步操作。任何复杂的程序都将最有可能在不同级别的并发性下处理多个异步回调操作。一个最长见的隐患就是嵌套的回调，使得代码嵌套层级越深越难以阅读。</p>
+<div class="highlight"><pre><span></span><span class="nx">foo</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">baz</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">qux</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+            <span class="p">});</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则旨在强制回调函数最大可嵌套深度，以提高代码的清晰度。</p>
+<h2>修改方案</h2>
+<p>该规则有一个数字或对象选项：</p>
+<ul>
+<li><code>&quot;max&quot;</code> (默认 <code>10</code>) 强制回调函数最大可嵌套深度</li>
+</ul>
+<p><strong>已弃用：</strong> <code>maximum</code> 属性已弃用；请使用 <code>max</code> 属性。</p>
+<h5>max</h5>
+<p>选项 <code>{ &quot;max&quot;: 3 }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-nested-callbacks: [&quot;error&quot;, 3]*/</span>
+
+<span class="nx">foo1</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">foo2</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">foo3</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">foo4</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="c1">// Do something</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<p>选项 <code>{ &quot;max&quot;: 3 }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-nested-callbacks: [&quot;error&quot;, 3]*/</span>
+
+<span class="nx">foo1</span><span class="p">(</span><span class="nx">handleFoo1</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">handleFoo1</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">foo2</span><span class="p">(</span><span class="nx">handleFoo2</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">handleFoo2</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">foo3</span><span class="p">(</span><span class="nx">handleFoo3</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">handleFoo3</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">foo4</span><span class="p">(</span><span class="nx">handleFoo4</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">handleFoo4</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">foo5</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h2>更多解释</h2>
+<ul>
+<li><a href="http://book.mixu.net/node/ch7.html">Control flow in Node.js</a></li>
+<li><a href="https://howtonode.org/control-flow">Control Flow in Node</a></li>
+<li><a href="https://howtonode.org/control-flow-part-ii">Control Flow in Node Part II</a></li>
+</ul>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="complexity">complexity</a></li>
+<li><a href="max-depth">max-depth</a></li>
+<li><a href="max-len">max-len</a></li>
+<li><a href="max-params">max-params</a></li>
+<li><a href="max-statements">max-statements</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.2.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/max-nested-callbacks.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/max-nested-callbacks.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

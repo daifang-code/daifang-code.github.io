@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2020">SC2020: Improper 'tr' directive</h2>
+    <h3>tr replaces sets of chars, not words (mentioned due to duplicates).</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2020</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>tr replaces sets of chars, not words (mentioned due to duplicates).</h4>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;hello world&#39;</span> <span class="p">|</span> tr <span class="s1">&#39;hello&#39;</span> <span class="s1">&#39;goodbye&#39;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;hello world&#39;</span> <span class="p">|</span> sed -e <span class="s1">&#39;s/hello/goodbye/g&#39;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p><code>tr</code> is for <code>tr</code>ansliteration, turning some characters into other characters. It doesn't match strings or words, only individual characters.</p>
+<p>In this case, it transliterates h-&gt;g, e-&gt;o, l-&gt;d, o-&gt;y, resulting in the string &quot;goddb wbrdd&quot; instead of &quot;goodbye world&quot;.</p>
+<p>The solution is to use a tool that does string search and replace, such as sed.</p>
+<h5>Exceptions</h5>
+<p>None.</p>
+
+    </section>
+</article>

@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7076">BE7076: 方法调用低效的布尔构造函数，最好改用Boolean.valueOf(...)</h2>
+    <h3>方法调用低效的布尔构造函数，最好改用Boolean.valueOf(...)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7076</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>方法调用低效的布尔构造函数，最好改用Boolean.valueOf(...)</p>
+<h4>漏洞与风险</h4>
+<p> 
+创建一个新的<code>java.lang.Boolean</code>实例对象会浪费内存，因为<code>Boolean</code>对象是不可变的且只有两个值。最好使用<code>Boolean.valueOf()</code>或者Java1.5中的自动装箱功能来创建一个<code>Boolean</code>实例。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

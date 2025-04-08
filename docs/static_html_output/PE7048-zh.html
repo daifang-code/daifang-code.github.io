@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7048">BE7048: 方法返回协变数组</h2>
+    <h3>方法返回协变数组</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7048</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>方法返回协变数组</p>
+<h4>漏洞与风险</h4>
+<p>从该方法返回协变数组。如果调用的代码尝试在返回的数组中存储某些其它类型的数据，则可能在运行时导致ArrayStoreException。</p>
+<p>请考虑更改已创建数组的类型或方法返回类型。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7341">BE7341: Synchronization performed on util.concurrent instance</h2>
+    <h3>Synchronization performed on util.concurrent instance</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7341</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Synchronization performed on util.concurrent instance</p>
+<h4>Vulnerability and risk</h4>
+<p> This method performs synchronization an object that is an instance of
+a class from the java.util.concurrent package (or its subclasses). Instances
+of these classes have their own concurrency control mechanisms that are orthogonal to
+the synchronization provided by the Java keyword <code>synchronized</code>. For example,
+synchronizing on an <code>AtomicBoolean</code> will not prevent other threads
+from modifying the  <code>AtomicBoolean</code>.</p>
+<p>Such code may be correct, but should be carefully reviewed and documented,
+and may confuse people who have to maintain the code at a later date.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

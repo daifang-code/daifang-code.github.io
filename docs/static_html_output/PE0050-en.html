@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0050">PE0050: Bad Pointer Arithmetic</h2>
+    <h3>Apply pointer arithmetic to a pointer that only points to a singleton object.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0050</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The type systems in C/C++ do not distinguish between &quot;pointer to one object&quot; and &quot;pointer to array of objects&quot;. Consequently, it is easy to accidentally apply pointer arithmetic to a pointer that only points to a singleton object.</p>
+<p>Typically, when pointer arithmetic is applied to a singleton pointer, the result is either reading garbage/unintended value from memory, or writing to unintended memory and corrupting it.</p>
+<h4>Vulnerability and risk</h4>
+<h5>Out of bound access</h5>
+<p>Typically, when pointer arithmetic is applied to a singleton pointer, the result is either reading garbage/unintended value from memory, or writing to unintended memory and corrupting it.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>Apply pointer arithmetic to a pointer that only points to array of objects.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+  <span class="n">p</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, <code>p</code> is a pointer that only points to a singleton object. Apply pointer arithmetic at line 4 will result a garbage value.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+  <span class="n">p</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the invulnerable code example, <code>p</code> is a pointer that only points to array of objects.</p>
+
+    </section>
+</article>

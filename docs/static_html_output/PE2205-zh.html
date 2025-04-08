@@ -1,0 +1,496 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2205">PE2205: object-curly-newline</h2>
+    <h3>强制在花括号内使用一致的换行符 (object-curly-newline)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2205</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制在花括号内使用一致的换行符 (object-curly-newline)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>一些风格指南要求或禁止对象的花括号和其它符号之间出现换行符。</p>
+<h2>缺陷详因</h2>
+<p>该规则强制花括号内使用换行符的一致性。该规则同时适用于对象字面量和解构赋值。</p>
+<h2>修改方案</h2>
+<p>This rule has either a string option:</p>
+<p>该规则有一个字符串选项</p>
+<ul>
+<li><code>&quot;always&quot;</code> 要求花括号内有换行符</li>
+<li><code>&quot;never&quot;</code> 禁止花括号内有换行符</li>
+</ul>
+<p>或一个对象选项：</p>
+<ul>
+<li><code>&quot;multiline&quot;: true</code> (默认)如果在属性内部或属性之间有换行符，就要求有换行符</li>
+<li><code>&quot;minProperties&quot;</code> 如果属性的数量至少为给定的数值，要求有换行符。默认情况下，如果一个对象包含换行符并且属性的数量少于给定的数量，该规则也会报错误。然而，如果设置 <code>consistent</code> 选项为 <code>true</code>，则该选项将不起作用。</li>
+<li><code>&quot;consistent&quot;: true</code> 要求使用花括号，或者不使用或括号直接使用换行。注意启用该选项将改变 <code>minProperties</code> 选项的行为。(查看上面的 <code>minProperties</code>，获取更多信息)</li>
+</ul>
+<p>你可以为字面量、解构赋值和命名的导入导出指定不同的选项：</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;object-curly-newline&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nt">&quot;ObjectExpression&quot;</span><span class="p">:</span> <span class="s2">&quot;always&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;ObjectPattern&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;multiline&quot;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
+        <span class="nt">&quot;ImportDeclaration&quot;</span><span class="p">:</span> <span class="s2">&quot;never&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;ExportDeclaration&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;multiline&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&quot;minProperties&quot;</span><span class="p">:</span> <span class="mi">3</span> <span class="p">}</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+<ul>
+<li><code>&quot;ObjectExpression&quot;</code> 对象字面量的配置。</li>
+<li><code>&quot;ObjectPattern&quot;</code> 对象的解构赋值模式的配置。</li>
+<li><code>&quot;ImportDeclaration&quot;</code> 配置命名的导入</li>
+<li><code>&quot;ExportDeclaration&quot;</code> 配置命名的导出</li>
+</ul>
+<h5>always</h5>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">dosomething</span><span class="p">();</span>
+<span class="p">}};</span>
+
+<span class="kd">let</span> <span class="p">{}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">f</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">g</span><span class="p">,</span> <span class="nx">h</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">i</span><span class="p">,</span>
+    <span class="nx">j</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">k</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">dosomething</span><span class="p">();</span>
+<span class="p">}}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="p">{</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">f</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">g</span><span class="p">,</span> <span class="nx">h</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">i</span><span class="p">,</span>
+    <span class="nx">j</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">k</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+</pre></div>
+<h5>never</h5>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="p">{</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">f</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">g</span><span class="p">,</span> <span class="nx">h</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">i</span><span class="p">,</span>
+    <span class="nx">j</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">k</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">dosomething</span><span class="p">();</span>
+<span class="p">}};</span>
+
+<span class="kd">let</span> <span class="p">{}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">f</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">g</span><span class="p">,</span> <span class="nx">h</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">i</span><span class="p">,</span>
+    <span class="nx">j</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">k</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">dosomething</span><span class="p">();</span>
+<span class="p">}}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+</pre></div>
+<h5>multiline</h5>
+<p>默认选项 <code>{ &quot;multiline&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, { &quot;multiline&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">dosomething</span><span class="p">();</span>
+<span class="p">}};</span>
+
+<span class="kd">let</span> <span class="p">{</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">f</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">g</span><span class="p">,</span> <span class="nx">h</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">i</span><span class="p">,</span>
+    <span class="nx">j</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">k</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">dosomething</span><span class="p">();</span>
+<span class="p">}}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+</pre></div>
+<p>默认选项 <code>{ &quot;multiline&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, { &quot;multiline&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="p">{}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">f</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">g</span><span class="p">,</span> <span class="nx">h</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">i</span><span class="p">,</span>
+    <span class="nx">j</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">k</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+</pre></div>
+<h5>minProperties</h5>
+<p>选项 <code>{ &quot;minProperties&quot;: 2 }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, { &quot;minProperties&quot;: 2 }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="p">{</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">f</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">g</span><span class="p">,</span> <span class="nx">h</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">i</span><span class="p">,</span>
+    <span class="nx">j</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">k</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>{ &quot;minProperties&quot;: 2 }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, { &quot;minProperties&quot;: 2 }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">dosomething</span><span class="p">();</span>
+<span class="p">}};</span>
+
+<span class="kd">let</span> <span class="p">{}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">f</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">g</span><span class="p">,</span> <span class="nx">h</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">i</span><span class="p">,</span>
+    <span class="nx">j</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">k</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">dosomething</span><span class="p">();</span>
+<span class="p">}}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+</pre></div>
+<h5>consistent</h5>
+<p>选项 <code>{ &quot;consistent&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, { &quot;consistent&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">f</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">dosomething</span><span class="p">();</span>
+<span class="p">}};</span>
+
+<span class="kd">let</span> <span class="p">{</span><span class="nx">g</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">h</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">m</span><span class="p">,</span>
+    <span class="nx">n</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">o</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">dosomething</span><span class="p">();</span>
+<span class="p">}}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>{ &quot;consistent&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, { &quot;consistent&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">f</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="nx">dosomething</span><span class="p">();}};</span>
+<span class="kd">let</span> <span class="nx">g</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="p">{}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">h</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">m</span><span class="p">,</span>
+    <span class="nx">n</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">o</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="nx">dosomething</span><span class="p">();}}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">p</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+</pre></div>
+<h5>ObjectExpression and ObjectPattern</h5>
+<p>选项 <code>{ &quot;ObjectExpression&quot;: &quot;always&quot;, &quot;ObjectPattern&quot;: &quot;never&quot; }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, { &quot;ObjectExpression&quot;: &quot;always&quot;, &quot;ObjectPattern&quot;: &quot;never&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">dosomething</span><span class="p">();</span>
+<span class="p">}};</span>
+
+<span class="kd">let</span> <span class="p">{</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">f</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">g</span><span class="p">,</span> <span class="nx">h</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">i</span><span class="p">,</span>
+    <span class="nx">j</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span>
+    <span class="nx">k</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>{ &quot;ObjectExpression&quot;: &quot;always&quot;, &quot;ObjectPattern&quot;: &quot;never&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, { &quot;ObjectExpression&quot;: &quot;always&quot;, &quot;ObjectPattern&quot;: &quot;never&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="p">{}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">f</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">g</span><span class="p">,</span> <span class="nx">h</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">i</span><span class="p">,</span>
+    <span class="nx">j</span><span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">k</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">dosomething</span><span class="p">();</span>
+<span class="p">}}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+</pre></div>
+<h5>ImportDeclaration and ExportDeclaration</h5>
+<p>选项 <code>{ &quot;ImportDeclaration&quot;: &quot;always&quot;, &quot;ExportDeclaration&quot;: &quot;never&quot; }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, { &quot;ImportDeclaration&quot;: &quot;always&quot;, &quot;ExportDeclaration&quot;: &quot;never&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kr">import</span> <span class="p">{</span><span class="nx">foo</span><span class="p">,</span> <span class="nx">bar</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;foo-bar&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">foo</span> <span class="nx">as</span> <span class="nx">f</span><span class="p">,</span> <span class="nx">bar</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;foo-bar&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">foo</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;foo-bar&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="p">{</span>
+   <span class="nx">foo</span><span class="p">,</span>
+   <span class="nx">bar</span>
+<span class="p">};</span>
+<span class="kr">export</span> <span class="p">{</span>
+   <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">f</span><span class="p">,</span>
+   <span class="nx">bar</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;foo-bar&#39;</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>{ &quot;ImportDeclaration&quot;: &quot;always&quot;, &quot;ExportDeclaration&quot;: &quot;never&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-newline: [&quot;error&quot;, { &quot;ImportDeclaration&quot;: &quot;always&quot;, &quot;ExportDeclaration&quot;: &quot;never&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kr">import</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">,</span>
+    <span class="nx">bar</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;foo-bar&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span>
+    <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">f</span><span class="p">,</span>
+    <span class="nx">bar</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;foo-bar&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">bar</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;foo-bar&#39;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="nx">as</span> <span class="nx">f</span><span class="p">,</span> <span class="nx">bar</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;foo-bar&#39;</span><span class="p">;</span>
+</pre></div>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS</strong>: <a href="http://jscs.info/rule/requirePaddingNewLinesInObjects">requirePaddingNewLinesInObjects</a> and <a href="http://jscs.info/rule/disallowPaddingNewLinesInObjects">disallowPaddingNewLinesInObjects</a></li>
+</ul>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想强制花括号内换行符的一致性，可以关闭此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="comma-spacing">comma-spacing</a></li>
+<li><a href="key-spacing">key-spacing</a></li>
+<li><a href="object-curly-spacing">object-curly-spacing</a></li>
+<li><a href="object-property-newline">object-property-newline</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 2.12.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/object-curly-newline.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/object-curly-newline.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

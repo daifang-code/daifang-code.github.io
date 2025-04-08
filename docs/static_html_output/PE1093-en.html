@@ -1,0 +1,48 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1093">PE1093: Dangerous File Inclusion</h2>
+    <h3>The File Inclusion vulnerability allows an attacker to include a file, usually exploiting a "dynamic file inclusion" mechanisms implemented in the target application</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1093</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The File Inclusion vulnerability allows an attacker to include a file, usually exploiting a &quot;dynamic file inclusion&quot; mechanisms implemented in the target application. The vulnerability occurs due to the use of user-supplied input without proper validation.</p>
+<h4>Vulnerability and risk</h4>
+<h5>Remote File Inclusion</h5>
+<p>Remote File Inclusion (RFI) occurs when the web application downloads and executes a remote file. These remote files are usually obtained in the form of an HTTP or FTP URI as a user-supplied parameter to the web application.</p>
+<h5>Local File Inclusion</h5>
+<p>Local File Inclusion (LFI) is similar to a Remote File Inclusion vulnerability except instead of including remote files, only local files i.e. files on the current server can be included for execution. This issue can still lead to remote code execution by including a file that contains attacker-controlled data such as the web server's access logs.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<ul>
+<li><p>Avoid passing user-submitted input to any filesystem/framework API.</p>
+</li>
+<li><p>Maintain a white list of files, that may be included by the page, and then use an identifier (for example the index number) to access to the selected file.</p>
+</li>
+</ul>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">&lt;%</span>
+   <span class="n">String</span> <span class="n">p</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&quot;p&quot;</span><span class="o">);</span>
+   <span class="nd">@include</span> <span class="n">file</span><span class="o">=</span><span class="s">&quot;&lt;%=&quot;</span><span class="n">includes</span><span class="o">/</span><span class="s">&quot; + p +&quot;</span><span class="o">.</span><span class="na">jsp</span><span class="err">&quot;</span><span class="k">%&gt;</span>&quot;
+%&gt;
+</pre></div>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://en.wikipedia.org/wiki/File_inclusion_vulnerability<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

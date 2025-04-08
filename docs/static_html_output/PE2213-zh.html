@@ -1,0 +1,323 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2213">PE2213: padded-blocks</h2>
+    <h3>要求或禁止块内填充 (padded-blocks)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2213</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求或禁止块内填充 (padded-blocks)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>一些风格指南要求块语句以空行开始并且以空行结束。目标是通过块内容和周围代码视觉上地分离来提高可读性。</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div>
+<p>代码风格统一是非常有好处的，你应总是写填充的块或永远不这么做。</p>
+<h2>缺陷详因</h2>
+<p>该规则强制块内空行填充的一致性。</p>
+<h2>修改方案</h2>
+<p>该规则有一个选项，可以是字符串或对象。</p>
+<p>字符串选项：</p>
+<ul>
+<li><code>&quot;always&quot;</code> (默认) 要求块语句和类的开始或末尾有空行</li>
+<li><code>&quot;never&quot;</code> 禁止块语句和类的开始或末尾有空行</li>
+</ul>
+<p>对象选项：</p>
+<ul>
+<li><code>&quot;blocks&quot;</code> 要求或禁止块内填充</li>
+<li><code>&quot;classes&quot;</code> 要求或禁止类内填充</li>
+<li><code>&quot;switches&quot;</code> 要求或禁止在 <code>switch</code> 语句中填充</li>
+</ul>
+<h5>always</h5>
+<p>默认选项 <code>&quot;always&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span> <span class="nx">b</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// comment</span>
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div>
+<p>默认选项 <code>&quot;always&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// comment</span>
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div>
+<h5>never</h5>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>blocks</h5>
+<p>选项 <code>{ &quot;blocks&quot;: &quot;always&quot; }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, { &quot;blocks&quot;: &quot;always&quot; }]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span> <span class="nx">b</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// comment</span>
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div>
+<p>选项  <code>{ &quot;blocks&quot;: &quot;always&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, { &quot;blocks&quot;: &quot;always&quot; }]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// comment</span>
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>{ &quot;blocks&quot;: &quot;never&quot; }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, { &quot;blocks&quot;: &quot;never&quot; }]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>{ &quot;blocks&quot;: &quot;never&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, { &quot;blocks&quot;: &quot;never&quot; }]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>classes</h5>
+<p>选项 <code>{ &quot;classes&quot;: &quot;always&quot; }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, { &quot;classes&quot;: &quot;always&quot; }]*/</span>
+
+<span class="kr">class</span>  <span class="nx">A</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(){</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>{ &quot;classes&quot;: &quot;always&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, { &quot;classes&quot;: &quot;always&quot; }]*/</span>
+
+<span class="kr">class</span>  <span class="nx">A</span> <span class="p">{</span>
+
+    <span class="nx">constructor</span><span class="p">(){</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>{ &quot;classes&quot;: &quot;never&quot; }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, { &quot;classes&quot;: &quot;never&quot; }]*/</span>
+
+<span class="kr">class</span>  <span class="nx">A</span> <span class="p">{</span>
+
+    <span class="nx">constructor</span><span class="p">(){</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>{ &quot;classes&quot;: &quot;never&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, { &quot;classes&quot;: &quot;never&quot; }]*/</span>
+
+<span class="kr">class</span>  <span class="nx">A</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(){</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>switches</h5>
+<p>选项 <code>{ &quot;switches&quot;: &quot;always&quot; }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, { &quot;switches&quot;: &quot;always&quot; }]*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="nx">foo</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>{ &quot;switches&quot;: &quot;always&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, { &quot;switches&quot;: &quot;always&quot; }]*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="nx">foo</span><span class="p">();</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">b</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>{ &quot;switches&quot;: &quot;never&quot; }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, { &quot;switches&quot;: &quot;never&quot; }]*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="nx">foo</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>{ &quot;switches&quot;: &quot;never&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint padded-blocks: [&quot;error&quot;, { &quot;switches&quot;: &quot;never&quot; }]*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="nx">foo</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">b</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你并不关心块内填充的一致性，你可以关闭此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="lines-between-class-members">lines-between-class-members</a></li>
+<li><a href="padding-line-between-statements">padding-line-between-statements</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.9.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/padded-blocks.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/padded-blocks.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

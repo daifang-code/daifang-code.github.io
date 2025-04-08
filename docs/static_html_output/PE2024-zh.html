@@ -1,0 +1,128 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2024">PE2024: default-case</h2>
+    <h3>要求 Switch 语句中有 Default 分支 (default-case)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2024</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求 Switch 语句中有 Default 分支 (default-case)</h4>
+<p>一些编码规范中，要求所有的 <code>switch</code> 语句中必须包含 <code>default</code> 分支，即使默认分支中没有任何代码，如下所示：</p>
+<div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">default</span><span class="o">:</span>
+        <span class="c1">// do nothing</span>
+<span class="p">}</span>
+</pre></div>
+<p>考虑到开发人员可能会忘记定义默认分支而导致程序发生错误，所以明确规定定义默认分支是很好的选择。</p>
+<p>有些代码规范中允许省略掉 <code>default</code> 分支，但是要写明注释以说明是故意为之。如下：</p>
+<div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="nx">doSomething</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="c1">// no default</span>
+<span class="p">}</span>
+</pre></div>
+<p>再次指出，以上示例的前提是开发者并没有默认分支的情况需要处理。</p>
+<h2>缺陷详因</h2>
+<p>此规则的目的是在 <code>switch</code> 语句中强制声明 <code>default</code> 分支。或者也可以在最后一个 <code>case</code> 分支下，使用 <code>// no default</code> 来表明此处不需要 <code>default</code> 分支。注释可以任何形式出现，比如 <code>// No Default</code>。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint default-case: &quot;error&quot;*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint default-case: &quot;error&quot;*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">default</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="c1">// no default</span>
+<span class="p">}</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="c1">// No Default</span>
+<span class="p">}</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则接受单个选项参数：</p>
+<ul>
+<li>设置 <code>commentPattern</code> 为一个正则表达式字符串，来改变默认的 <code>/^no default$/i</code> 注释匹配模式</li>
+</ul>
+<h5>commentPattern</h5>
+<p>选项 <code>{ &quot;commentPattern&quot;: &quot;^skip\\sdefault&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint default-case: [&quot;error&quot;, { &quot;commentPattern&quot;: &quot;^skip\\sdefault&quot; }]*/</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="c1">// skip default</span>
+<span class="p">}</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="cm">/* code */</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="c1">// skip default case</span>
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想要求 <code>switch</code> 中必须要有 <code>default</code> 分支，禁用此规则即可。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-fallthrough">no-fallthrough</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.6.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/default-case.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/default-case.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

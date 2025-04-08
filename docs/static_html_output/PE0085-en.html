@@ -1,0 +1,99 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0085">PE0085: Format String Vulnerability</h2>
+    <h3>The software uses a function that accepts a format string as an argument, but the format string originates from an external source. [^CWE]</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0085</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP, Java</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>String format related functions like <code>printf</code> in C and <code>String.format</code> in Java can take a varying number of arguments. One of the arguments describes the way to interpret the rest of arguments, and is called the format string argument. According to the implementation of the programming language, an external malicious format string may lead to program crash, information leak and code execution.</p>
+<h4>Vulnerability and risk</h4>
+<h5>DoS, Information leak</h5>
+<p>Formatting string functions will print out memory content according to integer specifiers, therefore, sensitive information inside memory could be leaked to attackers.
+Attackers also could include multiple string specifiers to format string argument. It tells the program to interpret data as a pointer to a string, since memory data are not always valid pointers, program will crash in dereferencing an invalid pointer.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Critical</p>
+<h4>Potential Mitigations</h4>
+<ul>
+<li>Do not use externally-controlled data as format string argument</li>
+<li>Sanitize user input before they used as format string argument</li>
+</ul>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code example 1: Leak content in program stack</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">0xAABBCCDD</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mh">0xFFEE4242</span><span class="p">;</span>
+  <span class="n">printf</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Program execution:</p>
+
+<pre><code>$ ./a.out &quot;%p %p %p %p %p %p %p %p %p  &quot;
+0x7ffeccbb42f8 0x7ffeccbb4310 (nil) 0x4005e0 0x7f287164bab0 \
+0x7ffeccbb42f8 0x200400430 0x7ffeccbb42f0 0xffee4242aabbccdd  
+</code></pre>
+<p>The last output (0xffee4242aabbccdd) is the value of local variables <code>a</code> and <code>b</code> in our example. This example shows string formatting functions will read memory content based on the format string argument, and thus maliciously constructed input could leak sensitive information.</p>
+<h5>Vulnerable code example 2: Denial of service, Program crash</h5>
+<p>We use the same program from example 1, but with different input this time.</p>
+
+<pre><code>$ ./a.out &quot;%s %s %s %s %s %s %s %s %s  &quot;
+Segmentation fault (core dumped)
+</code></pre>
+<p><code>%s</code> tells the program to use the corresponding argument as a pointer to string, and the program crashes when dereferencing an invalid pointer.</p>
+<h5>Fixed code example</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">0xAABBCCDD</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mh">0xFFEE4242</span><span class="p">;</span>
+
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In general, it is the best practice to use only fixed format strings. When an external string needs to be printed, print it with the <code>%s</code> specifier instead of using it as the format string.</p>
+<h5>Vulnerable code example 3</h5>
+<p>The example above also applies to Java:</p>
+
+<pre><code>import java.io.*;
+class Example {
+  public static void main(String[] args) {
+    int a = 0;
+    int b = 1;
+    System.out.printf(args[1], a, b);
+  }
+}
+</code></pre>
+<p>and can be fixed by</p>
+
+<pre><code>import java.io.*;
+class Example {
+  public static void main(String[] args) {
+    int a = 0;
+    int b = 1;
+    System.out.printf(&quot;%s%d%d&quot;, args[1], a, b);
+  }
+}
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/134.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,90 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2037">PE2037: on the top-level module scope </h2>
+    <h3>Enforce require() on the top-level module scope (global-require)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2037</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Enforce require() on the top-level module scope (global-require)</h4>
+<p>In Node.js, module dependencies are included using the <code>require()</code> function, such as:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+</pre></div>
+<p>While <code>require()</code> may be called anywhere in code, some style guides prescribe that it should be called only in the top level of a module to make it easier to identify dependencies. For instance, it's arguably harder to identify dependencies when they are deeply nested inside of functions and other statements:</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Since <code>require()</code> does a synchronous load, it can cause performance problems when used in other locations.</p>
+<p>Further, ES6 modules mandate that <code>import</code> and <code>export</code> statements can only occur in the top level of the module's body.</p>
+<h2>Rule Details</h2>
+<p>This rule requires all calls to <code>require()</code> to be at the top level of the module, similar to ES6 <code>import</code> and <code>export</code> statements, which also can occur only at the top level.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint global-require: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// calling require() inside of a function is not allowed</span>
+<span class="kd">function</span> <span class="nx">readFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// conditional requires like this are also not allowed</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">DEBUG</span><span class="p">)</span> <span class="p">{</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="c1">// a require() in a switch statement is also flagged</span>
+<span class="k">switch</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">case</span> <span class="s1">&#39;1&#39;</span><span class="o">:</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">);</span> <span class="k">break</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c1">// you may not require() inside an arrow function body</span>
+<span class="kd">var</span> <span class="nx">getModule</span> <span class="o">=</span> <span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">require</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+
+<span class="c1">// you may not require() inside of a function body as well</span>
+<span class="kd">function</span> <span class="nx">getModule</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">require</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="c1">// you may not require() inside of a try/catch block</span>
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nx">require</span><span class="p">(</span><span class="nx">unsafeModule</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint global-require: &quot;error&quot;*/</span>
+
+<span class="c1">// all these variations of require() are ok</span>
+<span class="nx">require</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">z</span><span class="p">;</span>
+<span class="nx">z</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">).</span><span class="nx">initialize</span><span class="p">();</span>
+
+<span class="c1">// requiring a module and using it in a function is ok</span>
+<span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">readFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// you can use a ternary to determine which module to require</span>
+<span class="kd">var</span> <span class="nx">logger</span> <span class="o">=</span> <span class="nx">DEBUG</span> <span class="o">?</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;dev-logger&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;logger&#39;</span><span class="p">);</span>
+
+<span class="c1">// if you want you can require() at the end of your module</span>
+<span class="kd">function</span> <span class="nx">doSomethingA</span><span class="p">()</span> <span class="p">{}</span>
+<span class="kd">function</span> <span class="nx">doSomethingB</span><span class="p">()</span> <span class="p">{}</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">),</span>
+    <span class="nx">z</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;z&quot;</span><span class="p">);</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you have a module that must be initialized with information that comes from the file-system or if a module is only used in very rare situations and will cause significant overhead to load it may make sense to disable the rule. If you need to <code>require()</code> an optional dependency inside of a <code>try</code>/<code>catch</code>, you can disable this rule for just that dependency using the <code>// eslint-disable-line global-require</code> comment.</p>
+
+    </section>
+</article>

@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7205">BE7205: Class is Externalizable but doesn't define a void constructor</h2>
+    <h3>Class is Externalizable but doesn't define a void constructor</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7205</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Class is Externalizable but doesn't define a void constructor</p>
+<h4>Vulnerability and risk</h4>
+<p> This class implements the <code>Externalizable</code> interface, but does
+  not define a void constructor. When Externalizable objects are deserialized,
+   they first need to be constructed by invoking the void
+   constructor. Since this class does not have one,
+   serialization and deserialization will fail at runtime.</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+
+    </section>
+</article>

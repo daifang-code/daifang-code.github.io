@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE19008">PE19008: 硬编码IP</h2>
+    <h3>硬编码IP</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE19008</dd>
+                    <dt>标签</dt>
+                    <dd>cobra</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>安全风险</h2>
+
+<pre><code>    硬编码IP
+
+</code></pre>
+<h2>修复方案</h2>
+
+<pre><code>    将该部分内容移到配置文件中
+
+</code></pre>
+<h2>匹配规则</h2>
+<p>((25[0-5]|2[0-4][0-9]|[01]?[0-9]{2}?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))</p>
+<h4>References</h4>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+
+    </section>
+</article>

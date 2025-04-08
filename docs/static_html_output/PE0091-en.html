@@ -1,0 +1,106 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0091">PE0091: URL Redirection to Untrusted Site</h2>
+    <h3>Unvalidated redirects and forwards are possible when a web application accepts untrusted input that could cause the web application to redirect the request to a URL contained within untrusted input.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0091</dd>
+                    <dt>Tags</dt>
+                    <dd>C, C++, JAVA, CWE-601 ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>A web application accepts a user-controlled input that specifies a link to an external site, and uses that link in a Redirect.</p>
+<h4>Vulnerability and risk</h4>
+<p>By modifying untrusted URL input to a malicious site, an attacker may successfully launch a phishing scam and steal user credentials. Because the server name in the modified link is identical to the original site, phishing attempts may have a more trustworthy appearance. Unvalidated redirect and forward attacks can also be used to maliciously craft a URL that would pass the application’s access control check and then forward the attacker to privileged functions that they would normally not be able to access.</p>
+<h4>Potential Mitigations</h4>
+<p>Safe use of redirects and forwards can be done in a number of ways:</p>
+<ol>
+<li>Simply avoid using redirects and forwards.</li>
+<li>If used, do not allow the url as user input for the destination. This can usually be done. In this case, you should have a method to validate URL.</li>
+<li>If user input can’t be avoided, ensure that the supplied value is valid, appropriate for the application, and is authorized for the user.</li>
+<li>It is recommended that any such destination input be mapped to a value, rather than the actual URL or portion of the URL, and that server side code translate this value to the target URL.</li>
+<li>Sanitize input by creating a list of trusted URL's (lists of hosts or a regex).</li>
+<li>Force all redirects to first go through a page notifying users that they are going off of your site, and have them click a link to confirm.</li>
+</ol>
+<h4>Likelihood of Exploit</h4>
+<p>Critical</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code Example 1</h5>
+<p>The following Java code receives the URL from the 'url' GET parameter and redirects to that URL.</p>
+<div class="highlight"><pre><span></span><span class="n">response</span><span class="o">.</span><span class="na">sendRedirect</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&quot;url&quot;</span><span class="o">));</span>
+</pre></div>
+<p>The code is vulnerable to an attack if no validation or extra method controls are applied to verify the certainty of the URL. This vulnerability could be used as part of a phishing scam by redirecting users to a malicious site. If no validation is applied, a malicious user could create a hyperlink to redirect your users to an unvalidated malicious website, for example:</p>
+
+<pre><code> http://example.com/example.php?url=http://malicious.example.com
+</code></pre>
+<p>The user sees the link directing to the original trusted site (example.com) and does not realize the redirection that could take place</p>
+<h5>Fixed code Example 1</h5>
+<div class="highlight"><pre><span></span><span class="n">string</span> <span class="n">redirect_url</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&quot;url&quot;</span><span class="o">);</span>
+
+  <span class="c1">// Check the safety of the URL</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">is_safe</span><span class="o">(</span><span class="n">redirect_url</span><span class="o">))</span> <span class="o">{</span>  
+    <span class="n">response</span><span class="o">.</span><span class="na">sendRedirect</span><span class="o">(</span><span class="n">redirect_url</span><span class="o">);</span>
+  <span class="o">}</span>
+</pre></div>
+<h5>Vulnerable code Example 2</h5>
+<p>When applications allow user input to forward requests between different parts of the site, the application must check that the user is authorized to access the url, perform the functions it provides, and it is an appropriate url request. If the application fails to perform these checks, an attacker crafted URL may pass the application’s access control check and then forward the attacker to an administrative function that is not normally permitted.</p>
+<p>The following code is a Java servlet that will receive a GET request with a url parameter in the request to forward to the address specified in the url parameter. The servlet will retrieve the url parameter value from the request and complete the server-side forward processing before responding to the browser.</p>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ForwardServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> 
+<span class="o">{</span>
+  <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> 
+  <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">query</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getQueryString</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">query</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">&quot;fwd&quot;</span><span class="o">))</span> 
+    <span class="o">{</span>
+      <span class="n">String</span> <span class="n">fwd</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&quot;fwd&quot;</span><span class="o">);</span>
+      <span class="k">try</span> 
+      <span class="o">{</span>
+        <span class="n">request</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="n">fwd</span><span class="o">).</span><span class="na">forward</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+      <span class="o">}</span> 
+      <span class="k">catch</span> <span class="o">(</span><span class="n">ServletException</span> <span class="n">e</span><span class="o">)</span> 
+      <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h5>Fixed code Example 2</h5>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ForwardServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> 
+<span class="o">{</span>
+  <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> 
+  <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">query</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getQueryString</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">query</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">&quot;fwd&quot;</span><span class="o">))</span> 
+    <span class="o">{</span>
+      <span class="n">String</span> <span class="n">fwd</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&quot;fwd&quot;</span><span class="o">);</span>
+      <span class="k">try</span> 
+      <span class="o">{</span>
+     <span class="c1">// Check the authority and safety of the request first</span>
+     <span class="k">if</span><span class="o">(</span><span class="n">isAutherized</span> <span class="n">and</span> <span class="nf">isSafe</span><span class="o">(</span><span class="n">request</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">request</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="n">fwd</span><span class="o">).</span><span class="na">forward</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+  <span class="o">}</span>
+      <span class="o">}</span> 
+      <span class="k">catch</span> <span class="o">(</span><span class="n">ServletException</span> <span class="n">e</span><span class="o">)</span> 
+      <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/601.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://www.owasp.org/index.php/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

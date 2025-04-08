@@ -1,0 +1,40 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2231">SC2231: Missing quote</h2>
+    <h3>Quote expansions in this for loop glob to prevent wordsplitting, e.g. "$dir"/*.txt .</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2231</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Quote expansions in this for loop glob to prevent wordsplitting, e.g. &quot;$dir&quot;/*.txt .</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span> file in <span class="nv">$dir</span>/*.txt
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Found </span><span class="nv">$file</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span> file in <span class="s2">&quot;</span><span class="nv">$dir</span><span class="s2">&quot;</span>/*.txt
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Found </span><span class="nv">$file</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>When iterating over globs containing expansions, you can still quote all expansions in the path to better handle whitespace and special characters.</p>
+<p>Just make sure glob characters are outside quotes. <code>&quot;$dir/*.txt&quot;</code> will not glob expand, but <code>&quot;$dir&quot;/*.txt</code> or <code>&quot;$dir&quot;/*.&quot;$ext&quot;</code> will.</p>
+<h5>Exceptions:</h5>
+<p>Exceptions similar to [[SC2086]] apply. If the variable is expected to contain globs, such as if <code>dir=&quot;tmp/**&quot;</code> in the example, you can ignore this message.</p>
+<h5>Related resources:</h5>
+<ul>
+<li>Help by adding links to BashFAQ, StackOverflow, man pages, POSIX, etc!</li>
+</ul>
+
+    </section>
+</article>

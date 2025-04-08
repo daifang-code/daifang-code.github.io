@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7095">BE7095: 32位有符号随机整数的余数</h2>
+    <h3>32位有符号随机整数的余数</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7095</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>32位有符号随机整数的余数</p>
+<h4>漏洞与风险</h4>
+<p> 这段代码生成一个随机的有符号整数，然后得到这个值对另一个值取模的余数。
+因为随机数可能是负数，所以余数操作的结果也可以是负的。
+请确保这是按照您的意愿进行的，您也可以考虑使用Random.nextint(int)方法代替。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

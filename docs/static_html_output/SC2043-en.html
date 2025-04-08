@@ -1,0 +1,44 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2043">SC2043: Improper loop</h2>
+    <h3>This loop will only ever run once for a constant value. Did you perhaps mean to loop over dir/*, $var or $(cmd)?"</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2043</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This loop will only ever run once for a constant value. Did you perhaps mean to loop over dir/*, $var or $(cmd)?&quot;</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span> var in value
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+<h5>Correct code:</h5>
+<p>Correct code depends on what you want to do.</p>
+<p>To iterate over files in a directory, instead of <code>for var in /my/dir</code> use:</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> var in /my/dir/* <span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">done</span>
+</pre></div>
+<p>To iterate over lines in a file or command output, use a while read loop instead:</p>
+<div class="highlight"><pre><span></span>mycommand <span class="p">|</span> <span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span> <span class="nb">read</span> -r line<span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$line</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">done</span>
+</pre></div>
+<p>To iterate over <em>words</em> written to a command or function's stdout, instead of <code>for var in myfunction</code>, use</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> var in <span class="k">$(</span>myfunction<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">done</span>
+</pre></div>
+<p>To iterate over <em>words</em> in a variable, instead of  <code>for var in myvariable</code>, use</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> var in <span class="nv">$myvariable</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">done</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck has detected that your for loop iterates over a single, constant value. This is most likely a bug in your code, caused by you not expanding the value in the way you want.</p>
+<p>You should make sure that whatever you loop over will expand into multiple words.</p>
+<h5>Exceptions</h5>
+<p>None.</p>
+
+    </section>
+</article>

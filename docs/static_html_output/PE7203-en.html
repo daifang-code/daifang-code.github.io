@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7203">BE7203: Transient field of class that isn't Serializable.</h2>
+    <h3>Transient field of class that isn't Serializable.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7203</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Transient field of class that isn't Serializable.</p>
+<h4>Vulnerability and risk</h4>
+<p> The field is marked as transient, but the class isn't Serializable, so marking it as transient
+has absolutely no effect.
+This may be leftover marking from a previous version of the code in which the class was transient, or
+it may indicate a misunderstanding of how serialization works.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

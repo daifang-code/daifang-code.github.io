@@ -1,0 +1,22 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE30005">BE30005: The code uses standard strings and byte arrays to store sensitive transient data</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE30005</dd>
+                    <dt>标签</dt>
+                    <dd>csharp</dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>The code uses standard strings and byte arrays to store sensitive transient data. such as passwords and private encryption keys. instead of the SecureString class which is more secure because it encrypts the data at rest https://docs.microsoft. com / en-us / dotnet / api / system.security.securestring? view = netframework-4.8.</p>
+<h4>漏洞利用威胁</h4>
+<p>一般</p>
+
+    </section>
+</article>

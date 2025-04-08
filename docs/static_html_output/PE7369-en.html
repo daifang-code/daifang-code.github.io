@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7369">BE7369: Invocation of equals() on an array, which is equivalent to ==</h2>
+    <h3>Invocation of equals() on an array, which is equivalent to ==</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7369</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Invocation of equals() on an array, which is equivalent to ==</p>
+<h4>Vulnerability and risk</h4>
+<p>
+This method invokes the .equals(Object o) method on an array. Since arrays do not override the equals
+method of Object, calling equals on an array is the same as comparing their addresses. To compare the
+contents of the arrays, use <code>java.util.Arrays.equals(Object[], Object[])</code>.
+To compare the addresses of the arrays, it would be
+less confusing to explicitly check pointer equality using <code>==</code>.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

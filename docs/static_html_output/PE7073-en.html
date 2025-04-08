@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7073">BE7073: Method invokes inefficient new String() constructor</h2>
+    <h3>Method invokes inefficient new String() constructor</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7073</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Method invokes inefficient new String() constructor</p>
+<h4>Vulnerability and risk</h4>
+<p> Creating a new <code>java.lang.String</code> object using the
+  no-argument constructor wastes memory because the object so created will
+  be functionally indistinguishable from the empty string constant
+  <code>""</code>.&nbsp; Java guarantees that identical string constants
+  will be represented by the same <code>String</code> object.&nbsp; Therefore,
+  you should just use the empty string constant directly.</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

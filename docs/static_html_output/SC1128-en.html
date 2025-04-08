@@ -1,0 +1,37 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1128">SC1128: Incorrect shebang</h2>
+    <h3>The shebang must be on the first line. Delete blanks and move comments.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1128</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>The shebang must be on the first line. Delete blanks and move comments.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="c1"># Copyright 2018 Foobar, All rights reserved</span>
+<span class="c1">#!/bin/bash</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1"># Copyright 2018 Foobar, All rights reserved</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>A shebang only has an effect when it appears as the first line in a script. Specifically, the first two bytes of the file must be <code>#!</code>.</p>
+<p>Adding comments, copyright notices or simply an accidental blank line before it will turn a shebang into an ineffectual comment. This means that the script is no longer in charge of its own interpreter, and may fail to run or produce different results depending on the context it's run (e.g. it may work from <code>bash</code> but not from <code>zsh</code> or via <code>sudo</code>).</p>
+<p>Delete any leading blank lines, and move all comments after the shebang.</p>
+<h5>Exceptions:</h5>
+<p>None</p>
+<h5>Related resources:</h5>
+<ul>
+<li>Help by adding links to BashFAQ, StackOverflow, man pages, POSIX, etc!</li>
+</ul>
+
+    </section>
+</article>

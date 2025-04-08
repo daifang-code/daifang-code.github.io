@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2097">SC2097: Improper variable update</h2>
+    <h3>This assignment is only seen by the forked process.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2097</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This assignment is only seen by the forked process.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">name</span><span class="o">=</span>World cmd -m <span class="s2">&quot;Hello </span><span class="nv">$name</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">name</span><span class="o">=</span>World
+cmd -m <span class="s2">&quot;Hello </span><span class="nv">$name</span><span class="s2">&quot;</span>
+</pre></div>
+<p>To prevent setting the variable, this can also be done in a subshell:</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>
+   <span class="nb">export</span> <span class="nv">name</span><span class="o">=</span>World
+   cmd -m <span class="s2">&quot;Hello </span><span class="nv">$name</span><span class="s2">&quot;</span>
+<span class="o">)</span> <span class="c1"># &#39;name&#39; does not leave this subshell</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>In <code>name=World cmd &quot;$name&quot;</code>, <code>name=World</code> is passed in as part of the environment to <code>cmd</code> (i.e., in the <code>envp</code> parameter to <a href="http://linux.die.net/man/2/execve">execve(2)</a>).  This means that <code>cmd</code> and its children will see the parameter, but no other processes will.</p>
+<p>However, <code>&quot;$name&quot;</code> is not expanded by <code>cmd</code>. <code>&quot;$name&quot;</code> is expanded by the shell before <code>cmd</code> is ever executed, and thus it will not use the new value.</p>
+<p>The solution is to set the variable and export the variable first. If limited scope is desired, a <code>( subshell )</code> can be used.</p>
+<h5>Exceptions</h5>
+<p>In the strange and fabricated scenarios where the script and a program uses a variable name for two different purposes, you can ignore this message. This is hard to conceive, since scripts should use lowercase variable names specifically to avoid collisions with the environment.</p>
+<h5>Related resources:</h5>
+<ul>
+<li><a href="https://mywiki.wooledge.org/BashFAQ/104">BashFaq: Why doesn't foo=bar echo &quot;$foo&quot; print bar?</a></li>
+<li><a href="https://stackoverflow.com/questions/36380569/prefixing-variable-assignment-doesnt-work-with-echo?rq=1">StackOverflow: Prefixing variable assignment doesn't work with echo</a></li>
+</ul>
+
+    </section>
+</article>

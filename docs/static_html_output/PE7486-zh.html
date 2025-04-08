@@ -1,0 +1,40 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7486">BE7486: 不可信的Referer头</h2>
+    <h3>不可信的Referer头</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7486</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>不可信的Referer头</p>
+<h4>漏洞与风险</h4>
+<p>
+行为：<ul>
+<li>如果请求来自恶意用户，则任何值都可以分配给这个头。</li>
+<li>如果请求是从另一个安全（https）发起的，那么“Referer”将不会出现。</li>
+</ul>
+</p>
+<p>
+建议：
+<ul>
+<li>访问控制都不应该基于这个头的值。
+</li>
+<li>
+CSRF保护不应该只基于这个值(<a href="http://www.w3.org/Protocols/HTTP/HTRQ_Headers.html#z14">因为它是可选的</a>)。</li>
+</ul>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://cwe.mitre.org/data/definitions/807.html&quot;&gt;CWE-807: Untrusted Inputs in a Security Decision&lt;/a&gt;</p>
+
+    </section>
+</article>

@@ -1,0 +1,59 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2144">PE2144: no-obj-calls</h2>
+    <h3>禁止将全局对象当作函数进行调用 (no-obj-calls)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2144</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止将全局对象当作函数进行调用 (no-obj-calls)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>ECMAScript 提供了几个全局对象，旨在直接调用。这些对象由于是大写的（比如 <code>Math</code> 和 <code>JSON</code>）看起来像是构造函数，但是如果你尝试像函数一样执行它们，将会抛出错误。</p>
+<p><a href="https://es5.github.io/#x15.8">ECMAScript 5 规范</a>明确表示 <code>Math</code> 和 <code>JSON</code> 是不能被调用的：</p>
+<blockquote>
+<p>Math 对象没有 <code>[[Call]]</code> 内部属性，不能像一个函数一样调用 Math 对象</p>
+</blockquote>
+<p><a href="https://www.ecma-international.org/ecma-262/6.0/index.html#sec-reflect-object">ECMAScript 2015 specification</a> 明确表明 <code>Reflect</code> 不能被调用：</p>
+<blockquote>
+<p>Reflect 对象没有 <code>[[Call]]</code> 内置方法；无法像调用函数一样调用 Reflect 对象。</p>
+</blockquote>
+<h2>缺陷详因</h2>
+<p>该规则禁止将 <code>Math</code>、<code>JSON</code> 和 <code>Reflect</code> 对象当作函数进行调用。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-obj-calls: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">math</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">reflect</span> <span class="o">=</span> <span class="nx">Reflect</span><span class="p">();</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-obj-calls: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">area</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="nx">r</span> <span class="o">*</span> <span class="nx">r</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="s2">&quot;{}&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">Reflect</span><span class="p">.</span><span class="nx">get</span><span class="p">({</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span> <span class="p">},</span> <span class="s2">&quot;x&quot;</span><span class="p">);</span>
+</pre></div>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://es5.github.io/#x15.8">The Math Object</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-obj-calls.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-obj-calls.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

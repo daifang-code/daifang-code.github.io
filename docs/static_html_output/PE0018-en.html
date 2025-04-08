@@ -1,0 +1,67 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0018">PE0018: Com Addrof Leak</h2>
+    <h3>A CComBSTR or CComPtr instance that might cause memory leaks because the value of the pointer that is internal to the instance can be modified through the pointer address.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0018</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>A CComBSTR or CComPtr instance that might cause memory leaks because the value of the pointer that is internal to the instance can be modified through the pointer address.</p>
+<p>Local non-static CComBSTR and CComPtr variables that have been determined as managing a non-null pointer. When the address of the pointer (obtained through the overloaded operator address-of (&amp;)) is passed as an argument to a function call, the pointer value can potentially be overwritten, causing a memory leak.</p>
+<h4>Vulnerability and risk</h4>
+<h5>memory leak</h5>
+<p>Local non-static CComBSTR and CComPtr variables that have been determined as managing a non-null pointer. When the address of the pointer (obtained through the overloaded operator address-of (&amp;)) is passed as an argument to a function call, the pointer value can potentially be overwritten, causing a memory leak.</p>
+<h4>Likelihood of Exploit</h4>
+<p>High</p>
+<h4>Potential Mitigations</h4>
+<p>Do not pass the address of the CComBSTR or CComPtr pointer to a function call as an argument.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">Base</span> <span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+  <span class="c1">// \pName is a pointer</span>
+  <span class="kt">void</span> <span class="n">getName</span><span class="p">(</span><span class="n">BSTR</span> <span class="o">*</span><span class="n">pName</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> 
+    <span class="o">*</span><span class="n">pName</span> <span class="o">=</span> <span class="o">::</span><span class="n">SysAllocString</span><span class="p">(</span><span class="n">name_</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">LPCOLESTR</span> <span class="n">name_</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="nf">Release</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="n">CComBSTR</span> <span class="nf">getBaseName</span><span class="p">(</span><span class="k">const</span> <span class="n">Base</span> <span class="o">&amp;</span><span class="n">base</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CComBSTR</span> <span class="n">name</span><span class="p">;</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="sa">L</span><span class="s">&quot;Lucky&quot;</span><span class="p">;</span>
+  <span class="n">base</span><span class="p">.</span><span class="n">getName</span><span class="p">(</span><span class="o">&amp;</span><span class="n">name</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">name</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, The overloaded operator address-of (CComBSTR::operator &amp;) returns the address of the internal pointer and the value of the pointer is overwritten during the call to Base::getName(). The memory allocated during the construction of the object will never be deallocated and is therefore leaked.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">Base</span> <span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+  <span class="c1">// \pName is a value</span>
+  <span class="kt">void</span> <span class="n">getName</span><span class="p">(</span><span class="n">BSTR</span> <span class="n">pName</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+      <span class="n">pName</span> <span class="o">=</span> <span class="o">::</span><span class="n">SysAllocString</span><span class="p">(</span><span class="n">name_</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">LPCOLESTR</span> <span class="n">name_</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="nf">Release</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="n">CComBSTR</span> <span class="nf">getBaseName</span><span class="p">(</span><span class="k">const</span> <span class="n">Base</span> <span class="o">&amp;</span><span class="n">base</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CComBSTR</span> <span class="n">name</span><span class="p">;</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="sa">L</span><span class="s">&quot;Lucky&quot;</span><span class="p">;</span>
+  <span class="n">base</span><span class="p">.</span><span class="n">getName</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">name</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example, pass the CComBSTR or CComPtr pointer to a function call as an argument at line 14.</p>
+
+    </section>
+</article>

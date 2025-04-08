@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7048">BE7048: Covariant array is returned from the method</h2>
+    <h3>Covariant array is returned from the method</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7048</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Covariant array is returned from the method</p>
+<h4>Vulnerability and risk</h4>
+<p>Array of covariant type is returned from the method. This is confusing and may lead to ArrayStoreException at runtime
+if the calling code will try to store the reference of some other type in the returned array.
+</p>
+<p>Consider changing the type of created array or the method return type.</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

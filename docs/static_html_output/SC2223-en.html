@@ -1,0 +1,38 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2223">SC2223: Potencial danger by using wildcard</h2>
+    <h3>This default assignment may cause DoS due to globbing. Quote it.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2223</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This default assignment may cause DoS due to globbing. Quote it.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>: <span class="si">${</span><span class="nv">COLUMNS</span><span class="p">:=80</span><span class="si">}</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>: <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COLUMNS</span><span class="p">:=80</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>This statement is an idiomatic way of assigning a default value to an environment variable. However, even though it's passed to <code>:</code> which ignores arguments, it's better to quote it.</p>
+<p>If <code>COLUMNS='/*/*/*/*/*/*'</code>, the unquoted, problematic code may spend 30+ minutes trashing the disk as it unnecessarily tries to glob expand the value.</p>
+<p>The correct code uses double quotes to avoid glob expansion, and therefore does not have this problem.</p>
+<p>When quoting, make sure to update any inner quotes:</p>
+
+<pre><code>: ${var:='foo'}    # Assigns foo without quotes
+: &quot;${var:='foo'}&quot;  # Assigns 'foo' with quotes
+
+
+</code></pre>
+<h5>Exceptions:</h5>
+<p>None, though this issue is largely theoretical.</p>
+
+    </section>
+</article>

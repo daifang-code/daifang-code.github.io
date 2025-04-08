@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1127">SC1127: Improper comment mark</h2>
+    <h3>Was this intended as a comment? Use `#` in sh.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1127</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Was this intended as a comment? Use <code>#</code> in sh.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="c1">// This is a comment.</span>
+<span class="cm">/* This too. */</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="c1"># This is a comment.</span>
+<span class="c1"># This too.</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck found what appears to be a C-style comment, a line starting with <code>//</code> or <code>/*</code>.</p>
+<p>In Bourne based shell scripts, the comment character is <code>#</code></p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

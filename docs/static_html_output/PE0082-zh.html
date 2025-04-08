@@ -1,0 +1,111 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0082">PE0082: LDAP 注入</h2>
+    <h3>LDAP注入是一种利用基于Web的应用程序构建用户输入的LDAP语句的攻击。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0082</dd>
+                    <dt>标签</dt>
+                    <dd>Web, Java, Injection, CWE-116 ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>轻量级目录访问协议（LDAP）允许应用程序远程执行操作，例如搜索和修改目录中的记录。 LDAP注入源自输入清理和验证不足，并允许恶意用户使用目录服务收集受限信息。</p>
+<p>白名单可用于将输入限制为有效字符列表。下表中列出了必须从白名单中排除的字符和字符序列（包括Java命名和目录接口（JNDI）元字符和LDAP特殊字符）。</p>
+<p>从白名单中排除的字符和序列：</p>
+<p>|字符 | 字符序列 | 
+|--- | --- | 
+|   # |	Hash character at the beginning of the string |
+|   ' and &quot; |Single and double quote|
+|   ( and ) |Round braces|
+|   + and * |Addition and multiplication operators|
+|   , and ; |Comma and semicolon|
+|   / and \ |Forward slash and backslash|
+|   &lt; and &gt; |Angle brackets|
+|   \\ |Double slashes*|
+|   \u0000 |Unicode NULL character|
+|   space |Space character at beginning or end of string|
+这是一个字符序列。</p>
+<h4>漏洞与风险</h4>
+<p>下表列出了与缺陷相关的不同后果。'范围'标识了被违反的应用程序安全区域，而'影响'则描述了如果攻击者成功利用此漏洞所产生的负面技术影响。</p>
+<p>|范围	|影响|
+|--- | --- | 
+| 机密性|执行未经授权的代码或命令; 阅读应用数据; 修改应用数据|
+|完整可用性|攻击者可能包含更改LDAP查询的输入，该查询允许执行意外的命令或代码，允许读取或修改敏感数据或导致其他意外行为 |</p>
+<h4>缓解与预防</h4>
+<p>1 使用正确的LDAP编码函数
+2 使用自动从LDAP注入进行保护的框架
+3 额外防御</p>
+<h4>漏洞利用威胁</h4>
+<p>高危</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>这个漏洞代码示例允许方法searchRecord()的调用者使用LDAP协议在目录中搜索记录。字符串过滤器用于过滤与调用者提供的用户名和密码匹配的条目的结果集。</p>
+<div class="highlight"><pre><span></span><span class="c1">// String userSN = &quot;S*&quot;; // Invalid</span>
+<span class="c1">// String userPassword = &quot;*&quot;; // Invalid</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LDAPInjection</span> <span class="o">{</span>       
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">searchRecord</span><span class="o">(</span><span class="n">String</span> <span class="n">userSN</span><span class="o">,</span> <span class="n">String</span> <span class="n">userPassword</span><span class="o">)</span>  
+  <span class="kd">throws</span> <span class="n">NamingException</span> <span class="o">{</span>        
+    <span class="n">Hashtable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span>  <span class="n">env</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hashtable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;();</span>
+    <span class="n">env</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">INITIAL_CONTEXT_FACTORY</span><span class="o">,</span> <span class="s">&quot;com.sun.jndi.ldap.LdapCtxFactory&quot;</span><span class="o">);</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">DirContext</span> <span class="n">dctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InitialDirContext</span><span class="o">(</span><span class="n">env</span><span class="o">);</span>
+
+      <span class="n">SearchControls</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SearchControls</span><span class="o">();</span>
+      <span class="n">String</span><span class="o">[]</span> <span class="n">attributeFilter</span> <span class="o">=</span> <span class="o">{</span><span class="s">&quot;cn&quot;</span><span class="o">,</span> <span class="s">&quot;mail&quot;</span><span class="o">};</span>
+      <span class="n">sc</span><span class="o">.</span><span class="na">setReturningAttributes</span><span class="o">(</span><span class="n">attributeFilter</span><span class="o">);</span>
+      <span class="n">sc</span><span class="o">.</span><span class="na">setSearchScope</span><span class="o">(</span><span class="n">SearchControls</span><span class="o">.</span><span class="na">SUBTREE_SCOPE</span><span class="o">);</span>
+      <span class="n">String</span> <span class="n">base</span> <span class="o">=</span> <span class="s">&quot;dc=example,dc=com&quot;</span><span class="o">;</span>
+
+      <span class="c1">// The following resolves to (&amp;(sn=S*)(userPassword=*))     </span>
+      <span class="n">String</span> <span class="n">filter</span> <span class="o">=</span> <span class="s">&quot;(&amp;(sn=&quot;</span> <span class="o">+</span> <span class="n">userSN</span> <span class="o">+</span> <span class="s">&quot;)(userPassword=&quot;</span> <span class="o">+</span> <span class="n">userPassword</span> <span class="o">+</span> <span class="s">&quot;))&quot;</span><span class="o">;</span>
+
+      <span class="n">NamingEnumeration</span><span class="o">&lt;?&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">dctx</span><span class="o">.</span><span class="na">search</span><span class="o">(</span><span class="n">base</span><span class="o">,</span> <span class="n">filter</span><span class="o">,</span> <span class="n">sc</span><span class="o">);</span>
+      <span class="k">while</span> <span class="o">(</span><span class="n">results</span><span class="o">.</span><span class="na">hasMore</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">SearchResult</span> <span class="n">sr</span> <span class="o">=</span> <span class="o">(</span><span class="n">SearchResult</span><span class="o">)</span> <span class="n">results</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+        <span class="n">Attributes</span> <span class="n">attrs</span> <span class="o">=</span> <span class="o">(</span><span class="n">Attributes</span><span class="o">)</span> <span class="n">sr</span><span class="o">.</span><span class="na">getAttributes</span><span class="o">();</span>
+        <span class="n">Attribute</span> <span class="n">attr</span> <span class="o">=</span> <span class="o">(</span><span class="n">Attribute</span><span class="o">)</span> <span class="n">attrs</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;cn&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">attr</span><span class="o">);</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="o">(</span><span class="n">Attribute</span><span class="o">)</span> <span class="n">attrs</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;mail&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">attr</span><span class="o">);</span>
+      <span class="o">}</span>    
+      <span class="n">dctx</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NamingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// Forward to handler</span>
+    <span class="o">}</span>
+  <span class="o">}</span> 
+<span class="o">}</span>
+</pre></div>
+<p>如上所述，当恶意用户输入特制输入时，此基本身份验证方案无法将搜索查询的输出限制为用户具有访问权限的信息。</p>
+<h5>漏洞代码修复示例</h5>
+<p>此漏洞代码修复示例使用白名单来清理用户输入，以便过滤器字符串仅包含有效字符。在此代码中，userSN可能只包含字母和空格，而密码可能只包含字母数字字符。</p>
+<div class="highlight"><pre><span></span><span class="c1">// String userSN = &quot;Sherlock Holmes&quot;; // Valid</span>
+<span class="c1">// String userPassword = &quot;secret2&quot;;   // Valid</span>
+
+<span class="c1">// ... beginning of LDAPInjection.searchRecord()...</span>
+<span class="n">sc</span><span class="o">.</span><span class="na">setSearchScope</span><span class="o">(</span><span class="n">SearchControls</span><span class="o">.</span><span class="na">SUBTREE_SCOPE</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">base</span> <span class="o">=</span> <span class="s">&quot;dc=example,dc=com&quot;</span><span class="o">;</span>
+
+<span class="k">if</span> <span class="o">(!</span><span class="n">userSN</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="s">&quot;[\\w\\s]*&quot;</span><span class="o">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">userPassword</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="s">&quot;[\\w]*&quot;</span><span class="o">))</span> <span class="o">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;Invalid input&quot;</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="n">String</span> <span class="n">filter</span> <span class="o">=</span> <span class="s">&quot;(&amp;(sn = &quot;</span> <span class="o">+</span> <span class="n">userSN</span> <span class="o">+</span> <span class="s">&quot;)(userPassword=&quot;</span> <span class="o">+</span> <span class="n">userPassword</span> <span class="o">+</span> <span class="s">&quot;))&quot;</span><span class="o">;</span>
+
+<span class="c1">// ... remainder of LDAPInjection.searchRecord()...</span>
+</pre></div>
+<p>当数据库字段（例如密码）必须包含特殊字符时，确保将真实数据以过滤后的形式存储在数据库中以及在进行验证或比较之前对任何用户输入进行规范化至关重要。 不建议在没有全面的标准化和基于白名单的例程的情况下使用在JNDI和LDAP中具有特殊含义的字符。 在将特殊字符添加到白名单表达式之前，必须将其转换为已过滤后的安全值，然后才能对输入进行验证。同样，用户输入的标准化应该在验证步骤之前进行。</p>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/116.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://www.owasp.org/index.php/Top_10-2017_A1-Injection<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

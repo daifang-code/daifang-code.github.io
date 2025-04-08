@@ -1,0 +1,205 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2239">PE2239: space-in-parens</h2>
+    <h3>禁止或强制圆括号内的空格 (space-in-parens)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2239</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止或强制圆括号内的空格 (space-in-parens)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>一些风格指南禁止或强制圆括号内有空格：</p>
+<div class="highlight"><pre><span></span><span class="nx">foo</span><span class="p">(</span> <span class="s1">&#39;bar&#39;</span> <span class="p">);</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">)</span> <span class="o">*</span> <span class="mi">3</span><span class="p">;</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span><span class="p">;</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则将通过禁止或要求 <code>(</code> 右边或 <code>)</code> 左边有一个或多个空格来强制圆括号内空格的一致性。在任一情况下，仍将允许 <code>()</code>。</p>
+<h2>修改方案</h2>
+<p>该规则有两个选项：</p>
+<ul>
+<li><code>&quot;never&quot;</code> (默认) 强制圆括号内没有空格</li>
+<li><code>&quot;always&quot;</code> 强制圆括号内有一个空格</li>
+</ul>
+<p>根据您的编码约定，您可以在您的配置中选择使用任一选项：</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;space-in-parens&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;always&quot;</span><span class="p">]</span>
+</pre></div>
+<h5>&quot;never&quot;</h5>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span> <span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+<span class="nx">foo</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span> <span class="p">);</span>
+<span class="nx">foo</span><span class="p">(</span> <span class="s1">&#39;bar&#39;</span> <span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">)</span> <span class="o">*</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">(</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span> <span class="p">}()</span> <span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="nx">foo</span><span class="p">();</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span> <span class="p">}());</span>
+</pre></div>
+<h5>&quot;always&quot;</h5>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span> <span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+<span class="nx">foo</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span> <span class="p">);</span>
+<span class="nx">foo</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span> <span class="p">}());</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="nx">foo</span><span class="p">();</span>
+
+<span class="nx">foo</span><span class="p">(</span> <span class="s1">&#39;bar&#39;</span> <span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">)</span> <span class="o">*</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">(</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span> <span class="p">}()</span> <span class="p">);</span>
+</pre></div>
+<h5>Exceptions</h5>
+<p>一个对象文本可以作为规则数组的第三个元素来制定例外情况，使用 <code>&quot;exceptions&quot;</code> 做主键，对应的值是一个数组。这些例外作用在第一个选项的基础上。如果 <code>&quot;always&quot;</code> 设置为强制使用空格，那么任何例外情况将 <em>不允许</em>使用空格。同样的，如果 <code>&quot;never&quot;</code>设置为禁止使用空格那么，任何例外情况将强制使用空格。</p>
+<p>以下例外情况是有效的：<code>[&quot;{}&quot;, &quot;[]&quot;, &quot;()&quot;, &quot;empty&quot;]</code>.</p>
+<p>选项 <code>&quot;never&quot;, { &quot;exceptions&quot;: [&quot;{}&quot;] }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;never&quot;, { &quot;exceptions&quot;: [&quot;{}&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">({</span><span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">});</span>
+<span class="nx">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">});</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;, { &quot;exceptions&quot;: [&quot;{}&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;never&quot;, { &quot;exceptions&quot;: [&quot;{}&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span> <span class="p">{</span><span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">}</span> <span class="p">);</span>
+<span class="nx">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">}</span> <span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;, { &quot;exceptions&quot;: [&quot;{}&quot;] }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;{}&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span> <span class="p">{</span><span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">}</span> <span class="p">);</span>
+<span class="nx">foo</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">}</span> <span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;, { &quot;exceptions&quot;: [&quot;{}&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;{}&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">({</span><span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">});</span>
+<span class="nx">foo</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">});</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;, { &quot;exceptions&quot;: [&quot;[]&quot;] }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;never&quot;, { &quot;exceptions&quot;: [&quot;[]&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">([</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">]);</span>
+<span class="nx">foo</span><span class="p">([</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">],</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;, { &quot;exceptions&quot;: [&quot;[]&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;never&quot;, { &quot;exceptions&quot;: [&quot;[]&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">]</span> <span class="p">);</span>
+<span class="nx">foo</span><span class="p">(</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">],</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;, { &quot;exceptions&quot;: [&quot;[]&quot;] }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;[]&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">]</span> <span class="p">);</span>
+<span class="nx">foo</span><span class="p">(</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">],</span> <span class="mi">1</span> <span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;, { &quot;exceptions&quot;: [&quot;[]&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;[]&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">([</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">]);</span>
+<span class="nx">foo</span><span class="p">([</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">],</span> <span class="mi">1</span> <span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;, { &quot;exceptions&quot;: [&quot;()&quot;] }]</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;never&quot;, { &quot;exceptions&quot;: [&quot;()&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">));</span>
+<span class="nx">foo</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;, { &quot;exceptions&quot;: [&quot;()&quot;] }]</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;never&quot;, { &quot;exceptions&quot;: [&quot;()&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="p">);</span>
+<span class="nx">foo</span><span class="p">(</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;, { &quot;exceptions&quot;: [&quot;()&quot;] }]</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;()&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span> <span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">);</span>
+<span class="nx">foo</span><span class="p">(</span> <span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">),</span> <span class="mi">1</span> <span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;, { &quot;exceptions&quot;: [&quot;()&quot;] }]</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;()&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">((</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">));</span>
+<span class="nx">foo</span><span class="p">((</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">),</span> <span class="mi">1</span> <span class="p">);</span>
+</pre></div>
+<p><code>&quot;empty&quot;</code> 例外关注空括号，与其他例外作用一样，与第一个选项相反。</p>
+<p>选项 <code>&quot;never&quot;, { &quot;exceptions&quot;: [&quot;empty&quot;] }]</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;never&quot;, { &quot;exceptions&quot;: [&quot;empty&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">();</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;, { &quot;exceptions&quot;: [&quot;empty&quot;] }]</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;never&quot;, { &quot;exceptions&quot;: [&quot;empty&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span> <span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;, { &quot;exceptions&quot;: [&quot;empty&quot;] }]</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;empty&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span> <span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;, { &quot;exceptions&quot;: [&quot;empty&quot;] }]</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;empty&quot;] }]*/</span>
+
+<span class="nx">foo</span><span class="p">();</span>
+</pre></div>
+<p>你可以在 <code>&quot;exceptions&quot;</code> 数组中包含多个项。</p>
+<p>选项 <code>&quot;always&quot;, { &quot;exceptions&quot;: [&quot;{}&quot;, &quot;[]&quot;] }]</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;{}&quot;, &quot;[]&quot;] }]*/</span>
+
+<span class="nx">bar</span><span class="p">(</span> <span class="p">{</span><span class="nx">bar</span><span class="o">:</span><span class="s1">&#39;baz&#39;</span><span class="p">}</span> <span class="p">);</span>
+<span class="nx">baz</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="p">);</span>
+<span class="nx">foo</span><span class="p">(</span> <span class="p">{</span><span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">},</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;, { &quot;exceptions&quot;: [&quot;{}&quot;, &quot;[]&quot;] }]</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-in-parens: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;{}&quot;, &quot;[]&quot;] }]*/</span>
+
+<span class="nx">bar</span><span class="p">({</span><span class="nx">bar</span><span class="o">:</span><span class="s1">&#39;baz&#39;</span><span class="p">});</span>
+<span class="nx">baz</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]);</span>
+<span class="nx">foo</span><span class="p">({</span><span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">},</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]);</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不关心圆括号直接空格的一致性，你可以关闭此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="space-in-brackets">space-in-brackets</a> (deprecated)</li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.8.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/space-in-parens.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/space-in-parens.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

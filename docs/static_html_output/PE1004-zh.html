@@ -1,0 +1,47 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1004">PE1004: 函数参数过大值传递</h2>
+    <h3>低效的函数参数传递</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1004</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在C和C++程序中，如果函数的参数是通过值传递的，那在将实参赋值给形参过程中会在内存中临时复制该参数的值，从来用来进行函数内的相应操作。如果该参数过大，则会影响运行效率。</p>
+<h4>漏洞与风险</h4>
+<p>如果传递参数为结构体或类，将会严重的影响效率，特别当该函数被多次调用时。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>如果传递的实参大于16字节时，特别是传递参数为数组，结构体，或类时，采用指针传递参数。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">big</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">b</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">c</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">test</span><span class="p">(</span><span class="n">big</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Warning: passing by value, 240 bytes</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">big</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">b</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">c</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">test</span><span class="p">(</span><span class="n">big</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// pass a pointer b to the method</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

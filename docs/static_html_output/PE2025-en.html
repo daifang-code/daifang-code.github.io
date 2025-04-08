@@ -1,0 +1,73 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2025">PE2025: dot-location</h2>
+    <h3>Enforce newline before and after dot (dot-location)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2025</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Enforce newline before and after dot (dot-location)</h4>
+<p>JavaScript allows you to place newlines before or after a dot in a member expression.</p>
+<p>Consistency in placing a newline before or after the dot can greatly increase readability.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">universe</span><span class="p">.</span>
+        <span class="nx">galaxy</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">universe</span>
+       <span class="p">.</span><span class="nx">galaxy</span><span class="p">;</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule aims to enforce newline consistency in member expressions. This rule prevents the use of mixed newlines around the dot in a member expression.</p>
+<h2>Options</h2>
+<p>The rule takes one option, a string:</p>
+<ul>
+<li>If it is <code>&quot;object&quot;</code> (default), the dot in a member expression should be on the same line as the object portion.</li>
+<li>If it is <code>&quot;property&quot;</code>, the dot in a member expression should be on the same line as the property portion.</li>
+</ul>
+<h5>object</h5>
+<p>The default <code>&quot;object&quot;</code> option requires the dot to be on the same line as the object.</p>
+<p>Examples of <strong>incorrect</strong> code for the default <code>&quot;object&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint dot-location: [&quot;error&quot;, &quot;object&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">object</span>
+<span class="p">.</span><span class="nx">property</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the default <code>&quot;object&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint dot-location: [&quot;error&quot;, &quot;object&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">object</span><span class="p">.</span>
+<span class="nx">property</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">object</span><span class="p">.</span><span class="nx">property</span><span class="p">;</span>
+</pre></div>
+<h5>property</h5>
+<p>The <code>&quot;property&quot;</code> option requires the dot to be on the same line as the property.</p>
+<p>Examples of <strong>incorrect</strong> code for the <code>&quot;property&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint dot-location: [&quot;error&quot;, &quot;property&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">object</span><span class="p">.</span>
+<span class="nx">property</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the <code>&quot;property&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint dot-location: [&quot;error&quot;, &quot;property&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">object</span>
+<span class="p">.</span><span class="nx">property</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">object</span><span class="p">.</span><span class="nx">property</span><span class="p">;</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>You can turn this rule off if you are not concerned with the consistency of newlines before or after dots in member expressions.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="newline-after-var.md">newline-after-var</a></li>
+<li><a href="dot-notation.md">dot-notation</a></li>
+</ul>
+
+    </section>
+</article>

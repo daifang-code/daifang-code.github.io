@@ -1,0 +1,128 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2056">PE2056: max-len</h2>
+    <h3>enforce a maximum line length (max-len)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2056</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>enforce a maximum line length (max-len)</h4>
+<p>Very long lines of code in any language can be difficult to read. In order to aid in readability and maintainability many coders have developed a convention to limit lines of code to X number of characters (traditionally 80 characters).</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;bar&quot;</span><span class="o">:</span> <span class="s2">&quot;This is a bar.&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;qux&quot;</span><span class="o">:</span> <span class="s2">&quot;This is a qux&quot;</span> <span class="p">},</span> <span class="s2">&quot;difficult&quot;</span><span class="o">:</span> <span class="s2">&quot;to read&quot;</span> <span class="p">};</span> <span class="c1">// very long</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule enforces a maximum line length to increase code readability and maintainability. The length of a line is defined as the number of Unicode characters in the line.</p>
+<h2>Options</h2>
+<p>This rule has a number or object option:</p>
+<ul>
+<li><code>&quot;code&quot;</code> (default <code>80</code>) enforces a maximum line length</li>
+<li><code>&quot;tabWidth&quot;</code> (default <code>4</code>) specifies the character width for tab characters</li>
+<li><code>&quot;comments&quot;</code> enforces a maximum line length for comments; defaults to value of <code>code</code></li>
+<li><code>&quot;ignorePattern&quot;</code> ignores lines matching a regular expression; can only match a single line and need to be double escaped when written in YAML or JSON</li>
+<li><code>&quot;ignoreComments&quot;: true</code> ignores all trailing comments and comments on their own line</li>
+<li><code>&quot;ignoreTrailingComments&quot;: true</code> ignores only trailing comments</li>
+<li><code>&quot;ignoreUrls&quot;: true</code> ignores lines that contain a URL</li>
+<li><code>&quot;ignoreStrings&quot;: true</code> ignores lines that contain a double-quoted or single-quoted string</li>
+<li><code>&quot;ignoreTemplateLiterals&quot;: true</code> ignores lines that contain a template literal</li>
+<li><code>&quot;ignoreRegExpLiterals&quot;: true</code> ignores lines that contain a RegExp literal</li>
+</ul>
+<h5>code</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>{ &quot;code&quot;: 80 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: [&quot;error&quot;, { &quot;code&quot;: 80 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;bar&quot;</span><span class="o">:</span> <span class="s2">&quot;This is a bar.&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;qux&quot;</span><span class="o">:</span> <span class="s2">&quot;This is a qux&quot;</span> <span class="p">},</span> <span class="s2">&quot;difficult&quot;</span><span class="o">:</span> <span class="s2">&quot;to read&quot;</span> <span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>{ &quot;code&quot;: 80 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: [&quot;error&quot;, { &quot;code&quot;: 80 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;bar&quot;</span><span class="o">:</span> <span class="s2">&quot;This is a bar.&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;baz&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;qux&quot;</span><span class="o">:</span> <span class="s2">&quot;This is a qux&quot;</span> <span class="p">},</span>
+  <span class="s2">&quot;easier&quot;</span><span class="o">:</span> <span class="s2">&quot;to read&quot;</span>
+<span class="p">};</span>
+</pre></div>
+<h5>tabWidth</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>{ &quot;tabWidth&quot;: 4 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: [&quot;error&quot;, { &quot;code&quot;: 80, &quot;tabWidth&quot;: 4 }]*/</span>
+
+<span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;bar&quot;</span><span class="o">:</span> <span class="s2">&quot;This is a bar.&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;qux&quot;</span><span class="o">:</span> <span class="s2">&quot;This is a qux&quot;</span> <span class="p">}</span> <span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>{ &quot;tabWidth&quot;: 4 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: [&quot;error&quot;, { &quot;code&quot;: 80, &quot;tabWidth&quot;: 4 }]*/</span>
+
+<span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+<span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="s2">&quot;bar&quot;</span><span class="o">:</span> <span class="s2">&quot;This is a bar.&quot;</span><span class="p">,</span>
+<span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="s2">&quot;baz&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;qux&quot;</span><span class="o">:</span> <span class="s2">&quot;This is a qux&quot;</span> <span class="p">}</span>
+<span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="p">};</span>
+</pre></div>
+<h5>comments</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;comments&quot;: 65 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: [&quot;error&quot;, { &quot;comments&quot;: 65 }]*/</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * This is a comment that violates the maximum line length we have specified</span>
+<span class="cm">**/</span>
+</pre></div>
+<h5>ignoreComments</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;ignoreComments&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: [&quot;error&quot;, { &quot;ignoreComments&quot;: true }]*/</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * This is a really really really really really really really really really long comment</span>
+<span class="cm">**/</span>
+</pre></div>
+<h5>ignoreTrailingComments</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;ignoreTrailingComments&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: [&quot;error&quot;, { &quot;ignoreTrailingComments&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span> <span class="c1">// This is a really really really really really really really long comment</span>
+</pre></div>
+<h5>ignoreUrls</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;ignoreUrls&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: [&quot;error&quot;, { &quot;ignoreUrls&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;https://www.example.com/really/really/really/really/really/really/really/long&#39;</span><span class="p">;</span>
+</pre></div>
+<h5>ignoreStrings</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;ignoreStrings&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: [&quot;error&quot;, { &quot;ignoreStrings&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">longString</span> <span class="o">=</span> <span class="s1">&#39;this is a really really really really really long string!&#39;</span><span class="p">;</span>
+</pre></div>
+<h5>ignoreTemplateLiterals</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;ignoreTemplateLiterals&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: [&quot;error&quot;, { &quot;ignoreTemplateLiterals&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">longTemplateLiteral</span> <span class="o">=</span> <span class="sb">`this is a really really really really really long template literal!`</span><span class="p">;</span>
+</pre></div>
+<h5>ignoreRegExpLiterals</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;ignoreRegExpLiterals&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: [&quot;error&quot;, { &quot;ignoreRegExpLiterals&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">longRegExpLiteral</span> <span class="o">=</span> <span class="sr">/this is a really really really really really long regular expression!/</span><span class="p">;</span>
+</pre></div>
+<h5>ignorePattern</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>ignorePattern</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: [&quot;error&quot;, { &quot;ignorePattern&quot;: &quot;^\\s*var\\s.+=\\s*require\\s*\\(&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">dep</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;really/really/really/really/really/really/really/really/long/module&#39;</span><span class="p">);</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="complexity.md">complexity</a></li>
+<li><a href="max-depth.md">max-depth</a></li>
+<li><a href="max-nested-callbacks.md">max-nested-callbacks</a></li>
+<li><a href="max-params.md">max-params</a></li>
+<li><a href="max-statements.md">max-statements</a></li>
+</ul>
+
+    </section>
+</article>

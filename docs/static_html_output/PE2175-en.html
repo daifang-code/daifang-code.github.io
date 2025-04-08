@@ -1,0 +1,81 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2175">PE2175: no-this-before-super</h2>
+    <h3>Disallow use of `this`/`super` before calling `super()` in constructors. (no-this-before-super)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2175</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow use of <code>this</code>/<code>super</code> before calling <code>super()</code> in constructors. (no-this-before-super)</h4>
+<p>In the constructor of derived classes, if <code>this</code>/<code>super</code> are used before <code>super()</code> calls, it raises a reference error.</p>
+<p>This rule checks <code>this</code>/<code>super</code> keywords in constructors, then reports those that are before <code>super()</code>.</p>
+<h2>Rule Details</h2>
+<p>This rule is aimed to flag <code>this</code>/<code>super</code> keywords before <code>super()</code> callings.</p>
+<h2>Examples</h2>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-this-before-super: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="kr">extends</span> <span class="nx">B</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kr">super</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="kr">extends</span> <span class="nx">B</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">foo</span><span class="p">();</span>
+        <span class="kr">super</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="kr">extends</span> <span class="nx">B</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">.</span><span class="nx">foo</span><span class="p">();</span>
+        <span class="kr">super</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="kr">extends</span> <span class="nx">B</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">foo</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-this-before-super: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// OK, this class doesn&#39;t have an `extends` clause.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="kr">extends</span> <span class="nx">B</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// OK, this is after `super()`.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="kr">extends</span> <span class="nx">B</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// OK. this is not in a constructor.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to be notified about using <code>this</code>/<code>super</code> before <code>super()</code> in constructors, you can safely disable this rule.</p>
+
+    </section>
+</article>

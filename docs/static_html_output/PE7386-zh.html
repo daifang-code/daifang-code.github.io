@@ -1,0 +1,99 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7386">BE7386: 方法在常数值上调用静态Math类方法</h2>
+    <h3>方法在常数值上调用静态Math类方法</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7386</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>方法在常数值上调用静态Math类方法</p>
+<h4>漏洞与风险</h4>
+<p>此方法在常量值上使用java.lang.Math中的静态方法。在这种情况下，该方法的结果可以静态地确定，并且更快更准确地使用常数。检测到的方法是：
+</p>
+ <table>
+ <tr>
+  <th>方法</th> <th>参数</th>
+ </tr>
+ <tr>
+  <td>abs</td> <td>-any-</td>
+ </tr>
+ <tr>
+  <td>acos</td> <td>0.0 or 1.0</td>
+ </tr>
+ <tr>
+  <td>asin</td> <td>0.0 or 1.0</td>
+ </tr>
+ <tr>
+  <td>atan</td> <td>0.0 or 1.0</td>
+ </tr>
+ <tr>
+  <td>atan2</td> <td>0.0</td>
+ </tr>
+ <tr>
+  <td>cbrt</td> <td>0.0 or 1.0</td>
+ </tr>
+ <tr>
+  <td>ceil</td> <td>-any-</td>
+ </tr>
+ <tr>
+  <td>cos</td> <td>0.0</td>
+ </tr>
+ <tr>
+  <td>cosh</td> <td>0.0</td>
+ </tr>
+ <tr>
+  <td>exp</td> <td>0.0 or 1.0</td>
+ </tr>
+ <tr>
+  <td>expm1</td> <td>0.0</td>
+ </tr>
+ <tr>
+  <td>floor</td> <td>-any-</td>
+ </tr>
+ <tr>
+  <td>log</td> <td>0.0 or 1.0</td>
+ </tr>
+ <tr>
+  <td>log10</td> <td>0.0 or 1.0</td>
+ </tr>
+ <tr>
+  <td>rint</td> <td>-any-</td>
+ </tr>
+ <tr>
+  <td>round</td> <td>-any-</td>
+ </tr>
+ <tr>
+  <td>sin</td> <td>0.0</td>
+ </tr>
+ <tr>
+  <td>sinh</td> <td>0.0</td>
+ </tr>
+ <tr>
+  <td>sqrt</td> <td>0.0 or 1.0</td>
+ </tr>
+ <tr>
+  <td>tan</td> <td>0.0</td>
+ </tr>
+ <tr>
+  <td>tanh</td> <td>0.0</td>
+ </tr>
+ <tr>
+  <td>toDegrees</td> <td>0.0 or 1.0</td>
+ </tr>
+ <tr>
+  <td>toRadians</td> <td>0.0</td>
+ </tr>
+ </table>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

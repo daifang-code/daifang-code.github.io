@@ -1,0 +1,93 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2181">PE2181: no-underscore-dangle</h2>
+    <h3>disallow dangling underscores in identifiers (no-underscore-dangle)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2181</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow dangling underscores in identifiers (no-underscore-dangle)</h4>
+<p>As far as naming conventions for identifiers go, dangling underscores may be the most polarizing in JavaScript. Dangling underscores are underscores at either the beginning or end of an identifier, such as:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">_foo</span><span class="p">;</span>
+</pre></div>
+<p>There is actually a long history of using dangling underscores to indicate &quot;private&quot; members of objects in JavaScript (though JavaScript doesn't have truly private members, this convention served as a warning). This began with SpiderMonkey adding nonstandard methods such as <code>__defineGetter__()</code>. The intent with the underscores was to make it obvious that this method was special in some way. Since that time, using a single underscore prefix has become popular as a way to indicate &quot;private&quot; members of objects.</p>
+<p>Whether or not you choose to allow dangling underscores in identifiers is purely a convention and has no effect on performance, readability, or complexity. It's purely a preference.</p>
+<h2>Rule Details</h2>
+<p>This rule disallows dangling underscores in identifiers.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-underscore-dangle: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo_</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">__proto__</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">_bar</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-underscore-dangle: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">_</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;underscore&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">items</span><span class="p">,</span> <span class="nx">item</span><span class="p">);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">__filename</span><span class="p">;</span>
+</pre></div>
+<h2>Options</h2>
+<p>This rule has an object option:</p>
+<ul>
+<li><code>&quot;allow&quot;</code> allows specified identifiers to have dangling underscores</li>
+<li><code>&quot;allowAfterThis&quot;: false</code> (default) disallows dangling underscores in members of the <code>this</code> object</li>
+<li><code>&quot;allowAfterSuper&quot;: false</code> (default) disallows dangling underscores in members of the <code>super</code> object</li>
+<li><code>&quot;enforceInMethodNames&quot;: false</code> (default) allows dangling underscores in method names</li>
+</ul>
+<h5>allow</h5>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>{ &quot;allow&quot;: [&quot;foo_&quot;, &quot;_bar&quot;] }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-underscore-dangle: [&quot;error&quot;, { &quot;allow&quot;: [&quot;foo_&quot;, &quot;_bar&quot;] }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo_</span><span class="p">;</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">_bar</span><span class="p">();</span>
+</pre></div>
+<h5>allowAfterThis</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;allowAfterThis&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-underscore-dangle: [&quot;error&quot;, { &quot;allowAfterThis&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">foo_</span><span class="p">;</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">_bar</span><span class="p">();</span>
+</pre></div>
+<h5>allowAfterSuper</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;allowAfterSuper&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-underscore-dangle: [&quot;error&quot;, { &quot;allowAfterSuper&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="kr">super</span><span class="p">.</span><span class="nx">foo_</span><span class="p">;</span>
+<span class="kr">super</span><span class="p">.</span><span class="nx">_bar</span><span class="p">();</span>
+</pre></div>
+<h5>enforceInMethodNames</h5>
+<p>Examples of incorrect code for this rule with the <code>{ &quot;enforceInMethodNames&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-underscore-dangle: [&quot;error&quot;, { &quot;enforceInMethodNames&quot;: true }]*/</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+  <span class="nx">_bar</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+  <span class="nx">bar_</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">_bar</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">bar_</span><span class="p">()</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you want to allow dangling underscores in identifiers, then you can safely turn this rule off.</p>
+
+    </section>
+</article>

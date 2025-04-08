@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1068">SC1068: Redundant space</h2>
+    <h3>Don't put spaces around the = in assignments.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1068</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Don't put spaces around the = in assignments.</h4>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">foo</span> <span class="o">=</span> <span class="m">42</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">foo</span><span class="o">=</span><span class="m">42</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>Shells are space sensitive. <code>foo=42</code> means to assign <code>42</code> to the variable <code>foo</code>. <code>foo = 42</code> means to run a command named <code>foo</code>, and pass <code>=</code> as <code>$1</code> and <code>42</code> as <code>$2</code>.</p>
+<h5>Exceptions</h5>
+<p>If you actually wanted to run a command named foo and provide <code>=</code> as the first argument, simply quote it to make ShellCheck be quiet: <code>foo &quot;=&quot; 42</code>.</p>
+
+    </section>
+</article>

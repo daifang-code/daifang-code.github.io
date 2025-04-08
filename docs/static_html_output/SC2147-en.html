@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2147">SC2147: ~' in path</h2>
+    <h3>Literal tilde in PATH works poorly across programs.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2147</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Literal tilde in PATH works poorly across programs.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PATH</span><span class="s2">:~/bin&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PATH</span><span class="s2">:</span><span class="nv">$HOME</span><span class="s2">/bin&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>Having literal <code>~</code> in PATH is a bad idea. Bash handles it, but nothing else does.</p>
+<p>This means that even if you're always using Bash, you should avoid it because any invoked program that relies on PATH will effectively ignore those entries.</p>
+<p>For example, <code>make</code> may say <code>foo: Command not found</code> even though <code>foo</code> works fine from the shell and Make and Bash both use the same PATH. You'll get similar messages from any non-bash scripts invoked, and <code>whereis</code> will come up empty.</p>
+<p>Use <code>$HOME</code> or full path instead.</p>
+<h5>Exceptions</h5>
+<p>If your directory name actually contains a literal tilde, you can ignore this message.</p>
+
+    </section>
+</article>

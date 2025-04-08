@@ -1,0 +1,34 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7412">BE7412: "." or "|" used for regular expression</h2>
+    <h3>"." or "|" used for regular expression</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7412</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>&quot;.&quot; or &quot;|&quot; used for regular expression</p>
+<h4>Vulnerability and risk</h4>
+<p>
+A String function is being invoked and "." or "|" is being passed
+to a parameter that takes a regular expression as an argument. Is this what you intended?
+For example
+</p>
+<ul>
+<li>s.replaceAll(".", "/") will return a String in which <em>every</em> character has been replaced by a '/' character</li>
+<li>s.split(".") <em>always</em> returns a zero length array of String</li>
+<li>"ab|cd".replaceAll("|", "/") will return "/a/b/|/c/d/"</li>
+<li>"ab|cd".split("|") will return array with six (!) elements: [, a, b, |, c, d]</li>
+</ul>
+<h4>Likelihood of Exploit</h4>
+<p>critical</p>
+
+    </section>
+</article>

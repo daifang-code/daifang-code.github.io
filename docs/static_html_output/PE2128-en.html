@@ -1,0 +1,112 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2128">PE2128: no-mixed-requires</h2>
+    <h3>disallow `require` calls to be mixed with regular variable declarations (no-mixed-requires)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2128</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow <code>require</code> calls to be mixed with regular variable declarations (no-mixed-requires)</h4>
+<p>In the Node.js community it is often customary to separate initializations with calls to <code>require</code> modules from other variable declarations, sometimes also grouping them by the type of module. This rule helps you enforce this convention.</p>
+<h2>Rule Details</h2>
+<p>When this rule is enabled, each <code>var</code> statement must satisfy the following conditions:</p>
+<ul>
+<li>either none or all variable declarations must be require declarations (default)</li>
+<li>all require declarations must be of the same type (grouping)</li>
+</ul>
+<p>This rule distinguishes between six kinds of variable declaration types:</p>
+<ul>
+<li><code>core</code>: declaration of a required <a href="https://nodejs.org/api/modules.html#modules_core_modules">core module</a></li>
+<li><code>file</code>: declaration of a required <a href="https://nodejs.org/api/modules.html#modules_file_modules">file module</a></li>
+<li><code>module</code>: declaration of a required module from the <a href="https://nodejs.org/api/modules.html#modules_loading_from_node_modules_folders">node_modules folder</a></li>
+<li><code>computed</code>: declaration of a required module whose type could not be determined (either because it is computed or because require was called without an argument)</li>
+<li><code>uninitialized</code>: a declaration that is not initialized</li>
+<li><code>other</code>: any other kind of declaration</li>
+</ul>
+<p>In this document, the first four types are summed up under the term <em>require declaration</em>.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">),</span>        <span class="c1">// &quot;core&quot;     \</span>
+    <span class="nx">async</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;async&#39;</span><span class="p">),</span>  <span class="c1">// &quot;module&quot;   |- these are &quot;require declaration&quot;s</span>
+    <span class="nx">foo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./foo&#39;</span><span class="p">),</span>    <span class="c1">// &quot;file&quot;     |</span>
+    <span class="nx">bar</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">getName</span><span class="p">()),</span>  <span class="c1">// &quot;computed&quot; /</span>
+    <span class="nx">baz</span> <span class="o">=</span> <span class="mi">42</span><span class="p">,</span>                  <span class="c1">// &quot;other&quot;</span>
+    <span class="nx">bam</span><span class="p">;</span>                       <span class="c1">// &quot;uninitialized&quot;</span>
+</pre></div>
+<h2>Options</h2>
+<p>This rule can have an object literal option whose two properties have <code>false</code> values by default.</p>
+<p>Configuring this rule with one boolean option <code>true</code> is deprecated.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>{ &quot;grouping&quot;: false, &quot;allowCall&quot;: false }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-mixed-requires: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">),</span>
+    <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">async</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;async&#39;</span><span class="p">),</span>
+    <span class="nx">debug</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;diagnostics&#39;</span><span class="p">).</span><span class="nx">someFunction</span><span class="p">(</span><span class="s1">&#39;my-module&#39;</span><span class="p">),</span>
+    <span class="nx">eslint</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;eslint&#39;</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>{ &quot;grouping&quot;: false, &quot;allowCall&quot;: false }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-mixed-requires: &quot;error&quot;*/</span>
+
+<span class="c1">// only require declarations (grouping off)</span>
+<span class="kd">var</span> <span class="nx">eventEmitter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span><span class="p">,</span>
+    <span class="nx">myUtils</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./utils&#39;</span><span class="p">),</span>
+    <span class="nx">util</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;util&#39;</span><span class="p">),</span>
+    <span class="nx">bar</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">getBarModuleName</span><span class="p">());</span>
+
+<span class="c1">// only non-require declarations</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="nx">bar</span> <span class="o">=</span> <span class="s1">&#39;baz&#39;</span><span class="p">;</span>
+
+<span class="c1">// always valid regardless of grouping because all declarations are of the same type</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span> <span class="o">+</span> <span class="nx">VERSION</span><span class="p">),</span>
+    <span class="nx">bar</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">getBarModuleName</span><span class="p">()),</span>
+    <span class="nx">baz</span> <span class="o">=</span> <span class="nx">require</span><span class="p">();</span>
+</pre></div>
+<h5>grouping</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;grouping&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-mixed-requires: [&quot;error&quot;, { &quot;grouping&quot;: true }]*/</span>
+
+<span class="c1">// invalid because of mixed types &quot;core&quot; and &quot;module&quot;</span>
+<span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">),</span>
+    <span class="nx">async</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;async&#39;</span><span class="p">);</span>
+
+<span class="c1">// invalid because of mixed types &quot;file&quot; and &quot;unknown&quot;</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">),</span>
+    <span class="nx">bar</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">getBarModuleName</span><span class="p">());</span>
+</pre></div>
+<h5>allowCall</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;allowCall&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-mixed-requires: [&quot;error&quot;, { &quot;allowCall&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">async</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;async&#39;</span><span class="p">),</span>
+    <span class="nx">debug</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;diagnostics&#39;</span><span class="p">).</span><span class="nx">someFunction</span><span class="p">(</span><span class="s1">&#39;my-module&#39;</span><span class="p">),</span> <span class="cm">/* allowCall doesn&#39;t allow calling any function */</span>
+    <span class="nx">eslint</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;eslint&#39;</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;allowCall&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-mixed-requires: [&quot;error&quot;, { &quot;allowCall&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">async</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;async&#39;</span><span class="p">),</span>
+    <span class="nx">debug</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;diagnostics&#39;</span><span class="p">)(</span><span class="s1">&#39;my-module&#39;</span><span class="p">),</span>
+    <span class="nx">eslint</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;eslint&#39;</span><span class="p">);</span>
+</pre></div>
+<h2>Known Limitations</h2>
+<ul>
+<li><p>The implementation is not aware of any local functions with the name <code>require</code> that may shadow Node.js' global <code>require</code>.</p>
+</li>
+<li><p>Internally, the list of core modules is retrieved via <code>require(&quot;repl&quot;)._builtinLibs</code>. If you use different versions of Node.js for ESLint and your application, the list of core modules for each version may be different.
+The above mentioned <code>_builtinLibs</code> property became available in 0.8, for earlier versions a hardcoded list of module names is used as a fallback. If your version of Node.js is older than 0.6 that list may be inaccurate.</p>
+</li>
+</ul>
+<h2>When Not To Use It</h2>
+<p>If you use a pattern such as <a href="https://github.com/umdjs/umd">UMD</a> where the <code>require</code>d modules are not loaded in variable declarations, this rule will obviously do nothing for you.</p>
+
+    </section>
+</article>

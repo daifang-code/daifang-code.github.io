@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7488">BE7488: Cookie中潜在的敏感数据</h2>
+    <h3>Cookie中潜在的敏感数据</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7488</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>Cookie中潜在的敏感数据</p>
+<h4>漏洞与风险</h4>
+<p>存储在自定义cookie中的信息不应该是敏感的或与会话相关的。
+在大多数情况下，敏感数据应该只存储在会话中，并由用户的会话cookie引用。
+参考HttpSession(HttpServletRequest.getSession())
+定制cookie可以用于需要比特定会话独立的信息。</p>
+<p>定制cookie可以被用于需要比特定会话存在时间长的并且独立于一个特定会话的信息中。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://cwe.mitre.org/data/definitions/315.html&quot;&gt;CWE-315: Cleartext Storage of Sensitive Information in a Cookie&lt;/a&gt;</p>
+
+    </section>
+</article>

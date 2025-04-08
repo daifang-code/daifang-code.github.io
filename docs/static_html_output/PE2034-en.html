@@ -1,0 +1,255 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2034">PE2034: function-paren-newline</h2>
+    <h3>enforce consistent line breaks inside function parentheses (function-paren-newline)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2034</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>enforce consistent line breaks inside function parentheses (function-paren-newline)</h4>
+<p>Many style guides require or disallow newlines inside of function parentheses.</p>
+<h2>Rule Details</h2>
+<p>This rule enforces consistent line breaks inside parentheses of function parameters or arguments.</p>
+<h5>Options</h5>
+<p>This rule has a single option, which can either be a string or an object.</p>
+<ul>
+<li><code>&quot;always&quot;</code> requires line breaks inside all function parentheses.</li>
+<li><code>&quot;never&quot;</code> disallows line breaks inside all function parentheses.</li>
+<li><code>&quot;multiline&quot;</code> (default) requires linebreaks inside function parentheses if any of the parameters/arguments have a line break between them. Otherwise, it disallows linebreaks.</li>
+<li><code>&quot;consistent&quot;</code> requires consistent usage of linebreaks for each pair of parentheses. It reports an error if one parenthesis in the pair has a linebreak inside it and the other parenthesis does not.</li>
+<li><code>{ &quot;minItems&quot;: value }</code> requires linebreaks inside function parentheses if the number of parameters/arguments is at least <code>value</code>. Otherwise, it disallows linebreaks.</li>
+</ul>
+<p>Example configurations:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;function-paren-newline&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;never&quot;</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;function-paren-newline&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;minItems&quot;</span><span class="p">:</span> <span class="mi">3</span> <span class="p">}]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint function-paren-newline: [&quot;error&quot;, &quot;always&quot;] */</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">)</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint function-paren-newline: [&quot;error&quot;, &quot;always&quot;] */</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+
+<span class="nx">foo</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span>
+<span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint function-paren-newline: [&quot;error&quot;, &quot;never&quot;] */</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+
+<span class="nx">foo</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span>
+<span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint function-paren-newline: [&quot;error&quot;, &quot;never&quot;] */</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+             <span class="nx">baz</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">)</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">);</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;multiline&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint function-paren-newline: [&quot;error&quot;, &quot;multiline&quot;] */</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">);</span>
+
+<span class="nx">foo</span><span class="p">(</span>
+  <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">baz</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;multiline&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint function-paren-newline: [&quot;error&quot;, &quot;multiline&quot;] */</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span> <span class="nx">qux</span><span class="p">);</span>
+
+<span class="nx">foo</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span>
+<span class="p">);</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">baz</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;consistent&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint function-paren-newline: [&quot;error&quot;, &quot;consistent&quot;] */</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+
+<span class="nx">foo</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">);</span>
+
+<span class="nx">foo</span><span class="p">(</span>
+  <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">baz</span><span class="p">;</span>
+  <span class="p">});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the consistent <code>&quot;consistent&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint function-paren-newline: [&quot;error&quot;, &quot;consistent&quot;] */</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">)</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+
+<span class="nx">foo</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span>
+<span class="p">);</span>
+
+<span class="nx">foo</span><span class="p">(</span>
+  <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">baz</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;minItems&quot;: 3 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint function-paren-newline: [&quot;error&quot;, { &quot;minItems&quot;: 3 }] */</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">{}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span> <span class="nx">qux</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span>
+<span class="p">)</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;minItems&quot;: 3 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint function-paren-newline: [&quot;error&quot;, { &quot;minItems&quot;: 3 }] */</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span>
+<span class="p">)</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span> <span class="nx">qux</span>
+<span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">);</span>
+
+<span class="nx">foo</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span> <span class="nx">qux</span>
+<span class="p">);</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If don't want to enforce consistent linebreaks inside function parentheses, do not turn on this rule.</p>
+
+    </section>
+</article>

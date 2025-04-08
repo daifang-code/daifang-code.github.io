@@ -1,0 +1,62 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4011">PE4011: 安全关键的行为依赖反向域名解析</h2>
+    <h3>通过反向域名解析获取IP地址的域名，然后依赖域名对主机进行身份鉴别。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE4011</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>通过反向域名解析获取IP地址的域名，然后依赖域名对主机进行身份鉴别。</p>
+<h4>漏洞与风险</h4>
+<p>攻击者可通过DNS欺骗修改IP地址与域名的对应关系，从而绕过依赖域名的主机身份鉴别。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>要避免该漏洞，你应该：</p>
+<ul>
+<li>通过用户名口令、数字证书等其他手段对主机身份进行鉴别。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;winsock.h&gt;</span><span class="cp"></span>
+<span class="p">...</span>
+<span class="kt">int</span> <span class="n">is_trusted</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">address</span><span class="p">)</span>  <span class="c1">//验证主机是否值得信任</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">hostent</span> <span class="o">*</span><span class="n">hp</span><span class="p">;</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">trustedHost</span> <span class="o">=</span> <span class="s">&quot;trustme.com&quot;</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">in_addr</span> <span class="n">myaddress</span><span class="p">;</span>
+    <span class="n">myaddress</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">inet_addr</span><span class="p">(</span><span class="n">address</span><span class="p">);</span>  <span class="c1">//将address转换成32位Ipv4地址</span>
+    <span class="c1">//通过反向解析获取myaddr地址的域名</span>
+    <span class="n">hp</span> <span class="o">=</span> <span class="n">gethostbyaddr</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">myaddress</span><span class="p">.</span><span class="n">s_addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">in_addr</span><span class="p">),</span> <span class="n">AF_INET</span><span class="p">);</span>
+    <span class="c1">//通过域名对主机进行身份鉴别</span>
+    <span class="c1">//攻击者可通过DNS欺骗绕过依赖域名的主机身份鉴别</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">hp</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">hp</span><span class="o">-&gt;</span><span class="n">h_name</span><span class="p">,</span> <span class="n">trustedHost</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">trustedHost</span><span class="p">)))</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>规范用法示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">is_true</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">);</span>  <span class="c1">//判断用户名口令是否正确，是则返回1，否则返回0</span>
+<span class="kt">int</span> <span class="nf">is_trusted</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">username</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span><span class="p">)</span>  <span class="c1">//验证主机是否值得信任</span>
+<span class="p">{</span>
+    <span class="c1">//通过用户名口令对主机进行身份鉴别</span>
+    <span class="k">return</span> <span class="n">is_true</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

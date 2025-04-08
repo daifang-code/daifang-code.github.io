@@ -1,0 +1,36 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7449">BE7449: Value without a type qualifier used where a value is required to have that qualifier</h2>
+    <h3>Value without a type qualifier used where a value is required to have that qualifier</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7449</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Value without a type qualifier used where a value is required to have that qualifier</p>
+<h4>Vulnerability and risk</h4>
+<p>
+        A value is being used in a way that requires the value be annotation with a type qualifier.
+    The type qualifier is strict, so the tool rejects any values that do not have
+    the appropriate annotation.
+        </p>
+
+<pre><code>    &lt;p&gt;
+    To coerce a value to have a strict annotation, define an identity function where the return value is annotated
+with the strict annotation.
+This is the only way to turn a non-annotated value into a value with a strict type qualifier annotation.
+    &lt;/p&gt;
+
+</code></pre>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

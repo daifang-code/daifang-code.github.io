@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2174">SC2174: Improper using of '-m' with '-p'</h2>
+    <h3>When used with -p, -m only applies to the deepest directory.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2174</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>When used with -p, -m only applies to the deepest directory.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>mkdir -p -m <span class="m">0755</span> foo/bar/baz
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>mkdir -p foo/bar/baz
+chmod <span class="m">0755</span> foo/bar/baz foo/bar foo
+</pre></div>
+<h5>Rationale:</h5>
+<p>When using <code>-m 0755</code>, the mode of the directory created will be set to 0755. When using <code>-p</code>, parent directories which do not exist will be created, but the mode specified by <code>-m</code> will only be used on the last directory. The parent directories will get their access mode the default way, via <a href="http://man7.org/linux/man-pages/man2/umask.2.html">umask(2)</a>.</p>
+<h5>Exceptions:</h5>
+<p>ShellCheck does not warn if the path only has one component, as in <code>mkdir -p -m 0755 mydir</code>, but will not attempt to determine whether this applies for a variable as in <code>mkdir -p -m 0755 &quot;$mydir&quot;</code>. You can mkdir/chmod separately or [[ignore]] this message.</p>
+
+    </section>
+</article>

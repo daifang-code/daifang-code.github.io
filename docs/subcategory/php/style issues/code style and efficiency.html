@@ -1,0 +1,4049 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='../../../theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="../../../theme/stylesheet/normalize.min.css">
+    <script src="../../../theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="../../../theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../../../theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="../../../theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">      <meta name="author" content="Pinpoint Team"/>
+    <meta name="description" content="Manual and documents for Sourcebrella Pinpoint"/> <meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Pinpoint Document"/>
+<meta property="og:description" content="Manual and documents for Sourcebrella Pinpoint"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="../../.."/>
+ 
+    <title>Pinpoint Document &ndash; Category</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href="../../..">
+                <img src="../../../theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href="../../..">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="../../../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="../../../standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="../../../standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="../../../standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="../../../standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="../../../standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="../../../standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="../../../standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="../../../standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+          <article>
+            <h1>
+            Code style and efficiency (58)
+            </h1>
+        </article>
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19046">webshell21</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$\s<em>(\w+)\s</em>=\s<em>(['\"]\s</em>(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec|preg_replace)|\w<em>)[\s\S]{0,200}array_walk(_recursive)?\s</em>([^;,]<em>,\s</em>(\$\s<em>\1|((base64_decode|gzinflate|gzuncompress|gzdecode|str_rot13)[\s(]</em>\$\s*\1))</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19036">webshell10</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$\s<em>(\w+)\s</em>=[\s({]<em>((\$_(GET|POST|REQUEST|COOKIE).{0,25})|['\"]\s</em>(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec|[^,;]<em>?\x|[^,;]</em>?['\"]\s<em>.\s</em>['\"]))[\s\S]{0,1000}((new\s<em>SQLite3[\s\S]</em>-&gt;\s<em>createFunction)\s</em>(+[^,]<em>(\$)?[^,]</em>|PDO::FETCH_FUNC\s<em>),\s</em>(\$\s<em>\1\s</em>)|((base64_decode|gzinflate|gzuncompress|gzdecode|str_rot13)[\s(]<em>\$\s</em>\1))</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19057">webshell35</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+    [webshell样例](https://github.com/tennc/webshell/blob/master/php/p2j/PHP%20reflection.php.txt)
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>(new\s<em>ReflectionFunction|new\s</em>ArrayObject[\s\S]<em>-&gt;u[ak]sort)\s</em>(+\s<em>(['\"]\s</em>(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec|[^'\"]*\x).{0,200}|(\$_(GET|POST|REQUEST|COOKIE)[[^,;)]{0,250})))</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19040">webshell14</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$\s<em>(\w+)\s</em>=\s<em>(['\"]\s</em>(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec)\s<em>['\"]|(base64_decode|gzinflate|gzuncompress|gzdecode|str_rot13)\s</em>()[\s\S]{0,200}\s<em>\$\1\s</em>(+[^)]*(\$_(GET|POST|REQUEST|COOKIE|SERVER).{0,25})</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19013">LDAP注入</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    LDAP Injection
+    允许进行LDAP查询 + 输入未进行过滤 ---&gt; LDAP注入
+    这种威胁可以让攻击者能够从LADP树中提取到很多很重要的信息
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    对用户输入数据中包含的”语言本身的保留字符”进行转义(例如可以使用`ldap_escape`)
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>(ldap_add|ldap_delete|ldap_list|ldap_read|ldap_search|ldap_bind)</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19026">unlink删除文件</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">错误示例代码</a></li>
+<li><a href="#_4">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    在使用unlink函数删除文件的时候没有考虑对该参数进行足够的过滤，导致存在多个任意文件删除的漏洞。
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    对用户输入的参数进行严格过滤(比如使用in_array设置允许的参数范围)。
+</pre></div>
+</td></tr></table>
+<h2 id="_3">错误示例代码</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    ```php
+    f($post_submit_action == "delete_file"){
+        $file_name = $_POST["file_name"];
+        $file = "/home/file/".$file_name;
+        unlink($file);
+        return;
+    }
+    ```
+    POST参数作为unlink函数的参数，当我们提交 `file_name=../../index.php`就会导致任意文件删除漏洞。
+    应该按照实际需要设置严格的参数过滤。
+</pre></div>
+</td></tr></table>
+<h2 id="_4">匹配规则</h2>
+<p>unlink</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19038">webshell12</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+
+    [webshell样例](https://github.com/tennc/webshell/blob/4ca96011884b892ec15de130f76eb2a047b77493/php/b374k/b374k-2.4.poly.php)
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$(\w<em>)\s</em>=\s<em>@?create_function\s</em>([^;]<em>;[\s\S]</em>\$\1\s<em>([^)]</em>(['\"]\s<em>[^;\n\r)]{0,100}(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|poc_open|pcntl_exec).{1,600}\s</em>['\"]|[^;\n\r]{0,100}(\$_(GET|POST|REQUEST|COOKIE|SERVER).{1,})|[^;\n\r)]{0,100}file_get_contents.{1,})</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19021">未经验证的任意链接跳转</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a><ul>
+<li><a href="#_2">形成原因</a></li>
+<li><a href="#_3">风险</a></li>
+</ul>
+</li>
+<li><a href="#_4">修复方案</a></li>
+<li><a href="#_5">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    UR(Unvalidated Redirect)
+</pre></div>
+</td></tr></table>
+<h3 id="_2">形成原因</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    Web程序可进行URL跳转且参数用户可控 + 未对用户输入的URL进行足够的过滤限制 + 攻击者恶意构造输入参数
+</pre></div>
+</td></tr></table>
+<h3 id="_3">风险</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    - 控制跳转链接跳转到恶意网站，或进行钓鱼攻击盗取用户信息。
+    - 绕过权限检查，到达受限页面并进行非法操。
+</pre></div>
+</td></tr></table>
+<h2 id="_4">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="mf">1.</span> <span class="nx">避免简单使用URL跳转函数</span><span class="err">。</span>
+    <span class="mf">2.</span> <span class="nx">如果需要使用URL跳转功能</span><span class="err">，</span><span class="nx">避免允许用户的输入作为跳转目标</span><span class="err">。</span>
+    <span class="mf">3.</span> <span class="nx">若无法避免将用户的输入作为跳转目标</span><span class="err">，</span><span class="nx">则须进行严格的限制和过滤</span><span class="err">，</span><span class="nx">确保用户提供的URL是合法的</span><span class="err">、</span><span class="nx">有权限访问的</span><span class="err">。</span>
+    <span class="mf">4.</span> <span class="nx">设置URL跳转白名单</span><span class="err">。</span>
+    <span class="mf">5.</span> <span class="nx">当用户跳转离开时</span><span class="err">，</span><span class="nx">强制跳转到警告页面上</span><span class="err">，</span><span class="nx">提示用户正在离开当前网站</span><span class="err">。</span>
+
+    <span class="nx">使用白名单判断</span>
+    <span class="sb">```php</span>
+<span class="sb">    </span><span class="cp">&lt;?php</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">in_array</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">"url"</span><span class="p">],</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="k">exit</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="sb"></span>
+<span class="sb">    ```</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_5">匹配规则</h2>
+<p>header</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19042">webshell17</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$\s<em>(\w+)\s</em>=\s<em>((\$_(GET|POST|REQUEST|COOKIE|SERVER).{0,25})|.</em>['\"]\s<em>(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec)\s</em>['\"]|(base64_decode|gzinflate|gzuncompress|gzdecode|str_rot13)\s<em>()[\s\S]{0,200}\b(filter_var|filter_var_array)\s</em>(.<em>FILTER_CALLBACK[^;]</em>\$\1</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19016">远程代码执行</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">错误举例</a></li>
+<li><a href="#_4">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码注入(Code Injection)
+    没有对用户输入的参数进行足够的过滤，可能导致攻击者传入的恶意代码执行。
+    因此危险函数应该尽量避免在开发中使用。
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    禁用以下危险函数
+    - array_map
+    - create_function
+    - call_user_func
+    - call_user_func_array
+    - assert
+    - eval
+    - dl
+    - register_tick_function
+    - register_shutdown_function
+    - preg_replace
+</pre></div>
+</td></tr></table>
+<h2 id="_3">错误举例</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    提交 `/index.php?arg=1;phpinfo()` 便会产生代码注入
+</pre></div>
+</td></tr></table>
+<h2 id="_4">匹配规则</h2>
+<p>(array_map|create_function|call_user_func|call_user_func_array|assert|eval|dl|register_tick_function|register_shutdown_function|array_filter|array_reduce|array_diff_ukey|array_udiff|array_walk|array_walk_recursive|uasort|uksort|usort)</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19028">webshell2</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\s<em>\$\s</em>(\w+)\s<em>=[\s(]</em><a href="([^\n'\&quot;]{1,1000}(.(jpg|png|txt|jpeg|log|tmp|db|cache)|_(tmp|log)">'\"</a>)|((http|https|file|php|data|ftp)\://.{0,100}))[\s\S]{0,1000}(include|require)(_once)?[\s(]\$\1</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19011">MySQL Execute Functions</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a><ul>
+<li><a href="#sql">SQL注入形成原因</a></li>
+<li><a href="#_2">风险</a></li>
+</ul>
+</li>
+<li><a href="#_3">修复方案</a></li>
+<li><a href="#_4">正确代码示例</a></li>
+<li><a href="#_5">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<h3 id="sql">SQL注入形成原因</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    SQL语句用户可控，若未对参数进行足够的过滤直接执行SQL语句，则可能发生SQL注入
+</pre></div>
+</td></tr></table>
+<h3 id="_2">风险</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    - 用户信息被篡改
+    - 攻击者偷取代码和用户数据
+    - 业务运营的所有数据被恶意获取
+    - 线上代码被非法篡改，并造成为恶意攻击者输送流量或其他利益的影响
+</pre></div>
+</td></tr></table>
+<h2 id="_3">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    - 已不再使用的功能，可直接做下线处理
+    - 引入安全组件
+    - 代码层修复:对用户可控参数进行严格过滤
+        使用 `mysql_real_escape_string`转义 SQL 语句中使用的字符串中的特殊字符
+        若无转义函数并且使用 \ 来转义特殊字符，可以使用addslashes函数
+</pre></div>
+</td></tr></table>
+<h2 id="_4">正确代码示例</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="sb">```</span>
+<span class="sb">        </span><span class="cp">&lt;?php</span>
+        <span class="nv">$username</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'username'</span><span class="p">];</span>
+        <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'username'</span><span class="p">];</span>
+        <span class="nv">$username</span> <span class="o">=</span> <span class="nb">mysql_real_escape_string</span><span class="p">(</span><span class="nv">$username</span><span class="p">);</span> <span class="c1">//转义</span>
+        <span class="nv">$password</span> <span class="o">=</span> <span class="nb">mysql_real_escape_string</span><span class="p">(</span><span class="nv">$password</span><span class="p">);</span> <span class="c1">//转义</span>
+        <span class="nv">$query</span> <span class="o">=</span> <span class="s2">"SELECT * FROM users WHERE user = </span><span class="si">$username</span><span class="s2"> AND password = </span><span class="si">$password</span><span class="s2"> "</span><span class="p">;</span>
+        <span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
+        <span class="cp">?&gt;</span><span class="sb"></span>
+<span class="sb">    ```</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_5">匹配规则</h2>
+<p>(mysql_query|mysql_db_query)</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19031">webshell5</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$\s<em>(\w+)\s</em>=\s<em>((\$_(GET|POST|REQUEST|COOKIE).{0,25})|[^;]</em>chr[\s(]<em>(101|0x65|0145|\d+)|<a href="/[^/]*/||[^|]*||\" title="[^']*">'\"</a>\w{0,5}e\w{0,5}['\"])[\s\S]{0,1000}(preg_replace|preg_filter)[/</em>\s]<em>([/</em>\s]<em>\$\s</em>\1.{0,30}(assert|eval|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec)</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19034">webshell8</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$\s<em>(\w+)\s</em>=[\s({]<em>(['\"]\s</em>(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec))[\s\S]{0,200}\b(array_map|call_user_func|call_user_func_array|register_shutdown_function|register_tick_function)\b\s<em>(+\s</em>(\$\s<em>\1|((base64_decode|gzinflate|gzuncompress|gzdecode|str_rot13)[\s(]</em>\$\s<em>\1))[^,;]</em>,[^;)]{0,50}\$[^;)]{0,50})</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19017">远程命令执行</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">错误代码样例</a></li>
+<li><a href="#_4">正确代码示例</a></li>
+<li><a href="#_5">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    当应用需要调用一些外部程序去处理内容的情况下，就会用到一些执行系统命令的函数。
+    当用户可以控制命令执行函数中的参数时，将可以注入恶意系统命令到正常命令中，造成命令执行攻击。
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    1.尽量不用执行命令的函数.
+    2.外部可控制参数进入执行命令函数要进行严格的过滤（如使用escapeshellcmd或escapeshellarg过滤参数）
+    3.升级ImageMagick到最新版本
+</pre></div>
+</td></tr></table>
+<h2 id="_3">错误代码样例</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="sb">```</span>
+<span class="sb">    </span><span class="cp">&lt;?php</span>
+        <span class="nv">$ip</span><span class="o">=</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'ip'</span><span class="p">];</span>
+        <span class="nb">system</span><span class="p">(</span><span class="s2">"ping"</span><span class="o">+</span><span class="nv">$ip</span><span class="p">);</span>
+    <span class="cp">?&gt;</span><span class="sb"></span>
+<span class="sb">    ```</span>
+    <span class="nx">构造</span> <span class="sb">`http://www.test.com/test.php?ip=127.0.0.1|ifconfig`</span> <span class="nx">即会发生命令注入攻击</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_4">正确代码示例</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="sb">```php</span>
+<span class="sb">    </span><span class="cp">&lt;?php</span>
+        <span class="nv">$command</span> <span class="o">=</span> <span class="s1">'./configure '</span><span class="o">.</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'configure_options'</span><span class="p">];</span><span class="c1">// 允许任意数量的参数</span>
+        <span class="nv">$escaped_command</span> <span class="o">=</span> <span class="nb">escapeshellcmd</span><span class="p">(</span><span class="nv">$command</span><span class="p">);</span>
+        <span class="nb">system</span><span class="p">(</span><span class="nv">$escaped_command</span><span class="p">);</span>
+    <span class="cp">?&gt;</span><span class="sb"></span>
+<span class="sb">    ```</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_5">匹配规则</h2>
+<p>(system|passthru|exec|pcntl_exec|shell_exec|popen|proc_open|ob_start|expect_popen|mb_send_mail|w32api_register_function|w32api_invoke_function|ssh2_exec)</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19010">拼接SQL注入</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a><ul>
+<li><a href="#sql">SQL注入漏洞形成原因</a></li>
+<li><a href="#_2">风险</a></li>
+</ul>
+</li>
+<li><a href="#_3">修复方案</a></li>
+<li><a href="#_4">错误举例</a></li>
+<li><a href="#_5">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<h3 id="sql">SQL注入漏洞形成原因</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    SQL语句拼接，若未对用户可控参数进行足够过滤，可能会导致SQL注入
+</pre></div>
+</td></tr></table>
+<h3 id="_2">风险</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    - 用户信息被篡改
+    - 攻击者偷取代码和用户数据
+    - 业务运营的数据被恶意获取
+    - 线上代码被非法篡改，并造成为恶意攻击者输送流量或其他利益的影响
+</pre></div>
+</td></tr></table>
+<h2 id="_3">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    - 已不再使用的功能，直接做下线处理
+    - 引入安全组件
+    - 代码层修复:尽量不要拼接SQL语句。如必要，需对用户可控的参数进行严格过滤
+</pre></div>
+</td></tr></table>
+<h2 id="_4">错误举例</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    ```php
+
+    ```
+    若输入的数据为
+    ```php
+    $_POST['username'] = 'adan';
+    $_POST['password'] = '' OR ''='';
+    ```
+
+    SQL语句变为 `SELECT * FROM users WHERE user='adan' AND password='' OR ''=''` 发生SQL注入，攻击者无需密码即可登录。
+    尽量不要使用拼接的SQL语句。若不得不使用，尽量不要用户可控SQL语句的参数。
+    若必须用户可控，请对用户输入的参数进行严格的限制和过滤。
+</pre></div>
+</td></tr></table>
+<h2 id="_5">匹配规则</h2>
+<p>(\"\s<em>(select|SELECT|insert|INSERT|update|UPDATE)\s</em>(([^;]\s<em>)</em>)?\$(.+?);?\")</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19032">webshell6</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>.<em>\s</em>\$\s<em>(\w+)\s</em>=\s<em>(\$_(GET|POST|REQUEST|COOKIE).{0,25})[\s\S]{0,1000}(preg_replace|preg_filter)[/</em>\s]<em>(+[/</em>\s]<em>((\$_(GET|POST|REQUEST|COOKIE).{0,25})|[^,]{0,250}chr<a href="101|0x65|0145|\d+">\s(</a>[^,]{0,25}\s</em>|['\"]\s<em>(([^\s])[^,]{0,20}\10|[(}[].{0,20}[(}]])\w</em>e\w<em>['\"])\s</em>,([^)]<em>(assert|eval|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec)|\s</em>.*\$\1)</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19002">cURL导致的SSRF</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a><ul>
+<li><a href="#_2">形成原理</a></li>
+<li><a href="#_3">风险</a></li>
+<li><a href="#_4">错误举例</a></li>
+</ul>
+</li>
+<li><a href="#_5">修复方案</a></li>
+<li><a href="#_6">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    SSRF漏洞(Server-Side Request Forgery)
+</pre></div>
+</td></tr></table>
+<h3 id="_2">形成原理</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    SSRF形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。
+</pre></div>
+</td></tr></table>
+<h3 id="_3">风险</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    1、攻击者可以对外网、服务器所在内网、本地进行端口扫描，获取服务的banner信息。
+    2、攻击运行在内网或本地的应用程序。
+    3、对内网web应用进行指纹识别。
+    4、攻击内外网的web应用。
+    5、利用file协议读取本地文件等。
+</pre></div>
+</td></tr></table>
+<h3 id="_4">错误举例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    ```php
+    function curl($url){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_exec($ch);
+        curl_close($ch);
+    }
+    $url = $_GET['url'];
+    curl($url);
+    ```
+    以上代码未做任何SSRF防御，风险举例如下：
+
+    ```
+    # 利用file协议任意文件读取
+    curl -v 'http://test.com:8082/ssrf.php?url=file:///etc/passwd'
+
+    # 利用dict协议查看端口
+    curl -v 'http://test.com:8082/ssrf.php?url=dict://127.0.0.1:22'
+    ```
+</pre></div>
+</td></tr></table>
+<h2 id="_5">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    1. 限制协议为HTTP、HTTPS
+        ```
+        curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+        ```
+    2. 限制请求域名白名单
+    3. 禁止30x跳转
+        ```
+        删掉 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        ```
+</pre></div>
+</td></tr></table>
+<h2 id="_6">匹配规则</h2>
+<p>curl_setopt\s<em>(.</em>,\s<em>CURLOPT_URL\s</em>,(.*))</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19049">webshell27</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\b(assert|eval|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec)\b\s<em>(((\$_SERVER|\$_ENV|getenv|\$GLOBALS)\s</em>[[(]\s<em>['\"]+(REQUEST_URI|QUERY_STRING|HTTP_[\w_]+|REMOTE_[\w_])['\"\s]+\s</em>[])]|php://input|exif_read_data\s*()</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19039">webshell13</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$\s<em>(\w+)\s</em>=[\s({]<em>(['\"]\s</em>.{0,100}(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec).{1,100}\s<em>['\"]|file_get_contents)[\s\S]{0,200}create_function\s</em>(+[^,]{1,100},['\"\s]<em>(\$\s</em>\1['\"\s]<em>)|((base64_decode|gzinflate|gzuncompress|gzdecode|str_rot13)[\s(]</em>\$\s*\1))</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19033">webshell7</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>(array_map|call_user_func|call_user_func_array|register_shutdown_function|register_tick_function)\s<em>(+\s</em>(['\"]\s<em>(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec|[^'\"]</em>\x).{0,200})</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19023">PHP反序列化漏洞</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    PHP反序列化漏洞(PHP对象注入漏洞)
+    传给 `unserialize()`的参数可控 + 构造序列化字符串 --&gt; 从而控制对象内部的变量甚至是函数
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    严格控制 `unserialize`函数的参数，对`unserialize`后的变量内容进行检查
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>unserialize</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19001">硬编码HTTP地址</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    硬编码HTTP地址
+    使用HTTP明文传输可能存在流量劫持等风险。
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    使用HTTPS协议。
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>http:\/\/.<em>((mogujie|meilishuo).com|(mogujie).cn).</em></p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19029">webshell3</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\s<em>\$\s</em>(\w+)\s<em>=[\s({]</em>['\"]\s<em>(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec|[^,;]</em>?\x|[^,;]<em>?['\"]\s</em>.\s<em>['\"])[\s\S]{0,1000}(array_filter|array_reduce|array_diff_ukey|array_udiff|array_walk|uasort|uksort|usort)\s</em>(+\s<em>.{1,100},\s</em>(\$\s<em>\1\s</em>))</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19020">不安全的随机数</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    使用可预测的随机数会导致漏洞。
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="err">建议使用</span><span class="sb">`java.security.SecureRandom`</span><span class="err">替代</span><span class="sb">` java.util.Random`</span><span class="err">。</span>
+    <span class="sb">``</span><span class="err">`</span><span class="n">java</span>
+    <span class="kn">import</span> <span class="nn">org.apache.commons.codec.binary.Hex</span><span class="p">;</span>
+
+    <span class="n">String</span> <span class="n">generateSecretToken</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">SecureRandom</span> <span class="n">secRandom</span> <span class="o">=</span> <span class="n">new</span> <span class="n">SecureRandom</span><span class="p">();</span>
+
+        <span class="n">byte</span><span class="p">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="n">new</span> <span class="n">byte</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+        <span class="n">secRandom</span><span class="o">.</span><span class="n">nextBytes</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">Hex</span><span class="o">.</span><span class="n">encodeHexString</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="sb">``</span><span class="err">`</span>
+    <span class="o">-</span> <span class="p">[</span><span class="n">CWE</span><span class="o">-</span><span class="mi">330</span><span class="p">](</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">cwe</span><span class="o">.</span><span class="n">mitre</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">definitions</span><span class="o">/</span><span class="mf">330.</span><span class="n">html</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>new Random\s*(|Random.next</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19056">webshell34</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$(\w+)[\s]<em>\=[\s]</em>\$<em>(?:POST|GET|REQUEST|COOKIE|SERVER).{0,25}[\s\S]<em>\$(?:\1(\s</em>\$</em>(?:POST|GET|REQUEST|COOKIE|SERVER).{0,25}\s<em>)|(\w+)\s</em>\=\s<em>\$_(?:POST|GET|REQUEST|COOKIE|SERVER).{0,25}[\s\S]</em>\$(\1(\s<em>\$\2|\2(\s</em>\$\1)\s<em>)|_(?:POST|GET|REQUEST|COOKIE|SERVER).{0,25}(\s</em>\$\1\s<em>))|\$_(?:POST|GET|REQUEST|COOKIE|SERVER)[(['\"]\w+['\"]|\d+)](\s</em>\$_(?:POST|GET|REQUEST|COOKIE|SERVER)[(['\"]\w+['\"]|\d+)]\s*</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19037">webshell11</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$(\w<em>)\s</em>=\s<em>create_function\s</em>(+\s<em>[^;\n\r)]{1,100},\s</em>(['\"]\s<em>[^;\n\r)]{0,100}(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|poc_open|pcntl_exec).{1,600}\s</em>['\"]|[^,\n\r)]{0,100}file_get_contents.{1,})\s<em>)[\s\S]+\$\1\s</em>([^)]*)</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19044">webshell19</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$\s<em>(\w+)\s</em>=\s<em>((\$_(GET|POST|REQUEST|COOKIE|SERVER).{3,25})|['\"][^;]</em>e|[^;]<em>chr[\s(]</em>(101|0x65|0145))[\s\S]{0,200}\b(mb_ereg_replace|mb_eregi_replace)\s<em>((.</em>,){3}\s*\$\1</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19035">webshell9</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>((new\s<em>SQLite3[\s\S]</em>-&gt;\s<em>createFunction)\s</em>(+\s<em>.{1,100}|PDO::FETCH_FUNC\s</em>),\s<em>(['\"]\s</em>(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec)\s<em>['\"]|(base64_decode|gzinflate|gzuncompress|gzdecode|str_rot13)[\s(]+.{1,25}|(\$_(GET|POST|REQUEST|COOKIE).{0,25}))\s</em>)</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19008">硬编码IP</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    硬编码IP
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该部分内容移到配置文件中
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>((25[0-5]|2[0-4][0-9]|[01]?[0-9]{2}?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19030">webshell4</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>(preg_replace|preg_filter)[/<em>\s]</em>(+[/<em>\s]</em>((\$<em>(GET|POST|REQUEST|COOKIE).{0,25})|[^,]{0,250}chr<a href="101|0x65|0145|\d+">\s(</a>[^,]{0,25}\s<em>|['\"]\s</em>(([^\s])[^,]{0,20}\7['\"]<em>|[(}[].{0,20}[(}]])\w</em>e\w<em>['\"])\s</em>,\s<em>([^),]</em>(assert|eval|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec)|((\$</em>(GET|POST|REQUEST|COOKIE).{0,25})))</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19051">webshell29</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="err">代码中存在</span><span class="n">webshell</span>
+
+    <span class="err">特征</span> <span class="sb">`$bind_pl="IyEvdXNyL2Jpbi9lbnYgcGV`</span> <span class="err">对应</span><span class="n">webshell样例</span>
+    <span class="p">[</span><span class="n">link</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">tennc</span><span class="o">/</span><span class="n">webshell</span><span class="o">/</span><span class="n">blob</span><span class="o">/</span><span class="mi">4</span><span class="n">ca96011884b892ec15de130f76eb2a047b77493</span><span class="o">/</span><span class="n">web</span><span class="o">-</span><span class="n">malware</span><span class="o">-</span><span class="n">collection</span><span class="o">-</span><span class="mi">13</span><span class="o">-</span><span class="mo">06</span><span class="o">-</span><span class="mi">2012</span><span class="o">/</span><span class="n">PHP</span><span class="o">/</span><span class="n">knullsh</span><span class="o">.</span><span class="n">txt</span><span class="p">)</span>
+
+    <span class="err">特征</span> <span class="sb">`python_eval("import os\nos.system(`</span> <span class="err">对应</span><span class="n">webshell样例</span>
+    <span class="p">[</span><span class="n">link</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">tennc</span><span class="o">/</span><span class="n">webshell</span><span class="o">/</span><span class="n">blob</span><span class="o">/</span><span class="mi">4</span><span class="n">ca96011884b892ec15de130f76eb2a047b77493</span><span class="o">/</span><span class="n">web</span><span class="o">-</span><span class="n">malware</span><span class="o">-</span><span class="n">collection</span><span class="o">-</span><span class="mi">13</span><span class="o">-</span><span class="mo">06</span><span class="o">-</span><span class="mi">2012</span><span class="o">/</span><span class="n">PHP</span><span class="o">/</span><span class="n">bdotw44shell</span><span class="o">.</span><span class="n">txt</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$<em>[\$</em>|\${\"_P\".|a(.)s\1s\1e\1r\1t|'e'.'v'.'a'.'l|687474703a2f2f626c616b696e2e64756170702e636f6d2f7631|python_eval(\"import os\nos.system(|\$bind_pl\s<em>=\s</em>\"IyEvdXNyL2Jpbi9lbnYgcGV|phpsocks5_encrypt\s*(|eNrs/Vmv41iWJgq+ZwH1H7wdAWRksypJihRF3kQ0mvMsihTnuoUA53meeVG/valj5mbuHpF9b6P7se</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19004">get_headers导致的SSRF</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a><ul>
+<li><a href="#_2">形成原理</a></li>
+<li><a href="#_3">风险</a></li>
+</ul>
+</li>
+<li><a href="#_4">修复方案</a></li>
+<li><a href="#_5">错误举例</a></li>
+<li><a href="#_6">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    SSRF漏洞(Server-Side Request Forgery)
+</pre></div>
+</td></tr></table>
+<h3 id="_2">形成原理</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    SSRF形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。
+</pre></div>
+</td></tr></table>
+<h3 id="_3">风险</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    1、攻击者可以对外网、服务器所在内网、本地进行端口扫描，获取服务的banner信息。
+    2、攻击运行在内网或本地的应用程序。
+    3、对内网web应用进行指纹识别。
+    4、攻击内外网的web应用。
+    5、利用file协议读取本地文件等。
+</pre></div>
+</td></tr></table>
+<h2 id="_4">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    1. 限制协议为HTTP、HTTPS
+    2. 限制请求域名白名单
+    3. 禁止30x跳转
+</pre></div>
+</td></tr></table>
+<h2 id="_5">错误举例</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    ```php
+    $url = $_GET['url'];
+    echo get_headers($url);//对用户可控的参数没有进行过滤，攻击者恶意构造输入就可能导致SSRF
+    ```
+</pre></div>
+</td></tr></table>
+<h2 id="_6">匹配规则</h2>
+<p>get_headers</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19014">XXE(XML实体注入)</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a><ul>
+<li><a href="#_2">形成原因</a></li>
+<li><a href="#_3">风险</a></li>
+</ul>
+</li>
+<li><a href="#_4">修复方案</a></li>
+<li><a href="#_5">修复举例</a></li>
+<li><a href="#_6">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    XXE(XML实体注入)
+</pre></div>
+</td></tr></table>
+<h3 id="_2">形成原因</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    输入的XML中包含外部实体 + 解析程序没有正确过滤 --&gt;
+    这种攻击会造成敏感信息泄露，DoS攻击，SSRF攻击，端口扫描等等。
+</pre></div>
+</td></tr></table>
+<h3 id="_3">风险</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    敏感信息泄露
+    探测内网，获取服务器权限
+    进行拒绝服务攻击，影响正常业务
+    敏感数据被盗取。
+    造成服务宕机。
+</pre></div>
+</td></tr></table>
+<h2 id="_4">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    1. 使用 `libxml_disable_entity_loader(true);`
+    2. 过滤用户提交的XML数据，关键词：`DOCTYPE`和 `ENTITY`或者，`SYSTEM`和`PUBLIC`
+    3. 升级libxml至libxml2.9及以上，2.9版本已经默认关闭了XML外部实体的解析
+</pre></div>
+</td></tr></table>
+<h2 id="_5">修复举例</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    ```php
+        $xml = $_POST['xml'];
+        $data = simplexml_load_string($xml);
+    ```
+    修改后代码
+    ```php
+        $xml = $_POST['xml'];
+        libxml_disable_entity_loader(true);
+        $data = simplexml_load_string($xml);
+    ```
+</pre></div>
+</td></tr></table>
+<h2 id="_6">匹配规则</h2>
+<p>simplexml_load_file|simplexml_load_string</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19027">webshell1</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\s<em>\b(include|require)(_once)?\b[\s(]</em>['\"][^\n'\"]{0,100}((.(jpg|png|txt|jpeg|log|tmp|db|cache)|_(tmp|log))|((http|https|file|data|ftp)\://.{0,25}))['\"][\s)]*[\r\n;/*]+</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19015">文件包含漏洞</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a><ul>
+<li><a href="#_2">形成</a></li>
+<li><a href="#_3">影响范围</a></li>
+</ul>
+</li>
+<li><a href="#_4">修复方案</a></li>
+<li><a href="#_5">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    LFI/FRI(本地文件包含/远程文件包含)
+</pre></div>
+</td></tr></table>
+<h3 id="_2">形成</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    在引入文件时，引用的文件名用户可控，若传入的参数没有限制过滤或者校验被绕过，从而导致意外的文件泄露甚至恶意代码注入。
+</pre></div>
+</td></tr></table>
+<h3 id="_3">影响范围</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    当攻击者通过该漏洞包含特定文件时，该文件将为相应的代码执行。
+</pre></div>
+</td></tr></table>
+<h2 id="_4">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="mf">1.</span> <span class="nx">应尽量避免包含动态的变量</span><span class="err">，</span><span class="nx">尤其是用户可以控制的变量</span><span class="err">。</span>
+    <span class="mf">2.</span> <span class="nx">设置白名单</span><span class="p">(</span><span class="nx">使用枚举</span><span class="p">)</span>
+    <span class="sb">```</span>
+<span class="sb">        </span><span class="cp">&lt;?php</span>
+        <span class="nv">$file</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'file'</span><span class="p">];</span>
+        <span class="c1">//Whitelisting possible values</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="nv">$file</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="s1">'main'</span><span class="o">:</span>
+            <span class="k">case</span> <span class="s1">'foo'</span><span class="o">:</span>
+            <span class="k">case</span> <span class="s1">'bar'</span><span class="o">:</span>
+                <span class="k">include</span> <span class="s1">'/home/wwwroot/include/'</span><span class="o">.</span><span class="nv">$file</span><span class="o">.</span><span class="s1">'.php'</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">include</span> <span class="s1">'/home/wwwroot/include/main.php'</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="cp">?&gt;</span><span class="sb"></span>
+<span class="sb">    ```</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_5">匹配规则</h2>
+<p>include|include_once|require|require_once|parsekit_compile_file|php_check_syntax|runkit_import|virtual</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19000">不安全的权限设置</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    不安全的权限设置
+    权限为0777表示所有权限均开放，即属性为:drwxrwxrwx(用户可读可写可执行)。
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    设置相应的权限，尽量减少权限为0777。
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>(mkdir|chmod)\s<em>(\s</em>(.<em>?)\s</em>,\s<em>0777\s</em>)</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19045">webshell20</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>array_walk(_recursive)?\s<em>([^;,]</em>,\s<em>(['\"]\s</em>(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec|preg_replace)|(base64_decode|gzinflate|gzuncompress|gzdecode|str_rot13)[\s(]<em>\s</em>['\"])</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19012">SQL Execute Functions</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a><ul>
+<li><a href="#sql">SQL注入形成原因</a></li>
+<li><a href="#_2">风险</a></li>
+</ul>
+</li>
+<li><a href="#_3">修复方案</a></li>
+<li><a href="#_4">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<h3 id="sql">SQL注入形成原因</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    SQL语句用户可控，若未对参数进行足够的过滤则会导致SQL注入
+</pre></div>
+</td></tr></table>
+<h3 id="_2">风险</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    - 用户信息被篡改
+    - 攻击者偷取代码和用户数据
+    - 业务运营的所有数据被恶意获取
+    - 线上代码被非法篡改，并造成为恶意攻击者输送流量或其他利益的影响
+</pre></div>
+</td></tr></table>
+<h2 id="_3">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    - 已不再使用的功能，直接做下线处理
+    - 引入安全组件
+    - 代码层修复:对用户可控参数进行严格过滤
+</pre></div>
+</td></tr></table>
+<h2 id="_4">匹配规则</h2>
+<p>(mysqli_query|pg_execute|pg_insert|pg_query|pg_select|pg_update|sqlite_query|msql_query|mssql_query|odbc_exec|fbsql_query|sybase_query|ibase_query|dbx_query|ingres_query|ifx_query|oci_parse|sqlsrv_query|maxdb_query|db2_exec)</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19047">webshell22</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\s<em>(assert|eval|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec|include)\s</em>(\s<em>(file_get_contents\s</em>(\s*)?['\"]php://input</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19005">fsockopen造成的SSRF</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a><ul>
+<li><a href="#_2">形成原理</a></li>
+<li><a href="#_3">风险</a></li>
+</ul>
+</li>
+<li><a href="#_4">修复方案</a></li>
+<li><a href="#_5">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    SSRF漏洞(Server-Side Request Forgery)
+</pre></div>
+</td></tr></table>
+<h3 id="_2">形成原理</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    SSRF形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。
+</pre></div>
+</td></tr></table>
+<h3 id="_3">风险</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    1、攻击者可以对外网、服务器所在内网、本地进行端口扫描，获取服务的banner信息。
+    2、攻击运行在内网或本地的应用程序。
+    3、对内网web应用进行指纹识别。
+    4、攻击内外网的web应用。
+    5、利用file协议读取本地文件等。
+</pre></div>
+</td></tr></table>
+<h2 id="_4">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    1. 限制协议为HTTP、HTTPS
+    2. 限制请求域名白名单
+    3. 禁止30x跳转
+</pre></div>
+</td></tr></table>
+<h2 id="_5">匹配规则</h2>
+<p>fsockopen</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19048">webshell26</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>ob_start\s<em>(+\s</em>(['\"]\s<em>(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec).{0,20}|['\"]\s</em>\w+[\s\S]{1,50}phpinfo\s<em>(\s</em>))</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19007">硬编码Token/Key</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    硬编码密码
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将密码抽出统一放在配置文件中，配置文件不放在git中
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p><a href="?![\d]{32}">^\/</a>(?![a-fA-F]{32})([a-f\d]{32}|[A-F\d]{32})[^.]</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19006">赋值型硬编码密码</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    硬编码密码
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将密码抽出统一放在配置文件中，配置文件不放在git中
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>(?:private\s+|public\s+|protected\s+)?(?:static\s+)?\$\w<em>(?:passwd|password|pwd)\w</em>\s<em>(?:=|=&gt;|-&gt;)\s</em>(?:md5(|sha1()?['"][^,]+?['"]</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19058">webshell36</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$\s<em>(\w+)\s</em>=[\s({]<em>((\$_(GET|POST|REQUEST|COOKIE|SERVER).{0,25})|['\"]\s</em>(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec))[\s\S]{0,200}\b(new\s<em>ReflectionFunction|new\s</em>ArrayObject[\s\S]<em>-&gt;u[ak]sort)\b\s</em>(+\s<em>(\$\s</em>\1|((base64_decode|gzinflate|gzuncompress|gzdecode|str_rot13)[\s(]<em>\$\s</em>\1))</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19053">webshell31</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+
+    特征 `gzuncompress\(base64_decode` 对应webshell样例
+    [link](https://github.com/tennc/webshell/blob/4ca96011884b892ec15de130f76eb2a047b77493/php/BNKQbAKQ.txt)
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>ini_get\s<em>(\s</em>\"disable_functions\"\s*)|gzuncompress(base64_decode(|crypt(\$_SERVER['HTTP_H0ST'],\d+)==|if(file_exists(\$settings['STOPFILE']))</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19054">webshell32</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+
+    特征 `dQ99shell` 对应webshell样例
+    [link](https://github.com/tennc/webshell/blob/4ca96011884b892ec15de130f76eb2a047b77493/www-7jyewu-cn/%E5%9B%BD%E5%A4%96%E5%85%8D%E6%9D%80PHP%E5%A4%A7%E9%A9%AC_%E6%9C%AA%E7%BF%BB%E8%AF%91.php)
+
+    特征 `c999shexit` 对应webshell样例
+    [link](https://github.com/tennc/webshell/blob/4ca96011884b892ec15de130f76eb2a047b77493/web-malware-collection-13-06-2012/PHP/c99-bd.txt)
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\$nofuncs='no\s<em>exec\s</em>functions|udf.dll|\$b374k|POWER-BY\s<em>WWW.XXDDOS.COM|<title>Safes\s</title></em>Mode\s<em>Shell</em></p>|Siyanur.PHP\s|c999shexit()|\$c99sh_|c99_sess_put(|Coded\s<em>by\s</em>cyb3r|cyb3r_getupdate(|coded\s<em>by\s</em>tjomi4|john.barker446@gmail.com|eval(\"\\$x=gzin\"|eval(\"\?&gt;\".gzinflate(base64_decode(|eval(gzinflate(base64_decode(|eval(gzuncompress(base64_decode(|eval(gzinflate(str_rot13(base64_decode(|function_exists(\"zigetwar_buff_prepare\")|dQ99shell|r57shell|c99shell|lama's'hell\s<em>v|Carbylamine\s</em>PHP\s<em>Encoder|Safe\s</em>Mode\s<em>Shell|\$dI3h=\${'_REQUEST'};|new\s</em>COM(\"IIS://localhost/w3svc\")|n57http-based[\s<em>-]terminal|Dosya\s</em>Olu|errorlog(\"BACKEND:\s<em>startReDuh,|form\s</em>name=sh311Form|PHPJackal<br/>|Reddragonfly's\s<em>WebShell|(\"system\"==\$seletefunc)\?system(\$shellcmd)|eNrsvGmT40iSKPZ5xmz|CrystalShell\s</em>v.|Special\s<em>99\s</em>Shell|Simple\s<em>PHP\s</em>Mysql\s*client|'_de'.'code'|phpsocks5_encrypt(|define('PHPSHELL_VERSION',|ZXZhbCgkX1BPU1RbMV0p|\$__H_H(\$__C_C"
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19050">webshell28</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>eval(\"\?&gt;\".|gzinflate(base64_decode(|eval(base64_decode(|cat\s<em>/etc/passwd|Safe_Mode\s</em>Bypass</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19009">直接输出入参可能导致XSS</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    直接输出入参会导致XSS
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    1. 使用`htmlentities`函数进行转义
+    2. 使用Begis安全组件对参数进行过滤后使用
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>(echo|print|print_r|exit|die|printf|vprintf|trigger_error|user_error|odbc_result_all|ovrimos_result_all|ifx_htmltbl_result)</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19022">SESSION固定攻击</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="sb">`</span><span class="cp">&lt;?php</span> <span class="nb">setcookie</span><span class="p">(</span><span class="s2">"PHPSESSID"</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s2">"sessid"</span><span class="p">]);</span> <span class="cp">?&gt;</span><span class="sb">`</span>
+    <span class="sb">`/index.php?sessid=1f3870be274f6c49b3e31a0c6728957f`</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该setcookie部分代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>setcookie</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19043">webshell18</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\s<em>(mb_ereg_replace|mb_eregi_replace)\s</em>((.<em>,){3}\s</em>(['\"][^,\"')]<em>e[^,\"')]</em>['\"]|.<em>(\$_(GET|POST|REQUEST|COOKIE|SERVER).{0,25}).</em>|chr\s<em>(\s</em>101|chr\s<em>(\s</em>0x65|chr\s<em>(\s</em>0145)\s*)</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19024">变量覆盖漏洞</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a><ul>
+<li><a href="#_3">错误代码样例</a></li>
+</ul>
+</li>
+<li><a href="#_4">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    变量覆盖漏洞
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    1、使用原始变量,不进行变量注册，直接使用原生的$_GET、$_POST等数组变量进行操作；
+    2、注册变量前判断变量是否存在。自行申明的变量一定要初始化，不然即使注册变量代码在执行流程最前面也能覆盖掉这些未初始化的变量。
+</pre></div>
+</td></tr></table>
+<h3 id="_3">错误代码样例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="sb">```php</span>
+<span class="sb">    </span><span class="cp">&lt;?php</span>
+        <span class="nv">$a</span> <span class="o">=</span> <span class="s1">'0'</span><span class="p">;</span>
+        <span class="nb">import_request_variables</span><span class="p">(</span><span class="s1">'G'</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$a</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+          <span class="k">echo</span> <span class="s2">"true!"</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+          <span class="k">echo</span> <span class="s2">"false!"</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="cp">?&gt;</span><span class="sb"></span>
+
+<span class="sb">    ```</span>
+    <span class="nx">构造</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//www.test.com/test.php?a=1时，会打印出true</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_4">匹配规则</h2>
+<p>import_request_variables|parse_str|mb_parse_str</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19025">extract导致变量覆盖漏洞</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">举例</a></li>
+<li><a href="#_4">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    变量覆盖漏洞
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    在当前行通过flags修复(eg:调用extract()时使用EXTR_SKIP保证已有变量不会被覆盖)
+</pre></div>
+</td></tr></table>
+<h2 id="_3">举例</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    <span class="sb">```php</span>
+<span class="sb">    </span><span class="cp">&lt;?php</span>
+        <span class="nv">$a</span> <span class="o">=</span> <span class="s1">'0'</span><span class="p">;</span>
+        <span class="nb">extract</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">)</span><span class="nx">；</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$a</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span><span class="k">echo</span> <span class="s2">"true!"</span><span class="p">;}</span>
+        <span class="k">else</span><span class="p">{</span><span class="k">echo</span> <span class="s2">"false!"</span><span class="p">;}</span>
+    <span class="cp">?&gt;</span><span class="sb"></span>
+<span class="sb">    ```</span>
+    <span class="nx">构造</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//www.test.com/test.php?a=1时，会打印出true</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_4">匹配规则</h2>
+<p>extract</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19055">webshell33</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+
+    特征 `setcookie("N3tsh_surl");` 对应webshell样例
+    [link](https://github.com/tennc/webshell/blob/e2fd7eed0ca27430af65862bdcefd4bc268805f2/web-malware-collection-13-06-2012/PHP/c99.txt)
+
+    特征 `function Tihuan_Auto`  对应webshell样例
+    [link](https://github.com/tennc/webshell/blob/4ca96011884b892ec15de130f76eb2a047b77493/php/ghost_source.php)
+
+    特征 `http://www.7jyewu.cn/`  对应webshell样例
+    [link](https://github.com/tennc/webshell/blob/4ca96011884b892ec15de130f76eb2a047b77493/www-7jyewu-cn/DOC_ZIBSZXBIEG.php)
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>PD9waHANCiRzX3ZlciA9ICIxLjAiOw0KJHNfdGl0bGUgPSAiWG5vbnltb3V4IFNoZWxsIC|GFnyF4lgiGXW2N7BNyL5EEyQA42LdZtao2S9f|IyEvdXNyL2Jpbi9wZXJsDQokU0hFTEw9Ii9iaW4vYmFzaCAtaSI7|setcookie(\"N3tsh_surl\");|function\s<em>Tihuan_Auto|\$_COOKIE['b374k']|function_exists(\"k1r4_sess_put\")|http://www.7jyewu.cn/|scookie('phpspypass|PHVayv.php\?duzkaydet=|phpRemoteView</em></p>|define('envlpass',|KingDefacer_getupdate(|relative2absolute(|Host:\sold.zone-h.org|<h3>PHPKonsole</h3>|\$_SESSION['hassubdirs'][\$treeroot]|strtolower(\$cmd)\s<em>==\s</em>\"canirun\"|\$shell\s<em>=\s</em>'uname\s<em>-a;\s</em>w;\s<em>id;|Avrasya\s</em>Veri\s<em>ve\s</em>NetWork|<h1>Linux Shells</h1>|\$MyShellVersion\s<em>=\s</em>\"MyShell|<a\s*href=\"http: \"|setcookie\(\s*\"mysql_web_admin_username\"\s*\)|<title="" ihacklog.com="">PHP\s<em>Shell\s</em>[^\n\r]<em></em></a\s*href=\"http:>|\$OOO000000=urldecode|1MSSYowqjzlVVAwAoHHFXzQ5Lc|'xiaoqiwangluo'|EqQC1FhyXxpEi7l2g+yNjW62S|\$_uU(83).\$_uU(84)|7kyJ7kSKioDTWVWeRB3TiciL1UjcmRiLn4SKiAETs90cuZlTz5mROtHWHdWfRt0ZupmVRNTU2Y2MVZkT8|<title>\s</title>ARS\s<em>Terminator\s</em>Shell|base64_decode(\"R0lGODdhEgASAKEAAO7u7gAAAJmZmQAAACwAAA|\x50\x4b\x03\x04\x0a\x00\x00\x00\x00|'<title>W3D\s*Shell</title>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19052">webshell30</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+
+    特征 `$back_connect="IyEvdXNyL2Jpbi9wZXJsDQp1c2UgU2` 对应webshell样例
+    [link](https://github.com/tennc/webshell/blob/4ca96011884b892ec15de130f76eb2a047b77493/138shell/N/NIX%20REMOTE%20WEB-SHELL%20v.0.5%20alpha%20Lite%20Public%20Version.txt)
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>preg_replace\s<em>(\s</em>['\"][^;]<em>e[^;]</em>['\"],([^;]{0,30}\x|[^;)]{200,300})|\$back_connect=\"IyEvdXNyL2Jpbi9wZXJsDQp1c2UgU2|define('gzip',function_exists(\"ob_gzhandler\")|chr(112).chr(97).chr(115).chr(115)|687474703a2f2f377368656c</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19018">打印phpinfo</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    phpinfo不要直接输出
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将phpinfo部分代码片段删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>phpinfo\s*(</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19041">webshell16</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    代码中存在webshell
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>\b(filter_var|filter_var_array)\b\s<em>(.</em>FILTER_CALLBACK[^;]*((\$_(GET|POST|REQUEST|COOKIE|SERVER).{0,25})|(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec))</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/php.html">php</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues.html">Style issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/php/style issues/code style and efficiency.html">Code style and efficiency</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE19019">信息泄露</h1>
+                <p>
+                    Posted on 2024-September-28 in <a href="../../../category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">安全风险</a></li>
+<li><a href="#_2">修复方案</a></li>
+<li><a href="#_3">匹配规则</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h2 id="_1">安全风险</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    可能导致信息泄露
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修复方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>    将该标记片段代码删除代码
+</pre></div>
+</td></tr></table>
+<h2 id="_3">匹配规则</h2>
+<p>(print_r|var_dump|show_source|highlight_file)\s*(</p>
+<h1 id="references">References</h1>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cobra.html">cobra</a>
+                </p>
+            </div>
+        </article>
+
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : "../../..",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

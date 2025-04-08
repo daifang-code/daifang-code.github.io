@@ -1,0 +1,62 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2267">PE2267: space-after-function-name</h2>
+    <h3>该规则已被ESLint v1.0移除，且由`space-before-function-paren`规则替代</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2267</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<p>该规则已被ESLint v1.0<strong>移除</strong>，且由<code>space-before-function-paren</code>规则<strong>替代</strong>。</p>
+<p>Whitespace between a function name and its parameter list is optional.</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">withoutSpace</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">withSpace</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+<p>Some style guides may require a consistent spacing for function names.</p>
+<h2>缺陷详因</h2>
+<p>This rule aims to enforce a consistent spacing after function names. It takes one argument. If it is <code>&quot;always&quot;</code> then all function names must be followed by at least one space. If <code>&quot;never&quot;</code> then there should be no spaces between the name and the parameter list. The default is <code>&quot;never&quot;</code>.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">foo</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">named</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{};</span>
+
+<span class="c1">// When [&quot;error&quot;, &quot;always&quot;]</span>
+<span class="kd">function</span> <span class="nx">bar</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">named</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{};</span>
+
+<span class="c1">// When [&quot;error&quot;, &quot;always&quot;]</span>
+<span class="kd">function</span> <span class="nx">bar</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>This rule was introduced in ESLint 0.11.0 and removed in 1.0.0-rc-1.</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/space-after-function-name.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

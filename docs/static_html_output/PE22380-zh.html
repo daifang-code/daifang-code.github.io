@@ -1,0 +1,40 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22380">PE22380: E127</h2>
+    <h3>Continuation line over-indented for visual indent</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22380</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>连续行的缩进量超出了视觉缩进的范围。</p>
+<h5>示例错误片段</h5>
+<p>在本例中，字符串<code>&quot;World&quot;</code>缩进两个空格比它应该的更远。</p>
+
+<pre><code>print(&quot;Python&quot;, (&quot;Hello&quot;,
+                   &quot;World&quot;))
+
+</code></pre>
+<h5>最佳修复</h5>
+
+<pre><code>print(&quot;Python&quot;, (&quot;Hello&quot;,
+                 &quot;World&quot;))
+
+
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#indentation<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

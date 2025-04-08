@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2002">SC2002: Redundant 'cat' directive</h2>
+    <h3>Useless cat. Consider 'cmd < file | ..' or 'cmd file | ..' instead.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2002</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Useless cat. Consider 'cmd &lt; file | ..' or 'cmd file | ..' instead.</h4>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>cat file <span class="p">|</span> tr <span class="s1">&#39; &#39;</span> _ <span class="p">|</span> nl
+cat file <span class="p">|</span> <span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span> <span class="nb">read</span> -r i<span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">i</span><span class="p">%?</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">done</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>&lt; file tr <span class="s1">&#39; &#39;</span> _ <span class="p">|</span> nl  
+<span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span> <span class="nb">read</span> -r i<span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">i</span><span class="p">%?</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">done</span> &lt; file
+</pre></div>
+<h5>Rationale:</h5>
+<p><code>cat</code> is a tool for con&quot;cat&quot;enating files. Reading a single file as input to a program is considered a <a href="http://en.wikipedia.org/wiki/Cat_(Unix)#Useless_use_of_cat">Useless Use Of Cat (UUOC)</a>.</p>
+<p>It's more efficient and less roundabout to simply use redirection. This is especially true for programs that can benefit from seekable input, like <code>tail</code> or <code>tar</code>.</p>
+<p>Many tools also accept optional filenames, e.g. <code>grep -q foo file</code> instead of <code>cat file | grep -q foo</code>.</p>
+<h5>Exceptions</h5>
+<p>Pointing out UUOC is a long standing shell programming tradition, and removing them from a short-lived pipeline in a loop can speed it up by 2x. However, it's not necessarily a good use of time in practice, and rarely affects correctness. [[Ignore]] as you see fit.</p>
+
+    </section>
+</article>

@@ -1,0 +1,54 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0011">PE0011: Enum As Boolean</h2>
+    <h3>An enum-typed expression is inadvertently used in a boolean context, such as a predicate.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0011</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>An enum-typed expression is inadvertently used in a boolean context, such as a predicate. This will lead to undefined behavior.</p>
+<h4>Vulnerability and risk</h4>
+<h5>undefined behavior</h5>
+<p>An enum-typed expression is inadvertently used in a boolean context, such as a predicate. This will lead to undefined behavior.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>Do not use an enum-typed expression in a boolean context.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">enum</span> <span class="n">color</span> <span class="p">{</span> <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span> <span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">color</span> <span class="n">c</span> <span class="o">=</span> <span class="n">green</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="c1">// detect</span>
+  <span class="p">{</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">red</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, using an enum-typed variable c as a predicate at line 6.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">enum</span> <span class="n">color</span> <span class="p">{</span> <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span> <span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">color</span> <span class="n">c</span> <span class="o">=</span> <span class="n">green</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">green</span><span class="p">)</span> 
+  <span class="p">{</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">red</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example, using a boolean context as a predicate at line 6.</p>
+
+    </section>
+</article>

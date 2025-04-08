@@ -1,0 +1,59 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE19010">PE19010: 拼接SQL注入</h2>
+    <h3>拼接SQL注入</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE19010</dd>
+                    <dt>标签</dt>
+                    <dd>cobra</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>安全风险</h2>
+<h5>SQL注入漏洞形成原因</h5>
+
+<pre><code>    SQL语句拼接，若未对用户可控参数进行足够过滤，可能会导致SQL注入
+
+</code></pre>
+<h5>风险</h5>
+
+<pre><code>    - 用户信息被篡改
+    - 攻击者偷取代码和用户数据
+    - 业务运营的数据被恶意获取
+    - 线上代码被非法篡改，并造成为恶意攻击者输送流量或其他利益的影响
+
+</code></pre>
+<h2>修复方案</h2>
+
+<pre><code>    - 已不再使用的功能，直接做下线处理
+    - 引入安全组件
+    - 代码层修复:尽量不要拼接SQL语句。如必要，需对用户可控的参数进行严格过滤
+
+</code></pre>
+<h2>错误举例</h2>
+
+<pre><code>    ```php
+
+    ```
+    若输入的数据为
+    ```php
+    $_POST['username'] = 'adan';
+    $_POST['password'] = '' OR ''='';
+    ```
+
+    SQL语句变为 `SELECT * FROM users WHERE user='adan' AND password='' OR ''=''` 发生SQL注入，攻击者无需密码即可登录。
+    尽量不要使用拼接的SQL语句。若不得不使用，尽量不要用户可控SQL语句的参数。
+    若必须用户可控，请对用户输入的参数进行严格的限制和过滤。
+
+</code></pre>
+<h2>匹配规则</h2>
+<p>(&quot;\s<em>(select|SELECT|insert|INSERT|update|UPDATE)\s</em>(([^;]\s<em>)</em>)?$(.+?);?&quot;)</p>
+<h4>References</h4>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+
+    </section>
+</article>

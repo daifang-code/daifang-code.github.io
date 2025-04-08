@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7418">BE7418: 一个整数常量与整数余数相乘</h2>
+    <h3>一个整数常量与整数余数相乘</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7418</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>一个整数常量与整数余数相乘</p>
+<h4>漏洞与风险</h4>
+<p>代码使整数余数与整数常量相乘。确保您的操作符优先级是正确的。例如
+i％60 * 1000是（i％60）* 1000，而不是i％(60 * 1000)。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

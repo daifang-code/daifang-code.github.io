@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7382">BE7382: 不必要地实例化仅提供静态方法的类</h2>
+    <h3>不必要地实例化仅提供静态方法的类</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7382</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>不必要地实例化仅提供静态方法的类</p>
+<h4>漏洞与风险</h4>
+<p> 此类分配一个基于仅提供静态方法的类的对象。不需要创建此对象，只需使用类名作为限定符直接访问静态方法。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

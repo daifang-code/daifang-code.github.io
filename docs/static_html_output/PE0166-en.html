@@ -1,0 +1,84 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0166">PE0166: Memory allocation release mismatch</h2>
+    <h3>The application attempts to return a memory resource to the system, but it calls a release function that is not compatible with the function that was originally used to allocate that resource.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0166</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>This weakness can be generally described as mismatching memory management routines, such as:</p>
+<ul>
+<li>The memory was allocated on the stack (automatically), but it was deallocated using the memory management routine free() (CWE-590), which is intended for explicitly allocated heap memory.</li>
+<li>The memory was allocated explicitly using one set of memory management functions, and deallocated using a different set. For example, memory might be allocated with malloc() in C++ instead of the new operator, and then deallocated with the delete operator.</li>
+</ul>
+<p>When the memory management functions are mismatched, the consequences may be as severe as code execution, memory corruption, or program crash. Consequences and ease of exploit will vary depending on the implementation of the routines and the object being managed.</p>
+<h4>Vulnerability and Risk</h4>
+<p>Possible consequences include memory corruption, DoS, program crash/exit/restart, and execution of unauthorized code or commands.</p>
+<h4>Likelihood of Exploit</h4>
+<p>High</p>
+<h4>Potential Mitigations</h4>
+<p>Use the matching memory management function</p>
+<h4>Demonstrative Examples</h4>
+<h5>Code example 1</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">foo</span><span class="p">(){</span>
+  <span class="n">BarObj</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BarObj</span><span class="p">()</span>
+  <span class="cm">/* do some work with ptr here */</span>
+
+  <span class="p">...</span>
+
+  <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>This example allocates a BarObj object using the new operator in C++, however, the programmer then deallocates the object using free(), which may lead to unexpected behavior.</p>
+<h5>Fixed code example 1</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">foo</span><span class="p">(){</span>
+  <span class="n">BarObj</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BarObj</span><span class="p">()</span>
+  <span class="cm">/* do some work with ptr here */</span>
+
+  <span class="p">...</span>
+
+  <span class="n">delete</span> <span class="n">ptr</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Instead, the programmer should have either created the object with one of the malloc family functions, or else deleted the object with the delete operator.</p>
+<h5>Code example 2</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">foo</span><span class="p">();</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="n">A</span><span class="o">::</span><span class="n">foo</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+  <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+  <span class="p">...</span>
+  <span class="n">delete</span> <span class="n">ptr</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In this example, the program does not use matching functions such as malloc/free, new/delete, and new[]/delete[] to allocate/deallocate the resource.</p>
+<h5>Fixed code example 2</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">foo</span><span class="p">();</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="n">A</span><span class="o">::</span><span class="n">foo</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+  <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+  <span class="p">...</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>Instead, the program use the matching function to allocate/deallocate the resource.</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/762.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

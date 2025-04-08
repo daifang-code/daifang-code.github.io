@@ -1,0 +1,47 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2136">PE2136: no-negated-in-lhs</h2>
+    <h3>disallow negating the left operand in `in` expressions (no-negated-in-lhs)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2136</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow negating the left operand in <code>in</code> expressions (no-negated-in-lhs)</h4>
+<p>This rule was <strong>deprecated</strong> in ESLint v3.3.0 and replaced by the <a href="no-unsafe-negation.md">no-unsafe-negation</a> rule.</p>
+<h2>Rule Details</h2>
+<p>Just as developers might type <code>-a + b</code> when they mean <code>-(a + b)</code> for the negative of a sum, they might type <code>!key in object</code> by mistake when they almost certainly mean <code>!(key in object)</code> to test that a key is not in an object.</p>
+<h2>Rule Details</h2>
+<p>This rule disallows negating the left operand in <code>in</code> expressions.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-negated-in-lhs: &quot;error&quot;*/</span>
+
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// operator precedence makes it equivalent to (!key) in object</span>
+    <span class="c1">// and type conversion makes it equivalent to (key ? &quot;false&quot; : &quot;true&quot;) in object</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-negated-in-lhs: &quot;error&quot;*/</span>
+
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">object</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// key is not in object</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">((</span><span class="s1">&#39;&#39;</span> <span class="o">+</span> <span class="o">!</span><span class="nx">key</span><span class="p">)</span> <span class="k">in</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// make operator precedence and type conversion explicit</span>
+    <span class="c1">// in a rare situation when that is the intended meaning</span>
+<span class="p">}</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>Never.</p>
+
+    </section>
+</article>

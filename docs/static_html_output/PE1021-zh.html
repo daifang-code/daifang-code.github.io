@@ -1,0 +1,47 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1021">PE1021: 不当使用迭代器</h2>
+    <h3>使用 '<' 比较两个迭代器的大小或者在条件判断中直接使用find()的迭代器作为判断条件。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1021</dd>
+                    <dt>标签</dt>
+                    <dd>CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>描述</h4>
+<p>使用 '&lt;' 比较两个迭代器的大小或者在条件判断中直接使用find()的迭代器作为判断条件。</p>
+<h4>漏洞与风险</h4>
+<h5>不当使用迭代器的危险操作</h5>
+<p>使用 '&lt;' 比较两个迭代器的大小或者在条件判断中直接使用find()的迭代器作为判断条件都属于不当使用迭代器的危险操作。</p>
+<h4>利用的可能性</h4>
+<p>高</p>
+<h4>缓解与预防</h4>
+<p>比较两个迭代器时建议使用'==',对于返回迭代器的函数不适合转换为bool值进行判断。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">v1</span><span class="p">,</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">v1</span><span class="o">&lt;</span><span class="n">v2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">}</span>
+  <span class="c1">//</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，使用 '&lt;' 比较两个迭代器的大小。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">v1</span><span class="p">,</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">v1</span><span class="o">==</span><span class="n">v2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，使用 '==' 比较两个迭代器的大小。</p>
+
+    </section>
+</article>

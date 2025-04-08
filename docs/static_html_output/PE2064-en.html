@@ -1,0 +1,138 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2064">PE2064: new-cap</h2>
+    <h3>require constructor names to begin with a capital letter (new-cap)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2064</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>require constructor names to begin with a capital letter (new-cap)</h4>
+<p>The <code>new</code> operator in JavaScript creates a new instance of a particular type of object. That type of object is represented by a constructor function. Since constructor functions are just regular functions, the only defining characteristic is that <code>new</code> is being used as part of the call. Native JavaScript functions begin with an uppercase letter to distinguish those functions that are to be used as constructors from functions that are not. Many style guides recommend following this pattern to more easily determine which functions are to be used as constructors.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule requires constructor names to begin with a capital letter. Certain built-in identifiers are exempt from this rule. These identifiers are:</p>
+<ul>
+<li><code>Array</code></li>
+<li><code>Boolean</code></li>
+<li><code>Date</code></li>
+<li><code>Error</code></li>
+<li><code>Function</code></li>
+<li><code>Number</code></li>
+<li><code>Object</code></li>
+<li><code>RegExp</code></li>
+<li><code>String</code></li>
+<li><code>Symbol</code></li>
+</ul>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">arg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Boolean</span><span class="p">(</span><span class="nx">arg</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Options</h2>
+<p>This rule has an object option:</p>
+<ul>
+<li><code>&quot;newIsCap&quot;: true</code> (default) requires all <code>new</code> operators to be called with uppercase-started functions.</li>
+<li><code>&quot;newIsCap&quot;: false</code> allows <code>new</code> operators to be called with lowercase-started or uppercase-started functions.</li>
+<li><code>&quot;capIsNew&quot;: true</code> (default) requires all uppercase-started functions to be called with <code>new</code> operators.</li>
+<li><code>&quot;capIsNew&quot;: false</code> allows uppercase-started functions to be called without <code>new</code> operators.</li>
+<li><code>&quot;newIsCapExceptions&quot;</code> allows specified lowercase-started function names to be called with the <code>new</code> operator.</li>
+<li><code>&quot;newIsCapExceptionPattern&quot;</code> allows any lowercase-started function names that match the specified regex pattern to be called with the <code>new</code> operator.</li>
+<li><code>&quot;capIsNewExceptions&quot;</code> allows specified uppercase-started function names to be called without the <code>new</code> operator.</li>
+<li><code>&quot;capIsNewExceptionPattern&quot;</code> allows any uppercase-started function names that match the specified regex pattern to be called without the <code>new</code> operator.</li>
+<li><code>&quot;properties&quot;: true</code> (default) enables checks on object properties</li>
+<li><code>&quot;properties&quot;: false</code> disables checks on object properties</li>
+</ul>
+<h5>newIsCap</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>{ &quot;newIsCap&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;newIsCap&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>{ &quot;newIsCap&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;newIsCap&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;newIsCap&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;newIsCap&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">();</span>
+</pre></div>
+<h5>capIsNew</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>{ &quot;capIsNew&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;capIsNew&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">colleague</span> <span class="o">=</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>{ &quot;capIsNew&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;capIsNew&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">colleague</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;capIsNew&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;capIsNew&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">colleague</span> <span class="o">=</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<h5>newIsCapExceptions</h5>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>{ &quot;newIsCapExceptions&quot;: [&quot;events&quot;] }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;newIsCapExceptions&quot;: [&quot;events&quot;] }]*/</span>
+
+<span class="kd">var</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">events</span><span class="p">();</span>
+</pre></div>
+<h5>newIsCapExceptionPattern</h5>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>{ &quot;newIsCapExceptionPattern&quot;: &quot;^person\..&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;newIsCapExceptionPattern&quot;: &quot;^person\..&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">.</span><span class="nx">acquaintance</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">bestFriend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">.</span><span class="nx">friend</span><span class="p">();</span>
+</pre></div>
+<h5>capIsNewExceptions</h5>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>{ &quot;capIsNewExceptions&quot;: [&quot;Person&quot;] }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;capIsNewExceptions&quot;: [&quot;Person&quot;] }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">arg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">arg</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>capIsNewExceptionPattern</h5>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>{ &quot;capIsNewExceptionPattern&quot;: &quot;^Person\..&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;capIsNewExceptionPattern&quot;: &quot;^Person\..&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="nx">person</span><span class="p">.</span><span class="nx">Acquaintance</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">bestFriend</span> <span class="o">=</span> <span class="nx">person</span><span class="p">.</span><span class="nx">Friend</span><span class="p">();</span>
+</pre></div>
+<h5>properties</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>{ &quot;properties&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;properties&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">.</span><span class="nx">acquaintance</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>{ &quot;properties&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;properties&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">.</span><span class="nx">Acquaintance</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;properties&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;properties&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">.</span><span class="nx">acquaintance</span><span class="p">();</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you have conventions that don't require an uppercase letter for constructors, or don't require capitalized functions be only used as constructors, turn this rule off.</p>
+
+    </section>
+</article>

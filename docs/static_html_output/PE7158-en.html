@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7158">BE7158: Notify with two locks held</h2>
+    <h3>Notify with two locks held</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7158</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Notify with two locks held</p>
+<h4>Vulnerability and risk</h4>
+<p> The code calls notify() or notifyAll() while two locks
+  are held. If this notification is intended to wake up a wait()
+  that is holding the same locks, it may deadlock, since the wait
+  will only give up one lock and the notify will be unable to get both locks,
+  and thus the notify will not succeed.
+   &nbsp; If there is also a warning about a two lock wait, the
+   probably of a bug is quite high.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+
+    </section>
+</article>

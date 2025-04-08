@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7209">BE7209: transient 字段不是由反序列化设置的</h2>
+    <h3>transient 字段不是由反序列化设置的</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7209</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>transient 字段不是由反序列化设置的</p>
+<h4>漏洞与风险</h4>
+<p>此类包含一个在类中多次进行更新的字段，它似乎是类的状态的一部分。但是，由于该字段未在readObject或readResolve中被设置为transient，它将包含该类中反序列化实例的缺省值。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

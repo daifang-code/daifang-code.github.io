@@ -1,0 +1,51 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1014">SC1014: Missing checking of output</h2>
+    <h3>Use 'if cmd; then ..' to check exit code, or 'if [ "$(cmd)" = .. ]' to check output.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1014</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Use 'if cmd; then ..' to check exit code, or 'if [ &quot;$(cmd)&quot; = .. ]' to check output.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> grep -q pattern file <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Found a match&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">if</span> grep -q pattern file
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Found a match&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p><code>[ .. ]</code> is not part of shell syntax like <code>if</code> statements. It is not equivalent to parentheses in C-like languages, <code>if (foo) { bar; }</code>, and should not be wrapped around commands to test.</p>
+<p><code>[</code> is just regular command, like <code>whoami</code> or <code>grep</code>, but with a funny name (see <code>ls -l /bin/[</code>). It's a shorthand for <code>test</code>.</p>
+<p>If you want to check the exit status of a certain command, use that command directly as demonstrated in the correct code.</p>
+<p>If you want to check the output of a command, use <code>&quot;$(..)&quot;</code> to get its output, and then use <code>test</code> or  <code>[</code>/<code>[[</code> to do a string comparison:</p>
+
+<pre><code># Check output of `whoami` against the string `root`
+if [ &quot;$(whoami)&quot; = &quot;root&quot; ]
+then
+  echo &quot;Running as root&quot;
+fi
+</code></pre>
+<p>For more information, see <a href="http://mywiki.wooledge.org/BashPitfalls#if_.5Bgrep_foo_myfile.5D">this problem in the Bash Pitfall</a> list, or generally <a href="http://mywiki.wooledge.org/BashGuide/TestsAndConditionals">Tests and Conditionals</a> in the WoolEdge BashGuide</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+<h5>Related resources:</h5>
+<ul>
+<li><a href="https://stackoverflow.com/questions/2480584/how-do-i-use-a-file-grep-comparison-inside-a-bash-if-else-statement">How do I use a file grep comparison inside a bash if/else statement?</a></li>
+<li>Bash Pitfalls: <a href="https://mywiki.wooledge.org/BashPitfalls#if_.5Bgrep_foo_myfile.5D"> if [grep foo myfile] </a></li>
+</ul>
+
+    </section>
+</article>

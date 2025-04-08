@@ -1,0 +1,48 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2138">PE2138: no-new</h2>
+    <h3>禁止使用 new 以避免产生副作用 (no-new)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2138</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止使用 new 以避免产生副作用 (no-new)</h4>
+<p>对构造函数使用 <code>new</code> 的目的通常是创建一个特定类型的对象并且将该对象存储在变量中，比如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<p>使用 <code>new</code> 却不存储结果这种情况是不太常见的，比如：</p>
+<div class="highlight"><pre><span></span><span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<p>在这个例子中，创建的对象被销毁因为它的引用没有被存储在任何地方，并且在许多场景中，这意味着构造函数应该被一个不需要使用 <code>new</code> 的函数所替代。</p>
+<h2>缺陷详因</h2>
+<p>此规则旨在通过禁止使用 <code>new</code> 关键字调用构造函数但却不将结果赋值给一个变量来保持一致性和约定。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-new: &quot;error&quot;*/</span>
+
+<span class="k">new</span> <span class="nx">Thing</span><span class="p">();</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-new: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Thing</span><span class="p">();</span>
+
+<span class="nx">Thing</span><span class="p">();</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.7 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-new.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-new.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

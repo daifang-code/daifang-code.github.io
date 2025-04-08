@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7312">BE7312: 调用equals()比较不同的接口类型</h2>
+    <h3>调用equals()比较不同的接口类型</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7312</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>调用equals()比较不同的接口类型</p>
+<h4>漏洞与风险</h4>
+<p>此方法在两个无关接口类型的引用上调用equals(Object)，其中两个都不是另一个的子类型，并且没有已知的非抽象类实现这两个接口。因此，被比较的对象在运行时间内不太可能是同一个类的成员（除非未分析某些应用程序类，或者在运行时间内可能发生动态类加载）。根据equals()的合约，不同类别的对象应始终比较为不相等；因此，根据java.lang.Object.equals(Object)定义的合约，此比较结果在运行时间内始终为false。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

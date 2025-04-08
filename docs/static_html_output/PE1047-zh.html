@@ -1,0 +1,65 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1047">PE1047: 没有使用虚函数作为析构函数</h2>
+    <h3>如果一个类被其他类继承，应该使用虚函数做析构函数</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1047</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>如果一个类被其他类继承，应该使用虚函数做析构函数。例如，如果B继承A，我们用A* x = new B; 然后delete x, 这时应该调用B的析构函数，但是如果A的析构函数不是virtual, 则不会调用B的析构函数，这样B维护的内存可能会泄漏</p>
+<h4>漏洞与风险</h4>
+<p>一般情况下类的析构函数里面都是释放内存资源，而如果基类的析构函数不是虚函数，那个继承类的析构函数就不被调用，这样的话就会造成内存泄漏。</p>
+<h4>缓解与预防</h4>
+<p>如果一个类作为基类被其他类继承，那么该类的析构函数应该用虚函数</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>演示示例</h4>
+<h5>漏洞缺陷示例</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span>
+<span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+    <span class="n">A</span><span class="p">()</span> <span class="p">{};</span>
+    <span class="o">~</span><span class="n">A</span><span class="p">()</span> <span class="p">{};</span> <span class="c1">//detect</span>
+    <span class="n">virtual</span> <span class="kt">void</span> <span class="nf">Do</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Do something in class A!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="n">class</span> <span class="nl">B</span> <span class="p">:</span> <span class="n">public</span> <span class="n">A</span>
+<span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+    <span class="n">B</span><span class="p">()</span> <span class="p">{};</span>
+    <span class="o">~</span><span class="n">B</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Output from the destructor of class B!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
+
+    <span class="kt">void</span> <span class="nf">Do</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Do something in class B!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<p>在这种情况下，类B的析构函数根本没有被调用。一般情况下类的析构函数里面都是释放内存资源，而析构函数不被调用的话就会造成内存泄漏。</p>
+<h5>漏洞缺陷修复示例</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span>
+<span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+    <span class="n">A</span><span class="p">()</span> <span class="p">{};</span>
+    <span class="n">virtual</span> <span class="o">~</span><span class="n">A</span><span class="p">()</span> <span class="p">{};</span>
+    <span class="n">virtual</span> <span class="kt">void</span> <span class="nf">Do</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Do something in class A!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="n">class</span> <span class="nl">B</span> <span class="p">:</span> <span class="n">public</span> <span class="n">A</span>
+<span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+    <span class="n">B</span><span class="p">()</span> <span class="p">{};</span>
+    <span class="o">~</span><span class="n">B</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Output from the destructor of class B!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
+
+    <span class="kt">void</span> <span class="nf">Do</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Do something in class B!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<p>在上面代码中，我们只需要将类A的析构函数改为虚函数就可以解决上述问题了。</p>
+
+    </section>
+</article>

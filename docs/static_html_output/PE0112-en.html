@@ -1,0 +1,53 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0112">PE0112: Floating point comparison</h2>
+    <h3>Floating point comparison.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0112</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Two floating point or double floating point values ​​are compared using the &quot;==&quot; or &quot;!=&quot; operator.</p>
+<h4>Vulnerability and risk</h4>
+<p>The storage and calculation of floating-point numbers in a computer is inaccurate, so comparing a floating-point number with the &quot;==&quot; or &quot;!=&quot; operator may result in the opposite of the expected result.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Whether the floating point numbers are equal or unequal is determined by calculating whether the absolute value of the difference between the two floating point numbers is less than an allowable error value.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span>  <span class="c1">//Equal comparison of floating point numbers</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.000001</span><span class="p">)</span>  <span class="c1">//Equal comparison of floating point numbers</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h4>Reference</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>SJ/T 11682-2017 6.5.25<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

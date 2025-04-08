@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7461">BE7461: 忽略putIfAbsent的返回值，传递给putIfAbsent的值被重用</h2>
+    <h3>忽略putIfAbsent的返回值，传递给putIfAbsent的值被重用</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7461</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>忽略putIfAbsent的返回值，传递给putIfAbsent的值被重用</p>
+<h4>漏洞与风险</h4>
+<p><code>putIfAbsent</code>方法用来确保一个键只关联到一个值（也就是用putIfPresent插入的第一个值）。如果您忽略了该方法的返回值，而继续使用给该方法传入的值，那么您将面临传入的值与存储在Map的值不一致的风险。如果这种一致性对你的程序很关键的话，你的程序可能处于不正确的状态。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

@@ -1,0 +1,154 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2032">PE2032: func-names</h2>
+    <h3>Require or disallow named `function` expressions (func-names)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2032</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Require or disallow named <code>function</code> expressions (func-names)</h4>
+<p>A pattern that's becoming more common is to give function expressions names to aid in debugging. For example:</p>
+<div class="highlight"><pre><span></span><span class="nx">Foo</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{};</span>
+</pre></div>
+<p>Adding the second <code>bar</code> in the above example is optional.  If you leave off the function name then when the function throws an exception you are likely to get something similar to <code>anonymous function</code> in the stack trace.  If you provide the optional name for a function expression then you will get the name of the function expression in the stack trace.</p>
+<h2>Rule Details</h2>
+<p>This rule can enforce or disallow the use of named function expressions.</p>
+<h2>Options</h2>
+<p>This rule has a string option:</p>
+<ul>
+<li><code>&quot;always&quot;</code> (default) requires function expressions to have a name</li>
+<li><code>&quot;as-needed&quot;</code> requires function expressions to have a name, if the name cannot be assigned automatically in an ES6 environment</li>
+<li><code>&quot;never&quot;</code> disallows named function expressions, except in recursive functions, where a name is needed</li>
+</ul>
+<p>This rule has an object option:</p>
+<ul>
+<li><code>&quot;generators&quot;: &quot;always&quot; | &quot;as-needed&quot; | &quot;never&quot;</code><ul>
+<li><code>&quot;always&quot;</code> require named generators</li>
+<li><code>&quot;as-needed&quot;</code> require named generators if the name cannot be assigned automatically in an ES6 environment.</li>
+<li><code>&quot;never&quot;</code> disallow named generators where possible.</li>
+</ul>
+</li>
+</ul>
+<p>When a value for <code>generators</code> is not provided the behavior for generator functions falls back to the base option.</p>
+<h5>always</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="nx">Foo</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}())</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="nx">Foo</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}())</span>
+</pre></div>
+<h5>as-needed</h5>
+<p>ECMAScript 6 introduced a <code>name</code> property on all functions. The value of <code>name</code> is determined by evaluating the code around the function to see if a name can be inferred. For example, a function assigned to a variable will automatically have a <code>name</code> property equal to the name of the variable. The value of <code>name</code> is then used in stack traces for easier debugging.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;as-needed&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;as-needed&quot;]*/</span>
+
+<span class="nx">Foo</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}())</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;as-needed&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;as-needed&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}())</span>
+</pre></div>
+<h5>never</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="nx">Foo</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}())</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="nx">Foo</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}())</span>
+</pre></div>
+<h5>generators</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;, { &quot;generators&quot;: &quot;as-needed&quot; }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;always&quot;, { &quot;generators&quot;: &quot;as-needed&quot; }]*/</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}())</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;, { &quot;generators&quot;: &quot;as-needed&quot; }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;always&quot;, { &quot;generators&quot;: &quot;as-needed&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{};</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;, { &quot;generators&quot;: &quot;never&quot; }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;always&quot;, { &quot;generators&quot;: &quot;never&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">(</span><span class="kd">function</span> <span class="o">*</span><span class="nx">baz</span><span class="p">()</span> <span class="p">{});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;, { &quot;generators&quot;: &quot;never&quot; }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;always&quot;, { &quot;generators&quot;: &quot;never&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">(</span><span class="kd">function</span> <span class="o">*</span><span class="p">()</span> <span class="p">{});</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;as-needed&quot;, { &quot;generators&quot;: &quot;never&quot; }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;as-needed&quot;, { &quot;generators&quot;: &quot;never&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">(</span><span class="kd">function</span> <span class="o">*</span><span class="nx">baz</span><span class="p">()</span> <span class="p">{});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;as-needed&quot;, { &quot;generators&quot;: &quot;never&quot; }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;as-needed&quot;, { &quot;generators&quot;: &quot;never&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">(</span><span class="kd">function</span> <span class="o">*</span><span class="p">()</span> <span class="p">{});</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;never&quot;, { &quot;generators&quot;: &quot;always&quot; }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;never&quot;, { &quot;generators&quot;: &quot;always&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">(</span><span class="kd">function</span> <span class="o">*</span><span class="p">()</span> <span class="p">{});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;never&quot;, { &quot;generators&quot;: &quot;always&quot; }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-names: [&quot;error&quot;, &quot;never&quot;, { &quot;generators&quot;: &quot;always&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">(</span><span class="kd">function</span> <span class="o">*</span><span class="nx">baz</span><span class="p">()</span> <span class="p">{});</span>
+</pre></div>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="http://markdaggett.com/blog/2013/02/15/functions-explained/">Functions Explained</a></li>
+<li><a href="http://2ality.com/2015/09/function-names-es6.html">Function Names in ES6</a></li>
+</ul>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS</strong>: <a href="https://jscs-dev.github.io/rule/requireAnonymousFunctions">requireAnonymousFunctions</a></li>
+<li><strong>JSCS</strong>: <a href="https://jscs-dev.github.io/rule/disallowAnonymousFunctions">disallowAnonymousFunctions</a></li>
+</ul>
+
+    </section>
+</article>

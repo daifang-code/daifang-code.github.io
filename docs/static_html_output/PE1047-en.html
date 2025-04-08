@@ -1,0 +1,65 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1047">PE1047: Missing virtual destructor</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1047</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>If a class is inherited or has virtual functions the destructor should be marked as virtual method. If you destroy instances of the derived class by deleting a pointer that points to the base class, only the destructor of the base class is executed. Thus, dynamic memory that is managed by the derived class could leak.</p>
+<h4>Vulnerability and risk</h4>
+<p>Normally, a class destructor is to free the memory resources. if the destructor of base class is not virtual function, the derived class's destructor won't be invoked, this may cause memory leak.</p>
+<h4>Likelihood of Exploit</h4>
+<p>If a class is inherited as a base class by another class, its destructor should use virtual function</p>
+<h4>Potential Mitigations</h4>
+<p>medium</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span>
+<span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+    <span class="n">A</span><span class="p">()</span> <span class="p">{};</span>
+    <span class="o">~</span><span class="n">A</span><span class="p">()</span> <span class="p">{};</span> <span class="c1">//detect</span>
+    <span class="n">virtual</span> <span class="kt">void</span> <span class="nf">Do</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Do something in class A!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="n">class</span> <span class="nl">B</span> <span class="p">:</span> <span class="n">public</span> <span class="n">A</span>
+<span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+    <span class="n">B</span><span class="p">()</span> <span class="p">{};</span>
+    <span class="o">~</span><span class="n">B</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Output from the destructor of class B!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
+
+    <span class="kt">void</span> <span class="nf">Do</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Do something in class B!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<p>In this case, the destructor of class B is not used at all. In general, class destructor releases memory resources, and memory leaks can occur if the destructor is not used.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span>
+<span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+    <span class="n">A</span><span class="p">()</span> <span class="p">{};</span>
+    <span class="n">virtual</span> <span class="o">~</span><span class="n">A</span><span class="p">()</span> <span class="p">{};</span>
+    <span class="n">virtual</span> <span class="kt">void</span> <span class="nf">Do</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Do something in class A!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="n">class</span> <span class="nl">B</span> <span class="p">:</span> <span class="n">public</span> <span class="n">A</span>
+<span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+    <span class="n">B</span><span class="p">()</span> <span class="p">{};</span>
+    <span class="o">~</span><span class="n">B</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Output from the destructor of class B!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
+
+    <span class="kt">void</span> <span class="nf">Do</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Do something in class B!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<p>In the above code, we just need to change the destructor of class A to a virtual function, then we can solve above problem.</p>
+
+    </section>
+</article>

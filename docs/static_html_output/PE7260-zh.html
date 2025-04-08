@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7260">BE7260: 方法在检查readLine是否非空之后丢弃它的结果</h2>
+    <h3>方法在检查readLine是否非空之后丢弃它的结果</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7260</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>方法在检查readLine是否非空之后丢弃它的结果</p>
+<h4>漏洞与风险</h4>
+<p>在检查返回值是否为非null之后，将丢弃readLine返回的值。在几乎所有情况下，如果结果为非null，则您将需要使用该非null值。再次调用readLine会给你一个不同的行。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

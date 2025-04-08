@@ -1,0 +1,3129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='../../../theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="../../../theme/stylesheet/normalize.min.css">
+    <script src="../../../theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="../../../theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../../../theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="../../../theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">      <meta name="author" content="Pinpoint Team"/>
+    <meta name="description" content="Manual and documents for Sourcebrella Pinpoint"/> <meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Pinpoint Document"/>
+<meta property="og:description" content="Manual and documents for Sourcebrella Pinpoint"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="../../.."/>
+ 
+    <title>Pinpoint Document &ndash; Category</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href="../../..">
+                <img src="../../../theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href="../../..">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="../../../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="../../../standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="../../../standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="../../../standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="../../../standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="../../../standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="../../../standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="../../../standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="../../../standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+          <article>
+            <h1>
+            Concurrency and temporal errors (52)
+            </h1>
+        </article>
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7157">Wait with two locks held</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Wait with two locks held</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> Waiting on a monitor while two locks are held may cause
+  deadlock.
+    
+   Performing a wait only releases the lock on the object
+   being waited on, not any other locks.
+    
+This not necessarily a bug, but is worth examining
+  closely.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7291">Method does not release lock on all paths</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Method does not release lock on all paths</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method acquires a JSR-166 (<code>java.util.concurrent</code>) lock,
+but does not release it on all paths out of the method.  In general, the correct idiom
+for using a JSR-166 lock is:
+</p>
+<pre><code>Lock l = ...;
+l.lock();
+try {
+    // do something
+} finally {
+    l.unlock();
+}
+</code></pre></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7012">Static DateFormat</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Static DateFormat</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>As the JavaDoc states, DateFormats are inherently unsafe for multithreaded use.
+Sharing a single instance across thread boundaries without proper synchronization will result in erratic behavior of the
+application.</p>
+<p>You may also experience serialization problems.</p>
+<p>Using an instance field is recommended.</p>
+<p>For more information on this see <a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=6231579">JDK Bug #6231579</a>
+and <a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=6178997">JDK Bug #6178997</a>.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7088">Monitor wait() called on Condition</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Monitor wait() called on Condition</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>
+      This method calls <code>wait()</code> on a
+      <code>java.util.concurrent.locks.Condition</code> object. 
+      Waiting for a <code>Condition</code> should be done using one of the <code>await()</code>
+      methods defined by the <code>Condition</code> interface.
+      </p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7014">Call to static DateFormat</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Call to static DateFormat</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>As the JavaDoc states, DateFormats are inherently unsafe for multithreaded use.
+The detector has found a call to an instance of DateFormat that has been obtained via a static
+field. This looks suspicious.</p>
+<p>For more information on this see <a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=6231579">JDK Bug #6231579</a>
+and <a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=6178997">JDK Bug #6178997</a>.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7153">Invokes run on a thread (did you mean to start it instead?)</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Invokes run on a thread (did you mean to start it instead?)</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method explicitly invokes <code>run()</code> on an object. 
+  In general, classes implement the <code>Runnable</code> interface because
+  they are going to have their <code>run()</code> method invoked in a new thread,
+  in which case <code>Thread.start()</code> is the right method to call.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7141">Synchronization on Boolean</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Synchronization on Boolean</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> The code synchronizes on a boxed primitive constant, such as a Boolean.</p>
+<pre><code>private static Boolean inited = Boolean.FALSE;
+...
+synchronized(inited) {
+    if (!inited) {
+        init();
+        inited = Boolean.TRUE;
+    }
+}
+...
+</code></pre>
+<p>Since there normally exist only two Boolean objects, this code could be synchronizing on the same object as other, unrelated code, leading to unresponsiveness
+and possible deadlock.</p>
+<p>See CERT <a href="https://www.securecoding.cert.org/confluence/display/java/CON08-J.+Do+not+synchronize+on+objects+that+may+be+reused">CON08-J. Do not synchronize on objects that may be reused</a> for more information.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7162">Unsynchronized get method, synchronized set method</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Unsynchronized get method, synchronized set method</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This class contains similarly-named get and set
+  methods where the set method is synchronized and the get method is not. 
+  This may result in incorrect behavior at runtime, as callers of the get
+  method will not necessarily see a consistent state for the object. 
+  The get method should be made synchronized.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7241">Wait not in loop</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Wait not in loop</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method contains a call to <code>java.lang.Object.wait()</code>
+  which is not in a loop.  If the monitor is used for multiple conditions,
+  the condition the caller intended to wait for might not be the one
+  that actually occurred.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7142">Synchronization on boxed primitive</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Synchronization on boxed primitive</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> The code synchronizes on a boxed primitive constant, such as an Integer.</p>
+<pre><code>private static Integer count = 0;
+...
+synchronized(count) {
+    count++;
+}
+...
+</code></pre>
+<p>Since Integer objects can be cached and shared,
+this code could be synchronizing on the same object as other, unrelated code, leading to unresponsiveness
+and possible deadlock.</p>
+<p>See CERT <a href="https://www.securecoding.cert.org/confluence/display/java/CON08-J.+Do+not+synchronize+on+objects+that+may+be+reused">CON08-J. Do not synchronize on objects that may be reused</a> for more information.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7242">Condition.await() not in loop</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Condition.await() not in loop</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method contains a call to <code>java.util.concurrent.await()</code>
+   (or variants)
+  which is not in a loop.  If the object is used for multiple conditions,
+  the condition the caller intended to wait for might not be the one
+  that actually occurred.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7061">Futile attempt to change max pool size of ScheduledThreadPoolExecutor</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Futile attempt to change max pool size of ScheduledThreadPoolExecutor</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>(<a href="http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/ScheduledThreadPoolExecutor.html">Javadoc</a>)
+While ScheduledThreadPoolExecutor inherits from ThreadPoolExecutor, a few of the inherited tuning methods are not useful for it. In particular, because it acts as a fixed-sized pool using corePoolSize threads and an unbounded queue, adjustments to maximumPoolSize have no useful effect.
+    </p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7159">Unconditional wait</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Unconditional wait</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method contains a call to <code>java.lang.Object.wait()</code> which
+  is not guarded by conditional control flow.  The code should
+    verify that condition it intends to wait for is not already satisfied
+    before calling wait; any previous notifications will be ignored.
+  </p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7143">Synchronization on boxed primitive values</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Synchronization on boxed primitive values</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> The code synchronizes on an apparently unshared boxed primitive,
+such as an Integer.</p>
+<pre><code>private static final Integer fileLock = new Integer(1);
+...
+synchronized(fileLock) {
+    .. do something ..
+}
+...
+</code></pre>
+<p>It would be much better, in this code, to redeclare fileLock as</p>
+<pre><code>private static final Object fileLock = new Object();
+</code></pre>
+<p>
+The existing code might be OK, but it is confusing and a
+future refactoring, such as the "Remove Boxing" refactoring in IntelliJ,
+might replace this with the use of an interned Integer object shared
+throughout the JVM, leading to very confusing behavior and potential deadlock.
+</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7103">Possible double check of field</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Possible double check of field</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method may contain an instance of double-checked locking. 
+  This idiom is not correct according to the semantics of the Java memory
+  model.  For more information, see the web page
+  &lt;a href="http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html"</p>
+<blockquote>
+<p>http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html</p></blockquote></p>.
+
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7015">Synchronize and null check on the same field.</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Synchronize and null check on the same field.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>Since the field is synchronized on, it seems not likely to be null.
+If it is null and then synchronized on a NullPointerException will be
+thrown and the check would be pointless. Better to synchronize on
+another field.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7341">Synchronization performed on util.concurrent instance</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Synchronization performed on util.concurrent instance</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method performs synchronization an object that is an instance of
+a class from the java.util.concurrent package (or its subclasses). Instances
+of these classes have their own concurrency control mechanisms that are orthogonal to
+the synchronization provided by the Java keyword <code>synchronized</code>. For example,
+synchronizing on an <code>AtomicBoolean</code> will not prevent other threads
+from modifying the  <code>AtomicBoolean</code>.</p>
+<p>Such code may be correct, but should be carefully reviewed and documented,
+and may confuse people who have to maintain the code at a later date.
+</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7011">Static Calendar field</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Static Calendar field</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>Even though the JavaDoc does not contain a hint about it, Calendars are inherently unsafe for multithreaded use.
+Sharing a single instance across thread boundaries without proper synchronization will result in erratic behavior of the
+application. Under 1.4 problems seem to surface less often than under Java 5 where you will probably see
+random ArrayIndexOutOfBoundsExceptions or IndexOutOfBoundsExceptions in sun.util.calendar.BaseCalendar.getCalendarDateFromFixedDate().</p>
+<p>You may also experience serialization problems.</p>
+<p>Using an instance field is recommended.</p>
+<p>For more information on this see <a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=6231579">JDK Bug #6231579</a>
+and <a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=6178997">JDK Bug #6178997</a>.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7013">Call to static Calendar</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Call to static Calendar</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>Even though the JavaDoc does not contain a hint about it, Calendars are inherently unsafe for multithreaded use.
+The detector has found a call to an instance of Calendar that has been obtained via a static
+field. This looks suspicious.</p>
+<p>For more information on this see <a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=6231579">JDK Bug #6231579</a>
+and <a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=6178997">JDK Bug #6178997</a>.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7027">A volatile reference to an array doesn't treat the array elements as volatile</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>A volatile reference to an array doesn't treat the array elements as volatile</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>This declares a volatile reference to an array, which might not be what
+you want. With a volatile reference to an array, reads and writes of
+the reference to the array are treated as volatile, but the array elements
+are non-volatile. To get volatile array elements, you will need to use
+one of the atomic array classes in java.util.concurrent (provided
+in Java 5.0).</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7100">A thread was created using the default empty run method</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>A thread was created using the default empty run method</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>This method creates a thread without specifying a run method either by deriving from the Thread class, or
+  by passing a Runnable object. This thread, then, does nothing but waste time.
+</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7461">Return value of putIfAbsent ignored, value passed to putIfAbsent reused</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Return value of putIfAbsent ignored, value passed to putIfAbsent reused</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>The <code>putIfAbsent</code> method is typically used to ensure that a
+        single value is associated with a given key (the first value for which put
+        if absent succeeds).
+        If you ignore the return value and retain a reference to the value passed in,
+        you run the risk of retaining a value that is not the one that is associated with the key in the map.
+        If it matters which one you use and you use the one that isn't stored in the map,
+        your program will behave incorrectly.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7391">Class exposes synchronization and semaphores in its public interface</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Class exposes synchronization and semaphores in its public interface</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>
+    This class uses synchronization along with wait(), notify() or notifyAll() on itself (the this
+    reference). Client classes that use this class, may, in addition, use an instance of this class
+    as a synchronizing object. Because two classes are using the same object for synchronization,
+    Multithread correctness is suspect. You should not synchronize nor call semaphore methods on
+    a public reference. Consider using a internal private member variable to control synchronization.
+    </p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7145">Empty synchronized block</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Empty synchronized block</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> The code contains an empty synchronized block:</p>
+<pre><code>synchronized() {
+}
+</code></pre>
+<p>Empty synchronized blocks are far more subtle and hard to use correctly
+than most people recognize, and empty synchronized blocks
+are almost never a better solution
+than less contrived solutions.
+</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7104">Possible exposure of partially initialized object</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Possible exposure of partially initialized object</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>Looks like this method uses lazy field initialization with double-checked locking.
+  While the field is correctly declared as volatile, it's possible that the internal structure of
+  the object is changed after the field assignment, thus another thread may see the partially initialized object.</p>
+<p>To fix this problem consider storing the object into the local variable first
+  and save it to the volatile field only after it's fully constructed.
+  </p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7292">Method does not release lock on all exception paths</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Method does not release lock on all exception paths</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method acquires a JSR-166 (<code>java.util.concurrent</code>) lock,
+but does not release it on all exception paths out of the method.  In general, the correct idiom
+for using a JSR-166 lock is:
+</p>
+<pre><code>Lock l = ...;
+l.lock();
+try {
+    // do something
+} finally {
+    l.unlock();
+}
+</code></pre></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7342">Using monitor style wait methods on util.concurrent abstraction</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Using monitor style wait methods on util.concurrent abstraction</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method calls
+<code>wait()</code>,
+<code>notify()</code> or
+<code>notifyAll()()</code>
+on an object that also provides an
+<code>await()</code>,
+<code>signal()</code>,
+<code>signalAll()</code> method (such as util.concurrent Condition objects).
+This probably isn't what you want, and even if you do want it, you should consider changing
+your design, as other developers will find it exceptionally confusing.
+</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7146">Mutable servlet field</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Mutable servlet field</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>A web server generally only creates one instance of servlet or JSP class (i.e., treats
+the class as a Singleton),
+and will
+have multiple threads invoke methods on that instance to service multiple
+simultaneous requests.
+Thus, having a mutable instance field generally creates race conditions.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p></p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7147">Inconsistent synchronization</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Inconsistent synchronization</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> The fields of this class appear to be accessed inconsistently with respect
+  to synchronization.  This bug report indicates that the bug pattern detector
+  judged that
+  </p>
+<ul>
+<li> The class contains a mix of locked and unlocked accesses,</li>
+<li> The class is <b>not</b> annotated as javax.annotation.concurrent.NotThreadSafe,</li>
+<li> At least one locked access was performed by one of the class's own methods, and</li>
+<li> The number of unsynchronized field accesses (reads and writes) was no more than
+       one third of all accesses, with writes being weighed twice as high as reads</li>
+</ul></p>
+<p><p> A typical bug matching this bug pattern is forgetting to synchronize
+  one of the methods in a class that is intended to be thread-safe.</p></p>
+<p><p> You can select the nodes labeled "Unsynchronized access" to show the
+  code locations where the detector believed that a field was accessed
+  without synchronization.</p></p>
+<p><p> Note that there are various sources of inaccuracy in this detector;
+  for example, the detector cannot statically detect all situations in which
+  a lock is held.  Also, even when the detector is accurate in
+  distinguishing locked vs. unlocked accesses, the code in question may still
+  be correct.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7158">Notify with two locks held</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Notify with two locks held</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> The code calls notify() or notifyAll() while two locks
+  are held. If this notification is intended to wake up a wait()
+  that is holding the same locks, it may deadlock, since the wait
+  will only give up one lock and the notify will be unable to get both locks,
+  and thus the notify will not succeed.
+     If there is also a warning about a two lock wait, the
+   probably of a bug is quite high.
+</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7237">Deadly embrace of non-static inner class and thread local</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Deadly embrace of non-static inner class and thread local</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This class is an inner class, but should probably be a static inner class.
+  As it is, there is a serious danger of a deadly embrace between the inner class
+  and the thread local in the outer class. Because the inner class isn't static,
+  it retains a reference to the outer class.
+  If the thread local contains a reference to an instance of the inner
+  class, the inner and outer instance will both be reachable
+  and not eligible for garbage collection.
+</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7002">Sequence of calls to concurrent abstraction may not be atomic</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Sequence of calls to concurrent abstraction may not be atomic</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>This code contains a sequence of calls to a concurrent  abstraction
+            (such as a concurrent hash map).
+            These calls will not be executed atomically.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p></p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7170">Method synchronizes on an updated field</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Method synchronizes on an updated field</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method synchronizes on an object
+   referenced from a mutable field.
+   This is unlikely to have useful semantics, since different
+threads may be synchronizing on different objects.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7430">Method calls Thread.sleep() with a lock held</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Method calls Thread.sleep() with a lock held</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>
+      This method calls Thread.sleep() with a lock held.  This may result
+      in very poor performance and scalability, or a deadlock, since other threads may
+      be waiting to acquire the lock.  It is a much better idea to call
+      wait() on the lock, which releases the lock and allows other threads
+      to run.
+      </p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7210">Class's writeObject() method is synchronized but nothing else is</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Class's writeObject() method is synchronized but nothing else is</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This class has a <code>writeObject()</code> method which is synchronized;
+  however, no other method of the class is synchronized.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7167">Inconsistent synchronization</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Inconsistent synchronization</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> The fields of this class appear to be accessed inconsistently with respect
+  to synchronization.  This bug report indicates that the bug pattern detector
+  judged that
+  </p>
+<ul>
+<li> The class contains a mix of locked and unlocked accesses,</li>
+<li> At least one locked access was performed by one of the class's own methods, and</li>
+<li> The number of unsynchronized field accesses (reads and writes) was no more than
+       one third of all accesses, with writes being weighed twice as high as reads</li>
+</ul></p>
+<p><p> A typical bug matching this bug pattern is forgetting to synchronize
+  one of the methods in a class that is intended to be thread-safe.</p></p>
+<p><p> Note that there are various sources of inaccuracy in this detector;
+  for example, the detector cannot statically detect all situations in which
+  a lock is held.  Also, even when the detector is accurate in
+  distinguishing locked vs. unlocked accesses, the code in question may still
+  be correct.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7315">Mismatched notify()</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Mismatched notify()</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method calls Object.notify() or Object.notifyAll() without obviously holding a lock
+on the object.   Calling notify() or notifyAll() without a lock held will result in
+an <code>IllegalMonitorStateException</code> being thrown.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7140">Synchronization on interned String</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Synchronization on interned String</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> The code synchronizes on interned String.</p>
+<pre><code>private static String LOCK = "LOCK";
+...
+synchronized(LOCK) {
+    ...
+}
+...
+</code></pre>
+<p>Constant Strings are interned and shared across all other classes loaded by the JVM. Thus, this code
+is locking on something that other code might also be locking. This could result in very strange and hard to diagnose
+blocking and deadlock behavior. See <a href="http://www.javalobby.org/java/forums/t96352.html">http://www.javalobby.org/java/forums/t96352.html</a> and <a href="http://jira.codehaus.org/browse/JETTY-352">http://jira.codehaus.org/browse/JETTY-352</a>.
+</p>
+<p>See CERT <a href="https://www.securecoding.cert.org/confluence/display/java/CON08-J.+Do+not+synchronize+on+objects+that+may+be+reused">CON08-J. Do not synchronize on objects that may be reused</a> for more information.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7220">Constructor invokes Thread.start()</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Constructor invokes Thread.start()</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> The constructor starts a thread. This is likely to be wrong if
+   the class is ever extended/subclassed, since the thread will be started
+   before the subclass constructor is started.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7340">Incorrect lazy initialization and update of static field</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Incorrect lazy initialization and update of static field</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method contains an unsynchronized lazy initialization of a static field.
+After the field is set, the object stored into that location is further updated or accessed.
+The setting of the field is visible to other threads as soon as it is set. If the
+further accesses in the method that set the field serve to initialize the object, then
+you have a <em>very serious</em> multithreading bug, unless something else prevents
+any other thread from accessing the stored object until it is fully initialized.
+</p>
+<p>Even if you feel confident that the method is never called by multiple
+threads, it might be better to not set the static field until the value
+you are setting it to is fully populated/initialized.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p></p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7339">Incorrect lazy initialization of static field</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Incorrect lazy initialization of static field</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method contains an unsynchronized lazy initialization of a non-volatile static field.
+Because the compiler or processor may reorder instructions,
+threads are not guaranteed to see a completely initialized object,
+<em>if the method can be called by multiple threads</em>.
+You can make the field volatile to correct the problem.
+For more information, see the
+<a href="http://www.cs.umd.edu/~pugh/java/memoryModel/">Java Memory Model web site</a>.
+</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7211">Class's readObject() method is synchronized</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Class's readObject() method is synchronized</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This serializable class defines a <code>readObject()</code> which is
+  synchronized.  By definition, an object created by deserialization
+  is only reachable by one thread, and thus there is no need for
+  <code>readObject()</code> to be synchronized.  If the <code>readObject()</code>
+  method itself is causing the object to become visible to another thread,
+  that is an example of very dubious coding style.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7028">An increment to a volatile field isn't atomic</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>An increment to a volatile field isn't atomic</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>This code increments a volatile field. Increments of volatile fields aren't
+atomic. If more than one thread is incrementing the field at the same time,
+increments could be lost.
+</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7169">Synchronization on field in futile attempt to guard that field</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Synchronization on field in futile attempt to guard that field</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method synchronizes on a field in what appears to be an attempt
+to guard against simultaneous updates to that field. But guarding a field
+gets a lock on the referenced object, not on the field. This may not
+provide the mutual exclusion you need, and other threads might
+be obtaining locks on the referenced objects (for other purposes). An example
+of this pattern would be:</p>
+<pre><code>private Long myNtfSeqNbrCounter = new Long(0);
+private Long getNotificationSequenceNumber() {
+     Long result = null;
+     synchronized(myNtfSeqNbrCounter) {
+         result = new Long(myNtfSeqNbrCounter.longValue() + 1);
+         myNtfSeqNbrCounter = new Long(result.longValue());
+     }
+     return result;
+}
+</code></pre></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7338">Incorrect lazy initialization of instance field</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Incorrect lazy initialization of instance field</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method contains an unsynchronized lazy initialization of a non-volatile field.
+Because the compiler or processor may reorder instructions,
+threads are not guaranteed to see a completely initialized object,
+<em>if the method can be called by multiple threads</em>.
+You can make the field volatile to correct the problem.
+</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7148">Naked notify</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Naked notify</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> A call to <code>notify()</code> or <code>notifyAll()</code>
+  was made without any (apparent) accompanying
+  modification to mutable object state.  In general, calling a notify
+  method on a monitor is done because some condition another thread is
+  waiting for has become true.  However, for the condition to be meaningful,
+  it must involve a heap object that is visible to both threads.</p></p>
+<p><p> This bug does not necessarily indicate an error, since the change to
+  mutable object state may have taken place in a method which then called
+  the method containing the notification.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>high</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7314">Mismatched wait()</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Mismatched wait()</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method calls Object.wait() without obviously holding a lock
+on the object.   Calling wait() without a lock held will result in
+an <code>IllegalMonitorStateException</code> being thrown.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7343">Synchronization performed on Lock</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Synchronization performed on Lock</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method performs synchronization an object that implements
+java.util.concurrent.locks.Lock. Such an object is locked/unlocked
+using
+<code>acquire()</code>/<code>release()</code> rather
+than using the <code>synchronized (...)</code> construct.
+</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7168">Field not guarded against concurrent access</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Field not guarded against concurrent access</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This field is annotated with net.jcip.annotations.GuardedBy or javax.annotation.concurrent.GuardedBy,
+but can be accessed in a way that seems to violate those annotations.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7144">Synchronization on getClass rather than class literal</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Synchronization on getClass rather than class literal</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p>
+     This instance method synchronizes on <code>this.getClass()</code>. If this class is subclassed,
+     subclasses will synchronize on the class object for the subclass, which isn't likely what was intended.
+     For example, consider this code from java.awt.Label:</p>
+<pre><code>private static final String base = "label";
+private static int nameCounter = 0;</code></pre></p>
+<p>String constructComponentName() {
+    synchronized (getClass()) {
+        return base + nameCounter++;
+    }
+}
+</p>
+<p>Subclasses of <code>Label</code> won't synchronize on the same subclass, giving rise to a datarace.
+     Instead, this code should be synchronizing on <code>Label.class</code></p>
+<pre><code>private static final String base = "label";
+private static int nameCounter = 0;</code></pre>
+<p>String constructComponentName() {
+    synchronized (Label.class) {
+        return base + nameCounter++;
+    }
+}
+</p>
+<p>Bug pattern contributed by Jason Mehrens</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>medium</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7243">Using notify() rather than notifyAll()</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Using notify() rather than notifyAll()</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method calls <code>notify()</code> rather than <code>notifyAll()</code>. 
+  Java monitors are often used for multiple conditions.  Calling <code>notify()</code>
+  only wakes up one thread, meaning that the thread woken up might not be the
+  one waiting for the condition that the caller just satisfied.</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/concurrency and temporal errors.html">Concurrency and temporal errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7154">Method spins on field</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/concurrency-and-temporal-errors.html">Concurrency and temporal errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Method spins on field</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p><p> This method spins in a loop which reads a field.  The compiler
+  may legally hoist the read out of the loop, turning the code into an
+  infinite loop.  The class should be changed so it uses proper
+  synchronization (including wait and notify calls).</p></p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>low</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : "../../..",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

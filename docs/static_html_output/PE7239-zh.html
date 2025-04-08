@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7239">BE7239: 可以重构为静态内部类</h2>
+    <h3>可以重构为静态内部类</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7239</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>可以重构为静态内部类</p>
+<h4>漏洞与风险</h4>
+<p> 这个类是一个内部类，但是除了在构造内部对象时，它不会使用它对创建它的对象的嵌入式引用。&nbsp; 因为引用将使类的实例更大，并使创建者对象的引用存在超过必要的时间。如果可以，应该将类放入静态内部类。由于在构造内部实例期间需要引用外部对象，因此需要对内部类进行重构，以便将对外部实例的引用传递给内部类的构造函数。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0020">PE0020: 依赖序列点之间的求值顺序</h2>
+    <h3>表达式求值依赖序列点之间的求值顺序。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0020</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>表达式的求值可能产生副作用。在执行期间成为序列点的特定位置，前一次求值的所有副作用都已经完成，而下一个求值的所有副作用还没有发生。不要因副作用而依赖求值的顺序，除非这里要插入一个序列点。</p>
+<p>在下面的例子中，如果二元加法表达式 <code>a + (a=2)</code> 左操作数先求值，则b的值为3；如果右操作数先求值，则b的值为4：</p>
+<div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+<h4>漏洞与风险</h4>
+<h5>副作用</h5>
+<p>表达式的求值可能产生副作用。在执行期间成为序列点的特定位置，前一次求值的所有副作用都已经完成，而下一个求值的所有副作用还没有发生。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>确保表达式不会因为求值顺序而产生副作用。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">++</span><span class="p">;</span> 
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，函数bad返回值可能为0或1，依赖于x=x++中赋值和自增操作的求值顺序。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">x</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，消除了表达式求值的副作用，函数good返回确定的值1。</p>
+
+    </section>
+</article>

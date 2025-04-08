@@ -1,0 +1,51 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0071">PE0071: 不正确地使用strncat库函数</h2>
+    <h3>不正确地使用strncat库函数</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0071</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>函数原型： <code>extern char *strncat(char *dest,char *src,int n)</code><br />
+参数说明：src为源字符串，dest为目的字符串，n为指定的src中的前n个字符。<br />
+函数功能：把src所指字符串的前n个字符添加到dest结尾处，覆盖dest结尾处的'\0'，实现字符串连接。</p>
+<p>strncat()的最后一个参数不应该是缓冲区的总长度，而应该是调用strncpy()后缓冲区剩余的长度。这两个函数都要求指定剩余的长度而不是缓冲区的总长度。由于剩余的长度在每次添加或删除数据时都会改变，因此程序员必须跟踪这些改变或重新计算剩余长度。这个过程很容易出错，并且可能会导致缓冲区溢出。<br />
+下面的调用在使用strncat()连接字符串之前正确地计算了剩余的空间：</p>
+<div class="highlight"><pre><span></span><span class="n">strncat</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="n">strlen</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+<h4>漏洞与风险</h4>
+<h5>缓冲区溢出</h5>
+<p>错误地计算n的值可能会导致拼接到dest的字符串超出dest的内存大小，导致缓冲区溢出。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>正确地计算需要拷贝的长度。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">src</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">dest</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;b&#39;</span><span class="p">,</span> <span class="sc">&#39;c&#39;</span><span class="p">};</span>
+  <span class="n">strncat</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="s">&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAA&quot;</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="c1">// expected-warning {{Potential buffer overflow.</span>
+  <span class="c1">// Replace with &#39;sizeof(dest) - strlen(dest) - 1&#39; or use a safer &#39;strlcat&#39; API}} </span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，使用sizeof(dest) - 1计算出的长度超出了dest剩余的长度，导致缓冲区溢出。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">src</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">dest</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;b&#39;</span><span class="p">,</span> <span class="sc">&#39;c&#39;</span><span class="p">};</span>
+  <span class="n">strncat</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="s">&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAA&quot;</span><span class="p">,</span> \
+          <span class="k">sizeof</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="n">strlen</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，正确地计算需要拷贝的长度。</p>
+
+    </section>
+</article>

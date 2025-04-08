@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7049">BE7049: Covariant array assignment to a local variable</h2>
+    <h3>Covariant array assignment to a local variable</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7049</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Covariant array assignment to a local variable</p>
+<h4>Vulnerability and risk</h4>
+<p>Array of covariant type is assigned to a local variable. This is confusing and may lead to ArrayStoreException at runtime
+if the reference of some other type will be stored in this array later like in the following code:
+</p>
+<pre><code>Number[] arr = new Integer[10];
+arr[0] = 1.0;
+</code></pre>
+<p>Consider changing the type of created array or the local variable type.</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

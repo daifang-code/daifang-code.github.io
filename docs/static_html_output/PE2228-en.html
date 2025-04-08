@@ -1,0 +1,189 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2228">PE2228: require-jsdoc</h2>
+    <h3>require JSDoc comments (require-jsdoc)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2228</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>require JSDoc comments (require-jsdoc)</h4>
+<p>This rule was <a href="https://eslint.org/blog/2018/11/jsdoc-end-of-life"><strong>deprecated</strong></a> in ESLint v5.10.0.</p>
+<p><a href="http://usejsdoc.org">JSDoc</a> is a JavaScript API documentation generator. It uses specially-formatted comments inside of code to generate API documentation automatically. For example, this is what a JSDoc comment looks like for a function:</p>
+<div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * Adds two numbers together.</span>
+<span class="cm"> * @param {int} num1 The first number.</span>
+<span class="cm"> * @param {int} num2 The second number.</span>
+<span class="cm"> * @returns {int} The sum of the two numbers.</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Some style guides require JSDoc comments for all functions as a way of explaining function behavior.</p>
+<h2>Rule Details</h2>
+<p>This rule requires JSDoc comments for specified nodes. Supported nodes:</p>
+<ul>
+<li><code>&quot;FunctionDeclaration&quot;</code></li>
+<li><code>&quot;ClassDeclaration&quot;</code></li>
+<li><code>&quot;MethodDefinition&quot;</code></li>
+<li><code>&quot;ArrowFunctionExpression&quot;</code></li>
+<li><code>&quot;FunctionExpression&quot;</code></li>
+</ul>
+<h2>Options</h2>
+<p>This rule has a single object option:</p>
+<ul>
+<li><code>&quot;require&quot;</code> requires JSDoc comments for the specified nodes</li>
+</ul>
+<p>Default option settings are:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;require-jsdoc&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nt">&quot;require&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;FunctionDeclaration&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;MethodDefinition&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;ClassDeclaration&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;FunctionExpression&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">}</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+<h5>require</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;require&quot;: { &quot;FunctionDeclaration&quot;: true, &quot;MethodDefinition&quot;: true, &quot;ClassDeclaration&quot;: true, &quot;ArrowFunctionExpression&quot;: true, &quot;FunctionExpression&quot;: true } }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint &quot;require-jsdoc&quot;: [&quot;error&quot;, {</span>
+<span class="cm">    &quot;require&quot;: {</span>
+<span class="cm">        &quot;FunctionDeclaration&quot;: true,</span>
+<span class="cm">        &quot;MethodDefinition&quot;: true,</span>
+<span class="cm">        &quot;ClassDeclaration&quot;: true,</span>
+<span class="cm">        &quot;ArrowFunctionExpression&quot;: true,</span>
+<span class="cm">        &quot;FunctionExpression&quot;: true</span>
+<span class="cm">    }</span>
+<span class="cm">}]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">baz</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;require&quot;: { &quot;FunctionDeclaration&quot;: true, &quot;MethodDefinition&quot;: true, &quot;ClassDeclaration&quot;: true, &quot;ArrowFunctionExpression&quot;: true, &quot;FunctionExpression&quot;: true } }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint &quot;require-jsdoc&quot;: [&quot;error&quot;, {</span>
+<span class="cm">    &quot;require&quot;: {</span>
+<span class="cm">        &quot;FunctionDeclaration&quot;: true,</span>
+<span class="cm">        &quot;MethodDefinition&quot;: true,</span>
+<span class="cm">        &quot;ClassDeclaration&quot;: true,</span>
+<span class="cm">        &quot;ArrowFunctionExpression&quot;: true,</span>
+<span class="cm">        &quot;FunctionExpression&quot;: true</span>
+<span class="cm">    }</span>
+<span class="cm">}]*/</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * It returns 10</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * It returns test + 10</span>
+<span class="cm"> * @params {int} test - some number</span>
+<span class="cm"> * @returns {int} sum of test and 10</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">test</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * It returns 10</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * It returns 10</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">];</span>
+<span class="nx">array</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">item</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * A class that can return the number 10</span>
+<span class="cm"> */</span>
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">    * It returns 10</span>
+<span class="cm">    */</span>
+    <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * It returns 10</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">    * It returns 10</span>
+<span class="cm">    */</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="cm">/**</span>
+<span class="cm">    * It returns 10</span>
+<span class="cm">    */</span>
+    <span class="nx">baz</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{},</span> <span class="mi">10</span><span class="p">);</span> <span class="c1">// since it&#39;s an anonymous arrow function</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you do not require JSDoc for your functions, then you can leave this rule off.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="valid-jsdoc.md">valid-jsdoc</a></li>
+</ul>
+
+    </section>
+</article>

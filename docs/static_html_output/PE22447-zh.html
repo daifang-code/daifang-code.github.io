@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22447">PE22447: F403</h2>
+    <h3>'from module import *' used; unable to detect undefined names</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22447</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p><code>from module import *</code>不推荐，因为程序员经常不知道导入对象的定义位置。进口模块，类或函数应显式定义。</p>
+<h5>示例错误片段</h5>
+<p>在下面的示例中，不清楚<code>User</code>ICAgdXNlcnMubW9kZWxzICA=<code>users.models</code>ICAgYXV0aC5tb2RlbHMgIA中定义==`模块。</p>
+
+<pre><code>from users.models import *
+from auth.models import *
+
+user = User.objects.get(name='Grant')
+
+</code></pre>
+<h5>最佳修复</h5>
+
+<pre><code>from users.models import User
+from auth.models import check_password
+
+user = User.objects.get(name='Grant')
+check_password(user.username, 'password')
+
+
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#imports<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

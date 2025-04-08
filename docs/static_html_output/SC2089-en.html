@@ -1,0 +1,70 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2089">SC2089: Improper use of Quotes/backslashes</h2>
+    <h3>Quotes/backslashes will be treated literally. Use an array.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2089</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Quotes/backslashes will be treated literally. Use an array.</h4>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">args</span><span class="o">=</span><span class="s1">&#39;-lh &quot;My File.txt&quot;&#39;</span>
+ls <span class="nv">$args</span>
+</pre></div>
+<h5>Correct code:</h5>
+<p>In Bash/Ksh with arrays:</p>
+<div class="highlight"><pre><span></span><span class="nv">args</span><span class="o">=(</span>-lh <span class="s2">&quot;My File.txt&quot;</span><span class="o">)</span>
+ls <span class="s2">&quot;</span><span class="si">${</span><span class="nv">args</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+<p>or in POSIX overwriting <code>&quot;$@&quot;</code>:</p>
+<div class="highlight"><pre><span></span><span class="nb">set</span> -- -lh <span class="s2">&quot;My File.txt&quot;</span>
+ls <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+<p>or in POSIX via functions:</p>
+<div class="highlight"><pre><span></span>myls<span class="o">()</span> <span class="o">{</span> ls <span class="s2">&quot;-lh&quot;</span> <span class="s2">&quot;My File.txt&quot;</span><span class="p">;</span> <span class="o">}</span>
+myls
+</pre></div>
+<h5>Rationale:</h5>
+<p>Bash does not interpret data as code. Consider almost any other languages, such as Python:</p>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="mi">1</span><span class="o">+</span><span class="mi">1</span>   <span class="c1"># prints 2</span>
+<span class="n">a</span><span class="o">=</span><span class="s2">&quot;1+1&quot;</span>
+<span class="k">print</span> <span class="n">a</span>     <span class="c1"># prints 1+1, not 2</span>
+</pre></div>
+<p>Here, <code>1+1</code> is Python syntax for adding numbers. However, passing a literal string containing this expression does not cause Python to interpret it, see the <code>+</code> and produce the calculated result.</p>
+<p>Similarly, <code>&quot;My File.txt&quot;</code> is Bash syntax for a single word with a space in it. However, passing a literal string containing this expression does not cause Bash to interpret it, see the quotes and produce the tokenized result.</p>
+<p>The solution is to use an array instead, whenever possible.</p>
+<p>If due to <code>sh</code> compatibility you can't use arrays, you can sometimes use functions instead. Instead of trying to create a set of arguments that has to be passed to a command, create a function that calls the function with arguments plus some more:</p>
+<div class="highlight"><pre><span></span>ffmpeg_with_args<span class="o">()</span> <span class="o">{</span>
+  ffmpeg -filter_complex <span class="s1">&#39;[#0x2ef] setpts=PTS+1/TB [sub] ; [#0x2d0] [sub] overlay&#39;</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+ffmpeg_with_args -i <span class="s2">&quot;My File.avi&quot;</span> <span class="s2">&quot;Output.avi&quot;</span>
+</pre></div>
+<p>In other cases, you may have to use <code>eval</code> instead, though this is often fragile and insecure. If you get it wrong, it'll appear to work great in all test cases, and may still lead to various forms of security vulnerabilities and breakage:</p>
+<div class="highlight"><pre><span></span>quote<span class="o">()</span> <span class="o">{</span> <span class="nb">local</span> <span class="nv">q</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="p">//</span><span class="se">\&#39;</span><span class="p">/</span><span class="se">\&#39;\\\&#39;\&#39;</span><span class="si">}</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;&#39;</span><span class="nv">$q</span><span class="s2">&#39;&quot;</span><span class="p">;</span> <span class="o">}</span>
+<span class="nv">args</span><span class="o">=</span><span class="s2">&quot;-lh </span><span class="k">$(</span>quote <span class="s2">&quot;My File.txt&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">eval</span> ls <span class="s2">&quot;</span><span class="nv">$args</span><span class="s2">&quot;</span> <span class="c1"># Do not use unless you understand implications</span>
+</pre></div>
+<p>If you ever accidentally forget to use proper quotes, such as with:</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> f in *.txt<span class="p">;</span> <span class="k">do</span>
+  <span class="nv">args</span><span class="o">=</span><span class="s2">&quot;-lh &#39;</span><span class="nv">$1</span><span class="s2">&#39;&quot;</span> <span class="c1"># Example security exploit</span>
+  <span class="nb">eval</span> ls <span class="s2">&quot;</span><span class="nv">$args</span><span class="s2">&quot;</span> <span class="c1"># Do not copy and use</span>
+<span class="k">done</span>
+</pre></div>
+<p>Then you can use <code>touch &quot;'; rm -rf \$'\x2F'; '.txt&quot;</code>  (or someone can trick you into downloading a file with this name, or create a zip file or git repo containing it, or changing their nick and have your chat client create the file for a chat log, or...), and running the script to list your files will run the command <code>rm -rf /</code>.</p>
+<h5>Exceptions</h5>
+<p>Few and far between.</p>
+<h5>Additional resources</h5>
+<ul>
+<li><a href="http://mywiki.wooledge.org/BashFAQ/050">Wooledge BashFAQ #50</a>: I'm trying to put a command in a variable, but the complex cases always fail!</li>
+<li><a href="https://stackoverflow.com/questions/12136948/in-bash-why-do-shell-commands-ignore-quotes-in-arguments-when-the-arguments-are">StackOverflow: In bash, why do shell commands ignore quotes in arguments when the arguments are passed to them as a variable?</a></li>
+</ul>
+
+    </section>
+</article>

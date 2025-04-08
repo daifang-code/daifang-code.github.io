@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1057">PE1057: Incorrect creation of object</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1057</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Using the malloc function as a class object will initialize a resource incorrectly , which may leave the resource in an unexpected state when the resource is accessed or used. When the associated resource is expected to have certain attributes or values, such as a variable that determines whether the user has been authenticated, this may create a security issue.</p>
+<h4>Vulnerability and risk</h4>
+<p>It may put resources in an unexpected state and may also create security problems.</p>
+<h4>Likelihood of Exploit</h4>
+<p>It is recommended to use new for class object to request memory.</p>
+<h4>Potential Mitigations</h4>
+<p>high</p>
+
+    </section>
+</article>

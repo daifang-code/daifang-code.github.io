@@ -1,0 +1,22 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE30023">BE30023: Microsoft believes it is no longer safe to decrypt data encrypted with CBC (Cipher-Block-Chaining) symmetric encryption mode when verifiable padding was applied without first ensuring the integrity of the ciphertext</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE30023</dd>
+                    <dt>标签</dt>
+                    <dd>csharp</dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>Microsoft believes it is no longer safe to decrypt data encrypted with CBC (Cipher-Block-Chaining) symmetric encryption mode when verifiable padding was applied without first ensuring the integrity of the ciphertext. except in very specific circumstances. This judgment is based on currently known cryptographic research. The CBC mode is susceptible to attack from the padding oracle. The use of AES in CBC mode with an HMAC suffix is recommended. ensuring integrity and confidentiality. https://docs.microsoft.com/en-us/dotnet/standard/security/vulnerabilities-cbc-mode</p>
+<h4>漏洞利用威胁</h4>
+<p>一般</p>
+
+    </section>
+</article>

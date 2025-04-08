@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2221">SC2221: Suspicious condition</h2>
+    <h3>This pattern always overrides a later one.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2221</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This pattern always overrides a later one.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
+  -?<span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;Usage: </span><span class="nv">$0</span><span class="s2"> [-n]&quot;</span><span class="p">;;</span>
+  -n<span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">;;</span>
+   *<span class="o">)</span> <span class="nb">exit</span> <span class="m">1</span><span class="p">;;</span>
+<span class="k">esac</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
+  -<span class="se">\?</span><span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;Usage: </span><span class="nv">$0</span><span class="s2"> [-n]&quot;</span><span class="p">;;</span>
+<span class="c1"># &#39;-?&#39;) echo &quot;Usage: $0 [-n]&quot;;;  # Also valid</span>
+  -n<span class="o">)</span> <span class="nb">echo</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">;;</span>
+   *<span class="o">)</span> <span class="nb">exit</span> <span class="m">1</span><span class="p">;;</span>
+<span class="k">esac</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>You have specified multiple patterns in a <code>case</code> statement, where one will always override the other. The pattern being overridden is indicated with a [[SC2222]] warning.</p>
+<p>In the example, <code>-?</code> actually matches a dash followed by any character, such as <code>-n</code>. This means that the later <code>-n</code> branch will never trigger. In this case, the correct solution is to escape the <code>-\?</code> so that it doesn't match <code>-n</code>.</p>
+<p>Another common reason for this is accidentally duplicating a branch. In this case, fix or delete the duplicate branch.</p>
+<h5>Exceptions:</h5>
+<p>None. One could argue that having <code>-*|--*) echo &quot;Invalid flag&quot;;</code> is a readability issue, even though the second pattern follows from the first. In this case, you can either rearrange the pattern from most to least specific, i.e. <code>--*|-*)</code> or ignore the error.</p>
+<p>When ignoring this error, remember that ShellCheck directives have to go in front of the <code>case</code> statement, and not in front of the branch:</p>
+
+<pre><code># shellcheck disable=SC2221,SC2222
+case &quot;$1&quot; in
+  -n) ...;;
+  # no directive here
+  -*|--*) echo &quot;Unknown flag&quot; ;;
+esac
+</code></pre>
+
+    </section>
+</article>

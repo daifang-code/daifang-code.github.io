@@ -1,0 +1,200 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2228">PE2228: require-jsdoc</h2>
+    <h3>要求使用 JSDoc 注释 (require-jsdoc)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2228</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求使用 JSDoc 注释 (require-jsdoc)</h4>
+<p><a href="http://usejsdoc.org">JSDoc</a> 是一个 JavaScript API 文档生成器。它通过在代码中使用指定格式的注释自动生成 API 文档。例如，以下这个就是函数的 JSDoc 注释：</p>
+<div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * Adds two numbers together.</span>
+<span class="cm"> * @param {int} num1 The first number.</span>
+<span class="cm"> * @param {int} num2 The second number.</span>
+<span class="cm"> * @returns {int} The sum of the two numbers.</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>一些风格指南要求对所有的函数使用 JSDoc 注释作为描述函数行为的一种方式。</p>
+<h2>缺陷详因</h2>
+<p>该规则要求指定的节点使用 JSDoc 注释。支持的节点：</p>
+<ul>
+<li><code>&quot;FunctionDeclaration&quot;</code></li>
+<li><code>&quot;FunctionDeclaration&quot;</code></li>
+<li><code>&quot;ClassDeclaration&quot;</code></li>
+<li><code>&quot;ClassDeclaration&quot;</code></li>
+<li><code>&quot;MethodDefinition&quot;</code></li>
+<li><code>&quot;MethodDefinition&quot;</code></li>
+<li><code>&quot;ArrowFunctionExpression&quot;</code></li>
+<li><code>&quot;ArrowFunctionExpression&quot;</code></li>
+<li><code>&quot;FunctionExpression&quot;</code></li>
+<li><code>&quot;FunctionExpression&quot;</code></li>
+</ul>
+<h2>修改方案</h2>
+<p>该规则有一个对象选项：</p>
+<ul>
+<li><code>&quot;require&quot;</code> 要求指定的节点使用 JSDoc 注释</li>
+</ul>
+<p>默认选项设置如下：</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;require-jsdoc&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nt">&quot;require&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;FunctionDeclaration&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&quot;MethodDefinition&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;ClassDeclaration&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;ArrowFunctionExpression&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;FunctionExpression&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">}</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+<h5>require</h5>
+<p>选项 <code>{ &quot;require&quot;: { &quot;FunctionDeclaration&quot;: true, &quot;MethodDefinition&quot;: true, &quot;ClassDeclaration&quot;: true, &quot;ArrowFunctionExpression&quot;: true, &quot;FunctionExpression&quot;: true } }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint &quot;require-jsdoc&quot;: [&quot;error&quot;, {</span>
+<span class="cm">    &quot;require&quot;: {</span>
+<span class="cm">        &quot;FunctionDeclaration&quot;: true,</span>
+<span class="cm">        &quot;MethodDefinition&quot;: true,</span>
+<span class="cm">        &quot;ClassDeclaration&quot;: true,</span>
+<span class="cm">        &quot;ArrowFunctionExpression&quot;: true,</span>
+<span class="cm">        &quot;FunctionExpression&quot;: true</span>
+<span class="cm">    }</span>
+<span class="cm">}]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">baz</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>选项 <code>{ &quot;require&quot;: { &quot;FunctionDeclaration&quot;: true, &quot;MethodDefinition&quot;: true, &quot;ClassDeclaration&quot;: true, &quot;ArrowFunctionExpression&quot;: true, &quot;FunctionExpression&quot;: true } }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint &quot;require-jsdoc&quot;: [&quot;error&quot;, {</span>
+<span class="cm">    &quot;require&quot;: {</span>
+<span class="cm">        &quot;FunctionDeclaration&quot;: true,</span>
+<span class="cm">        &quot;MethodDefinition&quot;: true,</span>
+<span class="cm">        &quot;ClassDeclaration&quot;: true,</span>
+<span class="cm">        &quot;ArrowFunctionExpression&quot;: true,</span>
+<span class="cm">        &quot;FunctionExpression&quot;: true</span>
+<span class="cm">    }</span>
+<span class="cm">}]*/</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * It returns 10</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * It returns test + 10</span>
+<span class="cm"> * @params {int} test - some number</span>
+<span class="cm"> * @returns {int} sum of test and 10</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">test</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * It returns 10</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * It returns 10</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">];</span>
+<span class="nx">array</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">item</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * A class that can return the number 10</span>
+<span class="cm"> */</span>
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">    * It returns 10</span>
+<span class="cm">    */</span>
+    <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * It returns 10</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">    * It returns 10</span>
+<span class="cm">    */</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="cm">/**</span>
+<span class="cm">    * It returns 10</span>
+<span class="cm">    */</span>
+    <span class="nx">baz</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{},</span> <span class="mi">10</span><span class="p">);</span> <span class="c1">// since it&#39;s an anonymous arrow function</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不需要为函数添加JSDoc注释，你可以关闭此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="valid-jsdoc">valid-jsdoc</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 1.4.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/require-jsdoc.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/require-jsdoc.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,51 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2170">PE2170: no-sparse-arrays</h2>
+    <h3>disallow sparse arrays (no-sparse-arrays)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2170</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow sparse arrays (no-sparse-arrays)</h4>
+<p>Sparse arrays contain empty slots, most frequently due to multiple commas being used in an array literal, such as:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">items</span> <span class="o">=</span> <span class="p">[,,];</span>
+</pre></div>
+<p>While the <code>items</code> array in this example has a <code>length</code> of 2, there are actually no values in <code>items[0]</code> or <code>items[1]</code>. The fact that the array literal is valid with only commas inside, coupled with the <code>length</code> being set and actual item values not being set, make sparse arrays confusing for many developers. Consider the following:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">colors</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;red&quot;</span><span class="p">,,</span> <span class="s2">&quot;blue&quot;</span> <span class="p">];</span>
+</pre></div>
+<p>In this example, the <code>colors</code> array has a <code>length</code> of 3. But did the developer intend for there to be an empty spot in the middle of the array? Or is it a typo?</p>
+<p>The confusion around sparse arrays defined in this manner is enough that it's recommended to avoid using them unless you are certain that they are useful in your code.</p>
+<h2>Rule Details</h2>
+<p>This rule disallows sparse array literals which have &quot;holes&quot; where commas are not preceded by elements. It does not apply to a trailing comma following the last element.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-sparse-arrays: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">items</span> <span class="o">=</span> <span class="p">[,];</span>
+<span class="kd">var</span> <span class="nx">colors</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;red&quot;</span><span class="p">,,</span> <span class="s2">&quot;blue&quot;</span> <span class="p">];</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-sparse-arrays: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">items</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">items</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+
+<span class="c1">// trailing comma (after the last element) is not a problem</span>
+<span class="kd">var</span> <span class="nx">colors</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="p">];</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you want to use sparse arrays, then it is safe to disable this rule.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://www.nczonline.net/blog/2007/09/09/inconsistent-array-literals/">Inconsistent array literals</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7362">BE7362: 类错误地重写父类中适配器实现的方法</h2>
+    <h3>类错误地重写父类中适配器实现的方法</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7362</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>类错误地重写父类中适配器实现的方法</p>
+<h4>漏洞与风险</h4>
+<p> 这种方法重写了父类中找到的方法，该类是一个适配器，它实现了定义在java.awt.event或javax.swing.event包中的监听器。因此，当event发生时，这个方法不会被调用。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

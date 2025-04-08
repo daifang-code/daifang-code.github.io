@@ -1,0 +1,40 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2189">SC2189: Improper output redirection</h2>
+    <h3>You can't have | between this redirection and the command it should apply to.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2189</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>You can't have | between this redirection and the command it should apply to.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>&lt; file.txt <span class="p">|</span> grep foo
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>&lt; file.txt grep foo   <span class="c1"># or more canonically: grep foo &lt; file.txt</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck has found a stage in a pipeline that consists of a redirection but no command. This doesn't make sense because a redirection without a command will not read or write any data.</p>
+<p>This is most likely to occur when deleting a command that had a redirection, but leaving a <code>|</code> behind instead of moving the redirection to a different command:</p>
+
+<pre><code># Match lines with line numbers
+nl &lt; foo.txt | grep bar
+
+# Incorrect attempt at removing line numbers. grep now has no input:
+&lt; foo.txt | grep bar
+
+# Line numbers correctly removed. grep now reads foo.txt as intended.
+grep bar &lt; foo.txt
+</code></pre>
+<h5>Exceptions:</h5>
+<p>It's technically valid to do e.g. <code>echo foo | &gt; &quot;$(cat)&quot;</code> to truncate a file called &quot;foo&quot;, but please consider rewriting such code.</p>
+
+    </section>
+</article>

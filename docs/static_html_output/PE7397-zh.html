@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7397">BE7397: 检查一个已知为空的值是否是一个类型的实例</h2>
+    <h3>检查一个已知为空的值是否是一个类型的实例</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7397</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>检查一个已知为空的值是否是一个类型的实例</p>
+<h4>漏洞与风险</h4>
+<p>此instanceof测试将始终返回false，因为要检查的值保证为null。虽然这是安全的，但请确保它不存在一些误解或其它逻辑错误。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

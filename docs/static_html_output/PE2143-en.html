@@ -1,0 +1,75 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2143">PE2143: no-new-wrappers</h2>
+    <h3>Disallow Primitive Wrapper Instances (no-new-wrappers)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2143</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow Primitive Wrapper Instances (no-new-wrappers)</h4>
+<p>There are three primitive types in JavaScript that have wrapper objects: string, number, and boolean. These are represented by the constructors <code>String</code>, <code>Number</code>, and <code>Boolean</code>, respectively. The primitive wrapper types are used whenever one of these primitive values is read, providing them with object-like capabilities such as methods. Behind the scenes, an object of the associated wrapper type is created and then destroyed, which is why you can call methods on primitive values, such as:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="s2">&quot;Hello world&quot;</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+<p>Behind the scenes in this example, a <code>String</code> object is constructed. The <code>substring()</code> method exists on <code>String.prototype</code> and so is accessible to the string instance.</p>
+<p>It's also possible to manually create a new wrapper instance:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">stringObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">String</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">numberObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Number</span><span class="p">(</span><span class="mi">33</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">booleanObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Boolean</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+</pre></div>
+<p>Although possible, there aren't any good reasons to use these primitive wrappers as constructors. They tend to confuse other developers more than anything else because they seem like they should act as primitives, but they do not. For example:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">stringObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">String</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">stringObject</span><span class="p">);</span>       <span class="c1">// &quot;object&quot;</span>
+
+<span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="s2">&quot;Hello world&quot;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">text</span><span class="p">);</span>               <span class="c1">// &quot;string&quot;</span>
+
+<span class="kd">var</span> <span class="nx">booleanObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Boolean</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">booleanObject</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// all objects are truthy!</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;This executes&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>The first problem is that primitive wrapper objects are, in fact, objects. That means <code>typeof</code> will return <code>&quot;object&quot;</code> instead of <code>&quot;string&quot;</code>, <code>&quot;number&quot;</code>, or <code>&quot;boolean&quot;</code>. The second problem comes with boolean objects. Every object is truthy, that means an instance of <code>Boolean</code> always resolves to <code>true</code> even when its actual value is <code>false</code>.</p>
+<p>For these reasons, it's considered a best practice to avoid using primitive wrapper types with <code>new</code>.</p>
+<h2>Rule Details</h2>
+<p>This rule aims to eliminate the use of <code>String</code>, <code>Number</code>, and <code>Boolean</code> with the <code>new</code> operator. As such, it warns whenever it sees <code>new String</code>, <code>new Number</code>, or <code>new Boolean</code>.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-new-wrappers: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">stringObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">String</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">numberObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Number</span><span class="p">(</span><span class="mi">33</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">booleanObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Boolean</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">stringObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">String</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">numberObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Number</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">booleanObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Boolean</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-new-wrappers: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">someValue</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">someValue</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">object</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyString</span><span class="p">();</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you want to allow the use of primitive wrapper objects, then you can safely disable this rule.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://www.inkling.com/read/javascript-definitive-guide-david-flanagan-6th/chapter-3/wrapper-objects">Wrapper objects</a></li>
+</ul>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-array-constructor.md">no-array-constructor</a></li>
+<li><a href="no-new-object.md">no-new-object</a></li>
+</ul>
+
+    </section>
+</article>

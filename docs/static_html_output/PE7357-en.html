@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7357">BE7357: TestCase declares a bad suite method</h2>
+    <h3>TestCase declares a bad suite method</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7357</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>TestCase declares a bad suite method</p>
+<h4>Vulnerability and risk</h4>
+<p> Class is a JUnit TestCase and defines a suite() method.
+However, the suite method needs to be declared as either</p>
+<pre><code>public static junit.framework.Test suite()
+</code></pre>
+<p>
+or
+</p>
+<pre><code>public static junit.framework.TestSuite suite()
+</code></pre>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

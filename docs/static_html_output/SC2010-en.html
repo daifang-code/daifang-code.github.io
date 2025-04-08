@@ -1,0 +1,52 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2010">SC2010: Better directive choice exists</h2>
+    <h3>Don't use ls | grep. Use a glob or a for loop with a condition to allow non-alphanumeric filenames.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2010</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Don't use ls | grep. Use a glob or a for loop with a condition to allow non-alphanumeric filenames.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>ls /directory <span class="p">|</span> grep mystring
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span>rm <span class="k">$(</span>ls <span class="p">|</span> grep -v <span class="s1">&#39;\.c$&#39;</span><span class="k">)</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>ls /directory/*mystring*
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><span class="c1"># BASH</span>
+<span class="nb">shopt</span> -s extglob
+rm -- !<span class="o">(</span>*.c<span class="o">)</span>
+
+<span class="c1"># POSIX</span>
+<span class="k">for</span> f in ./*
+<span class="k">do</span>
+  <span class="k">case</span> <span class="nv">$f</span> in
+    *.c<span class="o">)</span> true<span class="p">;;</span>
+    *<span class="o">)</span> rm <span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span><span class="p">;;</span>
+  <span class="k">esac</span>
+<span class="k">done</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p><a href="https://mywiki.wooledge.org/ParsingLs">Parsing ls</a> is generally a bad idea because the output is fragile and human readable. To better handle non-alphanumeric filenames, use a glob. If you need more advanced matching than a glob can provide, use a <code>for</code> loop.</p>
+<h5>Exceptions:</h5>
+<ul>
+<li><code>ls</code> has sorting options that are tricky to get right with other commands. If a specific order of files is needed, ls <em>&lt;sort options&gt;</em> | grep might be the best alternative.</li>
+</ul>
+<h5>Related resources:</h5>
+<ul>
+<li><a href="https://mywiki.wooledge.org/BashFAQ/020">BashFaq: How can I find and safely handle file names containing newlines, spaces or both?</a></li>
+</ul>
+
+    </section>
+</article>

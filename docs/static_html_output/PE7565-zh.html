@@ -1,0 +1,64 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7565">BE7565: 此加密算法不提供数据完整性保证</h2>
+    <h3>此加密算法不提供数据完整性保证</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7565</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>此加密算法不提供数据完整性保证</p>
+<h4>漏洞与风险</h4>
+<p>
+所产生的密文很容易被其他人修改。
+这意味着该加密算法无法检测数据是否被篡改过。
+如果密文可以由攻击者控制，那么它可以被修改而不被发现。
+</p>
+<p>
+ 解决方案是使用一个包含Hash based Message Authentication Code（HMAC）的加密算法来签署数据。
+将一个HMAC函数与现有加密结合起来很容易出错<sup><a href="http://www.thoughtcrime.org/blog/the-cryptographic-doom-principle/">[1]</a></sup>. 具体地说，它总是建议您首先验证HMAC，并且只有当数据未被修改时，您才可以对数据执行任何加密功能。
+</p>
+<p>下面的模式是易受攻击的，因为它们不提供HMAC：<br/>
+    - CBC<br/>
+    - OFB<br/>
+    - CTR<br/>
+    - ECB<br/><br/>
+    下面的代码片段是一些易受攻击的代码例子。<br/><br/>
+    <b>有风险的代码：</b><br/>
+    <i>CBC模式中的AES</i><br/>
+    <pre>Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
+c.init(Cipher.ENCRYPT_MODE, k, iv);
+byte[] cipherText = c.doFinal(plainText);</pre>
+    <br/>
+    <i>ECB模式中的三倍DES</i><br/>
+<pre>Cipher c = Cipher.getInstance("DESede/ECB/PKCS5Padding");
+c.init(Cipher.ENCRYPT_MODE, k, iv);
+byte[] cipherText = c.doFinal(plainText);</pre>
+</p>
+<p>
+    <b>解决方案：</b>
+    <pre>Cipher c = Cipher.getInstance("AES/GCM/NoPadding");
+c.init(Cipher.ENCRYPT_MODE, k, iv);
+byte[] cipherText = c.doFinal(plainText);</pre>
+</p>
+<p>
+在上面的例子解决方案中，GCM模式将一个HMAC引入到最终的加密数据中，从而提供了结果的完整性。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://en.wikipedia.org/wiki/Authenticated_encryption&quot;&gt;Wikipedia: Authenticated encryption&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://csrc.nist.gov/groups/ST/toolkit/BCM/modes_development.html#01&quot;&gt;NIST: Authenticated Encryption Modes&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://www.thoughtcrime.org/blog/the-cryptographic-doom-principle/&quot;&gt;Moxie Marlinspike's blog: The Cryptographic Doom Principle&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/353.html&quot;&gt;CWE-353: Missing Support for Integrity Check&lt;/a&gt;</p>
+</p>
+
+    </section>
+</article>

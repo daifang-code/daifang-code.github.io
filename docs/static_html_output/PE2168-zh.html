@@ -1,0 +1,59 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2168">PE2168: no-shadow-restricted-names</h2>
+    <h3>关键字不能被遮蔽 (no-shadow-restricted-names)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2168</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>关键字不能被遮蔽 (no-shadow-restricted-names)</h4>
+<p>ES5 §15.1.1 中全局对象的属性值 (<code>NaN</code>、<code>Infinity</code>、<code>undefined</code>)和严格模式下被限定的标识符 <code>eval</code>、<code>arguments</code> 也被认为是关键字。重定义关键字会产生意想不到的后果且易迷惑其他读者。比如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="kc">undefined</span> <span class="o">=</span> <span class="s2">&quot;foo&quot;</span><span class="p">;</span>
+</pre></div>
+<p>以上不能得到全局 <code>undefined</code>，但在本作用域中却具有不同于全局的意思。</p>
+<h2>缺陷详因</h2>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-shadow-restricted-names: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="kc">NaN</span><span class="p">(){}</span>
+
+<span class="o">!</span><span class="kd">function</span><span class="p">(</span><span class="kc">Infinity</span><span class="p">){};</span>
+
+<span class="kd">var</span> <span class="kc">undefined</span><span class="p">;</span>
+
+<span class="k">try</span> <span class="p">{}</span> <span class="k">catch</span><span class="p">(</span><span class="nb">eval</span><span class="p">){}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-shadow-restricted-names: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nb">Object</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">){}</span>
+</pre></div>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://es5.github.io/#x15.1.1">Annotated ES5 - §15.1.1</a></li>
+<li><a href="https://es5.github.io/#C">Annotated ES5 - Annex C</a></li>
+</ul>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-shadow">no-shadow</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.1.4 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-shadow-restricted-names.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-shadow-restricted-names.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

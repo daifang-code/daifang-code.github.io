@@ -1,0 +1,50 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2087">SC2087: Improper here-doc</h2>
+    <h3>Quote 'EOF' to make here document expansions happen on the server side rather than on the client.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2087</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Quote 'EOF' to make here document expansions happen on the server side rather than on the client.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>ssh host.example.com <span class="s">&lt;&lt; EOF</span>
+<span class="s">  echo &quot;Logged in on $HOSTNAME&quot;</span>
+<span class="s">EOF</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>ssh host.example.com &lt;&lt; <span class="s2">&quot;EOF&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Logged in on </span><span class="nv">$HOSTNAME</span><span class="s2">&quot;</span>
+EOF
+</pre></div>
+<h5>Rationale:</h5>
+<p>When the end token of a here document is unquoted, parameter expansion and command substitution will happen on in contents of the here doc.</p>
+<p>This means that before sending the commands to the server, the client replaces <code>$HOSTNAME</code> with localhost, thereby sending <code>echo &quot;Logged in on localhost&quot;</code> to the server. This has the effect of printing the client's hostname instead of the server's.</p>
+<p>Scripts with any kind of variable use are especially problematic because all references will be expanded before the script run. For example,</p>
+<div class="highlight"><pre><span></span>ssh host <span class="s">&lt;&lt; EOF</span>
+<span class="s">  x=&quot;$(uname -a)&quot;</span>
+<span class="s">  echo &quot;$x&quot;</span>
+<span class="s">EOF</span>
+</pre></div>
+<p>will never print anything, neither client nor server details, since before evaluation, it will be expanded to:</p>
+<div class="highlight"><pre><span></span><span class="nv">x</span><span class="o">=</span><span class="s2">&quot;Linux localhost ... x86_64 GNU/Linux&quot;</span>
+  <span class="nb">echo</span> <span class="s2">&quot;&quot;</span>
+</pre></div>
+<p>By quoting the here token, local expansion will not take place, so the server sees <code>echo &quot;Logged in on $HOSTNAME&quot;</code> which is expanded and printed with the server's hostname, which is usually the intention.</p>
+<h5>Exceptions:</h5>
+<p>If the client should expand some or all variables, this message can and should be ignored.</p>
+<p>To expand a mix of local and remote variables, the here doc end token should be unquoted, and the remote variables should be escaped, e.g.</p>
+<div class="highlight"><pre><span></span>ssh host.example.com <span class="s">&lt;&lt; EOF</span>
+<span class="s">  echo &quot;Logged in on \$HOSTNAME from $HOSTNAME&quot;</span>
+<span class="s">EOF</span>
+</pre></div>
+
+    </section>
+</article>

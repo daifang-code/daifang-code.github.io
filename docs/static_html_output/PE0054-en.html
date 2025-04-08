@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0054">PE0054: Assignment of a Fixed Address to a Pointer</h2>
+    <h3>Assignment of a Fixed Address to a Pointer</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0054</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The software sets a pointer to a specific address other than NULL or 0.</p>
+<h4>Vulnerability and risk</h4>
+<h5>portability error</h5>
+<p>Using a fixed address is not portable because that address will probably not be valid in all environments or platforms.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Never set a pointer to a fixed address.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{Using a fixed address is not portable because that address </span>
+  <span class="c1">// will probably not be valid in all environments or platforms}}  </span>
+  <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span> <span class="mh">0x10000</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, using a fixed address is not portable because that address will probably not be valid in all environments or platforms at line 3.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the invulnerable code example, assign <code>&amp;a</code> to pointer <code>p</code>.</p>
+
+    </section>
+</article>

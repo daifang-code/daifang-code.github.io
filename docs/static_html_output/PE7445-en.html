@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7445">BE7445: Don't use removeAll to clear a collection</h2>
+    <h3>Don't use removeAll to clear a collection</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7445</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Don't use removeAll to clear a collection</p>
+<h4>Vulnerability and risk</h4>
+<p> If you want to remove all elements from a collection <code>c</code>, use <code>c.clear</code>,
+not <code>c.removeAll(c)</code>. Calling  <code>c.removeAll(c)</code> to clear a collection
+is less clear, susceptible to errors from typos, less efficient and
+for some collections, might throw a <code>ConcurrentModificationException</code>.
+    </p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

@@ -1,0 +1,86 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2075">PE2075: no-case-declarations</h2>
+    <h3>禁止在 case 或 default 子句中出现词法声明 (no-case-declarations)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2075</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止在 case 或 default 子句中出现词法声明 (no-case-declarations)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>该规则禁止词法声明 (<code>let</code>、<code>const</code>、<code>function</code> 和 <code>class</code>) 出现在 <code>case</code>或<code>default</code> 子句中。原因是，词法声明在整个 <code>switch</code> 语句块中是可见的，但是它只有在运行到它定义的 case 语句时，才会进行初始化操作。</p>
+<p>为了保证词法声明语句只在当前 case 语句中有效，将你子句包裹在块中。</p>
+<h2>缺陷详因</h2>
+<p>该规则旨在避免访问未经初始化的词法绑定以及跨 case 语句访问被提升的函数。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-case-declarations: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="kr">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+        <span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{}</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="kr">class</span> <span class="nx">C</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-case-declarations: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// Declarations outside switch-statements are valid</span>
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// The following case clauses are wrapped into blocks using brackets</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">case</span> <span class="mi">3</span><span class="o">:</span> <span class="p">{</span>
+        <span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{}</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">case</span> <span class="mi">4</span><span class="o">:</span>
+        <span class="c1">// Declarations using var without brackets are valid due to function-scope hoisting</span>
+        <span class="kd">var</span> <span class="nx">z</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
+        <span class="kr">class</span> <span class="nx">C</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你依赖 case 落空行为，并想访问 case 块中引入的绑定，可以关闭此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-fallthrough">no-fallthrough</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 1.9.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-case-declarations.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-case-declarations.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

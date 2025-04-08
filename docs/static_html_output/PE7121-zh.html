@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7121">BE7121: 定义的equals()方法没有重写Object.equals(Object)</h2>
+    <h3>定义的equals()方法没有重写Object.equals(Object)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7121</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>定义的equals()方法没有重写Object.equals(Object)</p>
+<h4>漏洞与风险</h4>
+<p>这个类定义了一个<code>equals()</code>方法不会重写<code>java.lang.Object</code>类中定义的<code>equals(Object)</code>方法。
+实际上，这个类应该定义一个<code>boolean equals(Object)</code>方法。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

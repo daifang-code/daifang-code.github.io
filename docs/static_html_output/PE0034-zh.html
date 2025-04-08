@@ -1,0 +1,80 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0034">PE0034: 拷贝赋值运算符没有验证自赋值</h2>
+    <h3>拷贝赋值运算符没有验证自赋值情况。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0034</dd>
+                    <dt>标签</dt>
+                    <dd>CPP ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>C++的拷贝赋值操作符没有验证自我赋值问题。例如下面代码：</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span>  
+<span class="p">{</span>  
+<span class="k">private</span><span class="err">：</span>  
+    <span class="n">string</span> <span class="o">*</span><span class="n">str</span><span class="p">;</span>  
+    <span class="kt">int</span> <span class="n">val</span><span class="p">;</span>  
+<span class="k">public</span><span class="o">:</span>  
+    <span class="p">...</span>  
+    <span class="n">Foo</span> <span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Foo</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>  <span class="c1">//一份不安全的operator=实现版本  </span>
+    <span class="p">{</span>  
+        <span class="k">delete</span> <span class="n">str</span><span class="p">;</span>  
+        <span class="n">str</span> <span class="o">=</span> <span class="k">new</span> <span class="n">string</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">str</span><span class="p">));</span>  
+        <span class="n">val</span> <span class="o">=</span> <span class="n">rhs</span><span class="p">.</span><span class="n">val</span><span class="p">;</span>  
+        <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>  
+    <span class="p">}</span>  
+<span class="p">}</span>
+</pre></div>
+<p>这里的自我赋值问题是，operator=函数内的<code>*this</code>和rhs有可能是同一个对象，如果他们是同一个对象，delete就不仅销毁是<code>(*this).str</code>中所指向的对象，他也销毁rhs.str中所指向的对象。当执行第二行时，构造的是一个空的str，因为当前对象已经被销毁了。这就会导致使用已经释放的内存的问题。</p>
+<h4>漏洞与风险</h4>
+<h5>使用已经释放的内存</h5>
+<p>operator=函数内的<code>*this</code>和rhs有可能是同一个对象，如果他们是同一个对象，delete就不仅销毁是<code>(*this).str</code>中所指向的对象，他也销毁rhs.str中所指向的对象。当执行第二行时，构造的是一个空的str，因为当前对象已经被销毁了。这就会导致使用已经释放的内存的问题。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>在拷贝赋值运算符中必须处理自赋值情况。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">bad</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">xx</span><span class="p">,</span> <span class="kt">int</span> <span class="n">yy</span><span class="p">)</span> <span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">yy</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="n">bad</span><span class="p">(</span><span class="k">const</span> <span class="n">point</span> <span class="o">&amp;</span><span class="n">init</span><span class="p">)</span> <span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">init</span><span class="p">.</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">init</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="n">bad</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">point</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do not check for the right-hand side of the assignment as being the same </span>
+    <span class="c1">// object as this before assigning to the fields of this.</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">rhs</span><span class="p">.</span><span class="n">x</span><span class="p">;</span> <span class="c1">// harmless even when &amp;rhs == this</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">rhs</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>在上面的代码中，在operator=中没有处理自赋值情况。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">good</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">good</span><span class="p">(</span><span class="kt">int</span> <span class="n">xx</span><span class="p">,</span> <span class="kt">int</span> <span class="n">yy</span><span class="p">)</span> <span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">yy</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="n">good</span><span class="p">(</span><span class="k">const</span> <span class="n">point</span> <span class="o">&amp;</span><span class="n">init</span><span class="p">)</span> <span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="n">init</span><span class="p">.</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">(</span><span class="n">init</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="n">good</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">point</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">){</span>
+      <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">rhs</span><span class="p">.</span><span class="n">x</span><span class="p">;</span> <span class="c1">// harmless even when &amp;rhs == this</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">rhs</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>在上面的代码中，在operator=中处理了自赋值情况。</p>
+
+    </section>
+</article>

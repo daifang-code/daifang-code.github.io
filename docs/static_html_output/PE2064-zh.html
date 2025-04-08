@@ -1,0 +1,155 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2064">PE2064: new-cap</h2>
+    <h3>要求构造函数首字母大写 (new-cap)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2064</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求构造函数首字母大写 (new-cap)</h4>
+<p>在 JavaScript 中 <code>new</code> 操作符用来创建某个特定类型的对象的一个实例。该类型的对象是由一个构造函数表示的。由于构造函数只是常规函数，唯一区别是使用 <code>new</code> 来调用。本地 JavaScript 函数以首字母大写来区分是否是构造函数。许多风格指南推荐以下模式，可以更容易的确定哪些函数被用作构造函数。</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则要求构造函数名首字母大写。特定内建标识符不适用于此规则。这些标识符是：</p>
+<ul>
+<li><code>Array</code></li>
+<li><code>Array</code></li>
+<li><code>Boolean</code></li>
+<li><code>Boolean</code></li>
+<li><code>Date</code></li>
+<li><code>Date</code></li>
+<li><code>Error</code></li>
+<li><code>Error</code></li>
+<li><code>Function</code></li>
+<li><code>Function</code></li>
+<li><code>Number</code></li>
+<li><code>Number</code></li>
+<li><code>Object</code></li>
+<li><code>Object</code></li>
+<li><code>RegExp</code></li>
+<li><code>RegExp</code></li>
+<li><code>String</code></li>
+<li><code>String</code></li>
+<li><code>Symbol</code></li>
+<li><code>Symbol</code></li>
+</ul>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">arg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Boolean</span><span class="p">(</span><span class="nx">arg</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则有一个对象选项：</p>
+<ul>
+<li><code>&quot;newIsCap&quot;: true</code> (默认) 要求调用 <code>new</code> 操作符时有首字母大小的函数。</li>
+<li><code>&quot;newIsCap&quot;: false</code> 允许调用 <code>new</code> 操作符有首字母小写或首字母大写的函数。</li>
+<li><code>&quot;capIsNew&quot;: true</code> (默认) 要求调用首字母大写的函数时有 <code>new</code> 操作符。</li>
+<li><code>&quot;capIsNew&quot;: false</code> 允许调用首字母大写的函数时没有 <code>new</code> 操作符。</li>
+<li><code>&quot;newIsCapExceptions&quot;</code> 允许调用指定的首字母小写的函数时有 <code>new</code> 操作符。</li>
+<li><code>&quot;newIsCapExceptionPattern&quot;</code> 允许调用任何的首字母小写的函数名匹配指定的正则表达式时有 <code>new</code> 操作符。</li>
+<li><code>&quot;capIsNewExceptions&quot;</code> 允许调用指定的首字母大写的函数时没有 <code>new</code> 操作符。</li>
+<li><code>&quot;capIsNewExceptionPattern&quot;</code> 允许调用任何的首字母大写的函数名匹配指定的正则表达式时没有 <code>new</code> 操作符。</li>
+<li><code>&quot;properties&quot;: true</code> (默认) 检查对象属性。</li>
+<li><code>&quot;properties&quot;: false</code> 禁止检查对象属性。</li>
+</ul>
+<h5>newIsCap</h5>
+<p>默认选项 <code>{ &quot;newIsCap&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;newIsCap&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">();</span>
+</pre></div>
+<p>默认选项 <code>{ &quot;newIsCap&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;newIsCap&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<p>选项 <code>{ &quot;newIsCap&quot;: false }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;newIsCap&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">();</span>
+</pre></div>
+<h5>capIsNew</h5>
+<p>默认选项 <code>{ &quot;capIsNew&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;capIsNew&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">colleague</span> <span class="o">=</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<p>默认选项 <code>{ &quot;capIsNew&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;capIsNew&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">colleague</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<p>选项 <code>{ &quot;capIsNew&quot;: false }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;capIsNew&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">colleague</span> <span class="o">=</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<h5>newIsCapExceptions</h5>
+<p>选项 <code>{ &quot;newIsCapExceptions&quot;: [&quot;events&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;newIsCapExceptions&quot;: [&quot;events&quot;] }]*/</span>
+
+<span class="kd">var</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">events</span><span class="p">();</span>
+</pre></div>
+<h5>newIsCapExceptionPattern</h5>
+<p>选项 <code>{ &quot;newIsCapExceptionPattern&quot;: &quot;^person\..&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;newIsCapExceptionPattern&quot;: &quot;^person\..&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">.</span><span class="nx">acquaintance</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">bestFriend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">.</span><span class="nx">friend</span><span class="p">();</span>
+</pre></div>
+<h5>capIsNewExceptions</h5>
+<p>选项 <code>{ &quot;capIsNewExceptions&quot;: [&quot;Person&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;capIsNewExceptions&quot;: [&quot;Person&quot;] }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">arg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">arg</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>capIsNewExceptionPattern</h5>
+<p>选项 <code>{ &quot;capIsNewExceptionPattern&quot;: &quot;^Person\..&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;capIsNewExceptionPattern&quot;: &quot;^Person\..&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="nx">person</span><span class="p">.</span><span class="nx">Acquaintance</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">bestFriend</span> <span class="o">=</span> <span class="nx">person</span><span class="p">.</span><span class="nx">Friend</span><span class="p">();</span>
+</pre></div>
+<h5>properties</h5>
+<p>默认选项 <code>{ &quot;properties&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;properties&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">.</span><span class="nx">acquaintance</span><span class="p">();</span>
+</pre></div>
+<p>默认选项 <code>{ &quot;properties&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;properties&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">.</span><span class="nx">Acquaintance</span><span class="p">();</span>
+</pre></div>
+<p>选项 <code>{ &quot;properties&quot;: false }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint new-cap: [&quot;error&quot;, { &quot;properties&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">person</span><span class="p">.</span><span class="nx">acquaintance</span><span class="p">();</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你有约定，不需要构造函数首字母大写，或不需要首字母大写的函数仅仅被用作构造函数，那么可以关闭此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.3-0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/new-cap.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/new-cap.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

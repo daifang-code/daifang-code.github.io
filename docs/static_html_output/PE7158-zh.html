@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7158">BE7158: notify()保持两个锁</h2>
+    <h3>notify()保持两个锁</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7158</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>notify()保持两个锁</p>
+<h4>漏洞与风险</h4>
+<p>代码在保持两个锁时调用notify() 或 notifyAll()。如果此通知旨在唤醒持有相同锁的wait()，则可能会死锁，因为等待只会放弃一个锁，并且通知将无法获得两个锁，因此通知将不会成功。
+<p>如果还有关于两次锁定等待的警告，那么这是一个bug的可能性很高。&lt;/p&gt;</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

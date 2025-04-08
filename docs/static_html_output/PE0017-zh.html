@@ -1,0 +1,52 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0017">PE0017: 子类型重载父类虚方法时const限定符不一致</h2>
+    <h3>子类型重载父类虚方法时const限定符不一致，则并没有实际的重载操作。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0017</dd>
+                    <dt>标签</dt>
+                    <dd>CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>子类型重载父类虚方法时const限定符不一致，则并没有实际的重载操作。</p>
+<h4>漏洞与风险</h4>
+<h5>逻辑错误</h5>
+<p>子类型重载父类虚方法时const限定符不一致，则并没有实际的重载操作。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>修改父类或子类的方法声明，统一方法的const限定符。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="n">virtual</span> <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="cm">/*...*/</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">class</span> <span class="nl">B</span> <span class="p">:</span> <span class="n">public</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span>  <span class="p">{</span> <span class="cm">/* ... */</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>在上面的代码中，B::setName的本意是重载A::setName，但是在定义B::setName时缺少const限定符，导致重载失败。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="n">virtual</span> <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span>  <span class="k">const</span> <span class="p">{</span> <span class="cm">/*...*/</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">class</span> <span class="nl">B</span> <span class="p">:</span> <span class="n">public</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span>  <span class="k">const</span> <span class="p">{</span> <span class="cm">/* ... */</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>在上面的代码中，给B::setName方法提供const限定符，与A::setName保持一致。</p>
+
+    </section>
+</article>

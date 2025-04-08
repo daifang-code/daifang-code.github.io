@@ -1,0 +1,36 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1086">SC1086: Using '$' on the iterator name in for loops.</h2>
+    <h3>Don't use $ on the iterator name in for loops.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1086</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Don't use $ on the iterator name in for loops.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="nv">$var</span> in *
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span> var in *
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>The variable is named <code>var</code>, and can be expanded to its value with <code>$var</code>.</p>
+<p>The <code>for</code> loop expects the variable's name, not its value (and the name can not be specified indirectly).</p>
+<h5>Exceptions</h5>
+<p>None.</p>
+
+    </section>
+</article>

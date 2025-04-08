@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7202">BE7202: Private readResolve method not inherited by subclasses</h2>
+    <h3>Private readResolve method not inherited by subclasses</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7202</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Private readResolve method not inherited by subclasses</p>
+<h4>Vulnerability and risk</h4>
+<p> This class defines a private readResolve method. Since it is private, it won't be inherited by subclasses.
+This might be intentional and OK, but should be reviewed to ensure it is what is intended.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

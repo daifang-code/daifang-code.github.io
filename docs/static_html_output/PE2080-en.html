@@ -1,0 +1,69 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2080">PE2080: no-confusing-arrow</h2>
+    <h3>Disallow arrow functions where they could be confused with comparisons (no-confusing-arrow)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2080</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow arrow functions where they could be confused with comparisons (no-confusing-arrow)</h4>
+<p>Arrow functions (<code>=&gt;</code>) are similar in syntax to some comparison operators (<code>&gt;</code>, <code>&lt;</code>, <code>&lt;=</code>, and <code>&gt;=</code>). This rule warns against using the arrow function syntax in places where it could be confused with a comparison operator. Even if the arguments of the arrow function are wrapped with parens, this rule still warns about it unless <code>allowParens</code> is set to <code>true</code>.</p>
+<p>Here's an example where the usage of <code>=&gt;</code> could be confusing:</p>
+<div class="highlight"><pre><span></span><span class="c1">// The intent is not clear</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span> <span class="p">=&gt;</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">;</span>
+<span class="c1">// Did the author mean this</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span> <span class="p">};</span>
+<span class="c1">// Or this</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">;</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-confusing-arrow: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span> <span class="p">=&gt;</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-confusing-arrow: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">;</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">;</span> <span class="p">};</span>
+</pre></div>
+<h2>Options</h2>
+<p>This rule accepts a single options argument with the following defaults:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;no-confusing-arrow&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nt">&quot;allowParens&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">}]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p><code>allowParens</code> is a boolean setting that can be <code>true</code> or <code>false</code>:</p>
+<ol>
+<li><code>true</code> relaxes the rule and accepts parenthesis as a valid &quot;confusion-preventing&quot; syntax.</li>
+<li><code>false</code> warns even if the expression is wrapped in parenthesis</li>
+</ol>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{&quot;allowParens&quot;: true}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-confusing-arrow: [&quot;error&quot;, {&quot;allowParens&quot;: true}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">);</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-constant-condition.md">no-constant-condition</a></li>
+<li><a href="arrow-parens.md">arrow-parens</a></li>
+</ul>
+
+    </section>
+</article>

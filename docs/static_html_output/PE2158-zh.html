@@ -1,0 +1,95 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2158">PE2158: no-restricted-modules</h2>
+    <h3>禁止 Node.js 模块 (no-restricted-modules)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2158</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止 Node.js 模块 (no-restricted-modules)</h4>
+<p>Node.js 中的模块是一个在 JavaScript 文件中组织的简单或复杂的功能，可以在 Node.js 中复用的应用。Node.js/CommonJS 中的关键字 <code>require</code> 用来导入模块到应用中。这样，你就可以有动态加载，其中加载的模块名称不是预定义的/静态的，或者只有在真正需要的情况下才有条件地加载模块。</p>
+<p>为什么想要限制一个模块？</p>
+<p>如果你想限制开发人员可以使用的方法，禁用特定的 Node.js 模块的使用可能非常有用。例如，如果你想禁止文件系统访问，你可以阻塞 <code>fs</code> 模块的使用。</p>
+<h2>缺陷详因</h2>
+<p>这个规则允许你指定在应用程序中不希望使用的模块。</p>
+<h2>修改方案</h2>
+<p>该规则有一个或多个字符串作为选项：受限制的模块名称。</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-modules&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;foo-module&quot;</span><span class="p">,</span> <span class="s2">&quot;bar-module&quot;</span><span class="p">]</span>
+</pre></div>
+<p>它还可以有一个对象，带有 <code>paths</code> 和 gitignore 风格的 <code>patterns</code> 字符串列表。</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-modules&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;paths&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;foo-module&quot;</span><span class="p">,</span> <span class="s2">&quot;bar-module&quot;</span><span class="p">]</span> <span class="p">}]</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-modules&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nt">&quot;paths&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;foo-module&quot;</span><span class="p">,</span> <span class="s2">&quot;bar-module&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;patterns&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;foo-module/private/*&quot;</span><span class="p">,</span> <span class="s2">&quot;bar-module/*&quot;</span><span class="p">,</span><span class="s2">&quot;!baz-module/good&quot;</span><span class="p">]</span>
+<span class="p">}]</span>
+</pre></div>
+<p>你还可以为您想要限制的路径指定一个自定义消息:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-modules&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">[{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;foo-module&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Please use bar-module instead.&quot;</span>
+  <span class="p">}]</span>
+<span class="p">]</span>
+</pre></div>
+<p>或像这样：</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-modules&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,{</span>
+<span class="nt">&quot;paths&quot;</span><span class="p">:[{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;foo-module&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Please use bar-module instead.&quot;</span>
+  <span class="p">}]</span>
+<span class="p">}]</span>
+</pre></div>
+<p>自定义消息将附加到默认的错误消息。请注意，你可能没有为受限模式指定自定义错误消息，因为特定模块可能匹配多个模式。</p>
+<p>限制所有 Node.js 核心模块(通过 https://github.com/nodejs/node/tree/master/lib) 的使用：</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;no-restricted-modules&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;assert&quot;</span><span class="p">,</span><span class="s2">&quot;buffer&quot;</span><span class="p">,</span><span class="s2">&quot;child_process&quot;</span><span class="p">,</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span><span class="s2">&quot;crypto&quot;</span><span class="p">,</span><span class="s2">&quot;dgram&quot;</span><span class="p">,</span><span class="s2">&quot;dns&quot;</span><span class="p">,</span><span class="s2">&quot;domain&quot;</span><span class="p">,</span><span class="s2">&quot;events&quot;</span><span class="p">,</span><span class="s2">&quot;freelist&quot;</span><span class="p">,</span><span class="s2">&quot;fs&quot;</span><span class="p">,</span><span class="s2">&quot;http&quot;</span><span class="p">,</span><span class="s2">&quot;https&quot;</span><span class="p">,</span><span class="s2">&quot;module&quot;</span><span class="p">,</span><span class="s2">&quot;net&quot;</span><span class="p">,</span><span class="s2">&quot;os&quot;</span><span class="p">,</span><span class="s2">&quot;path&quot;</span><span class="p">,</span><span class="s2">&quot;punycode&quot;</span><span class="p">,</span><span class="s2">&quot;querystring&quot;</span><span class="p">,</span><span class="s2">&quot;readline&quot;</span><span class="p">,</span><span class="s2">&quot;repl&quot;</span><span class="p">,</span><span class="s2">&quot;smalloc&quot;</span><span class="p">,</span><span class="s2">&quot;stream&quot;</span><span class="p">,</span><span class="s2">&quot;string_decoder&quot;</span><span class="p">,</span><span class="s2">&quot;sys&quot;</span><span class="p">,</span><span class="s2">&quot;timers&quot;</span><span class="p">,</span><span class="s2">&quot;tls&quot;</span><span class="p">,</span><span class="s2">&quot;tracing&quot;</span><span class="p">,</span><span class="s2">&quot;tty&quot;</span><span class="p">,</span><span class="s2">&quot;url&quot;</span><span class="p">,</span><span class="s2">&quot;util&quot;</span><span class="p">,</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span><span class="s2">&quot;zlib&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Examples</h2>
+<p>限制 <code>&quot;fs&quot;, &quot;cluster&quot;, &quot;lodash&quot;</code> 模块的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-modules: [&quot;error&quot;, &quot;fs&quot;, &quot;cluster&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">cluster</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">);</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-modules: [&quot;error&quot;, {&quot;paths&quot;: [&quot;cluster&quot;] }]*/</span>
+
+<span class="kd">var</span> <span class="nx">cluster</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">);</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-modules: [&quot;error&quot;, { &quot;patterns&quot;: [&quot;lodash/*&quot;] }]*/</span>
+
+<span class="kd">var</span> <span class="nx">pick</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;lodash/pick&#39;</span><span class="p">);</span>
+</pre></div>
+<p>限制 <code>&quot;fs&quot;, &quot;cluster&quot;, &quot;lodash&quot;</code> 模块的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-modules: [&quot;error&quot;, &quot;fs&quot;, &quot;cluster&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">crypto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;crypto&#39;</span><span class="p">);</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-modules: [&quot;error&quot;, {</span>
+<span class="cm">    &quot;paths&quot;: [&quot;fs&quot;, &quot;cluster&quot;],</span>
+<span class="cm">    &quot;patterns&quot;: [&quot;lodash/*&quot;, &quot;!lodash/pick&quot;]</span>
+<span class="cm">}]*/</span>
+
+<span class="kd">var</span> <span class="nx">crypto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;crypto&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">pick</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;lodash/pick&#39;</span><span class="p">);</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.6.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-restricted-modules.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-restricted-modules.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

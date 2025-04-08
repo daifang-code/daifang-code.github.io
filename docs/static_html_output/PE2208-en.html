@@ -1,0 +1,211 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2208">PE2208: object-shorthand</h2>
+    <h3>Require Object Literal Shorthand Syntax (object-shorthand)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2208</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Require Object Literal Shorthand Syntax (object-shorthand)</h4>
+<p>ECMAScript 6 provides a concise form for defining object literal methods and properties. This
+syntax can make defining complex object literals much cleaner.</p>
+<p>Here are a few common examples using the ES5 syntax:</p>
+<div class="highlight"><pre><span></span><span class="c1">// properties</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">x</span><span class="o">:</span> <span class="nx">x</span><span class="p">,</span>
+    <span class="nx">y</span><span class="o">:</span> <span class="nx">y</span><span class="p">,</span>
+    <span class="nx">z</span><span class="o">:</span> <span class="nx">z</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="c1">// methods</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{},</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+<p>Now here are ES6 equivalents:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// properties</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">};</span>
+
+<span class="c1">// methods</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="p">()</span> <span class="p">{},</span>
+    <span class="nx">b</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule enforces the use of the shorthand syntax. This applies
+to all methods (including generators) defined in object literals and any
+properties defined where the key name matches name of the assigned variable.</p>
+<p>Each of the following properties would warn:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-shorthand: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">w</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{},</span>
+    <span class="nx">x</span><span class="o">:</span> <span class="kd">function</span> <span class="o">*</span><span class="p">()</span> <span class="p">{},</span>
+    <span class="p">[</span><span class="nx">y</span><span class="p">]</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{},</span>
+    <span class="nx">z</span><span class="o">:</span> <span class="nx">z</span>
+<span class="p">};</span>
+</pre></div>
+<p>In that case the expected syntax would have been:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-shorthand: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">w</span><span class="p">()</span> <span class="p">{},</span>
+    <span class="o">*</span><span class="nx">x</span><span class="p">()</span> <span class="p">{},</span>
+    <span class="p">[</span><span class="nx">y</span><span class="p">]()</span> <span class="p">{},</span>
+    <span class="nx">z</span>
+<span class="p">};</span>
+</pre></div>
+<p>This rule does not flag arrow functions inside of object literals.
+The following will <em>not</em> warn:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-shorthand: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">x</span><span class="o">:</span> <span class="p">(</span><span class="nx">y</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">y</span>
+<span class="p">};</span>
+</pre></div>
+<p>See Also:</p>
+<ul>
+<li><a href="https://eslint.org/docs/rules/no-useless-rename"><code>no-useless-rename</code></a> which disallows renaming import, export, and destructured assignments to the same name.</li>
+</ul>
+<h2>Options</h2>
+<p>The rule takes an option which specifies when it should be applied. It can be set to one of the following values:</p>
+<ul>
+<li><code>&quot;always&quot;</code> (default) expects that the shorthand will be used whenever possible.</li>
+<li><code>&quot;methods&quot;</code> ensures the method shorthand is used (also applies to generators).</li>
+<li><code>&quot;properties&quot;</code> ensures the property shorthand is used (where the key and variable name match).</li>
+<li><code>&quot;never&quot;</code> ensures that no property or method shorthand is used in any object literal.</li>
+<li><code>&quot;consistent&quot;</code> ensures that either all shorthand or all long-form will be used in an object literal.</li>
+<li><code>&quot;consistent-as-needed&quot;</code> ensures that either all shorthand or all long-form will be used in an object literal, but ensures all shorthand whenever possible.</li>
+</ul>
+<p>You can set the option in configuration like this:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;object-shorthand&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;always&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<p>Additionally, the rule takes an optional object configuration:</p>
+<ul>
+<li><code>&quot;avoidQuotes&quot;: true</code> indicates that long-form syntax is preferred whenever the object key is a string literal (default: <code>false</code>). Note that this option can only be enabled when the string option is set to <code>&quot;always&quot;</code>, <code>&quot;methods&quot;</code>, or <code>&quot;properties&quot;</code>.</li>
+<li><code>&quot;ignoreConstructors&quot;: true</code> can be used to prevent the rule from reporting errors for constructor functions. (By default, the rule treats constructors the same way as other functions.) Note that this option can only be enabled when the string option is set to <code>&quot;always&quot;</code> or <code>&quot;methods&quot;</code>.</li>
+<li><code>&quot;avoidExplicitReturnArrows&quot;: true</code> indicates that methods are preferred over explicit-return arrow functions for function properties. (By default, the rule allows either of these.) Note that this option can only be enabled when the string option is set to <code>&quot;always&quot;</code> or <code>&quot;methods&quot;</code>.</li>
+</ul>
+<h5><code>avoidQuotes</code></h5>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;object-shorthand&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;always&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;avoidQuotes&quot;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+<p>Example of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;, { &quot;avoidQuotes&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-shorthand: [&quot;error&quot;, &quot;always&quot;, { &quot;avoidQuotes&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;bar-baz&quot;</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+<p>Example of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;, { &quot;avoidQuotes&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-shorthand: [&quot;error&quot;, &quot;always&quot;, { &quot;avoidQuotes&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;bar-baz&quot;</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{},</span>
+    <span class="s2">&quot;qux&quot;</span><span class="o">:</span> <span class="nx">qux</span>
+<span class="p">};</span>
+</pre></div>
+<h5><code>ignoreConstructors</code></h5>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;object-shorthand&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;always&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;ignoreConstructors&quot;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+<p>Example of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;, { &quot;ignoreConstructors&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-shorthand: [&quot;error&quot;, &quot;always&quot;, { &quot;ignoreConstructors&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">ConstructorFunction</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+<h5><code>avoidExplicitReturnArrows</code></h5>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;object-shorthand&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;always&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;avoidExplicitReturnArrows&quot;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+<p>Example of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;, { &quot;avoidExplicitReturnArrows&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-shorthand: [&quot;error&quot;, &quot;always&quot;, { &quot;avoidExplicitReturnArrows&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">foo</span><span class="o">:</span> <span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">bar</span> <span class="o">+</span> <span class="nx">baz</span><span class="p">;</span>
+  <span class="p">},</span>
+
+  <span class="nx">qux</span><span class="o">:</span> <span class="p">(</span><span class="nx">foobar</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">foobar</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>Example of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;, { &quot;avoidExplicitReturnArrows&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-shorthand: [&quot;error&quot;, &quot;always&quot;, { &quot;avoidExplicitReturnArrows&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">bar</span> <span class="o">+</span> <span class="nx">baz</span><span class="p">;</span>
+  <span class="p">},</span>
+
+  <span class="nx">qux</span><span class="o">:</span> <span class="nx">foobar</span> <span class="p">=&gt;</span> <span class="nx">foobar</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="p">};</span>
+</pre></div>
+<p>Example of <strong>incorrect</strong> code for this rule with the <code>&quot;consistent&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-shorthand: [2, &quot;consistent&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;consistent&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-shorthand: [2, &quot;consistent&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+<p>Example of <strong>incorrect</strong> code with the <code>&quot;consistent-as-needed&quot;</code> option, which is very similar to <code>&quot;consistent&quot;</code>:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-shorthand: [2, &quot;consistent-as-needed&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="nx">b</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>Anyone not yet in an ES6 environment would not want to apply this rule. Others may find the terseness of the shorthand
+syntax harder to read and may not want to encourage it with this rule.</p>
+<h2>Further Reading</h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer">Object initializer - MDN</a></p>
+
+    </section>
+</article>

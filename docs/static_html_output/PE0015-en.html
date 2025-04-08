@@ -1,0 +1,46 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0015">PE0015: Secure Temp</h2>
+    <h3>Many potentially insecure temporary file creation routines make a program vulnerable to race condition attacks.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0015</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Many programs create temporary files in shared directories such as /tmp. There are C library routines that assist in creating unique temporary files, but many of them are insecure as they make a program vulnerable to race condition attacks.</p>
+<p>If the name of a temporary file is easily guessed, or the filename is used unsafely after temp file creation, or the umask is not safely set before calling a safe routine, an attacker can take control of a vulnerable application and system.</p>
+<p>Avoid using insecure temporary file creation routines. Instead, use mkstemp() for creating temp files. When using mkstemp(), remember to safely set the umask before to restrict the resulting temporary file permissions to only the owner. Also, do not pass on the filename to another privileged system call. Use the returned file descriptor instead.</p>
+<h4>Vulnerability and risk</h4>
+<h5>outside attack</h5>
+<p>If the name of a temporary file is easily guessed, or the filename is used unsafely after temp file creation, or the umask is not safely set before calling a safe routine, an attacker can take control of a vulnerable application and system.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>Avoid using insecure temporary file creation routines.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="n">mktemp</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, use mktemp() routine to create temporary file, it is easy to guess the name of the temporary file it creates.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;a.txt&quot;</span><span class="p">;</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="n">mkstemp</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example  use mkstemp() routine to create temporary file.</p>
+
+    </section>
+</article>

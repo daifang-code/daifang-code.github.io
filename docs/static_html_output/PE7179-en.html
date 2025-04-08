@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7179">BE7179: Field is a mutable collection which should be package protected</h2>
+    <h3>Field is a mutable collection which should be package protected</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7179</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Field is a mutable collection which should be package protected</p>
+<h4>Vulnerability and risk</h4>
+<p>A mutable collection instance is assigned to a final static field,
+   thus can be changed by malicious code or by accident from another package.
+   The field could be made package protected to avoid this vulnerability.
+   Alternatively you may wrap this field into Collections.unmodifiableSet/List/Map/etc.
+   to avoid this vulnerability.</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

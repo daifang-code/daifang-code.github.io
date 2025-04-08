@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7260">BE7260: Method discards result of readLine after checking if it is non-null</h2>
+    <h3>Method discards result of readLine after checking if it is non-null</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7260</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Method discards result of readLine after checking if it is non-null</p>
+<h4>Vulnerability and risk</h4>
+<p> The value returned by readLine is discarded after checking to see if the return
+value is non-null. In almost all situations, if the result is non-null, you will want
+to use that non-null value. Calling readLine again will give you a different line.</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

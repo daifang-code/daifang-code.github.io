@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2163">PE2163: no-script-url</h2>
+    <h3>禁用 Script URL (no-script-url)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2163</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁用 Script URL (no-script-url)</h4>
+<p>在链接地址中使用 <code>javascript:</code> 被有些人认为是 <code>eval</code> 的一种形式。在 <code>javascript:</code> 链接中的代码必须由浏览器解析和赋值，其处理方式与 <code>eval</code> 一样。</p>
+<h2>缺陷详因</h2>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-script-url: &quot;error&quot;*/</span>
+
+<span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="s2">&quot;javascript:void(0)&quot;</span><span class="p">;</span>
+</pre></div>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSHint</strong>: This rule corresponds to <code>scripturl</code> rule of JSHint.</li>
+<li><strong>JSHint</strong>：此规则对应JSHint中的<code>scripturl</code>规则。</li>
+</ul>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/13497971/what-is-the-matter-with-script-targeted-urls">What is the matter with script-targeted URLs?</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-script-url.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-script-url.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

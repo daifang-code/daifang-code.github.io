@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7154">BE7154: 方法无限循环读取一个字段</h2>
+    <h3>方法无限循环读取一个字段</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7154</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>方法无限循环读取一个字段</p>
+<h4>漏洞与风险</h4>
+<p>该方法在一个循环中读取一个字段。编译器可以在循环外合法地将其读出，将代码转换成无限循环。应该更改类，以便它使用正确的同步（包括等待和通知调用）。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

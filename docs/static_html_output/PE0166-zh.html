@@ -1,0 +1,84 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0166">PE0166: 不匹配的内存申请和释放</h2>
+    <h3>应用程序尝试将内存资源返还给系统，但它调用的释放函数与最初用于分配该资源的函数不兼容。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0166</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>这种缺陷通常可以描述为不匹配地使用内存管理函数，例如:</p>
+<ul>
+<li>内存是在栈上自动分配的，但是使用内存管理函数free()(CWE-590)进行了释放，该函数专门用于显式分配的堆内存；</li>
+<li>使用一组内存管理函数进行显示内存分配，但使用另一组函数进行释放。例如C++中用malloc来取代new，但是之后使用delete释放。</li>
+</ul>
+<p>当使用不匹配的内存分配和释放功能时，后果可能与错误代码执行、内存损坏或程序崩溃一样严重。该缺陷的后果和被利用的容易程度与使用的内存管理功能的实现和被管理的内存对象有关。</p>
+<h4>漏洞与风险</h4>
+<p>可能的后果包括内存损坏、拒绝服务攻击、程序崩溃/退出/重启、任意代码执行漏洞。</p>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+<h4>缓解与预防</h4>
+<p>使用配套的内存管理函数</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例1</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">foo</span><span class="p">(){</span>
+  <span class="n">BarObj</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BarObj</span><span class="p">()</span>
+  <span class="cm">/* do some work with ptr here */</span>
+
+  <span class="p">...</span>
+
+  <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>上例中使用new分配一个新的BarObj对象，但是释放改对象使用了free函数，这将导致不确定的代码行为</p>
+<h5>漏洞代码修复示例1</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">foo</span><span class="p">(){</span>
+  <span class="n">BarObj</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BarObj</span><span class="p">()</span>
+  <span class="cm">/* do some work with ptr here */</span>
+
+  <span class="p">...</span>
+
+  <span class="n">delete</span> <span class="n">ptr</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>相对的修复代码中，程序员使用了一组内存管理函数中的分配功能，同时使用了对应的释放功能</p>
+<h5>漏洞代码示例 2</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">foo</span><span class="p">();</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="n">A</span><span class="o">::</span><span class="n">foo</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+  <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+  <span class="p">...</span>
+  <span class="n">delete</span> <span class="n">ptr</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>上例中，程序没有使用匹配的函数如malloc/free，new/delete，new[]/delete[]用于分配和释放资源</p>
+<h5>漏洞代码修复示例 2</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">foo</span><span class="p">();</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="n">A</span><span class="o">::</span><span class="n">foo</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+  <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+  <span class="p">...</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>相对的，使用匹配的函数来申请释放内存</p>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/762.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

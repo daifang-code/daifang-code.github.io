@@ -1,0 +1,47 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0014">PE0014: 函数缺少返回值</h2>
+    <h3>返回非void类型的函数在某条路径上缺少返回值。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0014</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP, JAVA, CSHARP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>返回非void类型的函数在某条路径上缺少返回值，会导致出乎意料的程序行为。</p>
+<h4>漏洞与风险</h4>
+<h5>出乎意料的行为</h5>
+<p>返回非void类型的函数在某条路径上缺少返回值，会导致出乎意料的程序行为。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>在返回非void类型的函数的每条路径上都提供返回值。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span> <span class="c1">// missing_return</span>
+</pre></div>
+<p>在上面的代码中，当x的值既不等于5，也不等于3时，函数bad缺少返回值。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">good</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在函数的最后提供了返回值0。</p>
+
+    </section>
+</article>

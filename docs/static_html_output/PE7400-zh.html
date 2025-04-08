@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7400">BE7400: 在int上调用Double.longBitsToDouble</h2>
+    <h3>在int上调用Double.longBitsToDouble</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7400</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在int上调用Double.longBitsToDouble</p>
+<h4>漏洞与风险</h4>
+<p> Double.longBitsToDouble方法被调用，但是一个32位int值被做为参数进行传递。
+这几乎可以肯定不是有意为之的，同时也不太可能给出预期的结果。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

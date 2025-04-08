@@ -1,0 +1,292 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2097">PE2097: no-empty-function</h2>
+    <h3>禁止出现空函数 (no-empty-function)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2097</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止出现空函数 (no-empty-function)</h4>
+<p>空函数能降低代码的可读性，因为读者需要猜测它是否是有意为之。所以，为空函数写一个清晰的注释是个很好的实践。</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// do nothing.</span>
+<span class="p">}</span>
+</pre></div>
+<p>尤其是箭头函数的空语句块可能使开发者感到困惑。它非常类似于一个空对象。</p>
+<div class="highlight"><pre><span></span><span class="nx">list</span><span class="p">.</span><span class="nx">map</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{});</span>   <span class="c1">// This is a block, would return undefined.</span>
+<span class="nx">list</span><span class="p">.</span><span class="nx">map</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">({}));</span> <span class="c1">// This is an empty object.</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则旨在消除空函数。如果一个函数包含了一条注释，它将不会被认为有问题。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-empty-function: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+
+<span class="kd">function</span><span class="o">*</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{},</span>
+
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{},</span>
+
+    <span class="nx">foo</span><span class="p">()</span> <span class="p">{},</span>
+
+    <span class="o">*</span><span class="nx">foo</span><span class="p">()</span> <span class="p">{},</span>
+
+    <span class="nx">get</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{},</span>
+
+    <span class="nx">set</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{}</span>
+
+    <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+
+    <span class="o">*</span><span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+
+    <span class="nx">get</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+
+    <span class="nx">set</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="kr">static</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+
+    <span class="kr">static</span> <span class="o">*</span><span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+
+    <span class="kr">static</span> <span class="nx">get</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+
+    <span class="kr">static</span> <span class="nx">set</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-empty-function: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// do nothing.</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// any clear comments.</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="kd">function</span><span class="o">*</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// do nothing.</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// do nothing.</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">},</span>
+
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">},</span>
+
+    <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">},</span>
+
+    <span class="o">*</span><span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">},</span>
+
+    <span class="nx">get</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">},</span>
+
+    <span class="nx">set</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">}</span>
+
+    <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">}</span>
+
+    <span class="o">*</span><span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">}</span>
+
+    <span class="nx">get</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">}</span>
+
+    <span class="nx">set</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">}</span>
+
+    <span class="kr">static</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">}</span>
+
+    <span class="kr">static</span> <span class="o">*</span><span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">}</span>
+
+    <span class="kr">static</span> <span class="nx">get</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">}</span>
+
+    <span class="kr">static</span> <span class="nx">set</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do nothing.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则一个选项，允许特定类型的函数为空。</p>
+<ul>
+<li><code>allow</code> (<code>string[]</code>) - 所允许的空函数列表。列表元素为以下字符。默认为空数组 (<code>[]</code>)。<ul>
+<li><code>&quot;functions&quot;</code> - 常规函数。</li>
+<li><code>&quot;arrowFunctions&quot;</code> - 箭头函数。</li>
+<li><code>&quot;generatorFunctions&quot;</code> - Generator 函数。</li>
+<li><code>&quot;methods&quot;</code> - 类方法和对象的方法简写</li>
+<li><code>&quot;generatorMethods&quot;</code> - 类方法和带有 generator 的对象的方法简写。</li>
+<li><code>&quot;getters&quot;</code> - Getters。</li>
+<li><code>&quot;setters&quot;</code> - Setters。</li>
+<li><code>&quot;constructors&quot;</code> - 类的构造函数。</li>
+</ul>
+</li>
+</ul>
+<h5>allow: functions</h5>
+<p>选项 <code>{ &quot;allow&quot;: [&quot;functions&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-empty-function: [&quot;error&quot;, { &quot;allow&quot;: [&quot;functions&quot;] }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+<h5>allow: arrowFunctions</h5>
+<p>选项 <code>{ &quot;allow&quot;: [&quot;arrowFunctions&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-empty-function: [&quot;error&quot;, { &quot;allow&quot;: [&quot;arrowFunctions&quot;] }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+</pre></div>
+<h5>allow: generatorFunctions</h5>
+<p>选项 <code>{ &quot;allow&quot;: [&quot;generatorFunctions&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-empty-function: [&quot;error&quot;, { &quot;allow&quot;: [&quot;generatorFunctions&quot;] }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span><span class="o">*</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+<h5>allow: methods</h5>
+<p>选项 <code>{ &quot;allow&quot;: [&quot;methods&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-empty-function: [&quot;error&quot;, { &quot;allow&quot;: [&quot;methods&quot;] }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="kr">static</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>allow: generatorMethods</h5>
+<p>选项 <code>{ &quot;allow&quot;: [&quot;generatorMethods&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-empty-function: [&quot;error&quot;, { &quot;allow&quot;: [&quot;generatorMethods&quot;] }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">*</span><span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+    <span class="o">*</span><span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="kr">static</span> <span class="o">*</span><span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>allow: getters</h5>
+<p>选项 <code>{ &quot;allow&quot;: [&quot;getters&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-empty-function: [&quot;error&quot;, { &quot;allow&quot;: [&quot;getters&quot;] }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">get</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+    <span class="nx">get</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="kr">static</span> <span class="nx">get</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>allow: setters</h5>
+<p>选项 <code>{ &quot;allow&quot;: [&quot;setters&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-empty-function: [&quot;error&quot;, { &quot;allow&quot;: [&quot;setters&quot;] }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">set</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+    <span class="nx">set</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="kr">static</span> <span class="nx">set</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>allow: constructors</h5>
+<p>选项 <code>{ &quot;allow&quot;: [&quot;constructors&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-empty-function: [&quot;error&quot;, { &quot;allow&quot;: [&quot;constructors&quot;] }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想收到关于空函数的通知，你可以禁用此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="./no-empty">no-empty</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 2.0.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-empty-function.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-empty-function.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

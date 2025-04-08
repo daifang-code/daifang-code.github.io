@@ -1,0 +1,52 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0098">PE0098: Type cast between pointer and non-pointer</h2>
+    <h3>Type cast between pointer and non-pointer.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0098</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Type cast between pointer and non-pointer.</p>
+<h4>Vulnerability and risk</h4>
+<p>Depending on the platform or architecture, the pointer may or may not be represented by the same number of bits as an integer type, such as an unsigned integer. In general, the conversion between a pointer type and a non-pointer type is considered not to safe.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>It is not advisable to store pointer values ​​in an integer. If the type pointed to by the pointer must be hidden, use the void type instead.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">char</span><span class="o">*</span> <span class="n">a</span> <span class="o">=</span> <span class="s">&quot;hello world&quot;</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">a</span><span class="p">;</span>  <span class="c1">//Type cast between pointer and  </span>
+                                     <span class="c1">//non-pointer</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, the pointer variable a is casted to the unsigned int type.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">char</span><span class="o">*</span> <span class="n">a</span> <span class="o">=</span> <span class="s">&quot;hello world&quot;</span><span class="p">;</span>
+  <span class="kt">void</span><span class="o">*</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">a</span><span class="p">;</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, use the void type for type conversion between pointers.</p>
+<h4>Reference</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>SJ/T 11682-2017 6.2.1<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

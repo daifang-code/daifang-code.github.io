@@ -1,0 +1,53 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7584">BE7584: Trust Boundary Violation</h2>
+    <h3>Trust Boundary Violation</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7584</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Trust Boundary Violation</p>
+<h4>Vulnerability and risk</h4>
+<p>
+    "A trust boundary can be thought of as line drawn through a program. On one side of the line, data is untrusted.
+    On the other side of the line, data is assumed to be trustworthy. The purpose of validation logic is to allow data
+    to safely cross the trust boundary - to move from untrusted to trusted. A trust boundary violation occurs when a
+    program blurs the line between what is trusted and what is untrusted. By combining trusted and untrusted data in the
+    same data structure, it becomes easier for programmers to mistakenly trust unvalidated data." <sup>[1]</sup>
+</p>
+<p>
+<b>Code at risk:</b><br/>
+<pre>
+public void doSomething(HttpServletRequest req, String activateProperty) {
+    //..
+    req.getSession().setAttribute(activateProperty,"true");
+}</pre>
+<pre>
+public void loginEvent(HttpServletRequest req, String userSubmitted) {
+    //..
+    req.getSession().setAttribute("user",userSubmitted);
+}
+</pre>
+</p>
+<p>
+<b>Solution:</b><br/>
+<p>
+The solution would be to add validation prior setting a new session attribute. When possible, prefer data from
+safe location rather than using direct user input.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+<h4>References</h4>
+<p>[1] &lt;a href=&quot;https://cwe.mitre.org/data/definitions/501.html&quot;&gt;CWE-501: Trust Boundary Violation&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://www.owasp.org/index.php/Trust_Boundary_Violation&quot;&gt;OWASP : Trust Boundary Violation&lt;/a&gt;</p>
+
+    </section>
+</article>

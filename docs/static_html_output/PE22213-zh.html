@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22213">PE22213: DUO103</h2>
+    <h3>DUO103</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22213</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO103</h4>
+<p>此linter搜索<code>pickle</code>模块的不安全使用。</p>
+<p>使用<code>loads</code>、<code>load</code>和<code>Unpickler</code>通常允许任意代码与用户输入组合时出现执行错误。</p>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
+
+<span class="n">malicious_user_input</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;csubprocess</span><span class="se">\n</span><span class="s2">check_output</span><span class="se">\n</span><span class="s2">(S&#39;ls&#39;</span><span class="se">\n</span><span class="s2">tR.&quot;</span>
+<span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">malicious_user_input</span><span class="p">)</span>
+</pre></div>
+<h2>正确方式</h2>
+<p>与其使用<code>pickle</code>库，不如使用序列化不允许执行代码的格式，例如<code>json</code>。</p>
+<h2>特别提及</h2>
+<p><em>如果传递给<code>pickle</code>的数据不包含用户输入，则代码可能是安全的</em>如果传递给<code>pickle</code>的数据是常量字符串，则代码可能是安全的</p>
+
+    </section>
+</article>

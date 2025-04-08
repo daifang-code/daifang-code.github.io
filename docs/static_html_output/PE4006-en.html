@@ -1,0 +1,53 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4006">PE4006: Return private array in public method</h2>
+    <h3>The private array property defined in the class is returned as a return value in the public function of the class.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE4006</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The private array property defined in the class is returned as a return value in the public function of the class.</p>
+<h4>Vulnerability and risk</h4>
+<p>The private array in the class is exposed as a function's return value to the public area. There is a risk that the private array member will be tampered with in the public area.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>When the data of a private array member needs to be the return value of a public function, a copy of the private array should be returned.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">CTest</span>
+<span class="p">{</span>
+    <span class="nl">private</span><span class="p">:</span>
+        <span class="kt">char</span> <span class="n">secret</span><span class="p">[</span><span class="n">MAX_SIZE</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;abcd&quot;</span><span class="p">;</span>
+    <span class="nl">public</span><span class="p">:</span>
+        <span class="kt">char</span><span class="p">[]</span> <span class="n">get_value</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">secret</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed code example</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">CTest</span>
+<span class="p">{</span>
+    <span class="nl">private</span><span class="p">:</span>
+        <span class="kt">char</span> <span class="n">secret</span><span class="p">[</span><span class="n">MAX_SIZE</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;abcd&quot;</span><span class="p">;</span>
+    <span class="nl">public</span><span class="p">:</span>
+        <span class="kt">char</span> <span class="n">cpy_secret</span><span class="p">[</span><span class="n">MAX_SIZE</span><span class="p">];</span>
+        <span class="kt">char</span><span class="p">[]</span> <span class="n">get_value</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">memcpy</span><span class="p">(</span><span class="n">cpy_secret</span><span class="p">,</span> <span class="n">secret</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">secret</span><span class="p">));</span>  <span class="c1">//create a copy of the private array</span>
+            <span class="k">return</span> <span class="n">cpy_secret</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

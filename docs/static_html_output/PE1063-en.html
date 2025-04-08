@@ -1,0 +1,80 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1063">PE1063: Passing null to a variadic parameter</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1063</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.　The C99 standard states that if the type used by va_arg() is not compatible with the type of the actual next argument (as promoted according to the default argument promotions), the behavior is undefined.</p>
+<h4>Vulnerability and risk</h4>
+<h5>Undefined behavior</h5>
+<p>In practice on common architectures, this will cause real crashes if sizeof(int) != sizeof(void*), and NULL is defined to 0 or any other null pointer constant that promotes to int.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Prohibit passing NULL to the last argument of a variable argument function</p>
+<h4>Potential Mitigations</h4>
+<p>low</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">ap</span><span class="p">;</span>
+  <span class="n">va_start</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%018p, %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">p</span> <span class="o">&amp;</span> <span class="mi">255</span> <span class="o">?</span> <span class="nl">p</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span>
+      <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">va_end</span><span class="p">(</span><span class="n">ap</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">g</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s2</span> <span class="o">=</span> <span class="s">&quot;x&quot;</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s3</span> <span class="o">=</span> <span class="s">&quot;ERROR&quot;</span><span class="p">;</span>
+  <span class="n">f</span><span class="p">(</span><span class="s">&quot;first&quot;</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s3</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">);</span><span class="c1">//detect</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">g</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>To reproduce you might be able to use this little code example on 64bit platforms. If the output includes &quot;ERROR&quot;, the sentinel had only 4 out of 8 bytes initialized to zero and was not detected as the final argument to stop argument processing via va_arg(). Changing the 0 to (void*)0 or 0L will make the &quot;ERROR&quot; output go away.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">ap</span><span class="p">;</span>
+  <span class="n">va_start</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%018p, %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">p</span> <span class="o">&amp;</span> <span class="mi">255</span> <span class="o">?</span> <span class="nl">p</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span>
+      <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">va_end</span><span class="p">(</span><span class="n">ap</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">g</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s2</span> <span class="o">=</span> <span class="s">&quot;x&quot;</span><span class="p">;</span>
+  <span class="c1">// changing 0 to 0L for the 7th argument </span>
+  <span class="c1">// (which is intended to act as sentinel) makes </span>
+  <span class="c1">// the error go away on x86_64</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s3</span> <span class="o">=</span> <span class="s">&quot;ERROR&quot;</span><span class="p">;</span>
+  <span class="n">f</span><span class="p">(</span><span class="s">&quot;first&quot;</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="mi">0L</span><span class="p">,</span> <span class="n">s3</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">g</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/475.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

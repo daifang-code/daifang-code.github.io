@@ -1,0 +1,63 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2223">PE2223: prefer-template</h2>
+    <h3>建议使用模板而非字符串连接 (prefer-template)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2223</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>建议使用模板而非字符串连接 (prefer-template)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>在 ES2015 (ES6) 中，我们可以使用模板而非字符串连接。</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;Hello, &quot;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;!&quot;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="sb">`Hello, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则旨在标记字符串间 <code>+</code> 操作符的使用。</p>
+<h2>Examples</h2>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-template: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;Hello, &quot;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;!&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;Time: &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="mi">12</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">);</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-template: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;Hello World!&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="sb">`Hello, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="sb">`Time: </span><span class="si">${</span><span class="mi">12</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+
+<span class="c1">// This is reported by `no-useless-concat`.</span>
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;Hello, &quot;</span> <span class="o">+</span> <span class="s2">&quot;World!&quot;</span><span class="p">;</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>此规则不应在 ES3/5 环境中使用。</p>
+<p>在 ES2015 (ES6) 或以后的版本，如果你不希望收到关于字符串连接的通知，关闭此规则即可。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-useless-concat">no-useless-concat</a></li>
+<li><a href="quotes">quotes</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 1.2.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/prefer-template.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/prefer-template.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

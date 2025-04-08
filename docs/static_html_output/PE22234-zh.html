@@ -1,0 +1,35 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22234">PE22234: DUO124</h2>
+    <h3>DUO124</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22234</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO124</h4>
+<p>此linter查找<code>SimpleXMLRPCServer.register\u实例</code>功能。</p>
+<blockquote>
+<p>启用<code>allow_dotted_names</code>选项允许入侵者访问&gt;模块的全局变量，允许入侵者任意执行&gt;你机器上的代码。仅在安全、封闭的网络上使用此选项。</p>
+</blockquote>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">SimpleXMLRPCServer</span>
+
+<span class="n">SimpleXMLRPCServer</span><span class="o">.</span><span class="n">register_instance</span><span class="p">(</span><span class="n">allow_dotted_names</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+<h2>正确代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">SimpleXMLRPCServer</span>
+
+<span class="n">SimpleXMLRPCServer</span><span class="o">.</span><span class="n">register_instance</span><span class="p">()</span>
+</pre></div>
+<h2>来源</h2>
+<h2>特别提及</h2>
+
+    </section>
+</article>

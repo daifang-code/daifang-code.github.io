@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7301">BE7301: No previous argument for format string</h2>
+    <h3>No previous argument for format string</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7301</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>No previous argument for format string</p>
+<h4>Vulnerability and risk</h4>
+<p>
+The format string specifies a relative index to request that the argument for the previous format specifier
+be reused. However, there is no previous argument.
+For example,
+</p>
+<p><code>formatter.format("%<s %s", "a", "b")</code>
+</p>
+<p>would throw a MissingFormatArgumentException when executed.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

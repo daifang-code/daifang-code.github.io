@@ -1,0 +1,75 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2246">PE2246: template-curly-spacing</h2>
+    <h3>Enforce Usage of Spacing in Template Strings (template-curly-spacing)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2246</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Enforce Usage of Spacing in Template Strings (template-curly-spacing)</h4>
+<p>We can embed expressions in template strings with using a pair of <code>${</code> and <code>}</code>.</p>
+<p>This rule can force usage of spacing <em>within</em> the curly brace pair according to style guides.</p>
+<div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">hello</span> <span class="o">=</span> <span class="sb">`hello, </span><span class="si">${</span><span class="nx">people</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule aims to maintain consistency around the spacing inside of template literals.</p>
+<h2>Options</h2>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;template-curly-spacing&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;never&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<p>This rule has one option which has either <code>&quot;never&quot;</code> or <code>&quot;always&quot;</code> as value.</p>
+<ul>
+<li><code>&quot;never&quot;</code> (by default) - Disallows spaces inside of the curly brace pair.</li>
+<li><code>&quot;always&quot;</code> - Requires one or more spaces inside of the curly brace pair.</li>
+</ul>
+<h2>Examples</h2>
+<h5>never</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint template-curly-spacing: &quot;error&quot;*/</span>
+
+<span class="sb">`hello, </span><span class="si">${</span> <span class="nx">people</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+<span class="sb">`hello, </span><span class="si">${</span><span class="nx">people</span><span class="p">.</span><span class="nx">name</span> <span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+
+<span class="sb">`hello, </span><span class="si">${</span> <span class="nx">people</span><span class="p">.</span><span class="nx">name</span> <span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint template-curly-spacing: &quot;error&quot;*/</span>
+
+<span class="sb">`hello, </span><span class="si">${</span><span class="nx">people</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+
+<span class="sb">`hello, </span><span class="si">${</span>
+    <span class="nx">people</span><span class="p">.</span><span class="nx">name</span>
+<span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+</pre></div>
+<h5>always</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint template-curly-spacing: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="sb">`hello, </span><span class="si">${</span> <span class="nx">people</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+<span class="sb">`hello, </span><span class="si">${</span><span class="nx">people</span><span class="p">.</span><span class="nx">name</span> <span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+
+<span class="sb">`hello, </span><span class="si">${</span><span class="nx">people</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint template-curly-spacing: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="sb">`hello, </span><span class="si">${</span> <span class="nx">people</span><span class="p">.</span><span class="nx">name</span> <span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+
+<span class="sb">`hello, </span><span class="si">${</span>
+    <span class="nx">people</span><span class="p">.</span><span class="nx">name</span>
+<span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to be notified about usage of spacing inside of template strings, then it's safe to disable this rule.</p>
+
+    </section>
+</article>

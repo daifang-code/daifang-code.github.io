@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7167">BE7167: 不一致的同步</h2>
+    <h3>不一致的同步</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7167</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>不一致的同步</p>
+<h4>漏洞与风险</h4>
+<p> 这个类的字段在同步问题上似乎被不一致地进行了访问。bug报告指出：
+  </p>
+  <ul>
+  <li> 这个类混合了锁定和无锁定访问，</li>
+  <li> 至少有一个锁定的访问是由一个类自己的方法执行的，</li>
+  <li> 不同步的字段访问（读和写）的数量不超过三分之一的访问，其中写是读的两倍</li>
+  </ul>
+  <p> 典型错误是忘记同步一个用于线程安全的类中的方法之一。</p>
+  <p> 请注意，此检测器存在各种不准确的原因; 例如，检测器无法静态检测到锁定所有情况。而且，即使检测器准确区分锁定访问和未锁定访问，所讨论的代码仍然可能是正确的。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

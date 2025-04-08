@@ -1,0 +1,59 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1123">SC1123: Improper ShellCheck directive</h2>
+    <h3>ShellCheck directives are only valid in front of complete compound commands, like `if`, not e.g. individual `elif` branches.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1123</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>ShellCheck directives are only valid in front of complete compound commands, like <code>if</code>, not e.g. individual <code>elif</code> branches.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$prod</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Prod mode&quot;</span>
+<span class="c1"># shellcheck disable=2154</span>
+<span class="k">elif</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$debug</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Debug mode&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="c1"># Applies to entire `if...fi` command</span>
+<span class="c1"># shellcheck disable=2154</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$prod</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Prod mode&quot;</span>
+<span class="k">elif</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$debug</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Debug mode&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$prod</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Prod mode&quot;</span>
+<span class="k">elif</span>  <span class="c1"># Applies only to this [ .. ] command</span>
+      <span class="c1"># shellcheck disable=2154</span>
+      <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$debug</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Debug mode&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>You appear to have put a directive before a non-command keyword, such as <code>elif</code>, <code>else</code>, <code>do</code>, <code>;;</code> or similar.</p>
+<p>Unlike many other linters, ShellCheck comment directives apply to the next shell command, rather than to the next line of text.</p>
+<p>This means that you can put a directive in front of a <code>while</code> loop, <code>if</code> statement or function definition, and it will apply to that entire structure.</p>
+<p>However, it also means that you can not apply the directive to non-commands like an individual <code>elif</code> or <code>else</code> block since these are not commands by themselves, and rather just parts of an <code>if</code> compound command.</p>
+<p>Please move the directive in front of the nearest applicable command that contains the code you want to apply it to, such as before the <code>if</code>.</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

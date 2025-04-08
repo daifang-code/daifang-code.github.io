@@ -1,0 +1,85 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2164">PE2164: no-self-assign</h2>
+    <h3>Disallow Self Assignment (no-self-assign)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2164</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow Self Assignment (no-self-assign)</h4>
+<p>Self assignments have no effect, so probably those are an error due to incomplete refactoring.
+Those indicate that what you should do is still remaining.</p>
+<div class="highlight"><pre><span></span><span class="nx">foo</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">;</span>
+<span class="p">[</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">qiz</span><span class="p">];</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule is aimed at eliminating self assignments.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-self-assign: &quot;error&quot;*/</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">;</span>
+
+<span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">];</span>
+
+<span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="p">...</span><span class="nx">b</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="p">...</span><span class="nx">b</span><span class="p">];</span>
+
+<span class="p">({</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="p">,</span> <span class="nx">x</span><span class="p">});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-self-assign: &quot;error&quot;*/</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">b</span><span class="p">,</span> <span class="nx">a</span><span class="p">];</span>
+
+<span class="c1">// This pattern is warned by the `no-use-before-define` rule.</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">;</span>
+
+<span class="c1">// The default values have an effect.</span>
+<span class="p">[</span><span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">foo</span><span class="p">];</span>
+
+<span class="c1">// non-self-assignments with properties.</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">b</span><span class="p">;</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">a</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">c</span><span class="p">.</span><span class="nx">b</span><span class="p">;</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">a</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">a</span><span class="p">.</span><span class="nx">c</span><span class="p">;</span>
+<span class="nx">obj</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">];</span>
+
+<span class="c1">// This ignores if there is a function call.</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">a</span><span class="p">().</span><span class="nx">b</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">a</span><span class="p">().</span><span class="nx">b</span><span class="p">;</span>
+<span class="nx">a</span><span class="p">().</span><span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">().</span><span class="nx">b</span><span class="p">;</span>
+
+<span class="c1">// Known limitation: this does not support computed properties except single literal or single identifier.</span>
+<span class="nx">obj</span><span class="p">[</span><span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">]</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">];</span>
+<span class="nx">obj</span><span class="p">[</span><span class="s2">&quot;a&quot;</span> <span class="o">+</span> <span class="s2">&quot;b&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="s2">&quot;a&quot;</span> <span class="o">+</span> <span class="s2">&quot;b&quot;</span><span class="p">];</span>
+</pre></div>
+<h2>Options</h2>
+<p>This rule has the option to check properties as well.</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;no-self-assign&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nt">&quot;props&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+<ul>
+<li><code>props</code> - if this is <code>true</code>, <code>no-self-assign</code> rule warns self-assignments of properties. Default is <code>true</code>.</li>
+</ul>
+<h5>props</h5>
+<p>Examples of <strong>correct</strong> code with the <code>{ &quot;props&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-self-assign: [&quot;error&quot;, {&quot;props&quot;: true}]*/</span>
+
+<span class="c1">// self-assignments with properties.</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">a</span><span class="p">;</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">a</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">a</span><span class="p">.</span><span class="nx">b</span><span class="p">;</span>
+<span class="nx">obj</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">];</span>
+<span class="nx">obj</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">a</span><span class="p">];</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to notify about self assignments, then it's safe to disable this rule.</p>
+
+    </section>
+</article>

@@ -1,0 +1,42 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2202">SC2202: Suspicious condition</h2>
+    <h3>Globs don't work as operands in [ ]. Use a loop.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2202</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Globs don't work as operands in [ ]. Use a loop.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="o">[</span> current.log -nt backup/*.log <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;This is the latest file&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">newerThanAll</span><span class="o">=</span><span class="nb">true</span>
+<span class="k">for</span> log in backup/*.log
+<span class="k">do</span>
+  <span class="o">[</span> current.log -nt <span class="s2">&quot;</span><span class="nv">$log</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">||</span> <span class="nv">newerThanAll</span><span class="o">=</span><span class="nb">false</span>
+<span class="k">done</span>
+<span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$newerThanAll</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;This is the latest file&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>Globs in <code>[ ]</code> will expand to a sequence of words, one per matching filename. Meanwhile, operators work on single words.</p>
+<p>The problematic code is equivalent to <code>[ current.log -nt backup/file1.log backup/file2.log backup/file3.log ]</code>, which is invalid syntax. A typical error message is <code>bash: [: too many arguments</code> or <code>dash: somefile: unexpected operator</code>.</p>
+<p>Instead, use a <code>for</code> loop to iterate over matching filenames, and apply your condition to each.</p>
+<h5>Exceptions:</h5>
+<p>If you know your glob will only ever match one file, you can check this explicitly and use the first file:</p>
+
+<pre><code>set -- backup/*.log
+[ $# -eq 1 ] || { echo &quot;There are too many matches.&quot;; exit 1; }
+[ file.log -nt &quot;$1&quot; ] &amp;&amp; echo &quot;This is the latest file&quot;
+</code></pre>
+<p>Alternatively, [[ignore]] this warning.</p>
+
+    </section>
+</article>

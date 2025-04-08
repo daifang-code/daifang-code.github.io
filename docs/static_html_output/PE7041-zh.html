@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7041">BE7041: 创建一个空的zip文件条目</h2>
+    <h3>创建一个空的zip文件条目</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7041</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>创建一个空的zip文件条目</p>
+<h4>漏洞与风险</h4>
+<p>代码调用putNextEntry()，然后立即调用closeEntry()。在调用putNextEntry()与closeEntry()之间需要将文件内容写入ZipFile。上述操作将会创建一个空的ZipFile。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

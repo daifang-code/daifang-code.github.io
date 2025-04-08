@@ -1,0 +1,40 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22439">PE22439: W601</h2>
+    <h3>.has_key() is deprecated, use 'in'</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22439</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p><code>.has_key()</code> was deprecated in Python 2. It is recommended to use the
+<code>in</code> operator instead.</p>
+<h5>Anti-pattern</h5>
+
+<pre><code>my_dict = {'hello': 'world'}
+if my_dict.has_key('hello'):
+    print('It works!')
+
+</code></pre>
+<h5>Best practice</h5>
+
+<pre><code>my_dict = {'hello': 'world'}
+if 'hello' in my_dict:
+    print('It works!')
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://docs.python.org/2/library/stdtypes.html#dict.has_key<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

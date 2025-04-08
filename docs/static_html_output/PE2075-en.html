@@ -1,0 +1,82 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2075">PE2075: no-case-declarations</h2>
+    <h3>Disallow lexical declarations in case/default clauses (no-case-declarations)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2075</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow lexical declarations in case/default clauses (no-case-declarations)</h4>
+<p>This rule disallows lexical declarations (<code>let</code>, <code>const</code>, <code>function</code> and <code>class</code>)
+in <code>case</code>/<code>default</code> clauses. The reason is that the lexical declaration is visible
+in the entire switch block but it only gets initialized when it is assigned, which
+will only happen if the case where it is defined is reached.</p>
+<p>To ensure that the lexical declaration only applies to the current case clause
+wrap your clauses in blocks.</p>
+<h2>Rule Details</h2>
+<p>This rule aims to prevent access to uninitialized lexical bindings as well as accessing hoisted functions across case clauses.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-case-declarations: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="kr">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+        <span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{}</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="kr">class</span> <span class="nx">C</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-case-declarations: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// Declarations outside switch-statements are valid</span>
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// The following case clauses are wrapped into blocks using brackets</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">case</span> <span class="mi">3</span><span class="o">:</span> <span class="p">{</span>
+        <span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{}</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">case</span> <span class="mi">4</span><span class="o">:</span>
+        <span class="c1">// Declarations using var without brackets are valid due to function-scope hoisting</span>
+        <span class="kd">var</span> <span class="nx">z</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
+        <span class="kr">class</span> <span class="nx">C</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you depend on fall through behavior and want access to bindings introduced in the case block.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-fallthrough.md">no-fallthrough</a></li>
+</ul>
+
+    </section>
+</article>

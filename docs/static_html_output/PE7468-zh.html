@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7468">BE7468: 格式字符串操作</h2>
+    <h3>格式字符串操作</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7468</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>格式字符串操作</p>
+<h4>漏洞与风险</h4>
+<p>
+允许用户输入控制格式参数可以使攻击者产生抛出或泄漏信息的异常。<br/>
+攻击者可能能够修改格式字符串参数，这样就会抛出异常。如果这个异常没有被捕获，它可能会使应用程序崩溃。另外，如果在未使用的参数中使用敏感信息，攻击者可能会更改格式字符串以显示此信息。<br/>
+下面的示例代码允许用户指定它显示余额的小数点。用户实际上可以指定任何导致抛出异常的东西，这可能导致应用程序失败。
+在这个例子中，更重要的是，如果攻击者可以指定用户输入“2 f%3$s%4$.2“, 格式字符串是”The customer: %s %s has the balance %4$.2f %3$s %4$.2”。
+这将导致在产生的字符串中包含敏感的accountNo。
+</p>
+<p>
+    <b>易受攻击的代码：</b><br/>
+<pre>Formatter formatter = new Formatter(Locale.US);
+String format = "The customer: %s %s has the balance %4$." + userInput + "f";
+formatter.format(format, firstName, lastName, accountNo, balance);</pre>
+</p>
+<p>
+    <b>解决方案：</b><br/>
+避免在格式字符串参数中使用用户控制的值。
+</p>
+<br/>
+<p>
+<b>引用</b><br/>
+<a href="http://cwe.mitre.org/data/definitions/134.html">CWE-134: Use of Externally-Controlled Format String</a><br/>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

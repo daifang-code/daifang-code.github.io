@@ -1,0 +1,58 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2082">SC2082: Incorrect expension</h2>
+    <h3>To expand via indirection, use name="foo$n"; echo "${!name}".</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2082</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>To expand via indirection, use name=&quot;foo$n&quot;; echo &quot;${!name}&quot;.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">var_1</span><span class="o">=</span><span class="s2">&quot;hello world&quot;</span>
+<span class="nv">n</span><span class="o">=</span><span class="m">1</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">var_$n</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<p>Bash/ksh:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Use arrays instead of dynamic names</span>
+<span class="nb">declare</span> -a var
+var<span class="o">[</span><span class="m">1</span><span class="o">]=</span><span class="s2">&quot;hello world&quot;</span>
+<span class="nv">n</span><span class="o">=</span><span class="m">1</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">var</span><span class="p">[n]</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><span class="c1"># Expand variable names dynamically</span>
+<span class="nv">var_1</span><span class="o">=</span><span class="s2">&quot;hello world&quot;</span>
+<span class="nv">n</span><span class="o">=</span><span class="m">1</span>
+<span class="nv">name</span><span class="o">=</span><span class="s2">&quot;var_</span><span class="nv">$n</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="p">!name</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+<p>POSIX sh:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Expand dynamically with eval</span>
+<span class="nv">var_1</span><span class="o">=</span><span class="s2">&quot;hello world&quot;</span>
+<span class="nv">n</span><span class="o">=</span><span class="m">1</span>
+<span class="nb">eval</span> <span class="s2">&quot;tmp=\$var_</span><span class="nv">$n</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">tmp</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>You can expand a variable <code>var_1</code> with <code>${var_1}</code>, but you can not generate the string <code>var_1</code> with an embedded expansion, like <code>${var_$n}</code>.</p>
+<p>Instead, if at all possible, you should use an array. Bash and ksh support both numerical and associative arrays, and an example is shown above.</p>
+<p>If you can't use arrays, you can indirectly reference variables by creating a temporary variable with its name, e.g. <code>myvar=&quot;var_$n&quot;</code> and then expanding it indirectly with <code>${!myvar}</code>. This will give the contents of the variable <code>var_1</code>.</p>
+<p>If using POSIX sh, where neither arrays nor <code>${!var}</code> is available, <code>eval</code> can be used. You must be careful in sanitizing the data used to construct the variable name to avoid arbitrary code execution.</p>
+<h5>Exceptions:</h5>
+<p>None</p>
+<h5>Related resources:</h5>
+<ul>
+<li><a href="https://mywiki.wooledge.org/BashFAQ/006">BashFaq: How can I use variable variables (indirect variables, pointers, references) or associative arrays?</a></li>
+<li><a href="https://stackoverflow.com/questions/16553089/dynamic-variable-names-in-bash">StackOverflow: Dynamic variable names in Bash</a></li>
+</ul>
+
+    </section>
+</article>

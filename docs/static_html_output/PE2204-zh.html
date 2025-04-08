@@ -1,0 +1,150 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2204">PE2204: nonblock-statement-body-position</h2>
+    <h3>强制单个语句的位置 (nonblock-statement-body-position)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2204</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制单个语句的位置 (nonblock-statement-body-position)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>当写 <code>if</code>、<code>else</code>、<code>while</code>、<code>do-while</code> 和 <code>for</code> 语句时，可以是单个语句而不是一个块。为这些单语句强制一个一致的位置会很有用。</p>
+<p>例如，一些开发者避免像下面这样写代码：</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+</pre></div>
+<p>如果开发试图给 <code>if</code> 语句添加 <code>baz();</code>，他们可能会将代码错误的改为：</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+  <span class="nx">baz</span><span class="p">();</span> <span class="c1">// this line is not in the `if` statement!</span>
+</pre></div>
+<p>为了避免这个问题，可能需要要求所有的单行 <code>if</code> 语句直接出现条件之后，不需要换行：</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则旨在对单行语句强制使用一致的位置。</p>
+<p>注意，该规则不会强制使用单行语句。如果你想要禁用单行语句，使用规则 <a href="/docs/rules/curly"><code>curly</code></a>。</p>
+<h5>修改方案</h5>
+<p>该规则接受一个字符串选项：</p>
+<ul>
+<li><code>&quot;beside&quot;</code> (默认) 禁止单行语句之前有换行。</li>
+<li><code>&quot;below&quot;</code> 要求单行语句之前有换行。</li>
+<li><code>&quot;any&quot;</code> 不强制单行语句的位置。</li>
+</ul>
+<p>另外，该规则接受一个对象选项，有一个 <code>&quot;overrides&quot;</code> 属性。可以用来为特定的语句指定一个位置，以覆盖默认值。例如：</p>
+<ul>
+<li><code>&quot;beside&quot;, { &quot;overrides&quot;: { &quot;while&quot;: &quot;below&quot; } }</code> 要求所有单行语句与其父节点出现在同一行，除非父节点是一个 <code>while</code> 语句，在这种情况下，单行语句出现必须在不同的行。</li>
+<li><code>&quot;below&quot;, { &quot;overrides&quot;: { &quot;do&quot;: &quot;any&quot; } }</code> 禁止所有单行语句与其父节点出现在同一行，除非父节点是一个 <code>do-while</code> 语句，在这种情况下，单行语句的位置不是强制的。</li>
+</ul>
+<p>默认选项 <code>&quot;beside&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint nonblock-statement-body-position: [&quot;error&quot;, &quot;beside&quot;] */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span>
+  <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">foo</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">do</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+</pre></div>
+<p>默认选项 <code>&quot;beside&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint nonblock-statement-body-position: [&quot;error&quot;, &quot;beside&quot;] */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">foo</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">do</span> <span class="nx">bar</span><span class="p">();</span> <span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// block statements are always allowed with this rule</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>默认选项 <code>&quot;below&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint nonblock-statement-body-position: [&quot;error&quot;, &quot;below&quot;] */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">foo</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">do</span> <span class="nx">bar</span><span class="p">();</span> <span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+</pre></div>
+<p>默认选项 <code>&quot;below&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint nonblock-statement-body-position: [&quot;error&quot;, &quot;below&quot;] */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span>
+  <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">foo</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">do</span>
+  <span class="nx">bar</span><span class="p">();</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Although the second `if` statement is on the same line as the `else`, this is a very common</span>
+  <span class="c1">// pattern, so it&#39;s not checked by this rule.</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>&quot;beside&quot;, { &quot;overrides&quot;: { &quot;while&quot;: &quot;below&quot; } }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint nonblock-statement-body-position: [&quot;error&quot;, &quot;beside&quot;, { &quot;overrides&quot;: { &quot;while&quot;: &quot;below&quot; } }] */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+</pre></div>
+<p>选项 <code>&quot;beside&quot;, { &quot;overrides&quot;: { &quot;while&quot;: &quot;below&quot; } }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint nonblock-statement-body-position: [&quot;error&quot;, &quot;beside&quot;, { &quot;overrides&quot;: { &quot;while&quot;: &quot;below&quot; } }] */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">bar</span><span class="p">();</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不关心单行语句的位置的一致性，你可以关闭此规则。如果你在 <a href="/docs/rules/curly"><code>curly</code></a> 规则中使用了  <code>&quot;all&quot;</code> 选项，你也可以禁用此规则，因为它将会禁用所有的单行语句。</p>
+<h2>更多解释</h2>
+<ul>
+<li>JSCS: <a href="http://jscs.info/rule/requireNewlineBeforeSingleStatementsInIf">requireNewlineBeforeSingleStatementsInIf</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 3.17.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/nonblock-statement-body-position.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/nonblock-statement-body-position.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

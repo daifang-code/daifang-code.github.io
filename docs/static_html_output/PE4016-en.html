@@ -1,0 +1,47 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4016">PE4016: Non optimal padding function</h2>
+    <h3>The optimal asymmetric cryptographic padding is not used when using the RSA encryption algorithm.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE4016</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The optimal asymmetric cryptographic padding is not used when using the RSA encryption algorithm.</p>
+<h4>Vulnerability and risk</h4>
+<p>Failure to use optimal asymmetric cryptographic padding will reduce the difficulty of attacker decryption.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>Use the asymmetric asymmetric encryption padding when using the RSA encryption algorithm.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;rsa.h&quot;</span><span class="cp"></span>
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">CryptoPP</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">encryptor</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">input</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">output</span><span class="p">)</span>  <span class="c1">//Encryption function, the output parameter returns the encrypted string</span>
+<span class="p">{</span>
+    <span class="n">RSAES_PKCS1v15_Encryptor</span> <span class="n">rsapkcs1</span><span class="p">;</span>  <span class="c1">//Fill with Pkcs1</span>
+    <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">rsapkcs1</span><span class="p">.</span><span class="n">enc</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">output</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed code example</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;rsa.h&quot;</span><span class="cp"></span>
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">CryptoPP</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">encryptor</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">input</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">output</span><span class="p">)</span>  <span class="c1">//Encryption function, the output parameter returns the encrypted string</span>
+<span class="p">{</span>
+    <span class="n">RSAES_OAEP_SHA_Encryptor</span> <span class="n">rsaoaep</span><span class="p">;</span>  <span class="c1">//Fill with OAEP encryption</span>
+    <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">rsaoaep</span><span class="p">.</span><span class="n">enc</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">output</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

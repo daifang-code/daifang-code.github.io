@@ -1,0 +1,65 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2174">PE2174: no-ternary</h2>
+    <h3>禁止使用三元操作符 (no-ternary)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2174</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止使用三元操作符 (no-ternary)</h4>
+<p>三元操作符通过条件操作为一个变量赋值。一些人认为使用三元操作符会导致代码不清晰。</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">isBar</span> <span class="o">?</span> <span class="nx">baz</span> <span class="o">:</span> <span class="nx">qux</span><span class="p">;</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则禁止使用三元操作符。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-ternary: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">isBar</span> <span class="o">?</span> <span class="nx">baz</span> <span class="o">:</span> <span class="nx">qux</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">quux</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">foo</span> <span class="o">?</span> <span class="nx">bar</span><span class="p">()</span> <span class="o">:</span> <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-ternary: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">isBar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span> <span class="o">=</span> <span class="nx">baz</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">foo</span> <span class="o">=</span> <span class="nx">qux</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">quux</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">bar</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">baz</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-nested-ternary">no-nested-ternary</a></li>
+<li><a href="no-unneeded-ternary">no-unneeded-ternary</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-ternary.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-ternary.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

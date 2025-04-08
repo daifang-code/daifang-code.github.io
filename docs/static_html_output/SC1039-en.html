@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1039">SC1039: Bad indent</h2>
+    <h3>Remove indentation before end token (or use `<<-` and indent with tabs).</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1039</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Remove indentation before end token (or use <code>&lt;&lt;-</code> and indent with tabs).</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span> f in *.png
+<span class="k">do</span>
+  cat <span class="s">&lt;&lt; EOF</span>
+<span class="s">     &lt;img src=&quot;$f&quot; /&gt;&lt;br/&gt;</span>
+<span class="s">  EOF</span>
+<span class="k">done</span> &gt; index.html
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span> f in *.png
+<span class="k">do</span>
+  cat <span class="s">&lt;&lt; EOF</span>
+<span class="s">     &lt;img src=&quot;$f&quot; /&gt;&lt;br/&gt;</span>
+<span class="s">EOF</span>
+<span class="k">done</span> &gt; index.html
+</pre></div>
+<h5>Rationale:</h5>
+<p>The here document delimiter will not be recognized if it is indented.</p>
+<p>You can fix it in one of two ways:</p>
+<ol>
+<li>Simply remove the indentation, even though this may break formatting.</li>
+<li>Use <code>&lt;&lt;-</code> instead of <code>&lt;&lt;</code>, and indent the script with tabs only (spaces will not be recognized).</li>
+</ol>
+<p>Removing the indentation is preferred, since the script won't suddenly break if it's reformatted, copy-pasted, or saved with a different editor.</p>
+<h5>Exceptions:</h5>
+<p>If the line was supposed to be a literal part of the here document, consider choosing a less ambiguous token.</p>
+
+    </section>
+</article>

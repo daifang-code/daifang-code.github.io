@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1109">SC1109: Unquoted HTML entity</h2>
+    <h3>This is an unquoted HTML entity. Replace with corresponding character.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1109</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This is an unquoted HTML entity. Replace with corresponding character.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>foo <span class="p">&amp;</span>amp<span class="p">;&amp;</span>amp<span class="p">;</span> bar
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>foo <span class="o">&amp;&amp;</span> bar
+</pre></div>
+<h5>Rationale:</h5>
+<p>There is an unquoted HTML entity, such as <code>&amp;amp;</code>, <code>&lt;</code> or <code>&lt;</code> (instead of <code>&amp;</code>, <code>&gt;</code> and <code>&lt;</code>) in your code. This usually happens when copy-pasting from a web site that has mismanaged its code formatting.</p>
+<p>You should go through the entire script and replace HTML entities with their corresponding characters.</p>
+<p>Don't rely on ShellCheck to detect all of them. ShellCheck only warns about certain cases in certain contexts, while this issue tends to affect the entire script.</p>
+<h5>Exceptions:</h5>
+<p>If you want to run a command called <code>amp</code> after backgrounding another command, add a space: <code>foo &amp; amp;</code>.</p>
+
+    </section>
+</article>

@@ -1,0 +1,72 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2187">PE2187: no-unsafe-negation</h2>
+    <h3>禁止对关系运算符的左操作数使用否定操作符 (no-unsafe-negation)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2187</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止对关系运算符的左操作数使用否定操作符 (no-unsafe-negation)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>开发人员可能会把 <code>-(a + b)</code> 写错成 <code>-a + b</code> 来表示一个负数，也可能会把 <code>!(key in object)</code> 错写成 <code>!key in object</code> 来测试一个键是否在对象中。类似的情况也有 <code>!obj instanceof Ctor</code>。</p>
+<h2>缺陷详因</h2>
+<p>该规则禁止对<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Expressions_and_Operators#Relational_operators">关系运算符</a>的左操作数使用否定操作符。</p>
+<p>关系运算符有：</p>
+<ul>
+<li><code>in</code> operator.</li>
+<li><code>in</code> 运算符.</li>
+<li><code>instanceof</code> operator.</li>
+<li><code>instanceof</code> 运算符.</li>
+</ul>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unsafe-negation: &quot;error&quot;*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// operator precedence makes it equivalent to (!key) in object</span>
+    <span class="c1">// and type conversion makes it equivalent to (key ? &quot;false&quot; : &quot;true&quot;) in object</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">obj</span> <span class="k">instanceof</span> <span class="nx">Ctor</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// operator precedence makes it equivalent to (!obj) instanceof Ctor</span>
+    <span class="c1">// and it equivalent to always false since boolean values are not objects.</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unsafe-negation: &quot;error&quot;*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">object</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// key is not in object</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">obj</span> <span class="k">instanceof</span> <span class="nx">Ctor</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// obj is not an instance of Ctor</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">((</span><span class="s2">&quot;&quot;</span> <span class="o">+</span> <span class="o">!</span><span class="nx">key</span><span class="p">)</span> <span class="k">in</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// make operator precedence and type conversion explicit</span>
+    <span class="c1">// in a rare situation when that is the intended meaning</span>
+<span class="p">}</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>无。</p>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想收到不安全的逻辑否，可以不使用此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 3.3.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-unsafe-negation.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-unsafe-negation.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

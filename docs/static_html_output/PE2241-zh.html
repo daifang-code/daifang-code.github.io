@@ -1,0 +1,141 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2241">PE2241: space-unary-ops</h2>
+    <h3>要求或禁止在一元操作符之前或之后存在空格 (space-unary-ops)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2241</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求或禁止在一元操作符之前或之后存在空格 (space-unary-ops)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>一些风格指南要求或禁止在一元操作符之前或之后存在空格。这主要是一个风格问题，然而，一些 JavaScript 表达式如果不写空格将会使其难以阅读和维护。</p>
+<h2>缺陷详因</h2>
+<p>该规则强制 <code>words</code> 一元操作符后空格和 <code>nonwords</code> 一元操作符之前或之后的空格的一致性。</p>
+<p>一元 <code>words</code> 操作符的例子：</p>
+<div class="highlight"><pre><span></span><span class="c1">// new</span>
+<span class="kd">var</span> <span class="nx">joe</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+
+<span class="c1">// delete</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+<span class="p">};</span>
+<span class="k">delete</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">;</span>
+
+<span class="c1">// typeof</span>
+<span class="k">typeof</span> <span class="p">{}</span> <span class="c1">// object</span>
+
+<span class="c1">// void</span>
+<span class="k">void</span> <span class="mi">0</span> <span class="c1">// undefined</span>
+</pre></div>
+<p>一元 <code>nonwords</code> 操作符的例子：</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">].</span><span class="nx">indexOf</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{};</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="o">--</span><span class="nx">foo</span><span class="p">;</span>
+<span class="nx">bar</span> <span class="o">=</span> <span class="nx">bar</span><span class="o">++</span><span class="p">;</span>
+<span class="nx">baz</span> <span class="o">=</span> <span class="o">!</span><span class="nx">foo</span><span class="p">;</span>
+<span class="nx">qux</span> <span class="o">=</span> <span class="o">!!</span><span class="nx">baz</span><span class="p">;</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则有三个可选项：</p>
+<ul>
+<li><code>words</code> - 适用于单词类一元操作符，例如：<code>new</code>、<code>delete</code>、<code>typeof</code>、<code>void</code>、<code>yield</code></li>
+<li><code>nonwords</code> - 适用于这些一元操作符: <code>-</code>、<code>+</code>、<code>--</code>、<code>++</code>、<code>!</code>、<code>!!</code></li>
+<li><code>overrides</code> - 覆盖操作符周围空格的用法。默认为空，但可用来强制或禁止操作符周围有空格。例如：</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="s2">&quot;space-unary-ops&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="mi">2</span><span class="p">,</span> <span class="p">{</span>
+          <span class="s2">&quot;words&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="s2">&quot;nonwords&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="s2">&quot;overrides&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;new&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="s2">&quot;++&quot;</span><span class="o">:</span> <span class="kc">true</span>
+          <span class="p">}</span>
+    <span class="p">}]</span>
+</pre></div>
+<p>在这个例子中，<code>new</code> 操作符之后禁用空格，<code>++</code> 操作左右要求有空格。</p>
+<p>选项 <code>{&quot;words&quot;: true, &quot;nonwords&quot;: false}</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-unary-ops: &quot;error&quot;*/</span>
+
+<span class="k">typeof</span><span class="o">!</span><span class="nx">foo</span><span class="p">;</span>
+
+<span class="k">void</span><span class="p">{</span><span class="nx">foo</span><span class="o">:</span><span class="mi">0</span><span class="p">};</span>
+
+<span class="k">new</span><span class="p">[</span><span class="nx">foo</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+
+<span class="k">delete</span><span class="p">(</span><span class="nx">foo</span><span class="p">.</span><span class="nx">bar</span><span class="p">);</span>
+
+<span class="o">++</span> <span class="nx">foo</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">--</span><span class="p">;</span>
+
+<span class="o">-</span> <span class="nx">foo</span><span class="p">;</span>
+
+<span class="o">+</span> <span class="s2">&quot;3&quot;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-unary-ops: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="o">*</span><span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">yield</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-unary-ops: &quot;error&quot;*/</span>
+
+<span class="nx">async</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">await</span><span class="p">(</span><span class="nx">bar</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>{&quot;words&quot;: true, &quot;nonwords&quot;: false}</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-unary-ops: &quot;error&quot;*/</span>
+
+<span class="c1">// Word unary operator &quot;delete&quot; is followed by a whitespace.</span>
+<span class="k">delete</span> <span class="nx">foo</span><span class="p">.</span><span class="nx">bar</span><span class="p">;</span>
+
+<span class="c1">// Word unary operator &quot;new&quot; is followed by a whitespace.</span>
+<span class="k">new</span> <span class="nx">Foo</span><span class="p">;</span>
+
+<span class="c1">// Word unary operator &quot;void&quot; is followed by a whitespace.</span>
+<span class="k">void</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// Unary operator &quot;++&quot; is not followed by whitespace.</span>
+<span class="o">++</span><span class="nx">foo</span><span class="p">;</span>
+
+<span class="c1">// Unary operator &quot;--&quot; is not preceded by whitespace.</span>
+<span class="nx">foo</span><span class="o">--</span><span class="p">;</span>
+
+<span class="c1">// Unary operator &quot;-&quot; is not followed by whitespace.</span>
+<span class="o">-</span><span class="nx">foo</span><span class="p">;</span>
+
+<span class="c1">// Unary operator &quot;+&quot; is not followed by whitespace.</span>
+<span class="o">+</span><span class="s2">&quot;3&quot;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-unary-ops: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="o">*</span><span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">yield</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-unary-ops: &quot;error&quot;*/</span>
+
+<span class="nx">async</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">await</span> <span class="p">(</span><span class="nx">bar</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.10.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/space-unary-ops.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/space-unary-ops.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

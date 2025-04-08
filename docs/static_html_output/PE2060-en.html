@@ -1,0 +1,146 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2060">PE2060: max-statements</h2>
+    <h3>enforce a maximum number of statements allowed in function blocks (max-statements)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2060</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>enforce a maximum number of statements allowed in function blocks (max-statements)</h4>
+<p>The <code>max-statements</code> rule allows you to specify the maximum number of statements allowed in a function.</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// one statement</span>
+  <span class="kd">var</span> <span class="nx">baz</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// two statements</span>
+  <span class="kd">var</span> <span class="nx">qux</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// three statements</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule enforces a maximum number of statements allowed in function blocks.</p>
+<h2>Options</h2>
+<p>This rule has a number or object option:</p>
+<ul>
+<li><code>&quot;max&quot;</code> (default <code>10</code>) enforces a maximum number of statements allows in function blocks</li>
+</ul>
+<p><strong>Deprecated:</strong> The object property <code>maximum</code> is deprecated; please use the object property <code>max</code> instead.</p>
+<p>This rule has an object option:</p>
+<ul>
+<li><code>&quot;ignoreTopLevelFunctions&quot;: true</code> ignores top-level functions</li>
+</ul>
+<h5>max</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>{ &quot;max&quot;: 10 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-statements: [&quot;error&quot;, 10]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">foo1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo3</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo4</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo5</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo6</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo7</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo8</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo9</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo10</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+  <span class="kd">var</span> <span class="nx">foo11</span> <span class="o">=</span> <span class="mi">11</span><span class="p">;</span> <span class="c1">// Too many.</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">foo1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo3</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo4</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo5</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo6</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo7</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo8</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo9</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo10</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+  <span class="kd">var</span> <span class="nx">foo11</span> <span class="o">=</span> <span class="mi">11</span><span class="p">;</span> <span class="c1">// Too many.</span>
+<span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>{ &quot;max&quot;: 10 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-statements: [&quot;error&quot;, 10]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">foo1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo3</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo4</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo5</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo6</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo7</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo8</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo9</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo10</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+    <span class="c1">// The number of statements in the inner function does not count toward the</span>
+    <span class="c1">// statement maximum.</span>
+
+    <span class="k">return</span> <span class="mi">42</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">foo1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo3</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo4</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo5</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo6</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo7</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo8</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo9</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo10</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+    <span class="c1">// The number of statements in the inner function does not count toward the</span>
+    <span class="c1">// statement maximum.</span>
+
+    <span class="k">return</span> <span class="mi">42</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+<h5>ignoreTopLevelFunctions</h5>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>{ &quot;max&quot;: 10 }, { &quot;ignoreTopLevelFunctions&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint max-statements: [&quot;error&quot;, 10, { &quot;ignoreTopLevelFunctions&quot;: true }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">foo1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo3</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo4</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo5</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo6</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo7</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo8</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo9</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo10</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foo11</span> <span class="o">=</span> <span class="mi">11</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="complexity.md">complexity</a></li>
+<li><a href="max-depth.md">max-depth</a></li>
+<li><a href="max-len.md">max-len</a></li>
+<li><a href="max-lines.md">max-lines</a></li>
+<li><a href="max-lines-per-function.md">max-lines-per-function</a></li>
+<li><a href="max-nested-callbacks.md">max-nested-callbacks</a></li>
+<li><a href="max-params.md">max-params</a></li>
+</ul>
+
+    </section>
+</article>

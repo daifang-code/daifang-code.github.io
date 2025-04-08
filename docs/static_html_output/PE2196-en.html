@@ -1,0 +1,58 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2196">PE2196: no-useless-escape</h2>
+    <h3>Disallow unnecessary escape usage (no-useless-escape)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2196</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow unnecessary escape usage (no-useless-escape)</h4>
+<p>Escaping non-special characters in strings, template literals, and regular expressions doesn't have any effect, as demonstrated in the following example:</p>
+<div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s2">&quot;hol\a&quot;</span><span class="p">;</span> <span class="c1">// &gt; foo = &quot;hola&quot;</span>
+<span class="kd">let</span> <span class="nx">bar</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="nx">foo</span><span class="si">}</span><span class="err">\</span><span class="sb">!`</span><span class="p">;</span> <span class="c1">// &gt; bar = &quot;hola!&quot;</span>
+<span class="kd">let</span> <span class="nx">baz</span> <span class="o">=</span> <span class="sr">/\:/</span> <span class="c1">// same functionality with /:/</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule flags escapes that can be safely removed without changing behavior.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-useless-escape: &quot;error&quot;*/</span>
+
+<span class="s2">&quot;\&#39;&quot;</span><span class="p">;</span>
+<span class="s1">&#39;\&quot;&#39;</span><span class="p">;</span>
+<span class="s2">&quot;\#&quot;</span><span class="p">;</span>
+<span class="s2">&quot;\e&quot;</span><span class="p">;</span>
+<span class="sb">`</span><span class="err">\</span><span class="sb">&quot;`</span><span class="p">;</span>
+<span class="sb">`</span><span class="err">\</span><span class="sb">&quot;</span><span class="si">${</span><span class="nx">foo</span><span class="si">}</span><span class="err">\</span><span class="sb">&quot;`</span><span class="p">;</span>
+<span class="sb">`</span><span class="err">\</span><span class="sb">#{foo}`</span><span class="p">;</span>
+<span class="sr">/\!/</span><span class="p">;</span>
+<span class="sr">/\@/</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-useless-escape: &quot;error&quot;*/</span>
+
+<span class="s2">&quot;\&quot;&quot;</span><span class="p">;</span>
+<span class="s1">&#39;\&#39;&#39;</span><span class="p">;</span>
+<span class="s2">&quot;\x12&quot;</span><span class="p">;</span>
+<span class="s2">&quot;\u00a9&quot;</span><span class="p">;</span>
+<span class="s2">&quot;\371&quot;</span><span class="p">;</span>
+<span class="s2">&quot;xs\u2111&quot;</span><span class="p">;</span>
+<span class="sb">`\``</span><span class="p">;</span>
+<span class="sb">`</span><span class="err">\</span><span class="si">${</span><span class="nx">$</span><span class="p">{</span><span class="nx">foo</span><span class="si">}</span><span class="sb">}`</span><span class="p">;</span>
+<span class="sb">`$</span><span class="err">\</span><span class="sb">{</span><span class="si">${</span><span class="nx">foo</span><span class="si">}</span><span class="sb">}`</span><span class="p">;</span>
+<span class="sr">/\\/g</span><span class="p">;</span>
+<span class="sr">/\t/g</span><span class="p">;</span>
+<span class="sr">/\w\$\*\^\./</span><span class="p">;</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to be notified about unnecessary escapes, you can safely disable this rule.</p>
+
+    </section>
+</article>

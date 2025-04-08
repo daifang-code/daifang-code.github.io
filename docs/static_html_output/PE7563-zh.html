@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7563">BE7563: ECB模式不安全</h2>
+    <h3>ECB模式不安全</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7563</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>ECB模式不安全</p>
+<h4>漏洞与风险</h4>
+<p>
+Electronic Codebook（ECB）不能为加密数据提供良好机密性，应该使用一种提供更好机密性的认证加密模式。
+具体来说，ECB模式每次都为相同的输入产生相同的输出。
+因此，例如，如果用户发送密码，每次加密的值都是相同的。
+这允许攻击者拦截和重放数据。</p>
+<p>
+要解决这个问题，应该使用Galois/Counter模式（GCM）。
+</p>
+<p>
+<b>有风险的代码：</b>
+    <pre>Cipher c = Cipher.getInstance("AES/ECB/NoPadding");
+c.init(Cipher.ENCRYPT_MODE, k, iv);
+byte[] cipherText = c.doFinal(plainText);</pre>
+</p>
+<p>
+    <b>解决方案：</b>
+    <pre>Cipher c = Cipher.getInstance("AES/GCM/NoPadding");
+c.init(Cipher.ENCRYPT_MODE, k, iv);
+byte[] cipherText = c.doFinal(plainText);</pre>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://en.wikipedia.org/wiki/Authenticated_encryption&quot;&gt;Wikipedia: Authenticated encryption&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://csrc.nist.gov/groups/ST/toolkit/BCM/modes_development.html#01&quot;&gt;NIST: Authenticated Encryption Modes&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Electronic_codebook_.28ECB.29&quot;&gt;Wikipedia: Block cipher modes of operation&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf&quot;&gt;NIST: Recommendation for Block Cipher Modes of Operation&lt;/a&gt;</p>
+</p>
+
+    </section>
+</article>

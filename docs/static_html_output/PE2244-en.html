@@ -1,0 +1,79 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2244">PE2244: switch-colon-spacing</h2>
+    <h3>Enforce spacing around colons of switch statements (switch-colon-spacing)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2244</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Enforce spacing around colons of switch statements (switch-colon-spacing)</h4>
+<p>Spacing around colons improves readability of <code>case</code>/<code>default</code> clauses.</p>
+<h2>Rule Details</h2>
+<p>This rule controls spacing around colons of <code>case</code> and <code>default</code> clauses in <code>switch</code> statements.
+This rule does the check only if the consecutive tokens exist on the same line.</p>
+<p>This rule has 2 options that are boolean value.</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;switch-colon-spacing&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nt">&quot;after&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&quot;before&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+<ul>
+<li><code>&quot;after&quot;: true</code> (Default) ... requires one or more spaces after colons.</li>
+<li><code>&quot;after&quot;: false</code> ... disallows spaces after colons.</li>
+<li><code>&quot;before&quot;: true</code> ... requires one or more spaces before colons.</li>
+<li><code>&quot;before&quot;: false</code> (Default) ... disallows before colons.</li>
+</ul>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint switch-colon-spacing: &quot;error&quot;*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span> <span class="o">:</span><span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span> <span class="o">:</span><span class="nx">foo</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint switch-colon-spacing: &quot;error&quot;*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="nx">foo</span><span class="p">();</span> <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">bar</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="nx">baz</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with <code>{&quot;after&quot;: false, &quot;before&quot;: true}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint switch-colon-spacing: [&quot;error&quot;, {&quot;after&quot;: false, &quot;before&quot;: true}]*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span> <span class="nx">foo</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with <code>{&quot;after&quot;: false, &quot;before&quot;: true}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint switch-colon-spacing: [&quot;error&quot;, {&quot;after&quot;: false, &quot;before&quot;: true}]*/</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span> <span class="o">:</span><span class="nx">foo</span><span class="p">();</span> <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">1</span> <span class="o">:</span>
+        <span class="nx">bar</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span> <span class="o">:</span>
+        <span class="nx">baz</span><span class="p">();</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to notify spacing around colons of switch statements, then it's safe to disable this rule.</p>
+
+    </section>
+</article>

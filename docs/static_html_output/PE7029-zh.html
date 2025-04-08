@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7029">BE7029: 如果扩展了类，GetResource的使用可能不安全</h2>
+    <h3>如果扩展了类，GetResource的使用可能不安全</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7029</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>如果扩展了类，GetResource的使用可能不安全</p>
+<h4>漏洞与风险</h4>
+<p>如果此类被另一个包中的类所扩展，那么调用this.getClass().getResource(...)可能给出除预期外的结果。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

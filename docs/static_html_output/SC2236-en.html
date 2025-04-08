@@ -1,0 +1,47 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2236">SC2236: Better directive choice exists</h2>
+    <h3>Use `-n` instead of `! -z`.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2236</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Use <code>-n</code> instead of <code>! -z</code>.</h2>
+<p>(or &quot;Use <code>-z</code> instead of <code>! -n</code>&quot;)</p>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> ! -n <span class="s2">&quot;</span><span class="nv">$JAVA_HOME</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;JAVA_HOME not specified&quot;</span><span class="p">;</span> <span class="k">fi</span>
+<span class="k">if</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$STY</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span>       <span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;You are already running screen&quot;</span><span class="p">;</span> <span class="k">fi</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$JAVA_HOME</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;JAVA_HOME not specified&quot;</span><span class="p">;</span> <span class="k">fi</span>
+<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$STY</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span>       <span class="k">then</span> <span class="nb">echo</span> <span class="s2">&quot;You are already running screen&quot;</span><span class="p">;</span> <span class="k">fi</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>You have negated <code>test -z</code> or <code>test -n</code>, resulting in a needless double-negative. You can just use the other operator instead:</p>
+
+<pre><code># Identical tests to verify that a value is assigned
+[ ! -z foo ] # Not has no value
+[ -n foo ]   # Has value
+
+# Identical tests to verify that a value is empty
+[ ! -n foo ] # Not is non-empty
+[ -z foo ]   # Is empty
+
+</code></pre>
+<h5>Exceptions:</h5>
+<p>This is a stylistic issue that does not affect correctness. If you prefer the original expression, you can [[Ignore]] it with a directive or flag.</p>
+<h5>Related resources:</h5>
+<ul>
+<li>Help by adding links to BashFAQ, StackOverflow, man pages, POSIX, etc!</li>
+<li><a href="https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html#Bash-Conditional-Expressions">Bash reference manual for -z and -n</a>.</li>
+</ul>
+
+    </section>
+</article>

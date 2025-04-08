@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7077">BE7077: 方法调用低效的Number构造函数，应改为使用静态的valueOf</h2>
+    <h3>方法调用低效的Number构造函数，应改为使用静态的valueOf</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7077</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>方法调用低效的Number构造函数，应改为使用静态的valueOf</p>
+<h4>漏洞与风险</h4>
+<p>
+ 使用<code>new Integer(int)</code>方法总是会创建一个新的对象，而<code>Integer.valueOf(int)</code>允许由编译器，类库或JVM完成值的缓存。使用缓存值的方式来避免对象的分配可以获得更好的代码性能。</p>
+  <p>
+<p>如果保证-128和127之间的值具有相应的高速缓存实例，那么使用&lt;code&gt;valueOf&lt;/code&gt;比使用构造函数快大约3.5倍。
+对于超出恒定范围的值，两种方法的性能是相同的。</p>
+ </p>
+  <p>除非类必须符合Java 1.5以前的JVM，否则请使用autoboxing或<code>valueOf()</code>方法创建<code>Long</code>, <code>Integer</code>, <code>Short</code>, <code>Character</code>, and <code>Byte</code>实例。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

@@ -1,0 +1,99 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0085">PE0085: 格式化字符串漏洞</h2>
+    <h3>在程序中使用了格式化字符串相关的函数，指定数据展示格式的参数不可信。[^CWE]</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0085</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP, Java</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>例如 C 语言的 <code>printf</code> 函数，Java 语言的 <code>String.format</code> 方法可以接受可变参数。其中一个参数指定了其他参数的数据解析方法，如果该参数可被外部随意控制，恶意构造的格式化字符串可以引起程序异常和崩溃、数据泄漏、甚至是代码执行。</p>
+<h4>漏洞与风险</h4>
+<h5>拒绝服务、信息泄漏</h5>
+<p>格式化字符串可以包含任意数量的数值指定符，程序会根据指定符不断处理和输出程序栈上的内容，最后可能泄漏关键的程序信息<br />
+攻击者更加可以包含字符串指定符，程序会把内存数据当作一个合法指针，进而解析指针指向的字符串内容。程序并不会检查指针的合法性，一旦解析到非法指针，程序就会崩溃。</p>
+<h4>漏洞利用威胁</h4>
+<p>高危</p>
+<h4>缓解与预防</h4>
+<ul>
+<li>不要使用外部可控的格式化字符串参数</li>
+<li>增加过滤和净化逻辑阻止恶意利用</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞演示实例 1: 泄漏内存数据</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">0xAABBCCDD</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mh">0xFFEE4242</span><span class="p">;</span>
+  <span class="n">printf</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>程序执行输出:</p>
+
+<pre><code>$ ./a.out &quot;%p %p %p %p %p %p %p %p %p  &quot;
+0x7ffeccbb42f8 0x7ffeccbb4310 (nil) 0x4005e0 0x7f287164bab0 \
+0x7ffeccbb42f8 0x200400430 0x7ffeccbb42f0 0xffee4242aabbccdd  
+</code></pre>
+<p>在程序输出中最后一个数值 (0xffee4242aabbccdd) 其实就是变量 <code>a</code> 和 <code>b</code> 的值。这个例子展示了格式化字符串漏洞泄漏内存信息的能力。</p>
+<h5>漏洞演示实例 2：程序崩溃和拒绝服务</h5>
+<p>使用和实例 1 同样的代码，换上字符串指定符可以令程序崩溃</p>
+
+<pre><code>$ ./a.out &quot;%s %s %s %s %s %s %s %s %s  &quot;
+Segmentation fault (core dumped)
+</code></pre>
+<p>程序根据 <code>%s</code> 字符串指定符把数据解析成字符串指针，并会读取指针指向的内容。一旦遇上非法指针，程序将会崩溃。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">0xAABBCCDD</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mh">0xFFEE4242</span><span class="p">;</span>
+
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>格式串一般来说应当是固定的字符串。当外部来源的字符串需要输出时，应当在格式串中用 <code>%s</code> 来输出，而不是把字符串本身当作格式串。</p>
+<h5>漏洞演示实例 3</h5>
+<p>上面的例子对Java也适用：</p>
+
+<pre><code>import java.io.*;
+class Example {
+  public static void main(String[] args) {
+    int a = 0;
+    int b = 1;
+    System.out.printf(args[1], a, b);
+  }
+}
+</code></pre>
+<p>应该被修复为</p>
+
+<pre><code>import java.io.*;
+class Example {
+  public static void main(String[] args) {
+    int a = 0;
+    int b = 1;
+    System.out.printf(&quot;%s%d%d&quot;, args[1], a, b);
+  }
+}
+</code></pre>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/134.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

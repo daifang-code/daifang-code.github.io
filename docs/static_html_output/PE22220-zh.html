@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22220">PE22220: DUO110</h2>
+    <h3>DUO110</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22220</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO110</h4>
+<p>此linter搜索内置<code>compile</code>函数的使用。这个函数通常伴有<code>eval</code>或<code>exec</code>，因此可能导致武断代码执行错误。此外，传递给'compile'的足够大的字符串`会使Python解释器崩溃。</p>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="n">malicious_input</span> <span class="o">=</span> <span class="s1">&#39;open(&quot;/etc/passwd&quot;, &quot;w&quot;).write(&quot;bad data&quot;)&#39;</span>
+<span class="n">code</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span><span class="n">malicious_input</span><span class="p">,</span> <span class="s1">&#39;&lt;compile&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;exec&#39;</span><span class="p">)</span>
+<span class="k">exec</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="n">crash_interpreter</span> <span class="o">=</span> <span class="s1">&#39;+chr(33)&#39;</span> <span class="o">*</span> <span class="mi">1000000</span>
+<span class="nb">compile</span><span class="p">(</span><span class="n">crash_interpreter</span><span class="p">,</span> <span class="s1">&#39;&lt;compile&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;eval&#39;</span><span class="p">)</span>
+</pre></div>
+<h2>正确方式</h2>
+<p>确保传递给<code>compile</code>的数据不包含用户输入，或者是常量字符串，并且仅限于小字符串。</p>
+<h2>来源</h2>
+<h2>特别提及</h2>
+<p><em>如果传递给<code>compile</code>的数据不包含用户输入并限制数据大小，则代码可能是安全的</em>如果传递给<code>compile</code>的数据是常量字符串并限制数据大小，则代码可能是安全的</p>
+
+    </section>
+</article>

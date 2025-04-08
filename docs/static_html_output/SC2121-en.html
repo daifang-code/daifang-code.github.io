@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2121">SC2121: Improper variable update</h2>
+    <h3>To assign a variable, use just 'var=value', no 'set ..'.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2121</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>To assign a variable, use just 'var=value', no 'set ..'.</h4>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">set</span> <span class="nv">var</span><span class="o">=</span><span class="m">42</span>
+<span class="nb">set</span> var <span class="m">42</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">var</span><span class="o">=</span><span class="m">42</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p><code>set</code> is not used to set or assign variables in Bourne shells. It's used to set shell options and positional parameters.</p>
+<p>To assign variables, use <code>var=value</code> with no <code>set</code> or other qualifiers.</p>
+<h5>Exceptions</h5>
+<p>If you actually do want to set positional parameters, simply quoting them or using <code>--</code> will make shellcheck stop warning, e.g. <code>set -- var1 var2</code> or <code>set &quot;foo=bar&quot;</code>.</p>
+
+    </section>
+</article>
