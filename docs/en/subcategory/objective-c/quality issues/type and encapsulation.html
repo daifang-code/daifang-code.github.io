@@ -1,0 +1,1078 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='../../../theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="../../../theme/stylesheet/normalize.min.css">
+    <script src="../../../theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="../../../theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../../../theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="../../../theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">      <meta name="author" content="Pinpoint Team"/>
+    <meta name="description" content="Manual and documents for Sourcebrella Pinpoint"/> <meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Pinpoint Document"/>
+<meta property="og:description" content="Manual and documents for Sourcebrella Pinpoint"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="../../.."/>
+ 
+    <title>Pinpoint Document &ndash; Category</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href="../../..">
+                <img src="../../../theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href="../../..">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="../../../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="../../../standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="../../../standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="../../../standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="../../../standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="../../../standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="../../../standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="../../../standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="../../../standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+          <article>
+            <h1>
+            Type and encapsulation (9)
+            </h1>
+        </article>
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">Type and encapsulation</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0077">Struct Padding</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/type-and-encapsulation.html">Type and encapsulation</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#waste-of-resources">waste of resources</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Struct members are arranged according to their declared order in the program text. Fill characters may be used in the struct to ensure that the structure is properly aligned in memory. Struct padding is designed to facilitate quick access by members on multiple architectures.
+If the members in the struct are not properly defined, it may cause excessive struct padding, resulting in wasted system memory.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="waste-of-resources">waste of resources</h4>
+<p>If the members in the struct are not properly defined, it may cause excessive struct padding, resulting in wasted system memory.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Check the order in which members of the struct are placed, rearranging members of the struct to save unnecessary space.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">bad</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">c1</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, because the members of the struct are not properly distributed, each member of the character type(char) takes up a separate int bit length, resulting in excessive struct padding.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">bad</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">c1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, the member definitions of two char types are connected, occupying an int bit length, which reduces the memory waste caused by excessive struct padding.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">Type and encapsulation</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0111">Delete non virtual dtor</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/type-and-encapsulation.html">Type and encapsulation</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+<li><a href="#_1">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Delete non virtual dtor.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>If the destructor is not declared as virtual, when the object of the derived class is deleted by the pointer of the base class, only the destructor of the base class is called, and the destructor of the derived class is not called, resulting in the object of the derived class not being recycling creates a resource leak problem.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Destructors should be declared as virtual.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span>               
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="c1">// No virtual destructor</span>
+  <span class="o">~</span><span class="n">MyClass</span><span class="p">();</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">example_fun</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">delete</span><span class="p">(</span><span class="n">MyClass</span> <span class="o">*</span><span class="n">m</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">delete</span> <span class="n">m</span><span class="p">;</span>  <span class="c1">//Delete an object with a virtual method but </span>
+             <span class="c1">//no virtual destructor</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span>               
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="c1">//Virtual destructor</span>
+  <span class="k">virtual</span>  <span class="o">~</span><span class="n">MyClass</span><span class="p">();</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">example_fun</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">delete</span><span class="p">(</span><span class="n">MyClass</span> <span class="o">*</span><span class="n">m</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">delete</span> <span class="n">m</span><span class="p">;</span>      
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="_1">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.5.21 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">Type and encapsulation</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0003">Imcompatible Cast</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/type-and-encapsulation.html">Type and encapsulation</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#out-of-bounds-memory-accesses">out-of-bounds memory accesses</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>There are many instances where an object in memory is accessed via a pointer cast to an incompatible type. Casting a pointer will not change memory layout so it will lead to a potential out-of-bounds memory accesses if we access the value via the incompatible type.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="out-of-bounds-memory-accesses">out-of-bounds memory accesses</h4>
+<p>Cast a pointer value to an incompatible type will lead to a potential out-of-bounds memory accesses.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Cast a pointer value to an incompatible type.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">uint16_t</span> <span class="n">y</span><span class="p">;</span>
+  <span class="n">init</span><span class="p">((</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">y</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, incompatible cast from uint16_t* to int* at line 5.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">uint16_t</span> <span class="n">y</span><span class="p">;</span>
+  <span class="n">init</span><span class="p">((</span><span class="kt">uint16_t</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">y</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the fixed code example, compatible cast from uint16_t* to uint16_t* at line 5.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/csharp.html">CSHARP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">Type and encapsulation</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0121">Attribute Packed in typedef</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/type-and-encapsulation.html">Type and encapsulation</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Use the packed attribute when defining an alias for a structure or union with a typedef.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>The packed attribute can only be used for type definitions of structure or union. The packed attribute is ignored in the typedef.
+The role of "packed" is to align bytes. Some platforms can only access certain types of data from certain addresses. For example, a variable is not byte aligned. Some architecture CPUs may occur error during access. If you do not align the data storage according to the requirements of its platform, it will reduce the efficiency of access.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Use the packed attribute when you don't use an typedef to define an alias for a structure or union.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span>    
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span> <span class="n">__attribute__</span><span class="p">((</span><span class="n">packed</span><span class="p">))</span> <span class="n">S</span><span class="p">;</span>  <span class="c1">// The packed property will be ignored</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span>    
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span> <span class="n">S</span><span class="p">;</span> 
+</pre></div>
+</td></tr></table>
+<h1 id="reference">Reference</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.5.32 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">Type and encapsulation</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0119">Use long long type</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/type-and-encapsulation.html">Type and encapsulation</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Use data types that lack consistency definitions across compilers, such as the "long long" type.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>Using data types that lack consistency definitions across compilers can make the code difficult to port.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Instead of assuming that the type provided by the compiler has a reasonable size, you should use the compiler's built-in or defined macros to represent the actual size you want.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span><span class="p">;</span>  <span class="c1">//Use a long long type that lacks a </span>
+                  <span class="c1">//consistent definition</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">UINT64_t</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="reference">Reference</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.2.6 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">Type and encapsulation</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0017">Bad Override</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/type-and-encapsulation.html">Type and encapsulation</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#logic-error">logic error</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Overriding virtual functions due to missing const modifiers, which result in type signature mismatches.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="logic-error">logic error</h4>
+<p>Overriding virtual functions due to missing const modifiers, which result in type signature mismatches.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Overriding virtual functions in a correct way.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="n">virtual</span> <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="cm">/*...*/</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">class</span> <span class="nl">B</span> <span class="p">:</span> <span class="n">public</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span>  <span class="p">{</span> <span class="cm">/* ... */</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, B::setName is probably meant to override A::setName but type signatures don't match perfectly.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="n">virtual</span> <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span>  <span class="k">const</span> <span class="p">{</span> <span class="cm">/*...*/</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">class</span> <span class="nl">B</span> <span class="p">:</span> <span class="n">public</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span>  <span class="k">const</span> <span class="p">{</span> <span class="cm">/* ... */</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p>In the fixed code example, add const type signature for B::setName method.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">Type and encapsulation</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0022">MISRA Cast</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/type-and-encapsulation.html">Type and encapsulation</a>
+
+                    &#8226; 2 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#undefined-behavior">undefined behavior</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>MISRA-C 10.1. The value of an expression of integer type shall not be implicitly converted to a different type if:</p>
+<ol>
+<li>it is not a conversion to a wider type of the same signedness, or</li>
+<li>the expression is complex, or</li>
+<li>the expression is not constant and is a function argument, or</li>
+<li>the expression is not constant and is a return expression</li>
+</ol>
+<p>MISRA-C 10.2. The value of an expression of floating type shall not be implicitly converted to a different type if any of the following are true:</p>
+<ol>
+<li>It is not a conversion to a wider floating type.</li>
+<li>The expression is complex.</li>
+<li>The expression is a function argument.</li>
+<li>The expression is a return expression.</li>
+</ol>
+<p>MISRA-C 10.3. The value of a complex expression of integer type can only be cast to a type that is
+narrower and of the same signedness as the underlying type of the expression.</p>
+<p>MISRA-C 10.4. The value of a complex expression of floating type can only be cast to a narrower floating type.</p>
+<p>MISRA-C 10.5. If the bitwise operators ~ and &lt;&lt; are applied to an operand of underlying type
+unsigned char or unsigned short, the result shall be immediately cast to the underlying type of the operand</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="undefined-behavior">undefined behavior</h4>
+<p>Explicit casts and implicit conversions that can, under some circumstances, lead to unexpected changes to integer or floating values in the course of evaluating expressions.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Check the type before cast.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">double</span> <span class="n">float64_t</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="kt">int32_t</span> <span class="n">xs32a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs32b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="cm">/* Defect: Casting complex expression with</span>
+<span class="cm">  integer type to a non-integer</span>
+<span class="cm">  type float64_t */</span>
+  <span class="p">(</span><span class="kt">void</span><span class="p">)(</span><span class="n">float64_t</span><span class="p">)(</span><span class="n">xs32a</span> <span class="o">/</span> <span class="n">xs32b</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, the complex expression xs32a/xs32b with an integer type is cast to noninteger type, and is thus a violation of Rule 10.3.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">double</span> <span class="n">float64_t</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="kt">int32_t</span> <span class="n">xs32a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs32b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="p">(</span><span class="kt">void</span><span class="p">)(</span><span class="kt">int32_t</span><span class="p">)(</span><span class="n">xs32a</span> <span class="o">/</span> <span class="n">xs32b</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the fixed code example, the complex expression xs32a/xs32b with an integer type is cast to integer type.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">Type and encapsulation</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0117">Error initialization order</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/type-and-encapsulation.html">Type and encapsulation</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>When you initialize a member of a class, it does not match the order of the members in the list.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>Incorrect initialization list member order may cause some members to be incorrectly initialized.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Members should be initialized in the order of the members of the list.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span>
+<span class="p">{</span>
+    <span class="n">MyClass1</span> <span class="n">mc1</span><span class="p">;</span>
+    <span class="n">MyClass2</span> <span class="n">mc2</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">//The order in which members are initialized is inconsistent with the //order of members in the list</span>
+    <span class="n">MyClass</span><span class="p">()</span> <span class="o">:</span> <span class="n">MyClass2</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">MyClass1</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{}</span>  
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<h1 id="reference">Reference</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.6.5 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">Type and encapsulation</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0122">Excessive padding</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/type-and-encapsulation.html">Type and encapsulation</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>The byte position of a member in a struct depends on the compiler's <code>#pragma align</code> and <code>#pragma pack</code> preprocessor directives.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>The byte position of a member in a struct depends on the compiler's <code>#pragma align</code> and <code>#pragma pack</code> preprocessor directives, which can cause problems when the code is ported.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Reorder the members of the struct so that the member's starting position and size are not affected by the compiler's <code>#pragma align</code> and <code>#pragma pack</code> preprocessing directives.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">ST</span> 
+<span class="p">{</span>
+    <span class="n">UINT16_t</span> <span class="n">a</span><span class="p">;</span>
+    <span class="n">UINT32_t</span> <span class="n">b</span><span class="p">;</span>  <span class="c1">//b member may start from the 3rd byte of the struct, </span>
+                 <span class="c1">//or may start from the 5th byte</span>
+    <span class="n">UINT16_t</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">ST</span> 
+<span class="p">{</span>
+     <span class="n">UINT16_t</span> <span class="n">a</span><span class="p">;</span>
+     <span class="n">UINT16_t</span> <span class="n">b</span><span class="p">;</span>
+     <span class="n">UINT32_t</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<h1 id="reference">Reference</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.3.20 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : "../../..",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

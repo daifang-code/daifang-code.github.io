@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="luobin" />
+<meta name="description" content="Prefer destructuring from arrays and objects (prefer-destructuring)" />
+<meta name="keywords" content="">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="prefer-destructuring"/>
+<meta property="og:description" content="Prefer destructuring from arrays and objects (prefer-destructuring)"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE2217.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:05.991829+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/luobin.html">
+<meta property="article:section" content="misc"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; prefer-destructuring</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/javascript.html">javascript</a>
+        </li>
+        <li>
+            <a href="./standard/style-issues.html">Style issues</a>
+        </li>
+        <li>
+            <a href="./category/code-style-and-efficiency.html">Code style and efficiency</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE2217">prefer-destructuring</h1>
+    <p>
+        Posted on September 28, 2024 in <a href="./category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#prefer-destructuring-from-arrays-and-objects-prefer-destructuring">Prefer destructuring from arrays and objects (prefer-destructuring)</a><ul>
+<li><a href="#rule-details">Rule Details</a><ul>
+<li><a href="#options">Options</a></li>
+</ul>
+</li>
+<li><a href="#when-not-to-use-it">When Not To Use It</a></li>
+<li><a href="#further-reading">Further Reading</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+  <div>
+    
+<p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h1 id="prefer-destructuring-from-arrays-and-objects-prefer-destructuring">Prefer destructuring from arrays and objects (prefer-destructuring)</h1>
+<p>With JavaScript ES6, a new syntax was added for creating variables from an array index or object property, called <a href="#further-reading">destructuring</a>.  This rule enforces usage of destructuring instead of accessing a property through a member expression.</p>
+<h2 id="rule-details">Rule Details</h2>
+<h3 id="options">Options</h3>
+<p>This rule takes two sets of configuration objects. The first object parameter determines what types of destructuring the rule applies to.</p>
+<p>The two properties, <code>array</code> and <code>object</code>, can be used to turn on or off the destructuring requirement for each of those types independently. By default, both are true.</p>
+<p>Alternatively, you can use separate configurations for different assignment types. It accepts 2 other keys instead of <code>array</code> and <code>object</code>.</p>
+<p>One key is <code>VariableDeclarator</code> and the other is <code>AssignmentExpression</code>, which can be used to control the destructuring requirement for each of those types independently. Each property accepts an object that accepts two properties, <code>array</code> and <code>object</code>, which can be used to control the destructuring requirement for each of <code>array</code> and <code>object</code> independently for variable declarations and assignment expressions.  By default, <code>array</code> and <code>object</code> are set to true for both <code>VariableDeclarator</code> and <code>AssignmentExpression</code>.</p>
+<p>The rule has a second object with a single key, <code>enforceForRenamedProperties</code>, which determines whether the <code>object</code> destructuring applies to renamed variables.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// With `array` enabled</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+<span class="c1">// With `object` enabled</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">object</span><span class="p">.</span><span class="nx">foo</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">object</span><span class="p">[</span><span class="s1">'foo'</span><span class="p">];</span>
+</pre></div>
+</td></tr></table>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// With `array` enabled</span>
+<span class="kd">var</span> <span class="p">[</span> <span class="nx">foo</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">array</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">someIndex</span><span class="p">];</span>
+
+<span class="c1">// With `object` enabled</span>
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">object</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">object</span><span class="p">.</span><span class="nx">bar</span><span class="p">;</span>
+
+<span class="kd">let</span> <span class="nx">foo</span><span class="p">;</span>
+<span class="p">({</span> <span class="nx">foo</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">object</span><span class="p">);</span>
+</pre></div>
+</td></tr></table>
+<p>Examples of <strong>incorrect</strong> code when <code>enforceForRenamedProperties</code> is enabled:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">object</span><span class="p">.</span><span class="nx">bar</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+<p>Examples of <strong>correct</strong> code when <code>enforceForRenamedProperties</code> is enabled:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="p">{</span> <span class="nx">bar</span><span class="o">:</span> <span class="nx">foo</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">object</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+<p>An example configuration, with the defaults <code>array</code> and <code>object</code> filled in, looks like this:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">"rules"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"prefer-destructuring"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"error"</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nt">"array"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">"object"</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="nt">"enforceForRenamedProperties"</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">}]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>The two properties, <code>array</code> and <code>object</code>, which can be used to turn on or off the destructuring requirement for each of those types independently. By default, both are true.</p>
+<p>For example, the following configuration enforces only object destructuring, but not array destructuring:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">"rules"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"prefer-destructuring"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"error"</span><span class="p">,</span> <span class="p">{</span><span class="nt">"object"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">"array"</span><span class="p">:</span> <span class="kc">false</span><span class="p">}]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>An example configuration, with the defaults <code>VariableDeclarator</code> and <code>AssignmentExpression</code> filled in, looks like this:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">"rules"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"prefer-destructuring"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"error"</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nt">"VariableDeclarator"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"array"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nt">"object"</span><span class="p">:</span> <span class="kc">true</span>
+      <span class="p">},</span>
+      <span class="nt">"AssignmentExpression"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"array"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">"object"</span><span class="p">:</span> <span class="kc">true</span>
+      <span class="p">}</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="nt">"enforceForRenamedProperties"</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">}]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>The two properties, <code>VariableDeclarator</code> and <code>AssignmentExpression</code>, which can be used to turn on or off the destructuring requirement for <code>array</code> and <code>object</code>. By default, all values are true.</p>
+<p>For example, the following configuration enforces object destructuring in variable declarations and enforces array destructuring in assignment expressions.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">"rules"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"prefer-destructuring"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"error"</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nt">"VariableDeclarator"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"array"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nt">"object"</span><span class="p">:</span> <span class="kc">true</span>
+      <span class="p">},</span>
+      <span class="nt">"AssignmentExpression"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"array"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">"object"</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+    <span class="p">},</span> <span class="p">{</span>
+      <span class="nt">"enforceForRenamedProperties"</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">}]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>Examples of <strong>correct</strong> code when object destructuring in <code>VariableDeclarator</code> is enforced:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/* eslint prefer-destructuring: ["error", {VariableDeclarator: {object: true}}] */</span>
+<span class="kd">var</span> <span class="p">{</span><span class="nx">bar</span><span class="o">:</span> <span class="nx">foo</span><span class="p">}</span> <span class="o">=</span> <span class="nx">object</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+<p>Examples of <strong>correct</strong> code when array destructuring in <code>AssignmentExpression</code> is enforced:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/* eslint prefer-destructuring: ["error", {AssignmentExpression: {array: true}}] */</span>
+<span class="p">[</span><span class="nx">bar</span><span class="p">]</span> <span class="o">=</span> <span class="nx">array</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+<h2 id="when-not-to-use-it">When Not To Use It</h2>
+<p>If you want to be able to access array indices or object properties directly, you can either configure the rule to your tastes or disable the rule entirely.</p>
+<p>Additionally, if you intend to access large array indices directly, like:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+</pre></div>
+</td></tr></table>
+<p>Then the <code>array</code> part of this rule is not recommended, as destructuring does not match this use case very well.</p>
+<p>Or for non-iterable 'array-like' objects:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">$</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'jquery'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'body'</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kd">var</span> <span class="p">[</span><span class="nx">bar</span><span class="p">]</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'body'</span><span class="p">);</span> <span class="c1">// fails with a TypeError</span>
+</pre></div>
+</td></tr></table>
+<h2 id="further-reading">Further Reading</h2>
+<p>If you want to learn more about destructuring, check out the links below:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">Destructuring Assignment (MDN)</a></li>
+<li><a href="http://2ality.com/2015/01/es6-destructuring.html">Destructuring and parameter handling in ECMAScript 6 (2ality blog)</a></li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

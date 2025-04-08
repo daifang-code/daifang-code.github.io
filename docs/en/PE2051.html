@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="luobin" />
+<meta name="description" content="enforce consistent linebreak style (linebreak-style)" />
+<meta name="keywords" content="">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="linebreak-style"/>
+<meta property="og:description" content="enforce consistent linebreak style (linebreak-style)"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE2051.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:05.942829+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/luobin.html">
+<meta property="article:section" content="misc"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; linebreak-style</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/javascript.html">javascript</a>
+        </li>
+        <li>
+            <a href="./standard/style-issues.html">Style issues</a>
+        </li>
+        <li>
+            <a href="./category/code-style-and-efficiency.html">Code style and efficiency</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE2051">linebreak-style</h1>
+    <p>
+        Posted on September 28, 2024 in <a href="./category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+        &#8226; 2 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#enforce-consistent-linebreak-style-linebreak-style">enforce consistent linebreak style (linebreak-style)</a><ul>
+<li><a href="#rule-details">Rule Details</a><ul>
+<li><a href="#options">Options</a></li>
+<li><a href="#unix">unix</a></li>
+<li><a href="#windows">windows</a></li>
+</ul>
+</li>
+<li><a href="#using-this-rule-with-version-control-systems">Using this rule with version control systems</a></li>
+<li><a href="#when-not-to-use-it">When Not To Use It</a></li>
+<li><a href="#compatibility">Compatibility</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+  <div>
+    
+<p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h1 id="enforce-consistent-linebreak-style-linebreak-style">enforce consistent linebreak style (linebreak-style)</h1>
+<p>When developing with a lot of people all having different editors, VCS applications and operating systems it may occur that
+different line endings are written by either of the mentioned (might especially happen when using the windows and mac versions of SourceTree together).</p>
+<p>The linebreaks (new lines) used in windows operating system are usually <em>carriage returns</em> (CR) followed by a <em>line feed</em> (LF) making it a <em>carriage return line feed</em> (CRLF)
+whereas Linux and Unix use a simple <em>line feed</em> (LF). The corresponding <em>control sequences</em> are <code>"\n"</code> (for LF) and <code>"\r\n"</code> for (CRLF).</p>
+<p>Many versioning systems (like git and subversion) can automatically ensure the correct ending. However to cover all contingencies, you can activate this rule.</p>
+<h2 id="rule-details">Rule Details</h2>
+<p>This rule enforces consistent line endings independent of operating system, VCS, or editor used across your codebase.</p>
+<h3 id="options">Options</h3>
+<p>This rule has a string option:</p>
+<ul>
+<li><code>"unix"</code> (default) enforces the usage of Unix line endings: <code>\n</code> for LF.</li>
+<li><code>"windows"</code> enforces the usage of Windows line endings: <code>\r\n</code> for CRLF.</li>
+</ul>
+<h3 id="unix">unix</h3>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>"unix"</code> option:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint linebreak-style: ["error", "unix"]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s1">'a'</span><span class="p">;</span> <span class="c1">// \r\n</span>
+</pre></div>
+</td></tr></table>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>"unix"</code> option:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint linebreak-style: ["error", "unix"]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s1">'a'</span><span class="p">,</span> <span class="c1">// \n</span>
+    <span class="nx">b</span> <span class="o">=</span> <span class="s1">'b'</span><span class="p">;</span> <span class="c1">// \n</span>
+<span class="c1">// \n</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// \n</span>
+    <span class="c1">// do stuff \n</span>
+<span class="p">}</span><span class="c1">// \n</span>
+</pre></div>
+</td></tr></table>
+<h3 id="windows">windows</h3>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>"windows"</code> option:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint linebreak-style: ["error", "windows"]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s1">'a'</span><span class="p">;</span> <span class="c1">// \n</span>
+</pre></div>
+</td></tr></table>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>"windows"</code> option:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint linebreak-style: ["error", "windows"]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s1">'a'</span><span class="p">,</span> <span class="c1">// \r\n</span>
+    <span class="nx">b</span> <span class="o">=</span> <span class="s1">'b'</span><span class="p">;</span> <span class="c1">// \r\n</span>
+<span class="c1">// \r\n</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// \r\n</span>
+    <span class="c1">// do stuff \r\n</span>
+<span class="p">}</span> <span class="c1">// \r\n</span>
+</pre></div>
+</td></tr></table>
+<h2 id="using-this-rule-with-version-control-systems">Using this rule with version control systems</h2>
+<p>Version control systems sometimes have special behavior for linebreaks. To make it easy for developers to contribute to your codebase from different platforms, you may want to configure your VCS to handle linebreaks appropriately.</p>
+<p>For example, the default behavior of <a href="https://git-scm.com/">git</a> on Windows systems is to convert LF linebreaks to CRLF when checking out files, but to store the linebreaks as LF when committing a change. This will cause the <code>linebreak-style</code> rule to report errors if configured with the <code>"unix"</code> setting, because the files that ESLint sees will have CRLF linebreaks. If you use git, you may want to add a line to your <a href="https://git-scm.com/docs/gitattributes"><code>.gitattributes</code> file</a> to prevent git from converting linebreaks in <code>.js</code> files:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>*.js text eol=lf
+</pre></div>
+</td></tr></table>
+<h2 id="when-not-to-use-it">When Not To Use It</h2>
+<p>If you aren't concerned about having different line endings within your code, then you can safely turn this rule off.</p>
+<h2 id="compatibility">Compatibility</h2>
+<ul>
+<li><strong>JSCS</strong>: <a href="https://jscs-dev.github.io/rule/validateLineBreaks">validateLineBreaks</a></li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>
