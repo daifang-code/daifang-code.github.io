@@ -1,0 +1,1234 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='../theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="../theme/stylesheet/normalize.min.css">
+    <script src="../theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="../tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="../theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="../theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="../theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="../theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">      <meta name="author" content="Pinpoint Team"/>
+    <meta name="description" content="Manual and documents for Sourcebrella Pinpoint"/> <meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Pinpoint Document"/>
+<meta property="og:description" content="Manual and documents for Sourcebrella Pinpoint"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content=".."/>
+ 
+    <title>Pinpoint Document &ndash; Standards</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href="..">
+                <img src="../theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href="..">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="../standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="../standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="../standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="../standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="../standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="../standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="../standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="../standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="../standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="../standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+      <article>
+
+    <div class="details-toc">
+    <h1> c/c++ 缺陷文档</h1>
+        <details open>
+            <summary><a
+                    href="../subcategory/c/style issues.html">1 风格问题
+                (103) </a></summary>
+
+                <details open>
+                    <summary>
+                        <a href="../subcategory/c/style issues/code style and efficiency.html">
+                            1.1 代码风格和效率 (103)
+                        </a>
+                    </summary>
+                           <h4><a href="../BE30152.html">
+                               1.1.1 SCA
+                           </a></h4>
+                           <h4><a href="../BE6077.html">
+                               1.1.2 使用了Qt关键字，例如emit，slots，signals或foreach
+                           </a></h4>
+                           <h4><a href="../BE6078.html">
+                               1.1.3 使用了传入"char *"或"QByteArray"的"QString"方法
+                           </a></h4>
+                           <h4><a href="../BE6079.html">
+                               1.1.4 没有使用Qt线程安全的函数代替"putenv()"或"qputenv()"
+                           </a></h4>
+                           <h4><a href="../BE6080.html">
+                               1.1.5 使用了非字面量参数调用"QObject::tr()"
+                           </a></h4>
+                           <h4><a href="../BE6071.html">
+                               1.1.6 在#ifndef后面使用#define定义不同但相似的名称
+                           </a></h4>
+                           <h4><a href="../BE6072.html">
+                               1.1.7 "sizeof(T) > sizeof(void *)"时没有使用QVector<T>代替QList<T>
+                           </a></h4>
+                           <h4><a href="../BE6073.html">
+                               1.1.8 使用"Container::count()"或"Container::size()"代替了"Container::isEmpty()"
+                           </a></h4>
+                           <h4><a href="../BE6074.html">
+                               1.1.9 使用了"QHash <const char *，T>"
+                           </a></h4>
+                           <h4><a href="../BE6075.html">
+                               1.1.10 没有使用 “ Q_REQUIRED_RESULT” 修饰方法
+                           </a></h4>
+                           <h4><a href="../BE6076.html">
+                               1.1.11 启用了仅适用于QString 的 -Wnon-pod-varargs
+                           </a></h4>
+                           <h4><a href="../BE6065.html">
+                               1.1.12 使用了带有副作用的"Q_ASSERT"
+                           </a></h4>
+                           <h4><a href="../BE6066.html">
+                               1.1.13 成员容器可能已分离
+                           </a></h4>
+                           <h4><a href="../BE6067.html">
+                               1.1.14 没有使用"reserve()"调用
+                           </a></h4>
+                           <h4><a href="../BE6068.html">
+                               1.1.15 在QThread派生类中使用了插槽
+                           </a></h4>
+                           <h4><a href="../BE6069.html">
+                               1.1.16 不必要的qobject_cast，static_cast和dynamic_casts
+                           </a></h4>
+                           <h4><a href="../BE6070.html">
+                               1.1.17 在循环内定义容器
+                           </a></h4>
+                           <h4><a href="../BE6060.html">
+                               1.1.18 临时的"QString"导致的不必要的内存分配
+                           </a></h4>
+                           <h4><a href="../BE6061.html">
+                               1.1.19 返回了空表达式
+                           </a></h4>
+                           <h4><a href="../BE6062-en.html">
+                               1.1.20 Implements the rule of three
+                           </a></h4>
+                           <h4><a href="../BE6063.html">
+                               1.1.21 将指向QObject成员函数的指针存储到静态变量中，并将其传递给connect语句
+                           </a></h4>
+                           <h4><a href="../BE6064.html">
+                               1.1.22 在构造函数或析构函数内调用了纯虚函数
+                           </a></h4>
+                           <h4><a href="../BE6055.html">
+                               1.1.23 const char * foo没有被替换为"const char *const foo"或"const char []foo"
+                           </a></h4>
+                           <h4><a href="../BE6056.html">
+                               1.1.24 函数调用中不需要的隐式强制转换
+                           </a></h4>
+                           <h4><a href="../BE6057.html">
+                               1.1.25 "QObject"派生类没有Q_OBJECT宏
+                           </a></h4>
+                           <h4><a href="../BE6058.html">
+                               1.1.26 在使用时"QList<T>"在 sizeof(T) > sizeof(void *) 的情况下没有使用Q_PRIMITIVE_TYPE或Q_MOVABLE_TYPE
+                           </a></h4>
+                           <h4><a href="../BE6059.html">
+                               1.1.27 与旧式语法（“SIGNAL”/“SLOT”）连接比使用指向成员语法（PMF）的指针慢得多。
+                           </a></h4>
+                           <h4><a href="../BE6049.html">
+                               1.1.28 使用了虚信号
+                           </a></h4>
+                           <h4><a href="../BE6050.html">
+                               1.1.29 在"QObject::event()"或"QObject::eventFilter()" 的重载了中 "return false"
+                           </a></h4>
+                           <h4><a href="../BE6051.html">
+                               1.1.30 使用了可复制的多态类
+                           </a></h4>
+                           <h4><a href="../BE6052.html">
+                               1.1.31 QObject派生类没有任何构造函数接收"QObject"
+                           </a></h4>
+                           <h4><a href="../BE6053.html">
+                               1.1.32 参数没有按常引用传递
+                           </a></h4>
+                           <h4><a href="../BE6054.html">
+                               1.1.33 参数没有按值传递
+                           </a></h4>
+                           <h4><a href="../BE6044.html">
+                               1.1.34 QString::left(1) 没有被替换为 QString::at(0)
+                           </a></h4>
+                           <h4><a href="../BE6045.html">
+                               1.1.35 在非const Qt容器中使用C++ 11基于范围的循环
+                           </a></h4>
+                           <h4><a href="../BE6046.html">
+                               1.1.36 从"QByteArray"返回临时数据
+                           </a></h4>
+                           <h4><a href="../BE6047.html">
+                               1.1.37 调用了具有非平凡的拷贝赋值运算符的类的平凡的拷贝构造函数，或调用了具有非平凡的拷贝构造函数的类的平凡的拷贝赋值运算符
+                           </a></h4>
+                           <h4><a href="../BE6048.html">
+                               1.1.38 从“宏基类”而不是基类中调用方法
+                           </a></h4>
+                           <h4><a href="../BE6038.html">
+                               1.1.39 覆盖信号导致了现有连接不正常工作
+                           </a></h4>
+                           <h4><a href="../BE6039.html">
+                               1.1.40 未正确将事件传递给 "QCoreApplication::postEvent()"
+                           </a></h4>
+                           <h4><a href="../BE6040.html">
+                               1.1.41 对"qDeleteAll()"的调用具有多余的"values()"或"keys()"调用
+                           </a></h4>
+                           <h4><a href="../BE6041.html">
+                               1.1.42 “qHash()” 函数未在其参数的命名空间中声明
+                           </a></h4>
+                           <h4><a href="../BE6042.html">
+                               1.1.43 将"QLatin1String"与非ASCII文字（如"QLatin1String("é")"）一起使用
+                           </a></h4>
+                           <h4><a href="../BE6043.html">
+                               1.1.44 非常数Q_PROPERTY缺少NOTIFY信号
+                           </a></h4>
+                           <h4><a href="../BE6033.html">
+                               1.1.45 foreach的误用
+                           </a></h4>
+                           <h4><a href="../BE6034.html">
+                               1.1.46 发出信号时没有使用"emit"（或"Q_EMIT"）
+                           </a></h4>
+                           <h4><a href="../BE6035.html">
+                               1.1.47 "QList<T>"中 sizeof(T)  > sizeof(void *) 时没有替换为"QVector <T>"
+                           </a></h4>
+                           <h4><a href="../BE6036.html">
+                               1.1.48 潜在的 "QObject::installEventFilter()" 滥用
+                           </a></h4>
+                           <h4><a href="../BE6037.html">
+                               1.1.49 定义了非POD的全局静态对象
+                           </a></h4>
+                           <h4><a href="../BE6027.html">
+                               1.1.50 将Q_GLOBAL_STATIC与普通类型一起使用
+                           </a></h4>
+                           <h4><a href="../BE6028.html">
+                               1.1.51 auto被推导为"QStringBuilder"而不是"QString"
+                           </a></h4>
+                           <h4><a href="../BE6029.html">
+                               1.1.52 qobject_cast<MyType>(event-> child())在"QObject :: childEvent()"或等效物中使用
+                           </a></h4>
+                           <h4><a href="../BE6030.html">
+                               1.1.53 使用了传入一个lambda的3参数"QObject :: connect"
+                           </a></h4>
+                           <h4><a href="../BE6031.html">
+                               1.1.54 信号或非 void 槽为常量
+                           </a></h4>
+                           <h4><a href="../BE6032.html">
+                               1.1.55 在临时对象上调用了非const成员函数
+                           </a></h4>
+                           <h4><a href="../BE6021.html">
+                               1.1.56 QVariant::value <Foo>()没有被替换为"QVariant::toFoo()"
+                           </a></h4>
+                           <h4><a href="../BE6022.html">
+                               1.1.57 将"iterator"对象隐式转换为"const_iterator"
+                           </a></h4>
+                           <h4><a href="../BE6023.html">
+                               1.1.58 使用了在临时容器上返回迭代器的函数
+                           </a></h4>
+                           <h4><a href="../BE6024.html">
+                               1.1.59 未使用的Qt值类
+                           </a></h4>
+                           <h4><a href="../BE6025.html">
+                               1.1.60 调用了临时对象的 setter
+                           </a></h4>
+                           <h4><a href="../BE6026.html">
+                               1.1.61 QEvent 可能通过 static_cast 强制转换为错误的派生类
+                           </a></h4>
+                           <h4><a href="../BE6015.html">
+                               1.1.62 无效地使用"qgetenv()"导致内存分配
+                           </a></h4>
+                           <h4><a href="../BE6016.html">
+                               1.1.63 QMap 的 Key 类型是指针类型
+                           </a></h4>
+                           <h4><a href="../BE6017.html">
+                               1.1.64 链式调用的或错误的"QString :: arg()"的重载
+                           </a></h4>
+                           <h4><a href="../BE6018.html">
+                               1.1.65 不需要的内存分配，例如 "if(str.toLower().contains(" foo"))"
+                           </a></h4>
+                           <h4><a href="../BE6019.html">
+                               1.1.66 没有使用 QString :: fooRef() 代替 QString :: foo()
+                           </a></h4>
+                           <h4><a href="../BE6020.html">
+                               1.1.67 一些Qt宏的滥用
+                           </a></h4>
+                           <h4><a href="../BE6010.html">
+                               1.1.68 QMap或QHash具有可以根据外部因素修改的 Key 类型
+                           </a></h4>
+                           <h4><a href="../BE6011.html">
+                               1.1.69 由字符串字面量（例如“ #RRGGBB”）构造出" QColor”
+                           </a></h4>
+                           <h4><a href="../BE6012.html">
+                               1.1.70 没有将"QDateTime :: currentDateTime()"替换为"QDateTime :: currentDateTimeUTC()"
+                           </a></h4>
+                           <h4><a href="../BE6013.html">
+                               1.1.71 没有将"Q_ENUMS"替换为"Q_ENUM"
+                           </a></h4>
+                           <h4><a href="../BE6014.html">
+                               1.1.72 QFileInfo(filename").exists()" 没有被替换为"QFileInfo::exists("filename")"
+                           </a></h4>
+                           <h4><a href="../BE6004.html">
+                               1.1.73 不必要地创建临时容器
+                           </a></h4>
+                           <h4><a href="../BE6005.html">
+                               1.1.74 没有使用"QLatin1String("")"代替"QStringLiteral()"和"QStringLiteral("")"
+                           </a></h4>
+                           <h4><a href="../BE6006.html">
+                               1.1.75 信号，插槽或可调用声明未使用完全限定的类型名称
+                           </a></h4>
+                           <h4><a href="../BE6007.html">
+                               1.1.76 用于连接的 lambda 通过引用捕获局部变量
+                           </a></h4>
+                           <h4><a href="../BE6008.html">
+                               1.1.77 当槽是 founctor，lambda 或非成员函数时，使用了 "Qt :: UniqueConnection"
+                           </a></h4>
+                           <h4><a href="../BE6009.html">
+                               1.1.78 向"qmlRegisterType()"或"qmlRegisterUncreatableType()"注册了QML类型
+                           </a></h4>
+                           <h4><a href="../BE2232.html">
+                               1.1.79 没有验证申请的内存大小
+                           </a></h4>
+                           <h4><a href="../BE6001.html">
+                               1.1.80 使用了“自动连接槽”
+                           </a></h4>
+                           <h4><a href="../BE6002.html">
+                               1.1.81 连接的并非信号
+                           </a></h4>
+                           <h4><a href="../BE6003.html">
+                               1.1.82 "SIGNAL()"，"SLOT()"，"Q_ARG()"和"Q_RETURN_ARG()"的内容未规范化
+                           </a></h4>
+                           <h4><a href="../PE0034.html">
+                               1.1.83 拷贝赋值运算符没有验证自赋值
+                           </a></h4>
+                           <h4><a href="../PE0120.html">
+                               1.1.84 switch语句缺少default分支
+                           </a></h4>
+                           <h4><a href="../PE0096.html">
+                               1.1.85 识别并移除未被使用的局部变量
+                           </a></h4>
+                           <h4><a href="../PE1004.html">
+                               1.1.86 函数参数过大值传递
+                           </a></h4>
+                           <h4><a href="../PE4020.html">
+                               1.1.87 无意义的语句
+                           </a></h4>
+                           <h4><a href="../PE9068.html">
+                               1.1.88 不当的头文件引用
+                           </a></h4>
+                           <h4><a href="../PE4022.html">
+                               1.1.89 未初始化构造函数
+                           </a></h4>
+                           <h4><a href="../PE0038.html">
+                               1.1.90 死代码
+                           </a></h4>
+                           <h4><a href="../PE4019.html">
+                               1.1.91 负整数误用
+                           </a></h4>
+                           <h4><a href="../PE0118.html">
+                               1.1.92 对非函数使用inline
+                           </a></h4>
+                           <h4><a href="../PE0131.html">
+                               1.1.93 函数定义后未被调用
+                           </a></h4>
+                           <h4><a href="../PE0103.html">
+                               1.1.94 没有检查字节顺序就使用自定义的字节交换宏
+                           </a></h4>
+                           <h4><a href="../PE0130.html">
+                               1.1.95 无用的标签
+                           </a></h4>
+                           <h4><a href="../PE1055.html">
+                               1.1.96 低效的表达式
+                           </a></h4>
+                           <h4><a href="../PE4021.html">
+                               1.1.97 未捕获到异常
+                           </a></h4>
+                           <h4><a href="../PE4025.html">
+                               1.1.98 编译器与代码不兼容
+                           </a></h4>
+                           <h4><a href="../PE0033.html">
+                               1.1.99 Assert的参数有副作用
+                           </a></h4>
+                           <h4><a href="../PE9067.html">
+                               1.1.100 多余的头文件引用
+                           </a></h4>
+                           <h4><a href="../PE4023.html">
+                               1.1.101 可疑的整数除法
+                           </a></h4>
+                           <h4><a href="../PE1045.html">
+                               1.1.102 未使用的私有函数
+                           </a></h4>
+                           <h4><a href="../PE4018.html">
+                               1.1.103 相同的分支
+                           </a></h4>
+                </details>
+
+        </details>
+        <details open>
+            <summary><a
+                    href="../subcategory/c/quality issues.html">2 质量问题
+                (142) </a></summary>
+
+                <details open>
+                    <summary>
+                        <a href="../subcategory/c/quality issues/api abuse.html">
+                            2.1 API误用 (21)
+                        </a>
+                    </summary>
+                           <h4><a href="../PE1066.html">
+                               2.1.1 错误的使用memset函数
+                           </a></h4>
+                           <h4><a href="../PE1051.html">
+                               2.1.2 错误使用cmath库函数
+                           </a></h4>
+                           <h4><a href="../PE0047.html">
+                               2.1.3 不正确地使用strlen函数
+                           </a></h4>
+                           <h4><a href="../PE1063.html">
+                               2.1.4 参数传递NULL值
+                           </a></h4>
+                           <h4><a href="../PE0025.html">
+                               2.1.5 使用open函数创建文件时缺少参数mode
+                           </a></h4>
+                           <h4><a href="../PE1007.html">
+                               2.1.6 不正确的whence值
+                           </a></h4>
+                           <h4><a href="../PE1009.html">
+                               2.1.7 在调用字符串操作的函数中使用空指针作为参数
+                           </a></h4>
+                           <h4><a href="../PE1067.html">
+                               2.1.8 错误的使用输入/输出API
+                           </a></h4>
+                           <h4><a href="../PE0071.html">
+                               2.1.9 不正确地使用strncat库函数
+                           </a></h4>
+                           <h4><a href="../PE1044.html">
+                               2.1.10 不当使用memset函数
+                           </a></h4>
+                           <h4><a href="../PE0074.html">
+                               2.1.11 不正确地使用va_list
+                           </a></h4>
+                           <h4><a href="../PE1054.html">
+                               2.1.12 参数不一致
+                           </a></h4>
+                           <h4><a href="../PE0070.html">
+                               2.1.13 内存分配时对指针进行sizeof操作
+                           </a></h4>
+                           <h4><a href="../PE0059.html">
+                               2.1.14 不正确地使用chroot函数
+                           </a></h4>
+                           <h4><a href="../PE1000.html">
+                               2.1.15 在字符串拷贝函数中存在内存重叠
+                           </a></h4>
+                           <h4><a href="../PE0073.html">
+                               2.1.16 自我赋值
+                           </a></h4>
+                           <h4><a href="../PE1006.html">
+                               2.1.17 函数调用时参数个数与函数声明参数个数不一致
+                           </a></h4>
+                           <h4><a href="../PE0095.html">
+                               2.1.18 释放空指针
+                           </a></h4>
+                           <h4><a href="../PE0069.html">
+                               2.1.19 不正确地使用UNIX/Posix库函数
+                           </a></h4>
+                           <h4><a href="../PE0015.html">
+                               2.1.20 使用不安全的库函数创建临时文件
+                           </a></h4>
+                           <h4><a href="../PE0028.html">
+                               2.1.21 错误的使用sleep函数
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/c/quality issues/logic errors.html">
+                            2.2 逻辑错误 (39)
+                        </a>
+                    </summary>
+                           <h4><a href="../PE0115.html">
+                               2.2.1 不一致的case标签
+                           </a></h4>
+                           <h4><a href="../PE0024.html">
+                               2.2.2 Dangling else语句
+                           </a></h4>
+                           <h4><a href="../PE0100.html">
+                               2.2.3 宏定义参数时括号缺失
+                           </a></h4>
+                           <h4><a href="../PE0125.html">
+                               2.2.4 忽略采用typedef定义的抽象类型
+                           </a></h4>
+                           <h4><a href="../PE0075.html">
+                               2.2.5 构造函数或析构函数中调用虚函数
+                           </a></h4>
+                           <h4><a href="../PE0127.html">
+                               2.2.6 实参与形参顺序不一致
+                           </a></h4>
+                           <h4><a href="../PE0113.html">
+                               2.2.7 过时的implicit int
+                           </a></h4>
+                           <h4><a href="../PE0023.html">
+                               2.2.8 缺少break语句
+                           </a></h4>
+                           <h4><a href="../PE0114.html">
+                               2.2.9 迭代时使用不正确的容器
+                           </a></h4>
+                           <h4><a href="../PE0124.html">
+                               2.2.10 自身相除或比较
+                           </a></h4>
+                           <h4><a href="../PE0012.html">
+                               2.2.11 字符串数组初始化中缺少逗号
+                           </a></h4>
+                           <h4><a href="../PE0046.html">
+                               2.2.12 未检测函数返回值为负数
+                           </a></h4>
+                           <h4><a href="../PE0039.html">
+                               2.2.13 死循环
+                           </a></h4>
+                           <h4><a href="../PE0016.html">
+                               2.2.14 多余的分号
+                           </a></h4>
+                           <h4><a href="../PE0009.html">
+                               2.2.15 I/O 库函数返回值错误
+                           </a></h4>
+                           <h4><a href="../PE0014.html">
+                               2.2.16 函数缺少返回值
+                           </a></h4>
+                           <h4><a href="../PE0110.html">
+                               2.2.17 条件判别成立时相应分支无执行语句
+                           </a></h4>
+                           <h4><a href="../PE0052.html">
+                               2.2.18 布尔类型变量赋值错误
+                           </a></h4>
+                           <h4><a href="../PE0011.html">
+                               2.2.19 枚举值用作布尔值
+                           </a></h4>
+                           <h4><a href="../PE0116.html">
+                               2.2.20 无限递归函数
+                           </a></h4>
+                           <h4><a href="../PE0048.html">
+                               2.2.21 克隆代码
+                           </a></h4>
+                           <h4><a href="../PE0013.html">
+                               2.2.22 类中缺少显式的拷贝构造函数或赋值操作符
+                           </a></h4>
+                           <h4><a href="../PE1041.html">
+                               2.2.23 switch语句的重复操作
+                           </a></h4>
+                           <h4><a href="../PE0008.html">
+                               2.2.24 函数地址与0作比较
+                           </a></h4>
+                           <h4><a href="../PE0018.html">
+                               2.2.25 传参CComBSTR或CComPtr对象的地址导致内存泄漏
+                           </a></h4>
+                           <h4><a href="../PE0067.html">
+                               2.2.26 变量赋值后未使用
+                           </a></h4>
+                           <h4><a href="../PE0004.html">
+                               2.2.27 不正确地使用sizeof
+                           </a></h4>
+                           <h4><a href="../PE0068.html">
+                               2.2.28 使用浮点变量作为循环计数器
+                           </a></h4>
+                           <h4><a href="../PE1042.html">
+                               2.2.29 无用参数赋值
+                           </a></h4>
+                           <h4><a href="../PE0041.html">
+                               2.2.30 无效的代码
+                           </a></h4>
+                           <h4><a href="../PE0128.html">
+                               2.2.31 参数被局部变量隐藏
+                           </a></h4>
+                           <h4><a href="../PE0126.html">
+                               2.2.32 内置数字类型的宏
+                           </a></h4>
+                           <h4><a href="../PE0020.html">
+                               2.2.33 依赖序列点之间的求值顺序
+                           </a></h4>
+                           <h4><a href="../PE0105.html">
+                               2.2.34 在调用函数时对传递的参数进行赋值
+                           </a></h4>
+                           <h4><a href="../PE0109.html">
+                               2.2.35 对BSTR类型的变量进行地址运算
+                           </a></h4>
+                           <h4><a href="../PE0129.html">
+                               2.2.36 用于控制程序流程的条件表达式结果恒为真或假
+                           </a></h4>
+                           <h4><a href="../PE0002.html">
+                               2.2.37 忽略函数返回值
+                           </a></h4>
+                           <h4><a href="../PE0005.html">
+                               2.2.38 不正确地释放COM接口指针
+                           </a></h4>
+                           <h4><a href="../PE1053.html">
+                               2.2.39 计算表达式不清晰
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/c/quality issues/numeric errors.html">
+                            2.3 数值计算错误 (9)
+                        </a>
+                    </summary>
+                           <h4><a href="../PE0106.html">
+                               2.3.1 主机字节顺序与网络字节顺序的错误转换
+                           </a></h4>
+                           <h4><a href="../PE0019.html">
+                               2.3.2 不正确的移位运算
+                           </a></h4>
+                           <h4><a href="../PE0021.html">
+                               2.3.3 整数溢出
+                           </a></h4>
+                           <h4><a href="../PE1052.html">
+                               2.3.4 不精确的数学表达式
+                           </a></h4>
+                           <h4><a href="../PE0026.html">
+                               2.3.5 类型提升前整数溢出
+                           </a></h4>
+                           <h4><a href="../PE0108.html">
+                               2.3.6 char数据类型未指定是否有符号
+                           </a></h4>
+                           <h4><a href="../PE0107.html">
+                               2.3.7 在用于控制程序流程的条件表达式中使用位运算符'&'或'|'
+                           </a></h4>
+                           <h4><a href="../PE0112.html">
+                               2.3.8 浮点数的相等或不等比较
+                           </a></h4>
+                           <h4><a href="../PE0062.html">
+                               2.3.9 除零错误
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/c/quality issues/error handling.html">
+                            2.4 错误和异常处理缺陷 (2)
+                        </a>
+                    </summary>
+                           <h4><a href="../PE1049.html">
+                               2.4.1 错误的异常抛出/捕获
+                           </a></h4>
+                           <h4><a href="../PE0045.html">
+                               2.4.2 未捕获的异常
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/c/quality issues/type and encapsulation.html">
+                            2.5 类型和封装 (26)
+                        </a>
+                    </summary>
+                           <h4><a href="../BE0134.html">
+                               2.5.1 析构函数调用错误
+                           </a></h4>
+                           <h4><a href="../PE1043.html">
+                               2.5.2 不正确的实现operator=
+                           </a></h4>
+                           <h4><a href="../PE1050.html">
+                               2.5.3 无效函数参数
+                           </a></h4>
+                           <h4><a href="../PE1024.html">
+                               2.5.4 初始化成员的顺序不正确
+                           </a></h4>
+                           <h4><a href="../PE1040.html">
+                               2.5.5 数值处理不当
+                           </a></h4>
+                           <h4><a href="../PE0101.html">
+                               2.5.6 内置类型和布尔值之间的隐式转换
+                           </a></h4>
+                           <h4><a href="../PE0077.html">
+                               2.5.7 结构体填充导致内存浪费
+                           </a></h4>
+                           <h4><a href="../PE0102.html">
+                               2.5.8 有符号的一位位域
+                           </a></h4>
+                           <h4><a href="../PE0119.html">
+                               2.5.9 使用缺乏一致性定义的long long类型
+                           </a></h4>
+                           <h4><a href="../PE0003.html">
+                               2.5.10 不兼容的指针类型转换
+                           </a></h4>
+                           <h4><a href="../PE0022.html">
+                               2.5.11 类型转换导致精度丢失
+                           </a></h4>
+                           <h4><a href="../PE0097.html">
+                               2.5.12 可疑的数组到指针的转换
+                           </a></h4>
+                           <h4><a href="../PE1037.html">
+                               2.5.13 格式字符串漏洞
+                           </a></h4>
+                           <h4><a href="../PE1047.html">
+                               2.5.14 没有使用虚函数作为析构函数
+                           </a></h4>
+                           <h4><a href="../PE0031.html">
+                               2.5.15 在构造函数中未初始化所有非静态的成员变量
+                           </a></h4>
+                           <h4><a href="../PE0111.html">
+                               2.5.16 删除有虚方法但无虚析构函数的对象
+                           </a></h4>
+                           <h4><a href="../PE1058.html">
+                               2.5.17 类成员声明问题
+                           </a></h4>
+                           <h4><a href="../PE0121.html">
+                               2.5.18 在typedef中使用packed属性
+                           </a></h4>
+                           <h4><a href="../PE0117.html">
+                               2.5.19 初始化成员的顺序不正确
+                           </a></h4>
+                           <h4><a href="../PE0051.html">
+                               2.5.20 实参顺序与形参顺序不一致
+                           </a></h4>
+                           <h4><a href="../PE0017.html">
+                               2.5.21 子类型重载父类虚方法时const限定符不一致
+                           </a></h4>
+                           <h4><a href="../PE1059.html">
+                               2.5.22 类成员重名定义
+                           </a></h4>
+                           <h4><a href="../PE1056.html">
+                               2.5.23 不正确的字符串比较
+                           </a></h4>
+                           <h4><a href="../PE0122.html">
+                               2.5.24 不确定的存储结果
+                           </a></h4>
+                           <h4><a href="../PE0098.html">
+                               2.5.25 指针类型和非指针类型间进行类型转换
+                           </a></h4>
+                           <h4><a href="../PE0099.html">
+                               2.5.26 类只定义了拷贝构造函数或只定义了赋值操作符
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/c/quality issues/memory and resource misuse.html">
+                            2.6 内存和资源误用 (40)
+                        </a>
+                    </summary>
+                           <h4><a href="../BE5162.html">
+                               2.6.1 内存泄漏
+                           </a></h4>
+                           <h4><a href="../BE0135.html">
+                               2.6.2 申请的内存大于给定的阀值
+                           </a></h4>
+                           <h4><a href="../PE1011.html">
+                               2.6.3 谨防零长度分配内存
+                           </a></h4>
+                           <h4><a href="../PE0054.html">
+                               2.6.4 将固定地址赋值给指针变量
+                           </a></h4>
+                           <h4><a href="../PE0049.html">
+                               2.6.5 字符串缺少终止符
+                           </a></h4>
+                           <h4><a href="../PE1039.html">
+                               2.6.6 数组越界
+                           </a></h4>
+                           <h4><a href="../PE0084.html">
+                               2.6.7 使用已关闭的文件描述符
+                           </a></h4>
+                           <h4><a href="../PE0053.html">
+                               2.6.8 内存分配大小不是存储类型的整数倍
+                           </a></h4>
+                           <h4><a href="../PE1001.html">
+                               2.6.9 缓冲区溢出
+                           </a></h4>
+                           <h4><a href="../PE0066.html">
+                               2.6.10 内存泄漏
+                           </a></h4>
+                           <h4><a href="../PE0057.html">
+                               2.6.11 内存分配时长度溢出
+                           </a></h4>
+                           <h4><a href="../PE1061.html">
+                               2.6.12 修改字符串常量
+                           </a></h4>
+                           <h4><a href="../PE0006.html">
+                               2.6.13 不正确地使用BSTR类型的值
+                           </a></h4>
+                           <h4><a href="../PE0123.html">
+                               2.6.14 可能错误的指针缩放
+                           </a></h4>
+                           <h4><a href="../PE0055.html">
+                               2.6.15 错误的指针减法操作
+                           </a></h4>
+                           <h4><a href="../PE0001.html">
+                               2.6.16 空指针解引用
+                           </a></h4>
+                           <h4><a href="../PE0703.html">
+                               2.6.17 使用释放后的内存/内存多重释放
+                           </a></h4>
+                           <h4><a href="../PE0704.html">
+                               2.6.18 使用未初始化变量
+                           </a></h4>
+                           <h4><a href="../PE0030.html">
+                               2.6.19 输出流格式化状态改变后没有恢复
+                           </a></h4>
+                           <h4><a href="../PE1021.html">
+                               2.6.20 不当使用迭代器
+                           </a></h4>
+                           <h4><a href="../PE1064.html">
+                               2.6.21 内存不完整赋值
+                           </a></h4>
+                           <h4><a href="../PE1046.html">
+                               2.6.22 复制指针共用内存
+                           </a></h4>
+                           <h4><a href="../PE1002.html">
+                               2.6.23 释放非堆内存
+                           </a></h4>
+                           <h4><a href="../PE0050.html">
+                               2.6.24 错误的指针运算
+                           </a></h4>
+                           <h4><a href="../PE1062.html">
+                               2.6.25 不正确的内存分配
+                           </a></h4>
+                           <h4><a href="../PE1005.html">
+                               2.6.26 将非结构体类型转换为结构体类型
+                           </a></h4>
+                           <h4><a href="../PE0064.html">
+                               2.6.27 不正确地声明可变长度数组
+                           </a></h4>
+                           <h4><a href="../PE4017.html">
+                               2.6.28 构造函数指针内存泄露
+                           </a></h4>
+                           <h4><a href="../PE0044.html">
+                               2.6.29 缓冲区溢出
+                           </a></h4>
+                           <h4><a href="../PE0701.html">
+                               2.6.30 返回栈地址
+                           </a></h4>
+                           <h4><a href="../PE1057.html">
+                               2.6.31 不正确创建对象
+                           </a></h4>
+                           <h4><a href="../PE0007.html">
+                               2.6.32 错误的内存分配方式
+                           </a></h4>
+                           <h4><a href="../PE0072.html">
+                               2.6.33 解引用非法迭代器
+                           </a></h4>
+                           <h4><a href="../PE0166.html">
+                               2.6.34 不匹配的内存申请和释放
+                           </a></h4>
+                           <h4><a href="../PE1060.html">
+                               2.6.35 迭代器边界检查
+                           </a></h4>
+                           <h4><a href="../PE0029.html">
+                               2.6.36 局部变量占栈空间太大
+                           </a></h4>
+                           <h4><a href="../PE0010.html">
+                               2.6.37 Delete Void类型指针
+                           </a></h4>
+                           <h4><a href="../PE1010.html">
+                               2.6.38 释放使用alloca函数申请的内存
+                           </a></h4>
+                           <h4><a href="../PE0056.html">
+                               2.6.39 越界访问数组
+                           </a></h4>
+                           <h4><a href="../PE0061.html">
+                               2.6.40 资源泄露
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/c/quality issues/concurrency and temporal errors.html">
+                            2.7 并发和时序错误 (5)
+                        </a>
+                    </summary>
+                           <h4><a href="../BE0133.html">
+                               2.7.1 遗忘对变量加锁
+                           </a></h4>
+                           <h4><a href="../PE0076.html">
+                               2.7.2 不正确地使用MPI库函数
+                           </a></h4>
+                           <h4><a href="../PE0078.html">
+                               2.7.3 不正确地使用vfork
+                           </a></h4>
+                           <h4><a href="../PE0060.html">
+                               2.7.4 加解锁错误
+                           </a></h4>
+                           <h4><a href="../PE0666.html">
+                               2.7.5 数据竞争
+                           </a></h4>
+                </details>
+
+        </details>
+        <details open>
+            <summary><a
+                    href="../subcategory/c/security issues.html">3 安全问题
+                (72) </a></summary>
+
+                <details open>
+                    <summary>
+                        <a href="../subcategory/c/security issues/privacy leakage.html">
+                            3.1 隐私数据泄露 (10)
+                        </a>
+                    </summary>
+                           <h4><a href="../BE0099.html">
+                               3.1.1 敏感数据传入潜在的不安全API
+                           </a></h4>
+                           <h4><a href="../PE1101.html">
+                               3.1.2 文件揭露
+                           </a></h4>
+                           <h4><a href="../PE1114.html">
+                               3.1.3 应慎用或禁用的标准库函数
+                           </a></h4>
+                           <h4><a href="../PE4005.html">
+                               3.1.4 敏感信息存储于上锁不正确的内存空间
+                           </a></h4>
+                           <h4><a href="../PE4012.html">
+                               3.1.5 没有要求使用强口令
+                           </a></h4>
+                           <h4><a href="../PE1081.html">
+                               3.1.6 隐私侵犯
+                           </a></h4>
+                           <h4><a href="../PE0087.html">
+                               3.1.7 泄漏敏感数据
+                           </a></h4>
+                           <h4><a href="../PE0134.html">
+                               3.1.8 暴露URL中的会话ID
+                           </a></h4>
+                           <h4><a href="../PE1112.html">
+                               3.1.9 硬编码的密码
+                           </a></h4>
+                           <h4><a href="../PE0136.html">
+                               3.1.10 泄漏堆栈信息
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/c/security issues/security policy management.html">
+                            3.2 安全策略管理 (27)
+                        </a>
+                    </summary>
+                           <h4><a href="../BE2004.html">
+                               3.2.1 使用危险函数strcpy
+                           </a></h4>
+                           <h4><a href="../BE2005.html">
+                               3.2.2 使用危险函数strcat
+                           </a></h4>
+                           <h4><a href="../BE2006.html">
+                               3.2.3 使用危险函数gets
+                           </a></h4>
+                           <h4><a href="../BE0109.html">
+                               3.2.4 使用弱随机算法生成固定密钥
+                           </a></h4>
+                           <h4><a href="../PE4007.html">
+                               3.2.5 存储可恢复的口令
+                           </a></h4>
+                           <h4><a href="../PE4006.html">
+                               3.2.6 公有函数返回私有数组
+                           </a></h4>
+                           <h4><a href="../PE1107.html">
+                               3.2.7 脆弱的哈希加密算法
+                           </a></h4>
+                           <h4><a href="../PE1073.html">
+                               3.2.8 代码的正确性
+                           </a></h4>
+                           <h4><a href="../PE4008.html">
+                               3.2.9 使用已破解或危险的加密算法
+                           </a></h4>
+                           <h4><a href="../PE1070.html">
+                               3.2.10 不安全的SSL
+                           </a></h4>
+                           <h4><a href="../PE1109.html">
+                               3.2.11 不安全的存储
+                           </a></h4>
+                           <h4><a href="../PE4013.html">
+                               3.2.12 没有对口令域进行掩饰
+                           </a></h4>
+                           <h4><a href="../PE1074.html">
+                               3.2.13 访问控制
+                           </a></h4>
+                           <h4><a href="../PE1083.html">
+                               3.2.14 不安全的随机性
+                           </a></h4>
+                           <h4><a href="../PE0133.html">
+                               3.2.15 成功登录后不会更新会话ID
+                           </a></h4>
+                           <h4><a href="../PE4010.html">
+                               3.2.16 密码分组链接模式未使用随机初始化矢量
+                           </a></h4>
+                           <h4><a href="../PE1091.html">
+                               3.2.17 违反信任边界
+                           </a></h4>
+                           <h4><a href="../PE1089.html">
+                               3.2.18 不安全的清洗规则
+                           </a></h4>
+                           <h4><a href="../PE0094.html">
+                               3.2.19 使用伪随机数发生器（PRNG）
+                           </a></h4>
+                           <h4><a href="../PE4016.html">
+                               3.2.20 RSA算法未使用最优非对称加密填充
+                           </a></h4>
+                           <h4><a href="../PE1090.html">
+                               3.2.21 权限管理
+                           </a></h4>
+                           <h4><a href="../PE4002.html">
+                               3.2.22 不可信的搜索路径
+                           </a></h4>
+                           <h4><a href="../PE4014.html">
+                               3.2.23 通过用户控制的SQL关键字绕过授权
+                           </a></h4>
+                           <h4><a href="../PE4004.html">
+                               3.2.24 堆检查
+                           </a></h4>
+                           <h4><a href="../PE4015.html">
+                               3.2.25 未使用盐值计算散列值
+                           </a></h4>
+                           <h4><a href="../PE4009.html">
+                               3.2.26 可逆的散列算法
+                           </a></h4>
+                           <h4><a href="../PE4011.html">
+                               3.2.27 安全关键的行为依赖反向域名解析
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/c/security issues/input validation and representation.html">
+                            3.3 输入验证与表示 (35)
+                        </a>
+                    </summary>
+                           <h4><a href="../PE0080.html">
+                               3.3.1 跨站脚本攻击
+                           </a></h4>
+                           <h4><a href="../PE1085.html">
+                               3.3.2 公式注入
+                           </a></h4>
+                           <h4><a href="../PE1086.html">
+                               3.3.3 NoSQL注入
+                           </a></h4>
+                           <h4><a href="../PE1096.html">
+                               3.3.4 XPath注入
+                           </a></h4>
+                           <h4><a href="../PE1097.html">
+                               3.3.5 LDAP操纵
+                           </a></h4>
+                           <h4><a href="../PE1110.html">
+                               3.3.6 意图操纵
+                           </a></h4>
+                           <h4><a href="../PE1104.html">
+                               3.3.7 HTTP参数污染
+                           </a></h4>
+                           <h4><a href="../PE0079.html">
+                               3.3.8 系统命令注入
+                           </a></h4>
+                           <h4><a href="../PE1094.html">
+                               3.3.9 XSLT注入
+                           </a></h4>
+                           <h4><a href="../PE1093.html">
+                               3.3.10 包含危险文件
+                           </a></h4>
+                           <h4><a href="../PE0091.html">
+                               3.3.11 URL重定向到不受信任的站点
+                           </a></h4>
+                           <h4><a href="../PE0132.html">
+                               3.3.12 下载代码时没有进行完整性检查
+                           </a></h4>
+                           <h4><a href="../PE0093.html">
+                               3.3.13 跨站点请求伪造
+                           </a></h4>
+                           <h4><a href="../PE0085.html">
+                               3.3.14 格式化字符串漏洞
+                           </a></h4>
+                           <h4><a href="../PE0082.html">
+                               3.3.15 LDAP 注入
+                           </a></h4>
+                           <h4><a href="../PE0081.html">
+                               3.3.16 SQL 注入
+                           </a></h4>
+                           <h4><a href="../PE1106.html">
+                               3.3.17 邮件命令注入
+                           </a></h4>
+                           <h4><a href="../PE0090.html">
+                               3.3.18 XML 外部实体攻击
+                           </a></h4>
+                           <h4><a href="../PE1088.html">
+                               3.3.19 头部操纵
+                           </a></h4>
+                           <h4><a href="../PE1099.html">
+                               3.3.20 XML注入
+                           </a></h4>
+                           <h4><a href="../PE1095.html">
+                               3.3.21 XQuery注入
+                           </a></h4>
+                           <h4><a href="../PE0088.html">
+                               3.3.22 不受控制的内存分配
+                           </a></h4>
+                           <h4><a href="../PE4003.html">
+                               3.3.23 未检查的输入作为循环条件
+                           </a></h4>
+                           <h4><a href="../PE1076.html">
+                               3.3.24 资源注入
+                           </a></h4>
+                           <h4><a href="../PE1072.html">
+                               3.3.25 不安全的反射
+                           </a></h4>
+                           <h4><a href="../PE0086.html">
+                               3.3.26 路径遍历
+                           </a></h4>
+                           <h4><a href="../PE1105.html">
+                               3.3.27 JSON注入
+                           </a></h4>
+                           <h4><a href="../PE1078.html">
+                               3.3.28 设置操纵
+                           </a></h4>
+                           <h4><a href="../PE1080.html">
+                               3.3.29 动态代码执行
+                           </a></h4>
+                           <h4><a href="../PE1077.html">
+                               3.3.30 服务器端请求伪造
+                           </a></h4>
+                           <h4><a href="../PE0092.html">
+                               3.3.31 在安全决策中依赖不可信输入
+                           </a></h4>
+                           <h4><a href="../PE1082.html">
+                               3.3.32 操纵文件权限
+                           </a></h4>
+                           <h4><a href="../PE1098.html">
+                               3.3.33 服务器端模板注入
+                           </a></h4>
+                           <h4><a href="../PE1071.html">
+                               3.3.34 拒绝服务
+                           </a></h4>
+                           <h4><a href="../PE0089.html">
+                               3.3.35 执行未经授权的代码或命令
+                           </a></h4>
+                </details>
+
+        </details>
+    </div>
+</article>
+
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : "..",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="Pinpoint Team" />
+<meta name="description" content="强制行的最大长度 (max-len)" />
+<meta name="keywords" content="">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="max-len"/>
+<meta property="og:description" content="强制行的最大长度 (max-len)"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE2056.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:05.770828+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/pinpoint-team.html">
+<meta property="article:section" content="misc"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; max-len</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/javascript.html">javascript</a>
+        </li>
+        <li>
+            <a href="./standard/style-issues.html">风格问题</a>
+        </li>
+        <li>
+            <a href="./category/code-style-and-efficiency.html">代码风格和效率</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE2056">max-len</h1>
+    <p>
+        在 2024-九月-28 发布于 <a href="./category/code-style-and-efficiency.html">代码风格和效率</a> 分类
+
+        &#8226; 2 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#max-len">强制行的最大长度 (max-len)</a><ul>
+<li><a href="#_1">缺陷详因</a></li>
+<li><a href="#_2">修改方案</a><ul>
+<li><a href="#code">code</a></li>
+<li><a href="#tabwidth">tabWidth</a></li>
+<li><a href="#comments">comments</a></li>
+<li><a href="#ignorecomments">ignoreComments</a></li>
+<li><a href="#ignoretrailingcomments">ignoreTrailingComments</a></li>
+<li><a href="#ignoreurls">ignoreUrls</a></li>
+<li><a href="#ignorestrings">ignoreStrings</a></li>
+<li><a href="#ignoretemplateliterals">ignoreTemplateLiterals</a></li>
+<li><a href="#ignoreregexpliterals">ignoreRegExpLiterals</a></li>
+<li><a href="#ignorepattern">ignorePattern</a></li>
+</ul>
+</li>
+<li><a href="#related-rules">Related Rules</a></li>
+<li><a href="#eslint">Eslint版本</a></li>
+<li><a href="#_3">来源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+  <div>
+    
+<p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h1 id="max-len">强制行的最大长度 (max-len)</h1>
+<p>代码中非常长的行在任何语言中都很难阅读。为了提高可读性和可维护性，许多程序员制定了一项约定，来限制一行代码的字符数量(按照惯例80个字符)。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"bar"</span><span class="o">:</span> <span class="s2">"This is a bar."</span><span class="p">,</span> <span class="s2">"baz"</span><span class="o">:</span> <span class="p">{</span> <span class="s2">"qux"</span><span class="o">:</span> <span class="s2">"This is a qux"</span> <span class="p">},</span> <span class="s2">"difficult"</span><span class="o">:</span> <span class="s2">"to read"</span> <span class="p">};</span> <span class="c1">// very long</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_1">缺陷详因</h2>
+<p>该规则旨在通过限制代码行的长度来提高代码的可读性和可维护性。因此，如果超过了配置的最大值，该规则将发出警告。一行的长度为行中的 Unicode 字符的数量。</p>
+<p><strong>注意：</strong>该规则是通过编码长度而不是字符格式来计算某一行的长度。这就意味着，如果你在代码中使用了双字节字符，它将被计数为 2 而不是 1 。这是 JavaScript 的一个技术上的局限性，在 ES2015 中会变得更加容易，而且在  Node.js 支持 ES2015 时，我们将更新这个规则。</p>
+<h2 id="_2">修改方案</h2>
+<p>该规则有一个数字或对象选项：</p>
+<ul>
+<li><code>"code"</code> (默认 <code>80</code>) 强制行的最大长度</li>
+<li><code>"tabWidth"</code> (默认 <code>4</code>) 指定 tab 字符的宽度</li>
+<li><code>"comments"</code> 强制注释的最大长度；默认长度同 <code>code</code></li>
+<li><code>"ignorePattern"</code> 忽略正则表达式匹配的行；可以只匹配单行，而且在 YAML 或 JSON 中需要双重转义</li>
+<li><code>"ignoreComments": true</code> 忽略所有拖尾注释和行内注释</li>
+<li><code>"ignoreTrailingComments": true</code> 忽略拖尾注释</li>
+<li><code>"ignoreUrls": true</code> 忽略含有链接的行</li>
+<li><code>"ignoreStrings": true</code> 忽略含有双引号或单引号字符串的行</li>
+<li><code>"ignoreTemplateLiterals": true</code> 忽略包含模板字面量的行</li>
+<li><code>"ignoreRegExpLiterals": true</code> 忽略包含正则表达式的行</li>
+</ul>
+<h3 id="code">code</h3>
+<p>默认选项 <code>{ "code": 80 }</code> 的 <strong>错误</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: ["error", { "code": 80 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"bar"</span><span class="o">:</span> <span class="s2">"This is a bar."</span><span class="p">,</span> <span class="s2">"baz"</span><span class="o">:</span> <span class="p">{</span> <span class="s2">"qux"</span><span class="o">:</span> <span class="s2">"This is a qux"</span> <span class="p">},</span> <span class="s2">"difficult"</span><span class="o">:</span> <span class="s2">"to read"</span> <span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p>默认选项 <code>{ "code": 80 }</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: ["error", { "code": 80 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"bar"</span><span class="o">:</span> <span class="s2">"This is a bar."</span><span class="p">,</span>
+  <span class="s2">"baz"</span><span class="o">:</span> <span class="p">{</span> <span class="s2">"qux"</span><span class="o">:</span> <span class="s2">"This is a qux"</span> <span class="p">},</span>
+  <span class="s2">"easier"</span><span class="o">:</span> <span class="s2">"to read"</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<h3 id="tabwidth">tabWidth</h3>
+<p>默认选项 <code>{ "tabWidth": 4 }</code> 的 <strong>错误</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: ["error", { "code": 80, "tabWidth": 4 }]*/</span>
+
+<span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"bar"</span><span class="o">:</span> <span class="s2">"This is a bar."</span><span class="p">,</span> <span class="s2">"baz"</span><span class="o">:</span> <span class="p">{</span> <span class="s2">"qux"</span><span class="o">:</span> <span class="s2">"This is a qux"</span> <span class="p">}</span> <span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p>默认选项 <code>{ "tabWidth": 4 }</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: ["error", { "code": 80, "tabWidth": 4 }]*/</span>
+
+<span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+<span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="s2">"bar"</span><span class="o">:</span> <span class="s2">"This is a bar."</span><span class="p">,</span>
+<span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="s2">"baz"</span><span class="o">:</span> <span class="p">{</span> <span class="s2">"qux"</span><span class="o">:</span> <span class="s2">"This is a qux"</span> <span class="p">}</span>
+<span class="err">\</span><span class="nx">t</span>  <span class="err">\</span><span class="nx">t</span>  <span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<h3 id="comments">comments</h3>
+<p>选项 <code>{ "comments": 65 }</code> 的 <strong>错误</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: ["error", { "comments": 65 }]*/</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * This is a comment that violates the maximum line length we have specified</span>
+<span class="cm">**/</span>
+</pre></div>
+</td></tr></table>
+<h3 id="ignorecomments">ignoreComments</h3>
+<p>选项 <code>{ "ignoreComments": true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: ["error", { "ignoreComments": true }]*/</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * This is a really really really really really really really really really long comment</span>
+<span class="cm">**/</span>
+</pre></div>
+</td></tr></table>
+<h3 id="ignoretrailingcomments">ignoreTrailingComments</h3>
+<p>选项 <code>{ "ignoreTrailingComments": true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: ["error", { "ignoreTrailingComments": true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span> <span class="c1">// This is a really really really really really really really long comment</span>
+</pre></div>
+</td></tr></table>
+<h3 id="ignoreurls">ignoreUrls</h3>
+<p>选项 <code>{ "ignoreUrls": true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: ["error", { "ignoreUrls": true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">'https://www.example.com/really/really/really/really/really/really/really/long'</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+<h3 id="ignorestrings">ignoreStrings</h3>
+<p>选项 <code>{ "ignoreStrings": true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: ["error", { "ignoreStrings": true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">longString</span> <span class="o">=</span> <span class="s1">'this is a really really really really really long string!'</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+<h3 id="ignoretemplateliterals">ignoreTemplateLiterals</h3>
+<p>选项 <code>{ "ignoreTemplateLiterals": true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: ["error", { "ignoreTemplateLiterals": true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">longTemplateLiteral</span> <span class="o">=</span> <span class="sb">`this is a really really really really really long template literal!`</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+<h3 id="ignoreregexpliterals">ignoreRegExpLiterals</h3>
+<p>选项 <code>{ "ignoreRegExpLiterals": true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: ["error", { "ignoreRegExpLiterals": true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">longRegExpLiteral</span> <span class="o">=</span> <span class="sr">/this is a really really really really really long regular expression!/</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+<h3 id="ignorepattern">ignorePattern</h3>
+<p>选项 <code>ignorePattern</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint max-len: ["error", { "ignorePattern": "^\\s*var\\s.+=\\s*require\\s*\\(" }]*/</span>
+
+<span class="kd">var</span> <span class="nx">dep</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'really/really/really/really/really/really/really/really/long/module'</span><span class="p">);</span>
+</pre></div>
+</td></tr></table>
+<h2 id="related-rules">Related Rules</h2>
+<ul>
+<li><a href="complexity">complexity</a></li>
+<li><a href="max-depth">max-depth</a></li>
+<li><a href="max-nested-callbacks">max-nested-callbacks</a></li>
+<li><a href="max-params">max-params</a></li>
+<li><a href="max-statements">max-statements</a></li>
+</ul>
+<h2 id="eslint">Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2 id="_3">来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/max-len.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/max-len.md">Documentation source</a></li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

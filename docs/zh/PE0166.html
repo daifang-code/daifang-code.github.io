@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="penguin-wwy" />
+<meta name="description" content="应用程序尝试将内存资源返还给系统，但它调用的释放函数与最初用于分配该资源的函数不兼容。" />
+<meta name="keywords" content="C, CPP">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="不匹配的内存申请和释放"/>
+<meta property="og:description" content="应用程序尝试将内存资源返还给系统，但它调用的释放函数与最初用于分配该资源的函数不兼容。"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE0166.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:05.836828+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/penguin-wwy.html">
+<meta property="article:section" content="Checkers/CPP"/>
+<meta property="article:tag" content="C"/>
+<meta property="article:tag" content="CPP"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; 不匹配的内存申请和释放</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/c.html">c</a>
+        </li>
+        <li>
+            <a href="./standard/quality-issues.html">质量问题</a>
+        </li>
+        <li>
+            <a href="./category/memory-and-resource-misuse.html">内存和资源误用</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE0166">不匹配的内存申请和释放</h1>
+    <p>
+        在 2024-九月-28 发布于 <a href="./category/memory-and-resource-misuse.html">内存和资源误用</a> 分类
+
+        &#8226; 1 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">缓解与预防</a></li>
+<li><a href="#_5">演示实例</a><ul>
+<li><a href="#1">漏洞代码示例1</a></li>
+<li><a href="#1_1">漏洞代码修复示例1</a></li>
+<li><a href="#2">漏洞代码示例 2</a></li>
+<li><a href="#2_1">漏洞代码修复示例 2</a></li>
+</ul>
+</li>
+<li><a href="#_6">引用</a></li>
+</ul>
+</div>
+
+  <div>
+    
+<h1 id="_1">缺陷描述</h1>
+<p>这种缺陷通常可以描述为不匹配地使用内存管理函数，例如:</p>
+<ul>
+<li>内存是在栈上自动分配的，但是使用内存管理函数free()(CWE-590)进行了释放，该函数专门用于显式分配的堆内存；</li>
+<li>使用一组内存管理函数进行显示内存分配，但使用另一组函数进行释放。例如C++中用malloc来取代new，但是之后使用delete释放。</li>
+</ul>
+<p>当使用不匹配的内存分配和释放功能时，后果可能与错误代码执行、内存损坏或程序崩溃一样严重。该缺陷的后果和被利用的容易程度与使用的内存管理功能的实现和被管理的内存对象有关。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>可能的后果包括内存损坏、拒绝服务攻击、程序崩溃/退出/重启、任意代码执行漏洞。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>严重</p>
+<h1 id="_4">缓解与预防</h1>
+<p>使用配套的内存管理函数</p>
+<h1 id="_5">演示实例</h1>
+<h3 id="1">漏洞代码示例1</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">foo</span><span class="p">(){</span>
+  <span class="n">BarObj</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BarObj</span><span class="p">()</span>
+  <span class="cm">/* do some work with ptr here */</span>
+
+  <span class="p">...</span>
+
+  <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>上例中使用new分配一个新的BarObj对象，但是释放改对象使用了free函数，这将导致不确定的代码行为</p>
+<h3 id="1_1">漏洞代码修复示例1</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">foo</span><span class="p">(){</span>
+  <span class="n">BarObj</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">new</span> <span class="n">BarObj</span><span class="p">()</span>
+  <span class="cm">/* do some work with ptr here */</span>
+
+  <span class="p">...</span>
+
+  <span class="n">delete</span> <span class="n">ptr</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>相对的修复代码中，程序员使用了一组内存管理函数中的分配功能，同时使用了对应的释放功能</p>
+<h3 id="2">漏洞代码示例 2</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">foo</span><span class="p">();</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="n">A</span><span class="o">::</span><span class="n">foo</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+  <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+  <span class="p">...</span>
+  <span class="n">delete</span> <span class="n">ptr</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>上例中，程序没有使用匹配的函数如malloc/free，new/delete，new[]/delete[]用于分配和释放资源</p>
+<h3 id="2_1">漏洞代码修复示例 2</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">foo</span><span class="p">();</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="n">A</span><span class="o">::</span><span class="n">foo</span><span class="p">(){</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+  <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+  <span class="p">...</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>相对的，使用匹配的函数来申请释放内存</p>
+<h1 id="_6">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-CWE">
+<p>https://cwe.mitre.org/data/definitions/762.html <a class="footnote-backref" href="#fnref-CWE" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/c.html">C</a>
+      <a href="./tag/cpp.html">CPP</a>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

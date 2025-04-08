@@ -1,0 +1,2512 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='../theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="../theme/stylesheet/normalize.min.css">
+    <script src="../theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="../tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="../theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="../theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="../theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="../theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">      <meta name="author" content="Pinpoint Team"/>
+    <meta name="description" content="Manual and documents for Sourcebrella Pinpoint"/> <meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Pinpoint Document"/>
+<meta property="og:description" content="Manual and documents for Sourcebrella Pinpoint"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content=".."/>
+ 
+    <title>Pinpoint Document &ndash; Standards</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href="..">
+                <img src="../theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href="..">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="../standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="../standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="../standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="../standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="../standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="../standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="../standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="../standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="../standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="../standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+      <article>
+
+    <div class="details-toc">
+    <h1> java 缺陷文档</h1>
+        <details open>
+            <summary><a
+                    href="../subcategory/java/style issues.html">1 风格问题
+                (108) </a></summary>
+
+                <details open>
+                    <summary>
+                        <a href="../subcategory/java/style issues/style issues.html">
+                            1.1 代码风格和效率 (296)
+                        </a>
+                    </summary>
+                           <h4><a href="../BE30152.html">
+                               1.1.1 SCA
+                           </a></h4>
+                           <h4><a href="../BE30152.html">
+                               1.1.2 SCA
+                           </a></h4>
+                           <h4><a href="../BE30080.html">
+                               1.1.3 Allowing data from user input to be used as parameters for the unhandled request method could cause a Server Side Request Forgery vulnerability
+                           </a></h4>
+                           <h4><a href="../BE30081.html">
+                               1.1.4 Allowing data from user input to be used as parameters for the request
+                           </a></h4>
+                           <h4><a href="../BE30082.html">
+                               1.1.5 Allowing data from user input to be used as parameters for the needle
+                           </a></h4>
+                           <h4><a href="../BE30083.html">
+                               1.1.6 Allowing data from user input to reach the exec command without treatment could cause a Remote Code Execution vulnerability
+                           </a></h4>
+                           <h4><a href="../BE30074.html">
+                               1.1.7 User data passed untreated to the createReadStream function can cause a Directory Traversal attack
+                           </a></h4>
+                           <h4><a href="../BE30075.html">
+                               1.1.8 User data passed untreated to the createReadStream function can cause a Directory Traversal attack
+                           </a></h4>
+                           <h4><a href="../BE30076.html">
+                               1.1.9 Passing untreated parameters to queries in the database can cause an SQL injection
+                           </a></h4>
+                           <h4><a href="../BE30077.html">
+                               1.1.10 When passing user data directly to the HTTP response headers
+                           </a></h4>
+                           <h4><a href="../BE30078.html">
+                               1.1.11 The HTTP header X-XSS-Protection activates protection on the users browser side to mitigate XSS-based attacks
+                           </a></h4>
+                           <h4><a href="../BE30079.html">
+                               1.1.12 Using the redirect function can cause an Open Redirect
+                           </a></h4>
+                           <h4><a href="../BE30069.html">
+                               1.1.13 The NODE_TLS_REJECT_UNAUTHORIZED option being disabled allows the Node
+                           </a></h4>
+                           <h4><a href="../BE30070.html">
+                               1.1.14 The SSL_VERIFYPEER option controls the internal Node
+                           </a></h4>
+                           <h4><a href="../BE30071.html">
+                               1.1.15 A hash algorithm used is considered weak and can cause hash collisions
+                           </a></h4>
+                           <h4><a href="../BE30072.html">
+                               1.1.16 A hash algorithm used is considered weak and can cause hash collisions
+                           </a></h4>
+                           <h4><a href="../BE30073.html">
+                               1.1.17 Using the Handlebars SafeString function is dangerous as the data passed to it does not undergo any internal validation
+                           </a></h4>
+                           <h4><a href="../BE30065.html">
+                               1.1.18 The eval function is extremely dangerous
+                           </a></h4>
+                           <h4><a href="../BE30066.html">
+                               1.1.19 The setTimeout function is very dangerous because it can interpret a string as code
+                           </a></h4>
+                           <h4><a href="../BE30067.html">
+                               1.1.20 The setInterval function is very dangerous because it can interpret a string as code
+                           </a></h4>
+                           <h4><a href="../BE30068.html">
+                               1.1.21 If a user-controlled data that has not been processed reaches the load function
+                           </a></h4>
+                           <h4><a href="../PE2087.html">
+                               1.1.22 no-delete-var
+                           </a></h4>
+                           <h4><a href="../PE2104.html">
+                               1.1.23 no-extra-boolean-cast
+                           </a></h4>
+                           <h4><a href="../PE2138.html">
+                               1.1.24 no-new
+                           </a></h4>
+                           <h4><a href="../PE2253.html">
+                               1.1.25 wrap-iife
+                           </a></h4>
+                           <h4><a href="../PE2055.html">
+                               1.1.26 max-depth
+                           </a></h4>
+                           <h4><a href="../PE2239.html">
+                               1.1.27 space-in-parens
+                           </a></h4>
+                           <h4><a href="../PE2206.html">
+                               1.1.28 object-curly-spacing
+                           </a></h4>
+                           <h4><a href="../PE2015.html">
+                               1.1.29 comma-dangle
+                           </a></h4>
+                           <h4><a href="../PE2014.html">
+                               1.1.30 class-methods-use-this
+                           </a></h4>
+                           <h4><a href="../PE2027.html">
+                               1.1.31 eol-last
+                           </a></h4>
+                           <h4><a href="../PE2205.html">
+                               1.1.32 object-curly-newline
+                           </a></h4>
+                           <h4><a href="../PE2133.html">
+                               1.1.33 no-multiple-empty-lines
+                           </a></h4>
+                           <h4><a href="../PE2177.html">
+                               1.1.34 no-trailing-spaces
+                           </a></h4>
+                           <h4><a href="../PE2155.html">
+                               1.1.35 no-regex-spaces
+                           </a></h4>
+                           <h4><a href="../PE2142.html">
+                               1.1.36 no-new-symbol
+                           </a></h4>
+                           <h4><a href="../PE2161.html">
+                               1.1.37 no-return-assign
+                           </a></h4>
+                           <h4><a href="../PE2089.html">
+                               1.1.38 no-dupe-args
+                           </a></h4>
+                           <h4><a href="../PE2231.html">
+                               1.1.39 semi
+                           </a></h4>
+                           <h4><a href="../PE2052.html">
+                               1.1.40 lines-around-comment
+                           </a></h4>
+                           <h4><a href="../PE2109.html">
+                               1.1.41 no-floating-decimal
+                           </a></h4>
+                           <h4><a href="../PE2240.html">
+                               1.1.42 space-infix-ops
+                           </a></h4>
+                           <h4><a href="../PE2076.html">
+                               1.1.43 no-catch-shadow
+                           </a></h4>
+                           <h4><a href="../PE2128.html">
+                               1.1.44 no-mixed-requires
+                           </a></h4>
+                           <h4><a href="../PE2216.html">
+                               1.1.45 prefer-const
+                           </a></h4>
+                           <h4><a href="../PE2048.html">
+                               1.1.46 key-spacing
+                           </a></h4>
+                           <h4><a href="../PE2003.html">
+                               1.1.47 array-callback-return
+                           </a></h4>
+                           <h4><a href="../PE2223.html">
+                               1.1.48 prefer-template
+                           </a></h4>
+                           <h4><a href="../PE2147.html">
+                               1.1.49 no-param-reassign
+                           </a></h4>
+                           <h4><a href="../PE2174.html">
+                               1.1.50 no-ternary
+                           </a></h4>
+                           <h4><a href="../PE2190.html">
+                               1.1.51 no-unused-vars
+                           </a></h4>
+                           <h4><a href="../PE2053.html">
+                               1.1.52 lines-around-directive
+                           </a></h4>
+                           <h4><a href="../PE2270.html">
+                               1.1.53 space-before-keywords
+                           </a></h4>
+                           <h4><a href="../PE2127.html">
+                               1.1.54 no-mixed-operators
+                           </a></h4>
+                           <h4><a href="../PE2274.html">
+                               1.1.55 spaced-line-comment
+                           </a></h4>
+                           <h4><a href="../PE2021.html">
+                               1.1.56 consistent-this
+                           </a></h4>
+                           <h4><a href="../PE2211.html">
+                               1.1.57 operator-assignment
+                           </a></h4>
+                           <h4><a href="../PE2260.html">
+                               1.1.58 no-comma-dangle
+                           </a></h4>
+                           <h4><a href="../PE2135.html">
+                               1.1.59 no-negated-condition
+                           </a></h4>
+                           <h4><a href="../PE2178.html">
+                               1.1.60 no-undef
+                           </a></h4>
+                           <h4><a href="../PE2047.html">
+                               1.1.61 jsx-quotes
+                           </a></h4>
+                           <h4><a href="../PE2039.html">
+                               1.1.62 handle-callback-err
+                           </a></h4>
+                           <h4><a href="../PE2024.html">
+                               1.1.63 default-case
+                           </a></h4>
+                           <h4><a href="../PE2224.html">
+                               1.1.64 quote-props
+                           </a></h4>
+                           <h4><a href="../PE2120.html">
+                               1.1.65 no-iterator
+                           </a></h4>
+                           <h4><a href="../PE2271.html">
+                               1.1.66 space-in-brackets
+                           </a></h4>
+                           <h4><a href="../PE2050.html">
+                               1.1.67 line-comment-position
+                           </a></h4>
+                           <h4><a href="../PE2121.html">
+                               1.1.68 no-label-var
+                           </a></h4>
+                           <h4><a href="../PE2081.html">
+                               1.1.69 no-console
+                           </a></h4>
+                           <h4><a href="../PE2113.html">
+                               1.1.70 no-implicit-globals
+                           </a></h4>
+                           <h4><a href="../PE2070.html">
+                               1.1.71 no-array-constructor
+                           </a></h4>
+                           <h4><a href="../PE2169.html">
+                               1.1.72 no-spaced-func
+                           </a></h4>
+                           <h4><a href="../PE2071.html">
+                               1.1.73 no-await-in-loop
+                           </a></h4>
+                           <h4><a href="../PE2126.html">
+                               1.1.74 no-magic-numbers
+                           </a></h4>
+                           <h4><a href="../PE2256.html">
+                               1.1.75 yoda
+                           </a></h4>
+                           <h4><a href="../PE2002.html">
+                               1.1.76 array-bracket-spacing
+                           </a></h4>
+                           <h4><a href="../PE2054.html">
+                               1.1.77 lines-between-class-members
+                           </a></h4>
+                           <h4><a href="../PE2145.html">
+                               1.1.78 no-octal
+                           </a></h4>
+                           <h4><a href="../PE2265.html">
+                               1.1.79 no-space-before-semi
+                           </a></h4>
+                           <h4><a href="../PE2168.html">
+                               1.1.80 no-shadow-restricted-names
+                           </a></h4>
+                           <h4><a href="../PE2068.html">
+                               1.1.81 newline-per-chained-call
+                           </a></h4>
+                           <h4><a href="../PE2123.html">
+                               1.1.82 no-lone-blocks
+                           </a></h4>
+                           <h4><a href="../PE2197.html">
+                               1.1.83 no-useless-rename
+                           </a></h4>
+                           <h4><a href="../PE2141.html">
+                               1.1.84 no-new-require
+                           </a></h4>
+                           <h4><a href="../PE2183.html">
+                               1.1.85 no-unmodified-loop-condition
+                           </a></h4>
+                           <h4><a href="../PE2111.html">
+                               1.1.86 no-global-assign
+                           </a></h4>
+                           <h4><a href="../PE2249.html">
+                               1.1.87 use-isnan
+                           </a></h4>
+                           <h4><a href="../PE2095.html">
+                               1.1.88 no-empty-character-class
+                           </a></h4>
+                           <h4><a href="../PE2227.html">
+                               1.1.89 require-await
+                           </a></h4>
+                           <h4><a href="../PE2187.html">
+                               1.1.90 no-unsafe-negation
+                           </a></h4>
+                           <h4><a href="../PE2129.html">
+                               1.1.91 no-mixed-spaces-and-tabs
+                           </a></h4>
+                           <h4><a href="../PE2238.html">
+                               1.1.92 space-before-function-paren
+                           </a></h4>
+                           <h4><a href="../PE2181.html">
+                               1.1.93 no-underscore-dangle
+                           </a></h4>
+                           <h4><a href="../PE2007.html">
+                               1.1.94 arrow-spacing
+                           </a></h4>
+                           <h4><a href="../PE2157.html">
+                               1.1.95 no-restricted-imports
+                           </a></h4>
+                           <h4><a href="../PE2202.html">
+                               1.1.96 no-whitespace-before-property
+                           </a></h4>
+                           <h4><a href="../PE2140.html">
+                               1.1.97 no-new-object
+                           </a></h4>
+                           <h4><a href="../PE2105.html">
+                               1.1.98 no-extra-label
+                           </a></h4>
+                           <h4><a href="../PE2243.html">
+                               1.1.99 strict
+                           </a></h4>
+                           <h4><a href="../PE2179.html">
+                               1.1.100 no-undef-init
+                           </a></h4>
+                           <h4><a href="../PE2222.html">
+                               1.1.101 prefer-spread
+                           </a></h4>
+                           <h4><a href="../PE2012.html">
+                               1.1.102 camelcase
+                           </a></h4>
+                           <h4><a href="../PE2273.html">
+                               1.1.103 space-unary-word-ops
+                           </a></h4>
+                           <h4><a href="../PE2046.html">
+                               1.1.104 init-declarations
+                           </a></h4>
+                           <h4><a href="../PE2264.html">
+                               1.1.105 no-reserved-keys
+                           </a></h4>
+                           <h4><a href="../PE2193.html">
+                               1.1.106 no-useless-computed-key
+                           </a></h4>
+                           <h4><a href="../PE2043.html">
+                               1.1.107 implicit-arrow-linebreak
+                           </a></h4>
+                           <h4><a href="../PE2016.html">
+                               1.1.108 comma-spacing
+                           </a></h4>
+                           <h4><a href="../PE2086.html">
+                               1.1.109 no-debugger
+                           </a></h4>
+                           <h4><a href="../PE2203.html">
+                               1.1.110 no-with
+                           </a></h4>
+                           <h4><a href="../PE2026.html">
+                               1.1.111 dot-notation
+                           </a></h4>
+                           <h4><a href="../PE2064.html">
+                               1.1.112 new-cap
+                           </a></h4>
+                           <h4><a href="../PE2194.html">
+                               1.1.113 no-useless-concat
+                           </a></h4>
+                           <h4><a href="../PE2198.html">
+                               1.1.114 no-useless-return
+                           </a></h4>
+                           <h4><a href="../PE2108.html">
+                               1.1.115 no-fallthrough
+                           </a></h4>
+                           <h4><a href="../PE2118.html">
+                               1.1.116 no-invalid-this
+                           </a></h4>
+                           <h4><a href="../PE2006.html">
+                               1.1.117 arrow-parens
+                           </a></h4>
+                           <h4><a href="../PE2160.html">
+                               1.1.118 no-restricted-syntax
+                           </a></h4>
+                           <h4><a href="../PE2221.html">
+                               1.1.119 prefer-rest-params
+                           </a></h4>
+                           <h4><a href="../PE2017.html">
+                               1.1.120 comma-style
+                           </a></h4>
+                           <h4><a href="../PE2242.html">
+                               1.1.121 spaced-comment
+                           </a></h4>
+                           <h4><a href="../PE2272.html">
+                               1.1.122 space-return-throw-case
+                           </a></h4>
+                           <h4><a href="../PE2245.html">
+                               1.1.123 symbol-description
+                           </a></h4>
+                           <h4><a href="../PE2099.html">
+                               1.1.124 no-eq-null
+                           </a></h4>
+                           <h4><a href="../PE2032.html">
+                               1.1.125 func-names
+                           </a></h4>
+                           <h4><a href="../PE2122.html">
+                               1.1.126 no-labels
+                           </a></h4>
+                           <h4><a href="../PE2097.html">
+                               1.1.127 no-empty-function
+                           </a></h4>
+                           <h4><a href="../PE2258.html">
+                               1.1.128 global-strict
+                           </a></h4>
+                           <h4><a href="../PE2188.html">
+                               1.1.129 no-unused-expressions
+                           </a></h4>
+                           <h4><a href="../PE2246.html">
+                               1.1.130 template-curly-spacing
+                           </a></h4>
+                           <h4><a href="../PE2166.html">
+                               1.1.131 no-sequences
+                           </a></h4>
+                           <h4><a href="../PE2220.html">
+                               1.1.132 prefer-reflect
+                           </a></h4>
+                           <h4><a href="../PE2098.html">
+                               1.1.133 no-empty-pattern
+                           </a></h4>
+                           <h4><a href="../PE2136.html">
+                               1.1.134 no-negated-in-lhs
+                           </a></h4>
+                           <h4><a href="../PE2228.html">
+                               1.1.135 require-jsdoc
+                           </a></h4>
+                           <h4><a href="../PE2010.html">
+                               1.1.136 brace-style
+                           </a></h4>
+                           <h4><a href="../PE2172.html">
+                               1.1.137 no-tabs
+                           </a></h4>
+                           <h4><a href="../PE2262.html">
+                               1.1.138 no-empty-label
+                           </a></h4>
+                           <h4><a href="../PE2130.html">
+                               1.1.139 no-multi-assign
+                           </a></h4>
+                           <h4><a href="../PE2186.html">
+                               1.1.140 no-unsafe-finally
+                           </a></h4>
+                           <h4><a href="../PE2011.html">
+                               1.1.141 callback-return
+                           </a></h4>
+                           <h4><a href="../PE2038.html">
+                               1.1.142 guard-for-in
+                           </a></h4>
+                           <h4><a href="../PE2101.html">
+                               1.1.143 no-ex-assign
+                           </a></h4>
+                           <h4><a href="../PE2218.html">
+                               1.1.144 prefer-numeric-literals
+                           </a></h4>
+                           <h4><a href="../PE2119.html">
+                               1.1.145 no-irregular-whitespace
+                           </a></h4>
+                           <h4><a href="../PE2237.html">
+                               1.1.146 space-before-blocks
+                           </a></h4>
+                           <h4><a href="../PE2077.html">
+                               1.1.147 no-class-assign
+                           </a></h4>
+                           <h4><a href="../PE2215.html">
+                               1.1.148 prefer-arrow-callback
+                           </a></h4>
+                           <h4><a href="../PE2144.html">
+                               1.1.149 no-obj-calls
+                           </a></h4>
+                           <h4><a href="../PE2244.html">
+                               1.1.150 switch-colon-spacing
+                           </a></h4>
+                           <h4><a href="../PE2159.html">
+                               1.1.151 no-restricted-properties
+                           </a></h4>
+                           <h4><a href="../PE2247.html">
+                               1.1.152 template-tag-spacing
+                           </a></h4>
+                           <h4><a href="../PE2124.html">
+                               1.1.153 no-lonely-if
+                           </a></h4>
+                           <h4><a href="../PE2204.html">
+                               1.1.154 nonblock-statement-body-position
+                           </a></h4>
+                           <h4><a href="../PE2073.html">
+                               1.1.155 constructor
+                           </a></h4>
+                           <h4><a href="../PE2103.html">
+                               1.1.156 no-extra-bind
+                           </a></h4>
+                           <h4><a href="../PE2100.html">
+                               1.1.157 no-eval
+                           </a></h4>
+                           <h4><a href="../PE2091.html">
+                               1.1.158 no-dupe-keys
+                           </a></h4>
+                           <h4><a href="../PE2102.html">
+                               1.1.159 no-extend-native
+                           </a></h4>
+                           <h4><a href="../PE2171.html">
+                               1.1.160 no-sync
+                           </a></h4>
+                           <h4><a href="../PE2184.html">
+                               1.1.161 no-unneeded-ternary
+                           </a></h4>
+                           <h4><a href="../PE2088.html">
+                               1.1.162 no-div-regex
+                           </a></h4>
+                           <h4><a href="../PE2004.html">
+                               1.1.163 array-element-newline
+                           </a></h4>
+                           <h4><a href="../PE2116.html">
+                               1.1.164 no-inner-declarations
+                           </a></h4>
+                           <h4><a href="../PE2165.html">
+                               1.1.165 no-self-compare
+                           </a></h4>
+                           <h4><a href="../PE2226.html">
+                               1.1.166 radix
+                           </a></h4>
+                           <h4><a href="../PE2083.html">
+                               1.1.167 no-constant-condition
+                           </a></h4>
+                           <h4><a href="../PE2152.html">
+                               1.1.168 no-proto
+                           </a></h4>
+                           <h4><a href="../PE2151.html">
+                               1.1.169 no-process-exit
+                           </a></h4>
+                           <h4><a href="../PE2018.html">
+                               1.1.170 complexity
+                           </a></h4>
+                           <h4><a href="../PE2030.html">
+                               1.1.171 func-call-spacing
+                           </a></h4>
+                           <h4><a href="../PE2201.html">
+                               1.1.172 no-warning-comments
+                           </a></h4>
+                           <h4><a href="../PE2261.html">
+                               1.1.173 no-empty-character-class
+                           </a></h4>
+                           <h4><a href="../PE2114.html">
+                               1.1.174 no-implied-eval
+                           </a></h4>
+                           <h4><a href="../PE2001.html">
+                               1.1.175 array-bracket-newline
+                           </a></h4>
+                           <h4><a href="../PE2075.html">
+                               1.1.176 no-case-declarations
+                           </a></h4>
+                           <h4><a href="../PE2164.html">
+                               1.1.177 no-self-assign
+                           </a></h4>
+                           <h4><a href="../PE2267.html">
+                               1.1.178 space-after-function-name
+                           </a></h4>
+                           <h4><a href="../PE2199.html">
+                               1.1.179 no-var
+                           </a></h4>
+                           <h4><a href="../PE2042.html">
+                               1.1.180 id-match
+                           </a></h4>
+                           <h4><a href="../PE2051.html">
+                               1.1.181 linebreak-style
+                           </a></h4>
+                           <h4><a href="../PE2196.html">
+                               1.1.182 no-useless-escape
+                           </a></h4>
+                           <h4><a href="../PE2058.html">
+                               1.1.183 max-nested-callbacks
+                           </a></h4>
+                           <h4><a href="../PE2065.html">
+                               1.1.184 new-parens
+                           </a></h4>
+                           <h4><a href="../PE2175.html">
+                               1.1.185 no-this-before-super
+                           </a></h4>
+                           <h4><a href="../PE2005.html">
+                               1.1.186 arrow-body-style
+                           </a></h4>
+                           <h4><a href="../PE2209.html">
+                               1.1.187 one-var-declaration-per-line
+                           </a></h4>
+                           <h4><a href="../PE2020.html">
+                               1.1.188 consistent-return
+                           </a></h4>
+                           <h4><a href="../PE2022.html">
+                               1.1.189 constructor-super
+                           </a></h4>
+                           <h4><a href="../PE2153.html">
+                               1.1.190 no-prototype-builtins
+                           </a></h4>
+                           <h4><a href="../PE2057.html">
+                               1.1.191 max-lines
+                           </a></h4>
+                           <h4><a href="../PE2059.html">
+                               1.1.192 max-params
+                           </a></h4>
+                           <h4><a href="../PE2094.html">
+                               1.1.193 no-else-return
+                           </a></h4>
+                           <h4><a href="../PE2044.html">
+                               1.1.194 indent
+                           </a></h4>
+                           <h4><a href="../PE2074.html">
+                               1.1.195 no-caller
+                           </a></h4>
+                           <h4><a href="../PE2106.html">
+                               1.1.196 no-extra-parens
+                           </a></h4>
+                           <h4><a href="../PE2000.html">
+                               1.1.197 accessor-pairs
+                           </a></h4>
+                           <h4><a href="../PE2117.html">
+                               1.1.198 no-invalid-regexp
+                           </a></h4>
+                           <h4><a href="../PE2158.html">
+                               1.1.199 no-restricted-modules
+                           </a></h4>
+                           <h4><a href="../PE2251.html">
+                               1.1.200 valid-typeof
+                           </a></h4>
+                           <h4><a href="../PE2268.html">
+                               1.1.201 space-after-keywords
+                           </a></h4>
+                           <h4><a href="../PE2009.html">
+                               1.1.202 block-spacing
+                           </a></h4>
+                           <h4><a href="../PE2078.html">
+                               1.1.203 no-compare-neg-zero
+                           </a></h4>
+                           <h4><a href="../PE2079.html">
+                               1.1.204 no-cond-assign
+                           </a></h4>
+                           <h4><a href="../PE2008.html">
+                               1.1.205 block-scoped-var
+                           </a></h4>
+                           <h4><a href="../PE2040.html">
+                               1.1.206 id-blacklist
+                           </a></h4>
+                           <h4><a href="../PE2208.html">
+                               1.1.207 object-shorthand
+                           </a></h4>
+                           <h4><a href="../PE2131.html">
+                               1.1.208 no-multi-spaces
+                           </a></h4>
+                           <h4><a href="../PE2180.html">
+                               1.1.209 no-undefined
+                           </a></h4>
+                           <h4><a href="../PE2036.html">
+                               1.1.210 getter-return
+                           </a></h4>
+                           <h4><a href="../PE2062.html">
+                               1.1.211 multiline-comment-style
+                           </a></h4>
+                           <h4><a href="../PE2096.html">
+                               1.1.212 no-empty
+                           </a></h4>
+                           <h4><a href="../PE2225.html">
+                               1.1.213 quotes
+                           </a></h4>
+                           <h4><a href="../PE2013.html">
+                               1.1.214 capitalized-comments
+                           </a></h4>
+                           <h4><a href="../PE2137.html">
+                               1.1.215 no-nested-ternary
+                           </a></h4>
+                           <h4><a href="../PE2072.html">
+                               1.1.216 no-bitwise
+                           </a></h4>
+                           <h4><a href="../PE2107.html">
+                               1.1.217 no-extra-semi
+                           </a></h4>
+                           <h4><a href="../PE2173.html">
+                               1.1.218 no-template-curly-in-string
+                           </a></h4>
+                           <h4><a href="../PE2236.html">
+                               1.1.219 sort-vars
+                           </a></h4>
+                           <h4><a href="../PE2060.html">
+                               1.1.220 max-statements
+                           </a></h4>
+                           <h4><a href="../PE2134.html">
+                               1.1.221 no-native-reassign
+                           </a></h4>
+                           <h4><a href="../PE2154.html">
+                               1.1.222 no-redeclare
+                           </a></h4>
+                           <h4><a href="../PE2230.html">
+                               1.1.223 rest-spread-spacing
+                           </a></h4>
+                           <h4><a href="../PE2067.html">
+                               1.1.224 newline-before-return
+                           </a></h4>
+                           <h4><a href="../PE2207.html">
+                               1.1.225 object-property-newline
+                           </a></h4>
+                           <h4><a href="../PE2029.html">
+                               1.1.226 for-direction
+                           </a></h4>
+                           <h4><a href="../PE2235.html">
+                               1.1.227 sort-keys
+                           </a></h4>
+                           <h4><a href="../PE2049.html">
+                               1.1.228 keyword-spacing
+                           </a></h4>
+                           <h4><a href="../PE2170.html">
+                               1.1.229 no-sparse-arrays
+                           </a></h4>
+                           <h4><a href="../PE2019.html">
+                               1.1.230 computed-property-spacing
+                           </a></h4>
+                           <h4><a href="../PE2033.html">
+                               1.1.231 func-style
+                           </a></h4>
+                           <h4><a href="../PE2041.html">
+                               1.1.232 id-length
+                           </a></h4>
+                           <h4><a href="../PE2156.html">
+                               1.1.233 no-restricted-globals
+                           </a></h4>
+                           <h4><a href="../PE2063.html">
+                               1.1.234 multiline-ternary
+                           </a></h4>
+                           <h4><a href="../PE2259.html">
+                               1.1.235 no-arrow-condition
+                           </a></h4>
+                           <h4><a href="../PE2232.html">
+                               1.1.236 semi-spacing
+                           </a></h4>
+                           <h4><a href="../PE2037.html">
+                               1.1.237 on the top-level module scope
+                           </a></h4>
+                           <h4><a href="../PE2176.html">
+                               1.1.238 no-throw-literal
+                           </a></h4>
+                           <h4><a href="../PE2035.html">
+                               1.1.239 generator-star-spacing
+                           </a></h4>
+                           <h4><a href="../PE2034.html">
+                               1.1.240 function-paren-newline
+                           </a></h4>
+                           <h4><a href="../PE2092.html">
+                               1.1.241 no-duplicate-case
+                           </a></h4>
+                           <h4><a href="../PE2217.html">
+                               1.1.242 prefer-destructuring
+                           </a></h4>
+                           <h4><a href="../PE2212.html">
+                               1.1.243 operator-linebreak
+                           </a></h4>
+                           <h4><a href="../PE2023.html">
+                               1.1.244 curly
+                           </a></h4>
+                           <h4><a href="../PE2125.html">
+                               1.1.245 no-loop-func
+                           </a></h4>
+                           <h4><a href="../PE2191.html">
+                               1.1.246 no-use-before-define
+                           </a></h4>
+                           <h4><a href="../PE2257.html">
+                               1.1.247 generator-star
+                           </a></h4>
+                           <h4><a href="../PE2195.html">
+                               1.1.248 no-useless-constructor
+                           </a></h4>
+                           <h4><a href="../PE2163.html">
+                               1.1.249 no-script-url
+                           </a></h4>
+                           <h4><a href="../PE2182.html">
+                               1.1.250 no-unexpected-multiline
+                           </a></h4>
+                           <h4><a href="../PE2219.html">
+                               1.1.251 prefer-promise-reject-errors
+                           </a></h4>
+                           <h4><a href="../PE2200.html">
+                               1.1.252 no-void
+                           </a></h4>
+                           <h4><a href="../PE2028.html">
+                               1.1.253 eqeqeq
+                           </a></h4>
+                           <h4><a href="../PE2115.html">
+                               1.1.254 no-inline-comments
+                           </a></h4>
+                           <h4><a href="../PE2192.html">
+                               1.1.255 no-useless-call
+                           </a></h4>
+                           <h4><a href="../PE2229.html">
+                               1.1.256 require-yield
+                           </a></h4>
+                           <h4><a href="../PE2139.html">
+                               1.1.257 no-new-func
+                           </a></h4>
+                           <h4><a href="../PE2214.html">
+                               1.1.258 padding-line-between-statements
+                           </a></h4>
+                           <h4><a href="../PE2143.html">
+                               1.1.259 no-new-wrappers
+                           </a></h4>
+                           <h4><a href="../PE2185.html">
+                               1.1.260 no-unreachable
+                           </a></h4>
+                           <h4><a href="../PE2110.html">
+                               1.1.261 no-func-assign
+                           </a></h4>
+                           <h4><a href="../PE2148.html">
+                               1.1.262 no-path-concat
+                           </a></h4>
+                           <h4><a href="../PE2252.html">
+                               1.1.263 vars-on-top
+                           </a></h4>
+                           <h4><a href="../PE2112.html">
+                               1.1.264 no-implicit-coercion
+                           </a></h4>
+                           <h4><a href="../PE2066.html">
+                               1.1.265 newline-after-var
+                           </a></h4>
+                           <h4><a href="../PE2241.html">
+                               1.1.266 space-unary-ops
+                           </a></h4>
+                           <h4><a href="../PE2167.html">
+                               1.1.267 no-shadow
+                           </a></h4>
+                           <h4><a href="../PE2090.html">
+                               1.1.268 no-dupe-class-members
+                           </a></h4>
+                           <h4><a href="../PE2266.html">
+                               1.1.269 no-wrap-func
+                           </a></h4>
+                           <h4><a href="../PE2056.html">
+                               1.1.270 max-len
+                           </a></h4>
+                           <h4><a href="../PE2234.html">
+                               1.1.271 sort-imports
+                           </a></h4>
+                           <h4><a href="../PE2269.html">
+                               1.1.272 space-before-function-parentheses
+                           </a></h4>
+                           <h4><a href="../PE2045.html">
+                               1.1.273 indent-legacy
+                           </a></h4>
+                           <h4><a href="../PE2132.html">
+                               1.1.274 no-multi-str
+                           </a></h4>
+                           <h4><a href="../PE2162.html">
+                               1.1.275 no-return-await
+                           </a></h4>
+                           <h4><a href="../PE2210.html">
+                               1.1.276 one-var
+                           </a></h4>
+                           <h4><a href="../PE2082.html">
+                               1.1.277 no-const-assign
+                           </a></h4>
+                           <h4><a href="../PE2233.html">
+                               1.1.278 semi-style
+                           </a></h4>
+                           <h4><a href="../PE2248.html">
+                               1.1.279 unicode-bom
+                           </a></h4>
+                           <h4><a href="../PE2085.html">
+                               1.1.280 no-control-regex
+                           </a></h4>
+                           <h4><a href="../PE2149.html">
+                               1.1.281 no-plusplus
+                           </a></h4>
+                           <h4><a href="../PE2061.html">
+                               1.1.282 max-statements-per-line
+                           </a></h4>
+                           <h4><a href="../PE2189.html">
+                               1.1.283 no-unused-labels
+                           </a></h4>
+                           <h4><a href="../PE2080.html">
+                               1.1.284 no-confusing-arrow
+                           </a></h4>
+                           <h4><a href="../PE2093.html">
+                               1.1.285 no-duplicate-imports
+                           </a></h4>
+                           <h4><a href="../PE2263.html">
+                               1.1.286 no-extra-strict
+                           </a></h4>
+                           <h4><a href="../PE2255.html">
+                               1.1.287 yield-star-spacing
+                           </a></h4>
+                           <h4><a href="../PE2031.html">
+                               1.1.288 func-name-matching
+                           </a></h4>
+                           <h4><a href="../PE2025.html">
+                               1.1.289 dot-location
+                           </a></h4>
+                           <h4><a href="../PE2213.html">
+                               1.1.290 padded-blocks
+                           </a></h4>
+                           <h4><a href="../PE2254.html">
+                               1.1.291 wrap-regex
+                           </a></h4>
+                           <h4><a href="../PE2084.html">
+                               1.1.292 no-continue
+                           </a></h4>
+                           <h4><a href="../PE2150.html">
+                               1.1.293 no-process-env
+                           </a></h4>
+                           <h4><a href="../PE2146.html">
+                               1.1.294 no-octal-escape
+                           </a></h4>
+                           <h4><a href="../PE2069.html">
+                               1.1.295 no-alert
+                           </a></h4>
+                           <h4><a href="../PE2250.html">
+                               1.1.296 valid-jsdoc
+                           </a></h4>
+                </details>
+
+        </details>
+        <details open>
+            <summary><a
+                    href="../subcategory/java/quality issues.html">2 质量问题
+                (297) </a></summary>
+
+                <details open>
+                    <summary>
+                        <a href="../subcategory/java/quality issues/api abuse.html">
+                            2.1 API误用 (30)
+                        </a>
+                    </summary>
+                           <h4><a href="../BE1102.html">
+                               2.1.1 南门军规4: 测试函数中未使用Assert校验结果
+                           </a></h4>
+                           <h4><a href="../BE1103.html">
+                               2.1.2 南门军规5: 循环中禁止使用Sleep
+                           </a></h4>
+                           <h4><a href="../BE1104.html">
+                               2.1.3 南门军规6: 包含冗余或不必要的操作
+                           </a></h4>
+                           <h4><a href="../BE0180.html">
+                               2.1.4 禁止使用cif的登录号类型或登录号列表或对登录号进行格式校验
+                           </a></h4>
+                           <h4><a href="../BE0181.html">
+                               2.1.5 通过DigestUtils.md5DigestAsHex方法对文件流加密后，在下次使用之前，必须关闭或者重置文件流，否则无法读取文件流中的内容
+                           </a></h4>
+                           <h4><a href="../BE1100.html">
+                               2.1.6 南门军规2: 使用前未设置时区
+                           </a></h4>
+                           <h4><a href="../BE1101.html">
+                               2.1.7 南门军规3: 遍历空容器
+                           </a></h4>
+                           <h4><a href="../BE0176.html">
+                               2.1.8 蚂蚁军规39：当转换函数存在耗时操作时，谨慎使用Lists.transform()返回对象进行循环
+                           </a></h4>
+                           <h4><a href="../PE7422.html">
+                               2.1.9 在数组上调用toString
+                           </a></h4>
+                           <h4><a href="../PE7444.html">
+                               2.1.10 由于重新使用Entry对象，添加entry集合的元素可能会失败
+                           </a></h4>
+                           <h4><a href="../PE7068.html">
+                               2.1.11 使用URL的equals和hashCode方法发生阻塞
+                           </a></h4>
+                           <h4><a href="../PE7067.html">
+                               2.1.12 Thread在期望使用Runnable接口的地方传递
+                           </a></h4>
+                           <h4><a href="../PE7421.html">
+                               2.1.13 在数组上调用hashCode
+                           </a></h4>
+                           <h4><a href="../PE7060.html">
+                               2.1.14 对EasyMock方法无用/空的调用
+                           </a></h4>
+                           <h4><a href="../PE7099.html">
+                               2.1.15 使用Random的nextInt方法而不是nextDouble来生成随机整数
+                           </a></h4>
+                           <h4><a href="../PE7309.html">
+                               2.1.16 调用equals()比较不同的数据类型
+                           </a></h4>
+                           <h4><a href="../PE7071.html">
+                               2.1.17 方法调用危险方法runFinalizersOnExit
+                           </a></h4>
+                           <h4><a href="../PE7062.html">
+                               2.1.18 从double构造出来的BigDecimal值造成精度丢失
+                           </a></h4>
+                           <h4><a href="../PE7313.html">
+                               2.1.19 调用equals()比较无关的类和接口
+                           </a></h4>
+                           <h4><a href="../PE7063.html">
+                               2.1.20 用零个线程创建ScheduledThreadPoolExecutor
+                           </a></h4>
+                           <h4><a href="../PE7423.html">
+                               2.1.21 在未命名的数组上调用toString
+                           </a></h4>
+                           <h4><a href="../PE7426.html">
+                               2.1.22 月份的值不稳定
+                           </a></h4>
+                           <h4><a href="../PE7285.html">
+                               2.1.23 调用方法参数顺序错误
+                           </a></h4>
+                           <h4><a href="../PE7310.html">
+                               2.1.24 equals()用于比较数组和非数组
+                           </a></h4>
+                           <h4><a href="../PE7368.html">
+                               2.1.25 equals(...)用于比较不兼容的数组
+                           </a></h4>
+                           <h4><a href="../PE7079.html">
+                               2.1.26 考虑使用调用方法的本地参数化版本
+                           </a></h4>
+                           <h4><a href="../PE7296.html">
+                               2.1.27 传递给函数的基本类型（primitive）数组需要可变数量的对象参数
+                           </a></h4>
+                           <h4><a href="../PE7311.html">
+                               2.1.28 调用equals(null)
+                           </a></h4>
+                           <h4><a href="../PE7312.html">
+                               2.1.29 调用equals()比较不同的接口类型
+                           </a></h4>
+                           <h4><a href="../PE7066.html">
+                               2.1.30 调用不支持的方法
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/java/quality issues/logic errors.html">
+                            2.2 逻辑错误 (77)
+                        </a>
+                    </summary>
+                           <h4><a href="../BE0179.html">
+                               2.2.1 使用get(0)获取容器元素，可能导致逻辑错误，从而引发线上风险
+                           </a></h4>
+                           <h4><a href="../BE0173.html">
+                               2.2.2 蚂蚁军规41：没有正确接入越权防护SDK，可能造成信息安全漏洞
+                           </a></h4>
+                           <h4><a href="../BE0174.html">
+                               2.2.3 蚂蚁军规42：错误地接入越权防护SDK标准模式，不能直接从后端取登录态传入check函数
+                           </a></h4>
+                           <h4><a href="../BE0175.html">
+                               2.2.4 蚂蚁军规43：错误地接入越权防护SDK自定义鉴权模式，自定义鉴权函数不存在或者未使用正确方式获取登录态
+                           </a></h4>
+                           <h4><a href="../BE0177.html">
+                               2.2.5 mynftcore应用代码的默认时间限制应该为180天
+                           </a></h4>
+                           <h4><a href="../BE0178.html">
+                               2.2.6 循环体中调用了RPC方法存在性能风险
+                           </a></h4>
+                           <h4><a href="../BE0167.html">
+                               2.2.7 蚂蚁军规34：需要校验ORDER BY ORDINAL_POSITION 的返回值是否符合预期
+                           </a></h4>
+                           <h4><a href="../BE0168.html">
+                               2.2.8 蚂蚁军规14：不建议在SimpleDateFormat的pattern中使用"YYYY"或者"hh"
+                           </a></h4>
+                           <h4><a href="../BE0170.html">
+                               2.2.9 蚂蚁军规37：固定天数导致闰年时出现日期转换错误或逻辑错误
+                           </a></h4>
+                           <h4><a href="../BE0171.html">
+                               2.2.10 蚂蚁军规19：错误的SQL语句导致删除全表所有数据
+                           </a></h4>
+                           <h4><a href="../BE0172.html">
+                               2.2.11 蚂蚁军规15：setCent方法的参数是非long或者Long类型
+                           </a></h4>
+                           <h4><a href="../BE0162.html">
+                               2.2.12 蚂蚁军规21：DRM空指针异常
+                           </a></h4>
+                           <h4><a href="../BE0163.html">
+                               2.2.13 蚂蚁军规31：字符串转换成日期时缺少时区
+                           </a></h4>
+                           <h4><a href="../BE0164.html">
+                               2.2.14 蚂蚁军规32：未释放线程变量导致线程污染与内存泄漏
+                           </a></h4>
+                           <h4><a href="../BE0165.html">
+                               2.2.15 蚂蚁军规29：线程池信息丢失
+                           </a></h4>
+                           <h4><a href="../BE0166.html">
+                               2.2.16 蚂蚁军规30：TairCache超时可能导致死锁
+                           </a></h4>
+                           <h4><a href="../BE0156.html">
+                               2.2.17 蚂蚁军规3：未使用金额计算的返回值
+                           </a></h4>
+                           <h4><a href="../BE0157.html">
+                               2.2.18 蚂蚁军规6：Rzone服务对外发布时，接口与实现类不一致
+                           </a></h4>
+                           <h4><a href="../BE0158.html">
+                               2.2.19 蚂蚁军规7：在单例模式下对类的属性进行多次修改
+                           </a></h4>
+                           <h4><a href="../BE0159.html">
+                               2.2.20 蚂蚁军规10：没有校验数组长度，可能存在数组越界
+                           </a></h4>
+                           <h4><a href="../BE0160.html">
+                               2.2.21 南门军规1：对MultiCurrencyMoney对象进行引用拷贝赋值
+                           </a></h4>
+                           <h4><a href="../BE0161.html">
+                               2.2.22 蚂蚁军规1：更新数据库数据之前，没有对数据进行加锁
+                           </a></h4>
+                           <h4><a href="../BE0150.html">
+                               2.2.23 蚂蚁军规2：使用==或!=比较两个Java String对象
+                           </a></h4>
+                           <h4><a href="../BE0152.html">
+                               2.2.24 蚂蚁军规11：在事务模板里发非事务消息
+                           </a></h4>
+                           <h4><a href="../BE0153.html">
+                               2.2.25 蚂蚁军规8：消息监听异常，未设置重试逻辑
+                           </a></h4>
+                           <h4><a href="../BE0154.html">
+                               2.2.26 蚂蚁军规12：parallelStream中使用非线程安全容器
+                           </a></h4>
+                           <h4><a href="../BE0155.html">
+                               2.2.27 蚂蚁军规5：系统Facade接口中使用枚举类
+                           </a></h4>
+                           <h4><a href="../BE0136.html">
+                               2.2.28 update函数的返回值类型不是int或Integer
+                           </a></h4>
+                           <h4><a href="../BE0137.html">
+                               2.2.29 没有校验或传出update函数的返回值
+                           </a></h4>
+                           <h4><a href="../PE7017.html">
+                               2.2.30 使用Optional返回类型的方法返回显式空值
+                           </a></h4>
+                           <h4><a href="../PE7356.html">
+                               2.2.31 run方法中的JUnit断言不会被JUnit注意到
+                           </a></h4>
+                           <h4><a href="../PE7330.html">
+                               2.2.32 不兼容的位掩码
+                           </a></h4>
+                           <h4><a href="../PE7465.html">
+                               2.2.33 方法提高对参数的无效注解的要求
+                           </a></h4>
+                           <h4><a href="../PE7133.html">
+                               2.2.34 类定义了hashCode()但还是使用Object.equals()
+                           </a></h4>
+                           <h4><a href="../PE7328.html">
+                               2.2.35 不兼容的位掩码
+                           </a></h4>
+                           <h4><a href="../PE7464.html">
+                               2.2.36 方法放宽对返回值的无效注释的要求
+                           </a></h4>
+                           <h4><a href="../PE7132.html">
+                               2.2.37 类定义了compareTo(...)但还是使用Object.equals()
+                           </a></h4>
+                           <h4><a href="../PE7117.html">
+                               2.2.38 equals方法在父类中重写equals，可能不是对称的
+                           </a></h4>
+                           <h4><a href="../PE7425.html">
+                               2.2.39 代码包含对绝对路径名的硬编码引用
+                           </a></h4>
+                           <h4><a href="../PE7378.html">
+                               2.2.40 参数的值在传入方法时被忽略，但被修改后返回给了调用者
+                           </a></h4>
+                           <h4><a href="../PE7016.html">
+                               2.2.41 使用布尔返回类型的方法返回显式空值
+                           </a></h4>
+                           <h4><a href="../PE7022.html">
+                               2.2.42 在对象的输出流处添加元素
+                           </a></h4>
+                           <h4><a href="../PE7116.html">
+                               2.2.43 equals方法总是返回false
+                           </a></h4>
+                           <h4><a href="../PE7387.html">
+                               2.2.44 测试类之间的循环依赖关系
+                           </a></h4>
+                           <h4><a href="../PE7164.html">
+                               2.2.45 父类在初始化过程中使用子类
+                           </a></h4>
+                           <h4><a href="../PE7042.html">
+                               2.2.46 创建一个空的jar文件条目
+                           </a></h4>
+                           <h4><a href="../PE7115.html">
+                               2.2.47 equals方法总是返回true
+                           </a></h4>
+                           <h4><a href="../PE7163.html">
+                               2.2.48 初始化循环
+                           </a></h4>
+                           <h4><a href="../PE7113.html">
+                               2.2.49 不常见的equals方法
+                           </a></h4>
+                           <h4><a href="../PE7137.html">
+                               2.2.50 类定义equals()但没有定义hashCode()
+                           </a></h4>
+                           <h4><a href="../PE7156.html">
+                               2.2.51 使用非短路逻辑的潜在风险
+                           </a></h4>
+                           <h4><a href="../PE7319.html">
+                               2.2.52 有符号字节的错误比较
+                           </a></h4>
+                           <h4><a href="../PE7432.html">
+                               2.2.53 不可序列化的对象写入ObjectOutput
+                           </a></h4>
+                           <h4><a href="../PE7413.html">
+                               2.2.54 无效的正则表达式语法
+                           </a></h4>
+                           <h4><a href="../PE7020.html">
+                               2.2.55 某些Swing方法需要在Swing线程中调用
+                           </a></h4>
+                           <h4><a href="../PE7463.html">
+                               2.2.56 默认编码依赖
+                           </a></h4>
+                           <h4><a href="../PE7128.html">
+                               2.2.57 使用==或!=比较字符串对象
+                           </a></h4>
+                           <h4><a href="../PE7295.html">
+                               2.2.58 可疑的reference比较
+                           </a></h4>
+                           <h4><a href="../PE7041.html">
+                               2.2.59 创建一个空的zip文件条目
+                           </a></h4>
+                           <h4><a href="../PE7414.html">
+                               2.2.60 用于正则表达式的File.separator
+                           </a></h4>
+                           <h4><a href="../PE7130.html">
+                               2.2.61 在散列结构中使用签名声明为不可哈希的类
+                           </a></h4>
+                           <h4><a href="../PE7134.html">
+                               2.2.62 类定义了hashCode()但没有定义equals()
+                           </a></h4>
+                           <h4><a href="../PE7462.html">
+                               2.2.63 由于OpenJDK中的弱引用，可能导致logger配置丢失
+                           </a></h4>
+                           <h4><a href="../PE7320.html">
+                               2.2.64 非负值与负数或零的错误比较
+                           </a></h4>
+                           <h4><a href="../PE7412.html">
+                               2.2.65 “.”或“|”用于正则表达式
+                           </a></h4>
+                           <h4><a href="../PE7131.html">
+                               2.2.66 在哈希数据结构中使用没有hashCode()方法的类
+                           </a></h4>
+                           <h4><a href="../PE7138.html">
+                               2.2.67 抽象类定义了covariant equals()方法
+                           </a></h4>
+                           <h4><a href="../PE7135.html">
+                               2.2.68 类定义equals()并使用Object.hashCode()
+                           </a></h4>
+                           <h4><a href="../PE7345.html">
+                               2.2.69 匿名类中定义的不可调用方法
+                           </a></h4>
+                           <h4><a href="../PE7114.html">
+                               2.2.70 由于子类的方法导致equals方法被破坏
+                           </a></h4>
+                           <h4><a href="../PE7318.html">
+                               2.2.71 int值与long常量的错误比较
+                           </a></h4>
+                           <h4><a href="../PE7284.html">
+                               2.2.72 无条件执行下一行的无效条件控制语句
+                           </a></h4>
+                           <h4><a href="../PE7139.html">
+                               2.2.73 抽象类定义了covariant compareTo()方法
+                           </a></h4>
+                           <h4><a href="../PE7136.html">
+                               2.2.74 类继承equals()并使用Object.hashCode()
+                           </a></h4>
+                           <h4><a href="../PE0002.html">
+                               2.2.75 忽略函数返回值
+                           </a></h4>
+                           <h4><a href="../PE7165.html">
+                               2.2.76 静态初始化程序在分配所有静态final字段之前创建实例
+                           </a></h4>
+                           <h4><a href="../PE7466.html">
+                               2.2.77 方法提高对参数的无效注解的要求
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/java/quality issues/numeric errors.html">
+                            2.3 数值计算错误 (23)
+                        </a>
+                    </summary>
+                           <h4><a href="../PE7097.html">
+                               2.3.1 从0到1的随机值被强制转换为整数0
+                           </a></h4>
+                           <h4><a href="../PE7098.html">
+                               2.3.2 Math.max和Math.min的错误组合
+                           </a></h4>
+                           <h4><a href="../PE7424.html">
+                               2.3.3 无符号右移转换为short/byte
+                           </a></h4>
+                           <h4><a href="../PE7093.html">
+                               2.3.4 错误地尝试计算带符号随机整数的绝对值
+                           </a></h4>
+                           <h4><a href="../PE7326.html">
+                               2.3.5 检查按位操作是否合理
+                           </a></h4>
+                           <h4><a href="../PE7094.html">
+                               2.3.6 错误地尝试计算有符号32位散列码的绝对值
+                           </a></h4>
+                           <h4><a href="../PE7385.html">
+                               2.3.7 测试与NaN是否相等
+                           </a></h4>
+                           <h4><a href="../PE7325.html">
+                               2.3.8 有符号字节值的按位或运算
+                           </a></h4>
+                           <h4><a href="../PE0021.html">
+                               2.3.9 整数溢出
+                           </a></h4>
+                           <h4><a href="../PE7418.html">
+                               2.3.10 一个整数常量与整数余数相乘
+                           </a></h4>
+                           <h4><a href="../PE7415.html">
+                               2.3.11 覆盖增量
+                           </a></h4>
+                           <h4><a href="../PE7394.html">
+                               2.3.12 int除法结果为double或float
+                           </a></h4>
+                           <h4><a href="../PE7396.html">
+                               2.3.13 int值强制转换为float，然后传递给Math.round
+                           </a></h4>
+                           <h4><a href="../PE7327.html">
+                               2.3.14 检查涉及负数的按位操作是否合理
+                           </a></h4>
+                           <h4><a href="../PE7419.html">
+                               2.3.15 检查奇数时对于负数不起作用
+                           </a></h4>
+                           <h4><a href="../PE7536.html">
+                               2.3.16 散列数组转换时忽略了前置的0
+                           </a></h4>
+                           <h4><a href="../PE7095.html">
+                               2.3.17 32位有符号随机整数的余数
+                           </a></h4>
+                           <h4><a href="../PE7392.html">
+                               2.3.18 int值转换为long并用作绝对时间
+                           </a></h4>
+                           <h4><a href="../PE7395.html">
+                               2.3.19 int转换为double，然后传递给Math.ceil
+                           </a></h4>
+                           <h4><a href="../PE7324.html">
+                               2.3.20 有符号的字节值的按位与操作
+                           </a></h4>
+                           <h4><a href="../PE0062.html">
+                               2.3.21 除零错误
+                           </a></h4>
+                           <h4><a href="../PE7096.html">
+                               2.3.22 hashCode的余数可能是负数
+                           </a></h4>
+                           <h4><a href="../PE7393.html">
+                               2.3.23 int乘法的结果强制转换为long
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/java/quality issues/error handling.html">
+                            2.4 错误和异常处理缺陷 (5)
+                        </a>
+                    </summary>
+                           <h4><a href="../PE7054.html">
+                               2.4.1 方法可能会丢弃异常
+                           </a></h4>
+                           <h4><a href="../PE7045.html">
+                               2.4.2 不可靠的IllegalMonitorStateException捕获
+                           </a></h4>
+                           <h4><a href="../PE7166.html">
+                               2.4.3 Iterator的next()方法不能抛出NoSuchElementException异常
+                           </a></h4>
+                           <h4><a href="../PE7055.html">
+                               2.4.4 方法可能会忽略异常
+                           </a></h4>
+                           <h4><a href="../PE7056.html">
+                               2.4.5 方法调用System.exit(...)
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/java/quality issues/type and encapsulation.html">
+                            2.5 类型和封装 (97)
+                        </a>
+                    </summary>
+                           <h4><a href="../PE7449.html">
+                               2.5.1 没有使用类型限定符的值在需要具有该限定符的值时使用
+                           </a></h4>
+                           <h4><a href="../PE7121.html">
+                               2.5.2 定义的equals()方法没有重写Object.equals(Object)
+                           </a></h4>
+                           <h4><a href="../PE7127.html">
+                               2.5.3 取compareTo()/ compare()的结果的相反数
+                           </a></h4>
+                           <h4><a href="../PE7049.html">
+                               2.5.4 协变数组赋值给局部变量
+                           </a></h4>
+                           <h4><a href="../PE7405.html">
+                               2.5.5 涉及基本类型（primitive）数组的不可能的转换
+                           </a></h4>
+                           <h4><a href="../PE7306.html">
+                               2.5.6 使用String的format方法时有非法的参数也经过了格式化操作
+                           </a></h4>
+                           <h4><a href="../PE7107.html">
+                               2.5.7 finalizer使父类的finalizer无效化
+                           </a></h4>
+                           <h4><a href="../PE7196.html">
+                               2.5.8 类定义equal(Object)，它应该是equals(Object)吗？
+                           </a></h4>
+                           <h4><a href="../PE7052.html">
+                               2.5.9 类实现Cloneable接口却没有定义或使用clone方法
+                           </a></h4>
+                           <h4><a href="../PE7303.html">
+                               2.5.10 格式化字符串占位符与传递的参数不兼容
+                           </a></h4>
+                           <h4><a href="../PE7053.html">
+                               2.5.11 clone方法没有调用super.clone()
+                           </a></h4>
+                           <h4><a href="../PE7439.html">
+                               2.5.12 类是final但声明了受保护的字段
+                           </a></h4>
+                           <h4><a href="../PE7108.html">
+                               2.5.13 Finalizer只会调用父类finalizer而没有别的用途
+                           </a></h4>
+                           <h4><a href="../PE7177.html">
+                               2.5.14 字段是一个可变数组
+                           </a></h4>
+                           <h4><a href="../PE7125.html">
+                               2.5.15 compareTo()/ compare()返回Integer.MIN_VALUE
+                           </a></h4>
+                           <h4><a href="../PE7456.html">
+                               2.5.16 要求具有类型限定符的值，但却标记为未知
+                           </a></h4>
+                           <h4><a href="../PE7190.html">
+                               2.5.17 由于参数包不正确，方法不会复写父类中的方法
+                           </a></h4>
+                           <h4><a href="../PE7182.html">
+                               2.5.18 公共枚举方法无条件地设置其字段
+                           </a></h4>
+                           <h4><a href="../PE7179.html">
+                               2.5.19 字段是一个可变的集合（collection），应该封装保护
+                           </a></h4>
+                           <h4><a href="../PE7109.html">
+                               2.5.20 Finalizer不会调用父类的finalizer
+                           </a></h4>
+                           <h4><a href="../PE7216.html">
+                               2.5.21 可序列化类中的非transient 不可序列化实例字段
+                           </a></h4>
+                           <h4><a href="../PE7048.html">
+                               2.5.22 方法返回协变数组
+                           </a></h4>
+                           <h4><a href="../PE7402.html">
+                               2.5.23 可疑的强制转换具体集合（collection）的过程
+                           </a></h4>
+                           <h4><a href="../PE7440.html">
+                               2.5.24 方法在布尔表达式中分配布尔文字
+                           </a></h4>
+                           <h4><a href="../PE7308.html">
+                               2.5.25 使用指针相等性来比较不同的类型
+                           </a></h4>
+                           <h4><a href="../PE7111.html">
+                               2.5.26 equals检查不一致的操作
+                           </a></h4>
+                           <h4><a href="../PE7206.html">
+                               2.5.27 Comparator没有实现Serializable的接口
+                           </a></h4>
+                           <h4><a href="../PE7435.html">
+                               2.5.28 方法访问拥有类的私有成员变量
+                           </a></h4>
+                           <h4><a href="../PE7302.html">
+                               2.5.29 格式字符串参数的数量与占位符的数量不一致
+                           </a></h4>
+                           <h4><a href="../PE7450.html">
+                               2.5.30 将值与不兼容的类型限定符进行比较
+                           </a></h4>
+                           <h4><a href="../PE7184.html">
+                               2.5.31 字段名称应以小写字母开头
+                           </a></h4>
+                           <h4><a href="../PE7403.html">
+                               2.5.32 未经检查/未经确认的转换
+                           </a></h4>
+                           <h4><a href="../PE7442.html">
+                               2.5.33 泛型参数和方法参数之间没有关系
+                           </a></h4>
+                           <h4><a href="../PE7126.html">
+                               2.5.34 compareTo()/ compare()不正确地处理float或double值
+                           </a></h4>
+                           <h4><a href="../PE7120.html">
+                               2.5.35 定义协变equals()方法，继承了Object.equals(Object)
+                           </a></h4>
+                           <h4><a href="../PE7105.html">
+                               2.5.36 finalizer应该是protected，而不是public
+                           </a></h4>
+                           <h4><a href="../PE7305.html">
+                               2.5.37 非法格式字符串
+                           </a></h4>
+                           <h4><a href="../PE7300.html">
+                               2.5.38 数组使用格式字符串以无用的方式格式化
+                           </a></h4>
+                           <h4><a href="../PE7050.html">
+                               2.5.39 在协变数组中存储可能不兼容的元素
+                           </a></h4>
+                           <h4><a href="../PE7441.html">
+                               2.5.40 泛型调用中未检查的类型
+                           </a></h4>
+                           <h4><a href="../PE7301.html">
+                               2.5.41 格式字符串没有先前的参数
+                           </a></h4>
+                           <h4><a href="../PE7112.html">
+                               2.5.42 equals方法比较类名而不是类对象
+                           </a></h4>
+                           <h4><a href="../PE7110.html">
+                               2.5.43 显式调用finalizer
+                           </a></h4>
+                           <h4><a href="../PE7453.html">
+                               2.5.44 可能不带有类型限定符的值始终以需要该类型限定符的方式使用
+                           </a></h4>
+                           <h4><a href="../PE7454.html">
+                               2.5.45 可能携带类型限定符的值始终以禁止具有该类型限定符的方式使用
+                           </a></h4>
+                           <h4><a href="../PE7019.html">
+                               2.5.46 类引用了无法解析的类或方法
+                           </a></h4>
+                           <h4><a href="../PE7047.html">
+                               2.5.47 协变数组赋值给字段
+                           </a></h4>
+                           <h4><a href="../PE7411.html">
+                               2.5.48 强制地转换为抽象集合（collection）
+                           </a></h4>
+                           <h4><a href="../PE7123.html">
+                               2.5.49 定义协变的equals()方法
+                           </a></h4>
+                           <h4><a href="../PE7174.html">
+                               2.5.50 字段本应被重构为final
+                           </a></h4>
+                           <h4><a href="../PE7304.html">
+                               2.5.51 格式字符串引用缺少参数
+                           </a></h4>
+                           <h4><a href="../PE7218.html">
+                               2.5.52 不可序列化的类有一个可序列化的内部类
+                           </a></h4>
+                           <h4><a href="../PE7409.html">
+                               2.5.53 instanceof将始终返回false
+                           </a></h4>
+                           <h4><a href="../PE7202.html">
+                               2.5.54 私有readResolve方法不被子类继承
+                           </a></h4>
+                           <h4><a href="../PE7204.html">
+                               2.5.55 类是可序列化的，但其父类没有定义一个void构造函数
+                           </a></h4>
+                           <h4><a href="../PE7208.html">
+                               2.5.56 readResolve方法必须声明返回一个Object类型的对象
+                           </a></h4>
+                           <h4><a href="../PE7299.html">
+                               2.5.57 使用％b格式说明符格式化的非布尔参数
+                           </a></h4>
+                           <h4><a href="../PE7172.html">
+                               2.5.58 字段应该是final的和protected的
+                           </a></h4>
+                           <h4><a href="../PE7173.html">
+                               2.5.59 字段本应是final
+                           </a></h4>
+                           <h4><a href="../PE7185.html">
+                               2.5.60 实现同一接口实现类不能使用相同的名称
+                           </a></h4>
+                           <h4><a href="../PE7059.html">
+                               2.5.61 不可变类的字段应该是final字段
+                           </a></h4>
+                           <h4><a href="../PE7452.html">
+                               2.5.62 值注释为从不带有类型限定符但却用在需要携带该限定符的地方
+                           </a></h4>
+                           <h4><a href="../PE7205.html">
+                               2.5.63 子类实现了Externalizable接口，但没有定义一个void的构造函数
+                           </a></h4>
+                           <h4><a href="../PE7448.html">
+                               2.5.64 集合（collection）不应包含自身
+                           </a></h4>
+                           <h4><a href="../PE7070.html">
+                               2.5.65 无法使用reflection来检查是否存在没有运行时间保留的注释
+                           </a></h4>
+                           <h4><a href="../PE7404.html">
+                               2.5.66 未经检查/未经确认的方法返回值转换
+                           </a></h4>
+                           <h4><a href="../PE7106.html">
+                               2.5.67 空的finalizer应该被删除
+                           </a></h4>
+                           <h4><a href="../PE7408.html">
+                               2.5.68 无法对toArray()结果实行向下转换操作
+                           </a></h4>
+                           <h4><a href="../PE7124.html">
+                               2.5.69 定义了covariant compareTo()方法
+                           </a></h4>
+                           <h4><a href="../PE7209.html">
+                               2.5.70 transient 字段不是由反序列化设置的
+                           </a></h4>
+                           <h4><a href="../PE7436.html">
+                               2.5.71 方法直接分配一个xml接口的特定实现
+                           </a></h4>
+                           <h4><a href="../PE7178.html">
+                               2.5.72 字段是一个可变的集合（collection）
+                           </a></h4>
+                           <h4><a href="../PE7171.html">
+                               2.5.73 应该将字段移出接口并封装为protected
+                           </a></h4>
+                           <h4><a href="../PE7176.html">
+                               2.5.74 字段是一个可变的哈希表
+                           </a></h4>
+                           <h4><a href="../PE7307.html">
+                               2.5.75 MessageFormat提供了printf风格的格式
+                           </a></h4>
+                           <h4><a href="../PE7410.html">
+                               2.5.76 instanceof将始终返回true
+                           </a></h4>
+                           <h4><a href="../PE7438.html">
+                               2.5.77 抽象方法已经在实现的接口中定义
+                           </a></h4>
+                           <h4><a href="../PE7195.html">
+                               2.5.78 类定义了tostring()，应该是toString()？
+                           </a></h4>
+                           <h4><a href="../PE7191.html">
+                               2.5.79 由于参数包不正确，方法不会复写父类中的方法
+                           </a></h4>
+                           <h4><a href="../PE7455.html">
+                               2.5.80 要求不具有类型限定符的值被标记为未知
+                           </a></h4>
+                           <h4><a href="../PE7181.html">
+                               2.5.81 枚举字段是公开的和可变的
+                           </a></h4>
+                           <h4><a href="../PE7051.html">
+                               2.5.82 类定义clone()但不实现Cloneable接口
+                           </a></h4>
+                           <h4><a href="../PE7219.html">
+                               2.5.83 非序列化的值存储在可序列化类的实例字段中
+                           </a></h4>
+                           <h4><a href="../PE7183.html">
+                               2.5.84 方法名称应以小写字母开头
+                           </a></h4>
+                           <h4><a href="../PE7194.html">
+                               2.5.85 类定义了hashcode()，原本应该是hashCode()？
+                           </a></h4>
+                           <h4><a href="../PE7201.html">
+                               2.5.86 readResolve方法不能声明为静态方法
+                           </a></h4>
+                           <h4><a href="../PE7406.html">
+                               2.5.87 无法实现的类转换
+                           </a></h4>
+                           <h4><a href="../PE7118.html">
+                               2.5.88 类不会重写父类中的equals
+                           </a></h4>
+                           <h4><a href="../PE7407.html">
+                               2.5.89 无法进行的向下转换
+                           </a></h4>
+                           <h4><a href="../PE7004.html">
+                               2.5.90 类尺寸过于臃肿
+                           </a></h4>
+                           <h4><a href="../PE7186.html">
+                               2.5.91 继承同一父类的子类不能使用相同的名称
+                           </a></h4>
+                           <h4><a href="../PE7207.html">
+                               2.5.92 类是可序列化的，但不定义serialVersionUID
+                           </a></h4>
+                           <h4><a href="../PE7298.html">
+                               2.5.93 提供的参数的类型与格式说明符不匹配
+                           </a></h4>
+                           <h4><a href="../PE7437.html">
+                               2.5.94 方法完全调用父类方法
+                           </a></h4>
+                           <h4><a href="../PE7451.html">
+                               2.5.95 值注释为携带一个类型限定符，但是该值规定不能携带该限定符
+                           </a></h4>
+                           <h4><a href="../PE7215.html">
+                               2.5.96 方法必须是私有的才能使序列化工作
+                           </a></h4>
+                           <h4><a href="../PE7122.html">
+                               2.5.97 定义的equals()方法不会重写equals(Object)
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/java/quality issues/memory and resource misuse.html">
+                            2.6 内存和资源误用 (13)
+                        </a>
+                    </summary>
+                           <h4><a href="../BE0169.html">
+                               2.6.1 蚂蚁军规40：在Sql语句中使用性能效率较低的LEFT JOIN联合查询
+                           </a></h4>
+                           <h4><a href="../BE0151.html">
+                               2.6.2 蚂蚁军规4：在Sql语句中使用select *
+                           </a></h4>
+                           <h4><a href="../PE0084.html">
+                               2.6.3 使用已关闭的文件描述符
+                           </a></h4>
+                           <h4><a href="../PE7282.html">
+                               2.6.4 考虑返回一个零长度数组而不是null
+                           </a></h4>
+                           <h4><a href="../PE0001.html">
+                               2.6.5 空指针解引用
+                           </a></h4>
+                           <h4><a href="../PE7364.html">
+                               2.6.6 方法尝试访问索引为0的结果集合（set）字段
+                           </a></h4>
+                           <h4><a href="../PE7363.html">
+                               2.6.7 方法尝试访问索引为0的结果集合（set）字段
+                           </a></h4>
+                           <h4><a href="../PE7265.html">
+                               2.6.8 参数值在任何情况下都不能为空，但是有明确的注释它可以为空
+                           </a></h4>
+                           <h4><a href="../PE7365.html">
+                               2.6.9 方法尝试访问索引为0的PreparedStatement参数
+                           </a></h4>
+                           <h4><a href="../PE7367.html">
+                               2.6.10 不好的Applet构造函数依赖未初始化的AppletStub
+                           </a></h4>
+                           <h4><a href="../PE7160.html">
+                               2.6.11 在构造函数中对未初始化的字段进行读取
+                           </a></h4>
+                           <h4><a href="../PE7263.html">
+                               2.6.12 将空值存储到带注释声明为@Nonnull的字段中
+                           </a></h4>
+                           <h4><a href="../PE7161.html">
+                               2.6.13 从父类的构造函数中调用的字段方法被超类的构造函数调用时，在当前类中的字段或属性还没有被初始化
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/java/quality issues/concurrency and temporal errors.html">
+                            2.7 并发和时序错误 (52)
+                        </a>
+                    </summary>
+                           <h4><a href="../PE7014.html">
+                               2.7.1 调用静态DateFormat
+                           </a></h4>
+                           <h4><a href="../PE7338.html">
+                               2.7.2 不正确的实例字段延迟初始化
+                           </a></h4>
+                           <h4><a href="../PE7220.html">
+                               2.7.3 构造函数调用Thread.start()
+                           </a></h4>
+                           <h4><a href="../PE7153.html">
+                               2.7.4 在一个线程上调用运行（你是否想要启动它？）
+                           </a></h4>
+                           <h4><a href="../PE7100.html">
+                               2.7.5 线程是使用默认的空的run方法创建的
+                           </a></h4>
+                           <h4><a href="../PE7104.html">
+                               2.7.6 可能暴露部分初始化对象
+                           </a></h4>
+                           <h4><a href="../PE7339.html">
+                               2.7.7 不正确的静态字段延迟初始化
+                           </a></h4>
+                           <h4><a href="../PE7211.html">
+                               2.7.8 类的readObject()方法是同步的
+                           </a></h4>
+                           <h4><a href="../PE7015.html">
+                               2.7.9 对同一个字段进行同步操作和null检查
+                           </a></h4>
+                           <h4><a href="../PE7103.html">
+                               2.7.10 可能的字段重复检查
+                           </a></h4>
+                           <h4><a href="../PE7343.html">
+                               2.7.11 在Lock上执行同步
+                           </a></h4>
+                           <h4><a href="../PE7141.html">
+                               2.7.12 布尔同步
+                           </a></h4>
+                           <h4><a href="../PE7011.html">
+                               2.7.13 静态Calendar字段
+                           </a></h4>
+                           <h4><a href="../PE7237.html">
+                               2.7.14 非静态内部类和线程本地变量有死锁的可能
+                           </a></h4>
+                           <h4><a href="../PE7002.html">
+                               2.7.15 并发抽象调用的顺序可能不是原子的
+                           </a></h4>
+                           <h4><a href="../PE7028.html">
+                               2.7.16 对volatile字段的增量操作不是原子的
+                           </a></h4>
+                           <h4><a href="../PE7342.html">
+                               2.7.17 在util.concurrent抽象中使用监视器样式wait方法
+                           </a></h4>
+                           <h4><a href="../PE7243.html">
+                               2.7.18 使用notify()而不是notifyAll()
+                           </a></h4>
+                           <h4><a href="../PE7144.html">
+                               2.7.19 在getClass上进行同步而不是类文字
+                           </a></h4>
+                           <h4><a href="../PE7143.html">
+                               2.7.20 在装箱的基本类型值上同步
+                           </a></h4>
+                           <h4><a href="../PE7146.html">
+                               2.7.21 可变的servlet字段
+                           </a></h4>
+                           <h4><a href="../PE7159.html">
+                               2.7.22 无条件等待
+                           </a></h4>
+                           <h4><a href="../PE7461.html">
+                               2.7.23 忽略putIfAbsent的返回值，传递给putIfAbsent的值被重用
+                           </a></h4>
+                           <h4><a href="../PE7167.html">
+                               2.7.24 不一致的同步
+                           </a></h4>
+                           <h4><a href="../PE7168.html">
+                               2.7.25 字段不能防止并发访问
+                           </a></h4>
+                           <h4><a href="../PE7145.html">
+                               2.7.26 空同步块
+                           </a></h4>
+                           <h4><a href="../PE7147.html">
+                               2.7.27 不一致的同步
+                           </a></h4>
+                           <h4><a href="../PE7340.html">
+                               2.7.28 静态字段不正确的延迟初始化和更新
+                           </a></h4>
+                           <h4><a href="../PE7169.html">
+                               2.7.29 同步现场无效尝试保护该字段
+                           </a></h4>
+                           <h4><a href="../PE7341.html">
+                               2.7.30 在util.concurrent实例上执行同步
+                           </a></h4>
+                           <h4><a href="../PE7142.html">
+                               2.7.31 在装箱的基本类型上同步
+                           </a></h4>
+                           <h4><a href="../PE7157.html">
+                               2.7.32 wait()保持两个锁
+                           </a></h4>
+                           <h4><a href="../PE7170.html">
+                               2.7.33 方法在更新的字段上进行同步
+                           </a></h4>
+                           <h4><a href="../PE7158.html">
+                               2.7.34 notify()保持两个锁
+                           </a></h4>
+                           <h4><a href="../PE7162.html">
+                               2.7.35 非同步get方法，同步set方法
+                           </a></h4>
+                           <h4><a href="../PE7314.html">
+                               2.7.36 不匹配的wait()
+                           </a></h4>
+                           <h4><a href="../PE7088.html">
+                               2.7.37 在Condition上调用wait()
+                           </a></h4>
+                           <h4><a href="../PE7391.html">
+                               2.7.38 类在其公共接口中公开同步和信号量
+                           </a></h4>
+                           <h4><a href="../PE7292.html">
+                               2.7.39 方法没有释放所有异常路径的锁
+                           </a></h4>
+                           <h4><a href="../PE7242.html">
+                               2.7.40 Condition.await()不在循环中
+                           </a></h4>
+                           <h4><a href="../PE7241.html">
+                               2.7.41 Wait不在循环中
+                           </a></h4>
+                           <h4><a href="../PE7315.html">
+                               2.7.42 不匹配的notify()
+                           </a></h4>
+                           <h4><a href="../PE7291.html">
+                               2.7.43 方法没有释放所有路径上的锁
+                           </a></h4>
+                           <h4><a href="../PE7061.html">
+                               2.7.44 徒劳地尝试更改ScheduledThreadPoolExecutor的线程池大小
+                           </a></h4>
+                           <h4><a href="../PE7027.html">
+                               2.7.45 使用volatile变量引用一个数组，但该数组元素并非为volatile
+                           </a></h4>
+                           <h4><a href="../PE7148.html">
+                               2.7.46 裸露的notify()
+                           </a></h4>
+                           <h4><a href="../PE7430.html">
+                               2.7.47 方法调用Thread.sleep()并持有一个锁
+                           </a></h4>
+                           <h4><a href="../PE7154.html">
+                               2.7.48 方法无限循环读取一个字段
+                           </a></h4>
+                           <h4><a href="../PE7013.html">
+                               2.7.49 调用静态Calendar
+                           </a></h4>
+                           <h4><a href="../PE7012.html">
+                               2.7.50 静态DateFormat
+                           </a></h4>
+                           <h4><a href="../PE7210.html">
+                               2.7.51 类的writeObject()方法是同步的但是这个类中没有别的同步方法
+                           </a></h4>
+                           <h4><a href="../PE7140.html">
+                               2.7.52 字符串同步
+                           </a></h4>
+                </details>
+
+        </details>
+        <details open>
+            <summary><a
+                    href="../subcategory/java/security issues.html">3 安全问题
+                (150) </a></summary>
+
+                <details open>
+                    <summary>
+                        <a href="../subcategory/java/security issues/privacy leakage.html">
+                            3.1 隐私数据泄露 (11)
+                        </a>
+                    </summary>
+                           <h4><a href="../BE0099.html">
+                               3.1.1 敏感数据传入潜在的不安全API
+                           </a></h4>
+                           <h4><a href="../PE1101.html">
+                               3.1.2 文件揭露
+                           </a></h4>
+                           <h4><a href="../PE1114.html">
+                               3.1.3 应慎用或禁用的标准库函数
+                           </a></h4>
+                           <h4><a href="../PE7488.html">
+                               3.1.4 Cookie中潜在的敏感数据
+                           </a></h4>
+                           <h4><a href="../PE7390.html">
+                               3.1.5 类扩展Servlet类并使用实例变量
+                           </a></h4>
+                           <h4><a href="../PE1081.html">
+                               3.1.6 隐私侵犯
+                           </a></h4>
+                           <h4><a href="../PE0087.html">
+                               3.1.7 泄漏敏感数据
+                           </a></h4>
+                           <h4><a href="../PE0134.html">
+                               3.1.8 暴露URL中的会话ID
+                           </a></h4>
+                           <h4><a href="../PE7389.html">
+                               3.1.9 类扩展了Struts Action类并使用了实例变量
+                           </a></h4>
+                           <h4><a href="../PE1112.html">
+                               3.1.10 硬编码的密码
+                           </a></h4>
+                           <h4><a href="../PE0136.html">
+                               3.1.11 泄漏堆栈信息
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/java/security issues/security policy management.html">
+                            3.2 安全策略管理 (69)
+                        </a>
+                    </summary>
+                           <h4><a href="../BE0145.html">
+                               3.2.1 蚂蚁军规9：编程式事务中catch全部异常的接口没有设置回滚标示
+                           </a></h4>
+                           <h4><a href="../BE0146.html">
+                               3.2.2 声明式事务中没有设置回滚异常类型
+                           </a></h4>
+                           <h4><a href="../BE0147.html">
+                               3.2.3 危险类型的金额变量
+                           </a></h4>
+                           <h4><a href="../BE0148.html">
+                               3.2.4 金额变量进行一次危险的类型转换
+                           </a></h4>
+                           <h4><a href="../BE0149.html">
+                               3.2.5 大数除法明确精度参数
+                           </a></h4>
+                           <h4><a href="../BE0139.html">
+                               3.2.6 弱哈希函数
+                           </a></h4>
+                           <h4><a href="../BE0140.html">
+                               3.2.7 不安全的cookie
+                           </a></h4>
+                           <h4><a href="../BE0141.html">
+                               3.2.8 使用异常抛出结果码
+                           </a></h4>
+                           <h4><a href="../BE0142.html">
+                               3.2.9 服务端方法返回boolean类型结果码
+                           </a></h4>
+                           <h4><a href="../BE0143.html">
+                               3.2.10 服务端方法返回的对象中不包含结果码
+                           </a></h4>
+                           <h4><a href="../BE0144.html">
+                               3.2.11 事务中包含远程调用
+                           </a></h4>
+                           <h4><a href="../BE0138.html">
+                               3.2.12 弱加密函数
+                           </a></h4>
+                           <h4><a href="../BE0109.html">
+                               3.2.13 使用弱随机算法生成固定密钥
+                           </a></h4>
+                           <h4><a href="../BE0127.html">
+                               3.2.14 敏感数据存入数据库
+                           </a></h4>
+                           <h4><a href="../BE0128.html">
+                               3.2.15 敏感数据存入缓存
+                           </a></h4>
+                           <h4><a href="../PE7539.html">
+                               3.2.16 未加密的套接字
+                           </a></h4>
+                           <h4><a href="../PE7537.html">
+                               3.2.17 Hazelcast对称加密
+                           </a></h4>
+                           <h4><a href="../PE7538.html">
+                               3.2.18 NullCipher不安全
+                           </a></h4>
+                           <h4><a href="../PE7065.html">
+                               3.2.19 没有设置数据库密码
+                           </a></h4>
+                           <h4><a href="../PE7578.html">
+                               3.2.20 启用地理位置的WebView（Android）
+                           </a></h4>
+                           <h4><a href="../PE7584.html">
+                               3.2.21 信任边界违规
+                           </a></h4>
+                           <h4><a href="../PE7550.html">
+                               3.2.22 Blowfish使用短密钥
+                           </a></h4>
+                           <h4><a href="../PE1107.html">
+                               3.2.23 脆弱的哈希加密算法
+                           </a></h4>
+                           <h4><a href="../PE1115.html">
+                               3.2.24 使用的不安全Jackson反序列化配置
+                           </a></h4>
+                           <h4><a href="../PE1073.html">
+                               3.2.25 代码的正确性
+                           </a></h4>
+                           <h4><a href="../PE7503.html">
+                               3.2.26 MD2，MD4和MD5是弱散列函数
+                           </a></h4>
+                           <h4><a href="../PE7498.html">
+                               3.2.27 接受任何签名证书的HostnameVerifier
+                           </a></h4>
+                           <h4><a href="../PE7563.html">
+                               3.2.28 ECB模式不安全
+                           </a></h4>
+                           <h4><a href="../PE7543.html">
+                               3.2.29 没有填充的RSA是不安全的
+                           </a></h4>
+                           <h4><a href="../PE1070.html">
+                               3.2.30 不安全的SSL
+                           </a></h4>
+                           <h4><a href="../PE7477.html">
+                               3.2.31 过分宽松的CORS政策
+                           </a></h4>
+                           <h4><a href="../PE1109.html">
+                               3.2.32 不安全的存储
+                           </a></h4>
+                           <h4><a href="../PE7490.html">
+                               3.2.33 没有HttpOnly标志的Cookie
+                           </a></h4>
+                           <h4><a href="../PE7577.html">
+                               3.2.34 MODE_WORLD_READABLE模式文件（Android）
+                           </a></h4>
+                           <h4><a href="../PE7497.html">
+                               3.2.35 接受任何证书的TrustManager
+                           </a></h4>
+                           <h4><a href="../PE7044.html">
+                               3.2.36 类加载器只应在doPrivileged块内创建
+                           </a></h4>
+                           <h4><a href="../PE7479.html">
+                               3.2.37 可预测的伪随机数发生器（Scala）
+                           </a></h4>
+                           <h4><a href="../PE1074.html">
+                               3.2.38 访问控制
+                           </a></h4>
+                           <h4><a href="../PE7566.html">
+                               3.2.39 使用ESAPI加密器
+                           </a></h4>
+                           <h4><a href="../PE7575.html">
+                               3.2.40 外部文件访问（Android）
+                           </a></h4>
+                           <h4><a href="../PE7474.html">
+                               3.2.41 不安全的SMTP SSL连接
+                           </a></h4>
+                           <h4><a href="../PE7029.html">
+                               3.2.42 如果扩展了类，GetResource的使用可能不安全
+                           </a></h4>
+                           <h4><a href="../PE7478.html">
+                               3.2.43 可预测的伪随机数发生器
+                           </a></h4>
+                           <h4><a href="../PE7043.html">
+                               3.2.44 调用的方法应该只在doPrivileged块内被调用
+                           </a></h4>
+                           <h4><a href="../PE1083.html">
+                               3.2.45 不安全的随机性
+                           </a></h4>
+                           <h4><a href="../PE0133.html">
+                               3.2.46 成功登录后不会更新会话ID
+                           </a></h4>
+                           <h4><a href="../PE7149.html">
+                               3.2.47 公共静态方法可能由于返回数组来暴露内部表示
+                           </a></h4>
+                           <h4><a href="../PE1091.html">
+                               3.2.48 违反信任边界
+                           </a></h4>
+                           <h4><a href="../PE7565.html">
+                               3.2.49 此加密算法不提供数据完整性保证
+                           </a></h4>
+                           <h4><a href="../PE7562.html">
+                               3.2.50 加密时使用了固定的初始化向量IV
+                           </a></h4>
+                           <h4><a href="../PE7576.html">
+                               3.2.51 广播（Android）
+                           </a></h4>
+                           <h4><a href="../PE7545.html">
+                               3.2.52 不安全的哈希匹配
+                           </a></h4>
+                           <h4><a href="../PE7580.html">
+                               3.2.53 带JavaScript接口（Android）的WebView
+                           </a></h4>
+                           <h4><a href="../PE1089.html">
+                               3.2.54 不安全的清洗规则
+                           </a></h4>
+                           <h4><a href="../PE7507.html">
+                               3.2.55 消息摘要是自定义的
+                           </a></h4>
+                           <h4><a href="../PE7151.html">
+                               3.2.56 可以因为引用可变对象而暴露内部的字段表示
+                           </a></h4>
+                           <h4><a href="../PE7150.html">
+                               3.2.57 可能因为返回对可变对象的引用暴露内部的字段表示
+                           </a></h4>
+                           <h4><a href="../PE7489.html">
+                               3.2.58 没有安全标志的Cookie
+                           </a></h4>
+                           <h4><a href="../PE7541.html">
+                               3.2.59 DES是不安全的
+                           </a></h4>
+                           <h4><a href="../PE7504.html">
+                               3.2.60 SHA-1是一个弱散列函数
+                           </a></h4>
+                           <h4><a href="../PE7542.html">
+                               3.2.61 DESede不安全
+                           </a></h4>
+                           <h4><a href="../PE1090.html">
+                               3.2.62 权限管理
+                           </a></h4>
+                           <h4><a href="../PE1079.html">
+                               3.2.63 操纵访问标识符
+                           </a></h4>
+                           <h4><a href="../PE7564.html">
+                               3.2.64 加密算法易受Padding Oracle影响
+                           </a></h4>
+                           <h4><a href="../PE7152.html">
+                               3.2.65 可以通过将可变对象存储到静态字段中来暴露内部静态状态
+                           </a></h4>
+                           <h4><a href="../PE7579.html">
+                               3.2.66 启用JavaScript的WebView（Android）
+                           </a></h4>
+                           <h4><a href="../PE7505.html">
+                               3.2.67 具有默认构造函数的DefaultHttpClient与TLS 1.2不兼容
+                           </a></h4>
+                           <h4><a href="../PE7549.html">
+                               3.2.68 RSA使用短密钥
+                           </a></h4>
+                           <h4><a href="../PE7506.html">
+                               3.2.69 弱SSLContext
+                           </a></h4>
+                </details>
+                <details open>
+                    <summary>
+                        <a href="../subcategory/java/security issues/input validation and representation.html">
+                            3.3 输入验证与表示 (70)
+                        </a>
+                    </summary>
+                           <h4><a href="../PE0080.html">
+                               3.3.1 跨站脚本攻击
+                           </a></h4>
+                           <h4><a href="../PE1085.html">
+                               3.3.2 公式注入
+                           </a></h4>
+                           <h4><a href="../PE1102.html">
+                               3.3.3 操纵Hadoop作业
+                           </a></h4>
+                           <h4><a href="../PE1086.html">
+                               3.3.4 NoSQL注入
+                           </a></h4>
+                           <h4><a href="../PE1096.html">
+                               3.3.5 XPath注入
+                           </a></h4>
+                           <h4><a href="../PE1100.html">
+                               3.3.6 表达式语言注入
+                           </a></h4>
+                           <h4><a href="../PE1097.html">
+                               3.3.7 LDAP操纵
+                           </a></h4>
+                           <h4><a href="../PE7484.html">
+                               3.3.8 不可信的查询字符串
+                           </a></h4>
+                           <h4><a href="../PE7470.html">
+                               3.3.9 Struts文件泄露
+                           </a></h4>
+                           <h4><a href="../PE7547.html">
+                               3.3.10 Struts表单没有输入验证
+                           </a></h4>
+                           <h4><a href="../PE1110.html">
+                               3.3.11 意图操纵
+                           </a></h4>
+                           <h4><a href="../PE1104.html">
+                               3.3.12 HTTP参数污染
+                           </a></h4>
+                           <h4><a href="../PE7485.html">
+                               3.3.13 HTTP头不可信
+                           </a></h4>
+                           <h4><a href="../PE0079.html">
+                               3.3.14 系统命令注入
+                           </a></h4>
+                           <h4><a href="../PE0135.html">
+                               3.3.15 不安全的反序列化
+                           </a></h4>
+                           <h4><a href="../PE1094.html">
+                               3.3.16 XSLT注入
+                           </a></h4>
+                           <h4><a href="../PE1093.html">
+                               3.3.17 包含危险文件
+                           </a></h4>
+                           <h4><a href="../PE7589.html">
+                               3.3.18 使用Velocity进行潜在模板注入
+                           </a></h4>
+                           <h4><a href="../PE1108.html">
+                               3.3.19 Spring Bean注入
+                           </a></h4>
+                           <h4><a href="../PE7574.html">
+                               3.3.20 潜在的外部配置控制
+                           </a></h4>
+                           <h4><a href="../PE7469.html">
+                               3.3.21 Spring文件泄露
+                           </a></h4>
+                           <h4><a href="../PE0091.html">
+                               3.3.22 URL重定向到不受信任的站点
+                           </a></h4>
+                           <h4><a href="../PE7483.html">
+                               3.3.23 不可信的会话cookie值
+                           </a></h4>
+                           <h4><a href="../PE0132.html">
+                               3.3.24 下载代码时没有进行完整性检查
+                           </a></h4>
+                           <h4><a href="../PE0093.html">
+                               3.3.25 跨站点请求伪造
+                           </a></h4>
+                           <h4><a href="../PE0085.html">
+                               3.3.26 格式化字符串漏洞
+                           </a></h4>
+                           <h4><a href="../PE7509.html">
+                               3.3.27 正则表达式DOS（ReDOS）
+                           </a></h4>
+                           <h4><a href="../PE0082.html">
+                               3.3.28 LDAP 注入
+                           </a></h4>
+                           <h4><a href="../PE0081.html">
+                               3.3.29 SQL 注入
+                           </a></h4>
+                           <h4><a href="../PE1106.html">
+                               3.3.30 邮件命令注入
+                           </a></h4>
+                           <h4><a href="../PE0090.html">
+                               3.3.31 XML 外部实体攻击
+                           </a></h4>
+                           <h4><a href="../PE7570.html">
+                               3.3.32 Seam日志调用中的潜在代码注入
+                           </a></h4>
+                           <h4><a href="../PE1088.html">
+                               3.3.33 头部操纵
+                           </a></h4>
+                           <h4><a href="../PE7508.html">
+                               3.3.34 污染的文件名读取
+                           </a></h4>
+                           <h4><a href="../PE7008.html">
+                               3.3.35 使用不可信的输入数据构建HTTP cookie
+                           </a></h4>
+                           <h4><a href="../PE1099.html">
+                               3.3.36 XML注入
+                           </a></h4>
+                           <h4><a href="../PE7571.html">
+                               3.3.37 使用OGNL表达式时可能的代码注入
+                           </a></h4>
+                           <h4><a href="../PE1111.html">
+                               3.3.38 劫持Android类加载
+                           </a></h4>
+                           <h4><a href="../PE7496.html">
+                               3.3.39 FilenameUtils不过滤空字节
+                           </a></h4>
+                           <h4><a href="../PE1095.html">
+                               3.3.40 XQuery注入
+                           </a></h4>
+                           <h4><a href="../PE0088.html">
+                               3.3.41 不受控制的内存分配
+                           </a></h4>
+                           <h4><a href="../PE1087.html">
+                               3.3.42 OGNL表达式注入
+                           </a></h4>
+                           <h4><a href="../PE7481.html">
+                               3.3.43 不可信的内容类型头
+                           </a></h4>
+                           <h4><a href="../PE7473.html">
+                               3.3.44 AWS查询注入
+                           </a></h4>
+                           <h4><a href="../PE7468.html">
+                               3.3.45 格式字符串操作
+                           </a></h4>
+                           <h4><a href="../PE7471.html">
+                               3.3.46 RequestDispatcher文件泄露
+                           </a></h4>
+                           <h4><a href="../PE7590.html">
+                               3.3.47 使用Freemarker进行潜在模板注入
+                           </a></h4>
+                           <h4><a href="../PE7482.html">
+                               3.3.48 不可信的主机名头
+                           </a></h4>
+                           <h4><a href="../PE1076.html">
+                               3.3.49 资源注入
+                           </a></h4>
+                           <h4><a href="../PE7585.html">
+                               3.3.50 Scala Play中潜在的信息泄露
+                           </a></h4>
+                           <h4><a href="../PE7572.html">
+                               3.3.51 潜在的HTTP响应拆分
+                           </a></h4>
+                           <h4><a href="../PE7486.html">
+                               3.3.52 不可信的Referer头
+                           </a></h4>
+                           <h4><a href="../PE1072.html">
+                               3.3.53 不安全的反射
+                           </a></h4>
+                           <h4><a href="../PE0086.html">
+                               3.3.54 路径遍历
+                           </a></h4>
+                           <h4><a href="../PE1105.html">
+                               3.3.55 JSON注入
+                           </a></h4>
+                           <h4><a href="../PE1078.html">
+                               3.3.56 设置操纵
+                           </a></h4>
+                           <h4><a href="../PE1080.html">
+                               3.3.57 动态代码执行
+                           </a></h4>
+                           <h4><a href="../PE1092.html">
+                               3.3.58 Bean操纵
+                           </a></h4>
+                           <h4><a href="../PE1075.html">
+                               3.3.59 JavaScript劫持
+                           </a></h4>
+                           <h4><a href="../PE1077.html">
+                               3.3.60 服务器端请求伪造
+                           </a></h4>
+                           <h4><a href="../PE0092.html">
+                               3.3.61 在安全决策中依赖不可信输入
+                           </a></h4>
+                           <h4><a href="../PE7573.html">
+                               3.3.62 log的潜在CRLF注入
+                           </a></h4>
+                           <h4><a href="../PE1103.html">
+                               3.3.63 操纵Hadoop集群
+                           </a></h4>
+                           <h4><a href="../PE7480.html">
+                               3.3.64 不可信的servlet参数
+                           </a></h4>
+                           <h4><a href="../PE1082.html">
+                               3.3.65 操纵文件权限
+                           </a></h4>
+                           <h4><a href="../PE1098.html">
+                               3.3.66 服务器端模板注入
+                           </a></h4>
+                           <h4><a href="../PE1071.html">
+                               3.3.67 拒绝服务
+                           </a></h4>
+                           <h4><a href="../PE7487.html">
+                               3.3.68 不可信的User-Agent头
+                           </a></h4>
+                           <h4><a href="../PE7569.html">
+                               3.3.69 使用表达式语言（EL）时可能的代码注入
+                           </a></h4>
+                           <h4><a href="../PE0089.html">
+                               3.3.70 执行未经授权的代码或命令
+                           </a></h4>
+                </details>
+
+        </details>
+    </div>
+</article>
+
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : "..",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

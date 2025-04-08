@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="csj" />
+<meta name="description" content="正则表达式DOS（ReDOS）" />
+<meta name="keywords" content="JAVA, FIND-SEC-BUGS">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="正则表达式DOS（ReDOS）"/>
+<meta property="og:description" content="正则表达式DOS（ReDOS）"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE7509.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:06.026829+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/csj.html">
+<meta property="article:section" content="Checkers/JAVA"/>
+<meta property="article:tag" content="JAVA"/>
+<meta property="article:tag" content="FIND-SEC-BUGS"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; 正则表达式DOS（ReDOS）</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/java.html">java</a>
+        </li>
+        <li>
+            <a href="./standard/security-issues.html">安全问题</a>
+        </li>
+        <li>
+            <a href="./category/input-validation-and-representation.html">输入验证与表示</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE7509">正则表达式DOS（ReDOS）</h1>
+    <p>
+        在 2024-九月-28 发布于 <a href="./category/input-validation-and-representation.html">输入验证与表示</a> 分类
+
+        &#8226; 1 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">引用</a></li>
+</ul>
+</div>
+
+  <div>
+    
+<h1 id="_1">缺陷描述</h1>
+<p>正则表达式DOS（ReDOS）</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>
+正则表达式（regexs）经常被Denial of Service（DOS）攻击（称为ReDOS）。
+这是因为regex引擎在分析某些字符串时可能会花费大量的时间，时间取决于正则表达式的定义。<p>
+例如，对于正则表达式<b>^(a+)+$</b>, 输入"<code>aaaaaaaaaaaaaaaaX</code>" 将导致正则引擎分析65536条不同的路径。<sup>[1] 来自OWASP引用的例子</sup></p>
+<p></p></p></p>
+<p>因此，单个请求可能会在服务器端造成大量的计算。
+这个正则表达式以及其它类似的问题，是由于括号内的+（或a<em>）和括号之外的+（或a</em>）这两种不同的方式都可以被正则表达式接受。
+这样写的方式，每一个+可以使用“a”这个字符。为了解决这个问题，应该重写正则表达式来消除歧义。
+例如，这可以简单地重写为：<b>^a+$</b>，这大概是作者的意思（任意数量的a）。
+假设这就是最初的正则表达式的含义，那么这个新的正则表达式可以快速地进行评估，并且不受ReDOS的影响。</p>
+<br/>
+<p>推荐使用ReScue进行攻击测试：<a href="https://2bdenny.github.io/ReScue/">ReScue</a></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>严重</p>
+<h1 id="_4">引用</h1>
+<p><a href="http://www.jroller.com/sebastianKuebeck/entry/detecting_and_preventing_redos_vulnerabilities">Sebastian Kubeck's Weblog: Detecting and Preventing ReDoS Vulnerabilities</a><br/>
+<a href="https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS">OWASP: Regular expression Denial of Service</a><br/>
+<a href="http://cwe.mitre.org/data/definitions/400.htm">CWE-400: Uncontrolled Resource Consumption ('Resource Exhaustion')</a><br/>
+<a href="https://2bdenny.github.io/ReScue/">ReScue</a></p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/java.html">JAVA</a>
+      <a href="./tag/find-sec-bugs.html">FIND-SEC-BUGS</a>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

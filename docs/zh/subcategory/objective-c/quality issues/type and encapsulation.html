@@ -1,0 +1,1071 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='../../../theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="../../../theme/stylesheet/normalize.min.css">
+    <script src="../../../theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="../../../theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../../../theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="../../../theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">      <meta name="author" content="Pinpoint Team"/>
+    <meta name="description" content="Manual and documents for Sourcebrella Pinpoint"/> <meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Pinpoint Document"/>
+<meta property="og:description" content="Manual and documents for Sourcebrella Pinpoint"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="../../.."/>
+ 
+    <title>Pinpoint Document &ndash; Category</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href="../../..">
+                <img src="../../../theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href="../../..">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="../../../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="../../../standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="../../../standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="../../../standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="../../../standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="../../../standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="../../../standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="../../../standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="../../../standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+          <article>
+            <h1>
+            类型和封装 (9)
+            </h1>
+        </article>
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0077">结构体填充导致内存浪费</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">资源浪费</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>结构体成员根据它们在程序文本中的声明顺序排列。结构体中可能会使用填充字符，保证结构在内存中正确对齐。结构体填充是为了在多重的架构上方便成员快速访问。<br/>
+如果结构体中的成员定义顺序不当，可能会造成过多的结构体填充的产生，导致系统内存的浪费。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">资源浪费</h4>
+<p>如果结构体中的成员定义顺序不当，可能会造成过多的结构体填充的产生，导致系统内存的浪费。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_5">缓解与预防</h1>
+<p>检查结构体成员的放置顺序，重排结构体成员节省不必要的空间使用。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">bad</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">c1</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，由于结构体的成员分布不当，其中每个字符类型（char）的成员，都要占用一个独立的int位长，造成了过多的结构体填充的产生。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">bad</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">c1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，两个char类型的成员定义相连，共占用一个int位长，减少了过多的结构体填充造成的内存浪费。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0119">使用缺乏一致性定义的long long类型</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">缓解与预防</a></li>
+<li><a href="#_5">演示实例</a><ul>
+<li><a href="#_6">漏洞代码示例</a></li>
+<li><a href="#_7">漏洞代码修复示例</a></li>
+</ul>
+</li>
+<li><a href="#_8">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>使用在跨编译器上缺乏一致性定义的数据类型，如"long long"类型。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>使用在跨编译器上缺乏一致性定义的数据类型可能导致代码难以移植。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_4">缓解与预防</h1>
+<p>应使用编译器内置的或定义的宏来表示实际想要的大小，而不是假设编译器提供的类型有一个合理的大小。</p>
+<h1 id="_5">演示实例</h1>
+<h3 id="_6">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span><span class="p">;</span>  <span class="c1">//使用缺乏一致性定义的long long类型</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="_7">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">UINT64_t</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="_8">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.2.6 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0003">不兼容的指针类型转换</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">越界访问内存</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>将一种指针类型转换为不兼容的指针类型时，可能会导致越界访问内存隐患。例如将一个指向小数据类型的指针转换为一个指向大数据类型的指针时，通过转换后的指针访问内存对象时，可能会导致越界访问内存。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">越界访问内存</h4>
+<p>将一个指向小数据类型的指针转换为一个指向大数据类型的指针时，通过转换后的指针访问内存对象时，可能会导致越界访问内存。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>中</p>
+<h1 id="_5">缓解与预防</h1>
+<p>在做指针类型转换时，将指针转换为一种兼容类型。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">uint16_t</span> <span class="n">y</span><span class="p">;</span>
+  <span class="n">init</span><span class="p">((</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">y</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在第5行时，将uint16_t* 类型转为int* 类型，uint16_t* 类型指向的内存块占16个字节，int* 类型指向的内存块占32个字节，在第1行中以32个字节的大小给该内存块(大小为16字节)赋值，就会造成越界访问内存。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">uint16_t</span> <span class="n">y</span><span class="p">;</span>
+  <span class="n">init</span><span class="p">((</span><span class="kt">uint16_t</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">y</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在第5行时，做兼容的指针类型转换。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/csharp.html">CSHARP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0022">类型转换导致精度丢失</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">精度丢失</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>不同的数据类型在转换时会造成精度丢失的情况。(MISRA)-C:2004 对类型转换做了如下约束：
+MISRA-C 10.1 整型表达式如果存在以下情况，则不应该隐式转换为一个不同的类型:</p>
+<ol>
+<li>不是转换为一个同符号的宽类型；</li>
+<li>整型表达式是一个合成表达式；</li>
+<li>整型表达式不是一个常量，而是函数的参数；</li>
+<li>整型表达式不是一个常量，而是一个返回值。</li>
+</ol>
+<p>MISRA-C 10.2. 浮点型表达式如果存在以下情况，则不应该隐式转换为一个不同的类型:</p>
+<ol>
+<li>不是转换为一个同符号的宽类型；</li>
+<li>浮点型表达式是一个合成表达式；</li>
+<li>浮点型表达式是函数的参数；</li>
+<li>浮点型表达式是一个返回值。</li>
+</ol>
+<p>MISRA-C 10.3. 整型合成表达式只能转换为同符号同类型并且位数更大的值。</p>
+<p>MISRA-C 10.4. 浮点型合成表达式只能转换为同符号同类型并且位数更大的值。</p>
+<p>MISRA-C 10.5. 对unsigned char 或 unsigned short类型的变量使用位操作~或&lt;&lt;时，必须立即将结果转换为unsigned char 或 unsigned short类型。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">精度丢失</h4>
+<p>不同的数据类型在转换时会造成精度丢失的情况，精度丢失可能导致程序功能不正确。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>中</p>
+<h1 id="_5">缓解与预防</h1>
+<p>检查转换前和转换后的类型，预防精度丢失。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">double</span> <span class="n">float64_t</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="kt">int32_t</span> <span class="n">xs32a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs32b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="cm">/* Defect: Casting complex expression with</span>
+<span class="cm">  integer type to a non-integer</span>
+<span class="cm">  type float64_t */</span>
+  <span class="p">(</span><span class="kt">void</span><span class="p">)(</span><span class="n">float64_t</span><span class="p">)(</span><span class="n">xs32a</span> <span class="o">/</span> <span class="n">xs32b</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，将整型表达式xs32a / xs32b显式转换为float64_t类型，违反了MISRA-C 10.3。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">double</span> <span class="n">float64_t</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="kt">int32_t</span> <span class="n">xs32a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs32b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="p">(</span><span class="kt">void</span><span class="p">)(</span><span class="kt">int32_t</span><span class="p">)(</span><span class="n">xs32a</span> <span class="o">/</span> <span class="n">xs32b</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，将整型表达式xs32a / xs32b显式转换为int32_t类型，符合MISRA-C 10.2。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0111">删除有虚方法但无虚析构函数的对象</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">缓解与预防</a></li>
+<li><a href="#_5">演示实例</a><ul>
+<li><a href="#_6">漏洞代码示例</a></li>
+<li><a href="#_7">漏洞修复代码示例</a></li>
+</ul>
+</li>
+<li><a href="#_8">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>删除有虚方法但无虚析构函数的对象。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>如果没有把析构函数声明为virtual，通过基类的指针去删除派生类的对象时，只是调用了基类的析构函数，而没有调用派生类的析构函数，导致派生类的对象没有被回收从而产生资源泄漏问题。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_4">缓解与预防</h1>
+<p>应把析构函数都声明为virtual。</p>
+<h1 id="_5">演示实例</h1>
+<h3 id="_6">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span>               
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="c1">// 没有虚析构函数</span>
+  <span class="o">~</span><span class="n">MyClass</span><span class="p">();</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">example_fun</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">delete</span><span class="p">(</span><span class="n">MyClass</span> <span class="o">*</span><span class="n">m</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">delete</span> <span class="n">m</span><span class="p">;</span>  <span class="c1">//删除有虚方法但无虚析构函数的对象</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="_7">漏洞修复代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span>               
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="c1">//虚析构函数</span>
+  <span class="k">virtual</span>  <span class="o">~</span><span class="n">MyClass</span><span class="p">();</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">example_fun</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">delete</span><span class="p">(</span><span class="n">MyClass</span> <span class="o">*</span><span class="n">m</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">delete</span> <span class="n">m</span><span class="p">;</span>      
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="_8">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.5.21 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0121">在typedef中使用packed属性</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">缓解与预防</a></li>
+<li><a href="#_5">演示实例</a><ul>
+<li><a href="#_6">漏洞代码示例</a></li>
+<li><a href="#_7">漏洞代码修复示例</a></li>
+</ul>
+</li>
+<li><a href="#_8">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>在用typedef定义structure或union的别名时使用packed属性。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>packed属性只能用于structure或union的类型定义。packed属性用于typedef中会被忽略。<br/>
+"packed"的作用是使字节对齐，一些平台对某些特定类型的数据只能从某些特定地址开始存取，如一个变量没有进行字节对齐，有些架构的CPU在访问时可能会发生错误；如果不按照适合其平台要求对数据存放进行对齐，会降低存取的效率。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_4">缓解与预防</h1>
+<p>不在用typedef定义structure或union的别名时使用packed属性。</p>
+<h1 id="_5">演示实例</h1>
+<h3 id="_6">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span>    
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span> <span class="n">__attribute__</span><span class="p">((</span><span class="n">packed</span><span class="p">))</span> <span class="n">S</span><span class="p">;</span>  <span class="c1">// packed属性将会忽略</span>
+</pre></div>
+</td></tr></table>
+<h3 id="_7">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span>    
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span> <span class="n">S</span><span class="p">;</span> 
+</pre></div>
+</td></tr></table>
+<h1 id="_8">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.5.32 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0117">初始化成员的顺序不正确</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">缓解与预防</a></li>
+<li><a href="#_5">演示实例</a><ul>
+<li><a href="#_6">漏洞代码示例</a></li>
+</ul>
+</li>
+<li><a href="#_7">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>在初始化类中的成员时，跟列表中成员顺序不一致。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>初始化列表成员顺序不正确可能导致部分成员未正确初始化。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_4">缓解与预防</h1>
+<p>应按列表成员的次序来初始化各成员。</p>
+<h1 id="_5">演示实例</h1>
+<h3 id="_6">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span>
+<span class="p">{</span>
+    <span class="n">MyClass1</span> <span class="n">mc1</span><span class="p">;</span>
+    <span class="n">MyClass2</span> <span class="n">mc2</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">//初始化成员的顺序与列表中成员顺序不一致</span>
+    <span class="n">MyClass</span><span class="p">()</span> <span class="o">:</span> <span class="n">MyClass2</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">MyClass1</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{}</span>  
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<h1 id="_7">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.6.5 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0017">子类型重载父类虚方法时const限定符不一致</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">逻辑错误</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>子类型重载父类虚方法时const限定符不一致，则并没有实际的重载操作。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">逻辑错误</h4>
+<p>子类型重载父类虚方法时const限定符不一致，则并没有实际的重载操作。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>中</p>
+<h1 id="_5">缓解与预防</h1>
+<p>修改父类或子类的方法声明，统一方法的const限定符。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="n">virtual</span> <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="cm">/*...*/</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">class</span> <span class="nl">B</span> <span class="p">:</span> <span class="n">public</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span>  <span class="p">{</span> <span class="cm">/* ... */</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，B::setName的本意是重载A::setName，但是在定义B::setName时缺少const限定符，导致重载失败。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="n">virtual</span> <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span>  <span class="k">const</span> <span class="p">{</span> <span class="cm">/*...*/</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">class</span> <span class="nl">B</span> <span class="p">:</span> <span class="n">public</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span>  <span class="k">const</span> <span class="p">{</span> <span class="cm">/* ... */</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，给B::setName方法提供const限定符，与A::setName保持一致。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0122">不确定的存储结果</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">缓解与预防</a></li>
+<li><a href="#_5">演示实例</a><ul>
+<li><a href="#_6">漏洞代码示例</a></li>
+<li><a href="#_7">漏洞代码修复示例</a></li>
+</ul>
+</li>
+<li><a href="#_8">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>结构体中成员的字节位置取决于编译器的<code>#pragma align</code>和<code>#pragma pack</code>预处理指令。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>结构体中成员的字节位置取决于编译器的<code>#pragma align</code>和<code>#pragma pack</code>预处理指令可能导致代码移植时发生问题。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_4">缓解与预防</h1>
+<p>重新调整结构体中成员的顺序，使成员的起始位置和大小不受编译器的<code>#pragma align</code>和<code>#pragma pack</code>预处理指令影响。</p>
+<h1 id="_5">演示实例</h1>
+<h3 id="_6">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">ST</span> 
+<span class="p">{</span>
+    <span class="n">UINT16_t</span> <span class="n">a</span><span class="p">;</span>
+    <span class="n">UINT32_t</span> <span class="n">b</span><span class="p">;</span>  <span class="c1">//b成员可能从结构体的第3个字节开始，也可能从第5个字节开始</span>
+    <span class="n">UINT16_t</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<h3 id="_7">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">ST</span> 
+<span class="p">{</span>
+     <span class="n">UINT16_t</span> <span class="n">a</span><span class="p">;</span>
+     <span class="n">UINT16_t</span> <span class="n">b</span><span class="p">;</span>
+     <span class="n">UINT32_t</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<h1 id="_8">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.3.20 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : "../../..",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="ddj" />
+<meta name="description" content="执行命令或从不受信任的源或不受信任的环境加载库可能导致应用程序代表攻击者执行恶意命令。" />
+<meta name="keywords" content="C, C++, JAVA, CWE-114">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="执行未经授权的代码或命令"/>
+<meta property="og:description" content="执行命令或从不受信任的源或不受信任的环境加载库可能导致应用程序代表攻击者执行恶意命令。"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE0089.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:05.749828+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/ddj.html">
+<meta property="article:section" content="Checkers/JAVA"/>
+<meta property="article:tag" content="C"/>
+<meta property="article:tag" content="C++"/>
+<meta property="article:tag" content="JAVA"/>
+<meta property="article:tag" content="CWE-114"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; 执行未经授权的代码或命令</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/c.html">c</a>
+              <a href="./standard/java.html">java</a>
+        </li>
+        <li>
+            <a href="./standard/security-issues.html">安全问题</a>
+        </li>
+        <li>
+            <a href="./category/input-validation-and-representation.html">输入验证与表示</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE0089">执行未经授权的代码或命令</h1>
+    <p>
+        在 2024-九月-28 发布于 <a href="./category/input-validation-and-representation.html">输入验证与表示</a> 分类
+
+        &#8226; 1 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">缓解与预防</a></li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">演示示例</a><ul>
+<li><a href="#1">漏洞代码示例 1</a><ul>
+<li><a href="#1_1">修复代码示例 1</a></li>
+</ul>
+</li>
+<li><a href="#2">漏洞代码示例 2</a><ul>
+<li><a href="#2_1">修复代码示例 2</a></li>
+</ul>
+</li>
+<li><a href="#3">漏洞代码示例 3</a></li>
+<li><a href="#3_1">修复代码示例3</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+  <div>
+    
+<h1 id="_1">缺陷描述</h1>
+<p>执行未经授权的代码或命令有两种形式：</p>
+<ol>
+<li>攻击者可以更改程序执行的命令：攻击者明确控制该命令是什么。</li>
+<li>攻击者可以改变命令执行的环境：攻击者隐式地控制命令的含义。</li>
+</ol>
+<p>第一种类型在数据从不可信源进入应用程序，并且数据用作表示由应用程序执行的命令的字符串的一部分时发生。 通过执行该命令，应用程序会给攻击者一个攻击者不会拥有的特权或能力。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>执行未经授权的代码或命令</p>
+<h1 id="_3">缓解与预防</h1>
+<p>加载的动态库应该来自可信来源。应用程序可以执行本地库中包含的代码，这些代码通常包含易受其他安全问题影响的调用，例如缓冲区溢出或命令注入。 应验证所有本机库以确定应用程序是否需要使用该库。确定这些本地库实际执行的内容非常困难，并且存在恶意代码的概率很高。 另外，这些本地库中的存在意想不到的错误的可能性也很高，因为许多错误都是用C或C++编写的，并且可能容易受到缓冲区溢出或竞争条件问题的影响。 为了帮助防止缓冲区溢出攻击，请将所有输入验证为本地调用的内容和长度。如果本机库不是来自可信来源，请查看库的源代码。 在使用它之前，应该使用经过审查的来源构建库。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>严重</p>
+<h1 id="_5">演示示例</h1>
+<h3 id="1">漏洞代码示例 1</h3>
+<p>以下代码使用System.loadLibrary()从本地库library.dll中加载代码，该库通常位于标准系统目录中。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">"library.dll"</span><span class="o">);</span>
+<span class="o">...</span>
+</pre></div>
+</td></tr></table>
+<p>这里的问题是System.loadLibrary()接受一个库名称，而不是一个路径，用于加载库。从Java 1.4.2 API文档中，该函数的行为如下：包含本机代码的文件是从本地文件系统从传统获取库文件的位置加载的。这个过程的细节是依赖于实现的。 从库名到特定文件名的映射是以系统特定的方式完成的。 如果攻击者能够在搜索顺序中将library.dll的恶意副本放在应用程序想要加载的文件中，则应用程序将加载恶意副本而不是预期文件。 由于应用程序的性质，它使用提升的权限运行，这意味着攻击者的library.dll的内容现在将以提升的权限运行，可能会让他们完全控制系统。</p>
+<h4 id="1_1">修复代码示例 1</h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="c1">// 用全路径</span>
+<span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">"C:\\path_to_real_lib\\library.dll"</span><span class="o">);</span>
+<span class="o">...</span>
+</pre></div>
+</td></tr></table>
+<h3 id="2">漏洞代码示例 2</h3>
+<p>以下特权应用程序中的代码使用注册表项来确定安装它的目录，并根据指定目录中的相对路径加载库文件。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span>...
+RegQueryValueEx(hkey, "APPHOME", 0, 0, (BYTE*)home, &amp;size);
+char* lib=(char*)malloc(strlen(home)+strlen(INITLIB));
+if (lib) {
+  strcpy(lib,home);
+  strcat(lib,INITCMD);
+  LoadLibrary(lib);
+}
+...
+</pre></div>
+</td></tr></table>
+<p>本示例中的代码允许攻击者通过修改注册表项来指定包含恶意版本的INITLIB的不同路径，从而加载任意库，从该库中将应用程序的提升特权执行代码。 由于程序不验证从环境读取的值，如果攻击者可以控制APPHOME的值，他们可以欺骗应用程序运行恶意代码。</p>
+<h4 id="2_1">修复代码示例 2</h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="o">...</span>
+
+<span class="c1">// 修改注册表前确保修改数据的安全</span>
+<span class="k">if</span> <span class="o">(!</span><span class="n">is_safe_key</span><span class="o">(</span><span class="n">hkey</span><span class="o">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">is_safe</span><span class="o">(</span><span class="n">home</span><span class="o">))</span> <span class="o">{</span>
+ <span class="n">error_handle</span><span class="o">(</span><span class="s">"Unsafe Reg editing"</span><span class="o">);</span>
+    <span class="k">return</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="n">RegQueryValueEx</span><span class="o">(</span><span class="n">hkey</span><span class="o">,</span> <span class="s">"APPHOME"</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="o">(</span><span class="n">BYTE</span><span class="o">*)</span><span class="n">home</span><span class="o">,</span> <span class="o">&amp;</span><span class="n">size</span><span class="o">);</span>
+<span class="kt">char</span><span class="o">*</span> <span class="n">lib</span><span class="o">=(</span><span class="kt">char</span><span class="o">*)</span><span class="n">malloc</span><span class="o">(</span><span class="n">strlen</span><span class="o">(</span><span class="n">home</span><span class="o">)+</span><span class="n">strlen</span><span class="o">(</span><span class="n">INITLIB</span><span class="o">));</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">lib</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">strcpy</span><span class="o">(</span><span class="n">lib</span><span class="o">,</span><span class="n">home</span><span class="o">);</span>
+  <span class="n">strcat</span><span class="o">(</span><span class="n">lib</span><span class="o">,</span><span class="n">INITCMD</span><span class="o">);</span>
+  <span class="n">LoadLibrary</span><span class="o">(</span><span class="n">lib</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="o">...</span>
+</pre></div>
+</td></tr></table>
+<h3 id="3">漏洞代码示例 3</h3>
+<p>以下代码来自基于Web的管理实用程序，该实用程序允许用户访问可通过其更新系统配置文件的界面。 该实用程序使用名为liberty.dll的库，该库通常位于标准系统目录中。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>LoadLibrary("liberty.dll");
+</pre></div>
+</td></tr></table>
+<p>问题是程序没有指定liberty.dll的绝对路径。如果攻击者能够将一个名为liberty.dll的恶意库放在搜索顺序中而不是应用程序打算加载的文件中，那么应用程序将加载恶意副本而不是预期文件。由于应用程序的性质，它使用提升的特权运行，这意味着攻击者的liberty.dll的内容现在将以提升的特权运行，可能会使攻击者完全控制系统。在没有指定绝对路径时，由于LoadLibrary()使用的搜索顺序，在此示例中看到的攻击类型成为可能。如果在系统目录之前搜索当前目录，就像直到最新版本的Windows一样，那么如果攻击者可以在本地执行程序，这种类型的攻击就变得微不足道了。搜索顺序依赖于操作系统版本，并且通过注册表项的值在较新的操作系统上进行控制：HKLM\System\CurrentControlSet\Control\Session Manager\SafeDllSearchMode</p>
+<h3 id="3_1">修复代码示例3</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// 使用全路径</span>
+<span class="n">LoadLibrary</span><span class="o">(</span><span class="s">"C:\\path_to_real_lib\\liberty.dll"</span><span class="o">);</span>
+</pre></div>
+</td></tr></table>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cwe">
+<p>http://cwe.mitre.org/data/definitions/114.html <a class="footnote-backref" href="#fnref-cwe" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/c.html">C</a>
+      <a href="./tag/c.html">C++</a>
+      <a href="./tag/java.html">JAVA</a>
+      <a href="./tag/cwe-114.html">CWE-114</a>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>
