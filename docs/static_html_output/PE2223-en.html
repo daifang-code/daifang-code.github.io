@@ -1,0 +1,55 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2223">PE2223: prefer-template</h2>
+    <h3>Suggest using template literals instead of string concatenation. (prefer-template)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2223</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Suggest using template literals instead of string concatenation. (prefer-template)</h4>
+<p>In ES2015 (ES6), we can use template literals instead of string concatenation.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;Hello, &quot;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;!&quot;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="sb">`Hello, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule is aimed to flag usage of <code>+</code> operators with strings.</p>
+<h2>Examples</h2>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-template: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;Hello, &quot;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;!&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;Time: &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="mi">12</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-template: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;Hello World!&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="sb">`Hello, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="sb">`Time: </span><span class="si">${</span><span class="mi">12</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+
+<span class="c1">// This is reported by `no-useless-concat`.</span>
+<span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;Hello, &quot;</span> <span class="o">+</span> <span class="s2">&quot;World!&quot;</span><span class="p">;</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>This rule should not be used in ES3/5 environments.</p>
+<p>In ES2015 (ES6) or later, if you don't want to be notified about string concatenation, you can safely disable this rule.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-useless-concat.md">no-useless-concat</a></li>
+<li><a href="quotes.md">quotes</a></li>
+</ul>
+
+    </section>
+</article>

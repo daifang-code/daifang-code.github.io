@@ -1,0 +1,74 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0013">PE0013: 类中缺少显式的拷贝构造函数或赋值操作符</h2>
+    <h3>类中缺少显式的拷贝构造函数或赋值操作符。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0013</dd>
+                    <dt>标签</dt>
+                    <dd>CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在某些状况下，类内成员变量需要动态开辟堆内存，如果实行位拷贝（浅拷贝），也就是把对象里的值完全复制给另一个对象，如A=B。这时，如果B中有一个成员变量指针已经申请了内存，那A中的那个成员变量也指向同一块内存。这就出现了问题：当B把内存释放了（如：析构），这时A内的指针就是野指针了，出现运行错误。</p>
+<h4>漏洞与风险</h4>
+<h5>野指针</h5>
+<p>类中缺少显式的拷贝构造函数或赋值操作符，可能在拷贝或赋值的过程中产生野指针。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>提供显式的拷贝构造函数或赋值操作符。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">bad</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">bad</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="o">:</span> <span class="n">p</span><span class="p">(</span><span class="n">_strdup</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="p">{}</span>
+  <span class="o">~</span><span class="n">bad</span><span class="p">()</span> <span class="p">{</span> <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="p">}</span>
+  <span class="c1">// no copy constructor at all</span>
+  <span class="c1">// no assignment operator at all</span>
+  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">p</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">operator</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">str</span><span class="p">();</span> <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>在上面的代码中，类bad中包含指针成员变量p，但是缺少显式的拷贝构造函数或赋值操作符。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">good</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+  <span class="c1">// copy constructor</span>
+  <span class="n">good</span><span class="p">(</span><span class="k">const</span> <span class="n">good</span> <span class="o">&amp;</span><span class="n">init</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">){</span>
+      <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">p</span><span class="o">=</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">init</span><span class="p">.</span><span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">init</span><span class="p">.</span><span class="n">p</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// assignment operator</span>
+  <span class="n">good</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">good</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">!=</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">){</span>
+        <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="n">p</span><span class="o">=</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">rhs</span><span class="p">.</span><span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+      <span class="n">strcpy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">rhs</span><span class="p">.</span><span class="n">p</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="o">~</span><span class="n">good</span><span class="p">()</span> <span class="p">{</span> <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="p">}</span>
+  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">p</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">operator</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">str</span><span class="p">();</span> <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>在上面的代码中，类good中包含指针成员变量p，并且提供了显式的拷贝构造函数和赋值操作符。</p>
+
+    </section>
+</article>

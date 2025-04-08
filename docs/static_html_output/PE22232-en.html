@@ -1,0 +1,78 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22232">PE22232: DUO122</h2>
+    <h3>DUO122</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22232</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO122</h4>
+<p>This linter looks for unsafe use of the Python <code>ssl</code> module.</p>
+<p>Making secure HTTPS connections is a notoriously difficult task filled with
+many non-obvious gotchas. This linter performs basic sanity checks on various
+common mistakes.</p>
+<h2>Problematic code</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ssl</span>
+
+<span class="n">ssl</span><span class="o">.</span><span class="n">_https_verify_certificates</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ssl</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_unverified_context</span><span class="p">()</span>
+<span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s2">&quot;https://insecure-website&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ssl</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">SSLContext</span><span class="p">(</span><span class="n">ssl</span><span class="o">.</span><span class="n">PROTOCOL_SSLv3</span><span class="p">)</span>
+<span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s2">&quot;https://insecure-website&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ssl</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">SSLContext</span><span class="p">(</span><span class="n">ssl</span><span class="o">.</span><span class="n">PROTOCOL_TLSv1_2</span><span class="p">)</span>
+<span class="n">context</span><span class="o">.</span><span class="n">verify_mode</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">CERT_NONE</span>
+<span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s2">&quot;https://insecure-website&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+</pre></div>
+<h2>Correct code</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ssl</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">create_default_context</span><span class="p">()</span>
+<span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s2">&quot;https://secure-website&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+</pre></div>
+<h2>Rationale</h2>
+<p>For more information see <a href="https://docs.python.org/3/library/ssl.html#ssl-security"><code>ssl</code> security considerations</a>.</p>
+<h2>Exceptions</h2>
+<ul>
+<li><code>PROTOCOL_TLS</code> and <code>PROTOCOL_SSLv23</code> negotiate the highest protocol version</li>
+</ul>
+<p>both the client and server support. This means that the secure
+<code>PROTOCOL_TLSv1_2</code> may be chosen, or the insecure <code>PROTOCOL_SSLv3</code> may be
+chosen. This negotiation is prone to <a href="https://en.wikipedia.org/wiki/Downgrade_attack">downgrade attacks</a>,
+and leaves room for insecure connections, so we should prefer explicitly
+allowing only secure protocols. These attributes may be a false positive under
+certain circumstances, however we should err on the side of security.</p>
+<ul>
+<li>There will often be times when using the most secure options will not be</li>
+</ul>
+<p>possible. For example, the server you're communicating with does not support
+modern protocols and is not under your control. Further, there can be network
+middleware (proxies, etc) that does not support the most secure options. In
+these situations the challenges may not be completely technical ones and you
+may have to fallback on insecure (or at least not <em>the most</em> secure) options -
+here you'll have to use your best judgement.</p>
+<ul>
+<li>Connections to local development services or in test environments.</li>
+</ul>
+
+    </section>
+</article>

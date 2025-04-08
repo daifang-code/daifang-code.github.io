@@ -1,0 +1,100 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2181">PE2181: no-underscore-dangle</h2>
+    <h3>禁止标识符中有悬空下划线 (no-underscore-dangle)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2181</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止标识符中有悬空下划线 (no-underscore-dangle)</h4>
+<p>在 JavaScript 中，就标识符命名规范而言，悬空下划线可能是最两极分化的了。悬空下划线是在标识符的开头或末尾的下划线，例如:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">_foo</span><span class="p">;</span>
+</pre></div>
+<p>事实上，在 JavaScript 中有很长一段历史使用悬空下划线来表示对象中的“私有”成员(虽然 JavaScript 并没有正真的私有成员，这个约定起警示作用)。这始于 SpiderMonkey 添加的非标准方法，比如 <code>__defineGetter__()</code>。下划线的意图是让它很明显的看出这个方法在某种程度上很特别。从那时起，使用单个下划线作为前缀来表示对象的“私有”成员变得流行起来。</p>
+<p>是否选择允许悬空下划线出现在标识符中纯粹只是个约定，不会影响性能，可读性或复杂性。它纯粹是个人偏好。</p>
+<h2>缺陷详因</h2>
+<p>该规则旨在消除标识符中悬空下划线的使用。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-underscore-dangle: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo_</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">__proto__</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">_bar</span><span class="p">();</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-underscore-dangle: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">_</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;underscore&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">items</span><span class="p">,</span> <span class="nx">item</span><span class="p">);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">__filename</span><span class="p">;</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则有一个对象选项：</p>
+<ul>
+<li><code>&quot;allow&quot;</code> 允许指定标识符使用悬空下划线</li>
+<li><code>&quot;allowAfterThis&quot;: false</code> (默认) 禁止在 <code>this</code> 对象的成员变量上使用悬空下划线</li>
+<li><code>&quot;allowAfterSuper&quot;: false</code> (默认) 禁止在 <code>super</code> 对象的成员变量上使用悬空下划线</li>
+<li><code>&quot;enforceInMethodNames&quot;: false</code> (默认) 允许在方法名中使用悬空下划线</li>
+</ul>
+<h5>allow</h5>
+<p>选项 <code>{ &quot;allow&quot;: [&quot;foo_&quot;, &quot;_bar&quot;] }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-underscore-dangle: [&quot;error&quot;, { &quot;allow&quot;: [&quot;foo_&quot;, &quot;_bar&quot;] }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo_</span><span class="p">;</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">_bar</span><span class="p">();</span>
+</pre></div>
+<h5>allowAfterThis</h5>
+<p>选项 <code>{ &quot;allowAfterThis&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-underscore-dangle: [&quot;error&quot;, { &quot;allowAfterThis&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">foo_</span><span class="p">;</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">_bar</span><span class="p">();</span>
+</pre></div>
+<h5>allowAfterSuper</h5>
+<p>选项 <code>{ &quot;allowAfterSuper&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-underscore-dangle: [&quot;error&quot;, { &quot;allowAfterSuper&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="kr">super</span><span class="p">.</span><span class="nx">foo_</span><span class="p">;</span>
+<span class="kr">super</span><span class="p">.</span><span class="nx">_bar</span><span class="p">();</span>
+</pre></div>
+<h5>enforceInMethodNames</h5>
+<p>选项 <code>{ &quot;enforceInMethodNames&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-underscore-dangle: [&quot;error&quot;, { &quot;enforceInMethodNames&quot;: true }]*/</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+  <span class="nx">_bar</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+  <span class="nx">bar_</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">_bar</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">bar_</span><span class="p">()</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你允许标识符中有悬空下划线，你可以关闭此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-underscore-dangle.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-underscore-dangle.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

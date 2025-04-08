@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7449">BE7449: 没有使用类型限定符的值在需要具有该限定符的值时使用</h2>
+    <h3>没有使用类型限定符的值在需要具有该限定符的值时使用</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7449</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>没有使用类型限定符的值在需要具有该限定符的值时使用</p>
+<h4>漏洞与风险</h4>
+<p>一个值被使用的方式需要用类型限定符来注释。类型限定符是严格的，因此该工具拒绝任何没有适当注释的值。</p>
+        <p>为了强制一个值有一个严格的注释，定义一个恒等函数，其中返回值用严格的注释标注。这是将一个不带注释的值转换为一个严格类型限定符注释值的唯一方法。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

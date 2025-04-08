@@ -1,0 +1,130 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2031">PE2031: func-name-matching</h2>
+    <h3>require function names to match the name of the variable or property to which they are assigned (func-name-matching)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2031</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>require function names to match the name of the variable or property to which they are assigned (func-name-matching)</h4>
+<h2>Rule Details</h2>
+<p>This rule requires function names to match the name of the variable or property to which they are assigned. The rule will ignore property assignments where the property name is a literal that is not a valid identifier in the ECMAScript version specified in your configuration (default ES5).</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-name-matching: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{};</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{};</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{};</span>
+<span class="nx">obj</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{}};</span>
+<span class="p">({[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{}});</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-name-matching: [&quot;error&quot;, &quot;never&quot;] */</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{};</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{};</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{};</span>
+<span class="nx">obj</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}};</span>
+<span class="p">({[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-name-matching: &quot;error&quot;*/</span>
+<span class="cm">/*eslint func-name-matching: [&quot;error&quot;, &quot;always&quot;]*/</span> <span class="c1">// these are equivalent</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{};</span>
+<span class="nx">obj</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{};</span>
+<span class="nx">obj</span><span class="p">[</span><span class="s1">&#39;foo//bar&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{};</span>
+<span class="nx">obj</span><span class="p">[</span><span class="nx">foo</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{[</span><span class="nx">foo</span><span class="p">]</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{}};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo//bar&#39;</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}};</span>
+
+<span class="nx">obj</span><span class="p">[</span><span class="s1">&#39;x&#39;</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){};</span>
+<span class="kd">var</span> <span class="p">[</span> <span class="nx">bar</span> <span class="p">]</span> <span class="o">=</span> <span class="p">[</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){}</span> <span class="p">];</span>
+<span class="p">({[</span><span class="nx">foo</span><span class="p">]</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{}})</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{};</span>
+<span class="nx">module</span><span class="p">[</span><span class="s1">&#39;exports&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{};</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-name-matching: [&quot;error&quot;, &quot;never&quot;] */</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{};</span>
+<span class="nx">obj</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{};</span>
+<span class="nx">obj</span><span class="p">[</span><span class="s1">&#39;foo//bar&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{};</span>
+<span class="nx">obj</span><span class="p">[</span><span class="nx">foo</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{}};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{[</span><span class="nx">foo</span><span class="p">]</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo//bar&#39;</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}};</span>
+
+<span class="nx">obj</span><span class="p">[</span><span class="s1">&#39;x&#39;</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){};</span>
+<span class="kd">var</span> <span class="p">[</span> <span class="nx">bar</span> <span class="p">]</span> <span class="o">=</span> <span class="p">[</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){}</span> <span class="p">];</span>
+<span class="p">({[</span><span class="nx">foo</span><span class="p">]</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{}})</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{};</span>
+<span class="nx">module</span><span class="p">[</span><span class="s1">&#39;exports&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{};</span>
+</pre></div>
+<h2>Options</h2>
+<p>This rule takes an optional string of &quot;always&quot; or &quot;never&quot; (when omitted, it defaults to &quot;always&quot;), and an optional options object with two properties <code>considerPropertyDescriptor</code> and <code>includeCommonJSModuleExports</code>.</p>
+<h5>considerPropertyDescriptor</h5>
+<p>A boolean value that defaults to <code>false</code>. If <code>considerPropertyDescriptor</code> is set to true, the check will take into account the use <code>Object.create</code>, <code>Object.defineProperty</code>, <code>Object.defineProperties</code>, and <code>Reflect.defineProperty</code>.</p>
+<p>Examples of <strong>correct</strong> code for the <code>{ considerPropertyDescriptor: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-name-matching: [&quot;error&quot;, { &quot;considerPropertyDescriptor&quot;: true }]*/</span>
+<span class="cm">/*eslint func-name-matching: [&quot;error&quot;, &quot;always&quot;, { &quot;considerPropertyDescriptor&quot;: true }]*/</span> <span class="c1">// these are equivalent</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span><span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}}});</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{}});</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperties</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="p">{</span><span class="nx">baz</span><span class="o">:</span><span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">baz</span><span class="p">()</span> <span class="p">{}</span> <span class="p">}});</span>
+<span class="nx">Reflect</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}});</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for the <code>{ considerPropertyDescriptor: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-name-matching: [&quot;error&quot;, { &quot;considerPropertyDescriptor&quot;: true }]*/</span>
+<span class="cm">/*eslint func-name-matching: [&quot;error&quot;, &quot;always&quot;, { &quot;considerPropertyDescriptor&quot;: true }]*/</span> <span class="c1">// these are equivalent</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span><span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{}}});</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">baz</span><span class="p">()</span> <span class="p">{}});</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperties</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="p">{</span><span class="nx">baz</span><span class="o">:</span><span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span> <span class="p">}});</span>
+<span class="nx">Reflect</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">value</span><span class="p">()</span> <span class="p">{}});</span>
+</pre></div>
+<h5>includeCommonJSModuleExports</h5>
+<p>A boolean value that defaults to <code>false</code>. If <code>includeCommonJSModuleExports</code> is set to true, <code>module.exports</code> and <code>module[&quot;exports&quot;]</code> will be checked by this rule.</p>
+<p>Examples of <strong>incorrect</strong> code for the <code>{ includeCommonJSModuleExports: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-name-matching: [&quot;error&quot;, { &quot;includeCommonJSModuleExports&quot;: true }]*/</span>
+<span class="cm">/*eslint func-name-matching: [&quot;error&quot;, &quot;always&quot;, { &quot;includeCommonJSModuleExports&quot;: true }]*/</span> <span class="c1">// these are equivalent</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{};</span>
+<span class="nx">module</span><span class="p">[</span><span class="s1">&#39;exports&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{};</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>Do not use this rule if you want to allow named functions to have different names from the variable or property to which they are assigned.</p>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS</strong>: <a href="https://jscs-dev.github.io/rule/requireMatchingFunctionName">requireMatchingFunctionName</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7093">BE7093: Bad attempt to compute absolute value of signed random integer</h2>
+    <h3>Bad attempt to compute absolute value of signed random integer</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7093</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Bad attempt to compute absolute value of signed random integer</p>
+<h4>Vulnerability and risk</h4>
+<p> This code generates a random signed integer and then computes
+the absolute value of that random integer.  If the number returned by the random number
+generator is <code>Integer.MIN_VALUE</code>, then the result will be negative as well (since
+<code>Math.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE</code>). (Same problem arises for long values as well).
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

@@ -1,0 +1,142 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1039">PE1039: Insecure command line args</h2>
+    <h3>The length of user command line can be very long, leading to buffer overflow.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1039</dd>
+                    <dt>Tags</dt>
+                    <dd>CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The length of user command line can be very long, leading to buffer overflow.</p>
+<h4>Vulnerability and risk</h4>
+<h5>Improper Restriction of Operations within the Bounds of a Memory Buffer</h5>
+<p>The software performs operations on a memory buffer, but it can read from or write to a memory location that is outside of the intended boundary of the buffer.</p>
+<p>Certain languages allow direct addressing of memory locations and do not automatically ensure that these locations are valid for the memory buffer that is being referenced. This can cause read or write operations to be performed on memory locations that may be associated with other variables, data structures, or internal program data.</p>
+<p>As a result, an attacker may be able to execute arbitrary code, alter the intended control flow, read sensitive information, or cause the system to crash.</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+<h4>Potential Mitigations</h4>
+<h5>Phase: Architecture and Design</h5>
+<p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p>
+<p>Examples include the Safe C String Library (SafeStr) by Messier and Viega [REF-57], and the Strsafe.h library from Microsoft [REF-56]. These libraries provide safer versions of overflow-prone string-handling functions.</p>
+<p>Note: This is not a complete solution, since many buffer overflows are not related to strings.</p>
+<h5>Build and Compilation</h5>
+<p>Run or compile the software using features or extensions that automatically provide a protection mechanism that mitigates or eliminates buffer overflows.</p>
+<p>For example, certain compilers and extensions provide automatic buffer overflow detection mechanisms that are built into the compiled code. Examples include the Microsoft Visual Studio /GS flag, Fedora/Red Hat FORTIFY_SOURCE GCC flag, StackGuard, and ProPolice.</p>
+<p>Note: This is not necessarily a complete solution, since these mechanisms can only detect certain types of overflows. In addition, an attack could still cause a denial of service, since the typical response is to exit the application.</p>
+<h5>Phase: Implementation</h5>
+<p>Consider adhering to the following rules when allocating and managing an application's memory:</p>
+<p>Double check that your buffer is as large as you specify.</p>
+<p>When using functions that accept a number of bytes to copy, such as strncpy(), be aware that if the destination buffer size is equal to the source buffer size, it may not NULL-terminate the string.</p>
+<p>Check buffer boundaries if accessing the buffer in a loop and make sure you are not in danger of writing past the allocated space.</p>
+<p>If necessary, truncate all input strings to a reasonable length before passing them to the copy and concatenation functions.</p>
+<h5>Phase: Operation</h5>
+<p>Run or compile the software using features or extensions that randomly arrange the positions of a program's executable and libraries in memory. Because this makes the addresses unpredictable, it can prevent an attacker from reliably jumping to exploitable code.</p>
+<p>Examples include Address Space Layout Randomization (ASLR) [REF-58] [REF-60] and Position-Independent Executables (PIE) [REF-64].</p>
+<p>Note: This is not a complete solution. However, it forces the attacker to guess an unknown value that changes every program execution. In addition, an attack could still cause a denial of service, since the typical response is to exit the application.</p>
+<h5>Phase: Operation</h5>
+<p>Use a CPU and operating system that offers Data Execution Protection (NX) or its equivalent [REF-60] [REF-61].</p>
+<p>Note: This is not a complete solution, since buffer overflows could be used to overwrite nearby variables to modify the software's state in dangerous ways. In addition, it cannot be used in cases in which self-modifying code is required. Finally, an attack could still cause a denial of service, since the typical response is to exit the application.</p>
+<h5>Phase: Implementation</h5>
+<p>Replace unbounded copy functions with analogous functions that support length arguments, such as strcpy with strncpy. Create these if they are not available.
+Effectiveness: Moderate</p>
+<p>Note: This approach is still susceptible to calculation errors, including issues such as off-by-one errors (CWE-193) and incorrectly calculating buffer lengths (CWE-131).</p>
+<h4>Demonstrative Examples</h4>
+<h5>bad example</h5>
+<p>example1</p>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">host_lookup</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">user_supplied_addr</span><span class="p">){</span>
+    <span class="k">struct</span> <span class="n">hostent</span> <span class="o">*</span><span class="n">hp</span><span class="p">;</span>
+    <span class="n">in_addr_t</span> <span class="o">*</span><span class="n">addr</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">hostname</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+    <span class="n">in_addr_t</span> <span class="n">inet_addr</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">cp</span><span class="p">);</span>
+
+    <span class="c1">// routine that ensures user_supplied_addr is in the </span>
+    <span class="c1">// right format for conversion </span>
+
+    <span class="n">validate_addr_form</span><span class="p">(</span><span class="n">user_supplied_addr</span><span class="p">);</span>
+    <span class="n">addr</span> <span class="o">=</span> <span class="n">inet_addr</span><span class="p">(</span><span class="n">user_supplied_addr</span><span class="p">);</span>
+    <span class="n">hp</span> <span class="o">=</span> <span class="n">gethostbyaddr</span><span class="p">(</span> <span class="n">addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">in_addr</span><span class="p">),</span> <span class="n">AF_INET</span><span class="p">);</span>
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">hp</span><span class="o">-&gt;</span><span class="n">h_name</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>This example takes an IP address from a user, verifies that it is well formed and then looks up the hostname and copies it into a buffer.</p>
+<p>This function allocates a buffer of 64 bytes to store the hostname, however there is no guarantee that the hostname will not be larger than 64 bytes. If an attacker specifies an address which resolves to a very large hostname, then we may overwrite sensitive data or even relinquish control flow to the attacker.</p>
+<p>Note that this example also contains an unchecked return value (CWE-252) that can lead to a NULL pointer dereference (CWE-476).</p>
+<p>example2</p>
+<div class="highlight"><pre><span></span><span class="kt">char</span> <span class="o">*</span> <span class="nf">copy_input</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">user_supplied_string</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">dst_index</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">dst_buf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="o">*</span> <span class="n">MAX_SIZE</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="n">MAX_SIZE</span> <span class="o">&lt;=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">user_supplied_string</span><span class="p">)</span> <span class="p">){</span>
+        <span class="n">die</span><span class="p">(</span><span class="s">&quot;user string too long, die evil hacker!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">dst_index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">strlen</span><span class="p">(</span><span class="n">user_supplied_string</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span> <span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span> <span class="sc">&#39;&amp;&#39;</span> <span class="o">==</span> <span class="n">user_supplied_string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">){</span>
+            <span class="n">dst_buf</span><span class="p">[</span><span class="n">dst_index</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;&amp;&#39;</span><span class="p">;</span>
+            <span class="n">dst_buf</span><span class="p">[</span><span class="n">dst_index</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;a&#39;</span><span class="p">;</span>
+            <span class="n">dst_buf</span><span class="p">[</span><span class="n">dst_index</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;m&#39;</span><span class="p">;</span>
+            <span class="n">dst_buf</span><span class="p">[</span><span class="n">dst_index</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;p&#39;</span><span class="p">;</span>
+            <span class="n">dst_buf</span><span class="p">[</span><span class="n">dst_index</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;;&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="sc">&#39;&lt;&#39;</span> <span class="o">==</span> <span class="n">user_supplied_string</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">){</span>
+        <span class="cm">/* encode to &lt; */</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="n">dst_buf</span><span class="p">[</span><span class="n">dst_index</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_supplied_string</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">dst_buf</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>This example applies an encoding procedure to an input string and stores it into a buffer.</p>
+<p>The programmer attempts to encode the ampersand character in the user-controlled string, however the length of the string is validated before the encoding procedure is applied. Furthermore, the programmer assumes encoding expansion will only expand a given character by a factor of 4, while the encoding of the ampersand expands by 5. As a result, when the encoding procedure expands the string it is possible to overflow the destination buffer if the attacker provides a string of many ampersands.</p>
+<p>example3</p>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">items</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;boat&quot;</span><span class="p">,</span> <span class="s">&quot;car&quot;</span><span class="p">,</span> <span class="s">&quot;truck&quot;</span><span class="p">,</span> <span class="s">&quot;train&quot;</span><span class="p">};</span>
+    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">GetUntrustedOffset</span><span class="p">();</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;You selected %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="n">index</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
+<span class="p">}</span>
+</pre></div>
+<p>The following example asks a user for an offset into an array to select an item.</p>
+<p>The programmer allows the user to specify which element in the list to select, however an attacker can provide an out-of-bounds offset, resulting in a buffer over-read (CWE-126).</p>
+<p>example4</p>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">getValueFromArray</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
+    <span class="c1">// check that the array index is less than the maximum</span>
+    <span class="c1">// length of the array</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// get the value at the specified index of the array</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="c1">// if array index is invalid then output error message</span>
+    <span class="c1">// and return value indicating error</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Value is: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">array</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In this code, the method retrieves a value from an array at a specific array index location that is given as an input parameter to the method.</p>
+<p>However, this method only verifies that the given array index is less than the maximum length of the array but does not check for the minimum value (CWE-839). This will allow a negative value to be accepted as the input array index, which will result in a out of bounds read (CWE-125) and may allow access to sensitive memory. The input array index should be checked to verify that is within the maximum and minimum range required for the array (CWE-129). In this example the if statement should be modified to include a minimum range check, as shown below.</p>
+<h5>good example</h5>
+<div class="highlight"><pre><span></span><span class="c1">// check that the array index is within the correct</span>
+<span class="c1">// range of values for the array</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/119.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1111">PE1111: 劫持Android类加载</h2>
+    <h3>攻击者能够通过改变命令的执行环境，进而使程序从非受信的资源中加载库</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1111</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>从非受信的资源中或在非受信的环境下执行命令或加载库都可能会使得程序以攻击者的名义执行任意的恶意代码。</p>
+<h4>漏洞与风险</h4>
+<p>攻击者能够通过改变命令的执行环境，进而使程序从非受信的资源中加载库。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>要清楚了解待加载的库，并从可信源进行加载。</p>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/114.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

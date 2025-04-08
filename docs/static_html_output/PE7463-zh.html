@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7463">BE7463: 默认编码依赖</h2>
+    <h3>默认编码依赖</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7463</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>默认编码依赖</p>
+<h4>漏洞与风险</h4>
+<p>找到了一个方法的调用，该调用将执行一个字节到字符串（或字符串到字节）的转换，并假定默认的平台编码是合适的。这将导致应用的程序行为在不同的平台之间变化。使用另一种API并显式地指定一个Charset名称或Charset对象。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

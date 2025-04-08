@@ -1,0 +1,34 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7342">BE7342: Using monitor style wait methods on util.concurrent abstraction</h2>
+    <h3>Using monitor style wait methods on util.concurrent abstraction</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7342</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Using monitor style wait methods on util.concurrent abstraction</p>
+<h4>Vulnerability and risk</h4>
+<p> This method calls
+<code>wait()</code>,
+<code>notify()</code> or
+<code>notifyAll()()</code>
+on an object that also provides an
+<code>await()</code>,
+<code>signal()</code>,
+<code>signalAll()</code> method (such as util.concurrent Condition objects).
+This probably isn't what you want, and even if you do want it, you should consider changing
+your design, as other developers will find it exceptionally confusing.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

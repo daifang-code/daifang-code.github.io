@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7432">BE7432: 不可序列化的对象写入ObjectOutput</h2>
+    <h3>不可序列化的对象写入ObjectOutput</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7432</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>不可序列化的对象写入ObjectOutput</p>
+<h4>漏洞与风险</h4>
+<p>此代码似乎将一个不可序列化的对象传递给ObjectOutput.writeObject方法。如果该对象确实是不可序列化的，则会产生错误。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

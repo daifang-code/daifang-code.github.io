@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7404">BE7404: 未经检查/未经确认的方法返回值转换</h2>
+    <h3>未经检查/未经确认的方法返回值转换</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7404</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>未经检查/未经确认的方法返回值转换</p>
+<h4>漏洞与风险</h4>
+<p>此代码对未经检查的方法返回值进行强制转换。代码可能以这样的方式调用方法，即保证转换是安全的，但Pinpoint无法验证转换是否安全。检查您的程序逻辑是否确保此强制转换不会失败。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

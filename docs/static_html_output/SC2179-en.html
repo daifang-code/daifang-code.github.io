@@ -1,0 +1,34 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2179">SC2179: Improper variable update</h2>
+    <h3>Use array+=("item") to append items to an array.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2179</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Use array+=(&quot;item&quot;) to append items to an array.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">var</span><span class="o">=(</span>one two<span class="o">)</span>
+<span class="nv">var</span><span class="o">+=</span>three
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">var</span><span class="o">=(</span>one two<span class="o">)</span>
+<span class="nv">var</span><span class="o">+=(</span> three <span class="o">)</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>It looks like you are trying to append a string to an array with <code>var+=string</code>. This instead appends to the first element of the array (equivalent to <code>var[0]+=three</code>).</p>
+<p>In the problematic code, the array will therefore contain <code>onethree</code> <code>two</code>.</p>
+<p>Instead, append an array to the array with <code>var+=( elements )</code>. This will append the new items to the array.</p>
+<p>In the correct code, it will contain <code>one</code> <code>two</code> <code>three</code> as expected.</p>
+<h5>Exceptions:</h5>
+<p>If ShellCheck mistakenly thinks the variable is an array when it's not (e.g. because the same name was used in a different context), you can ignore this error.</p>
+
+    </section>
+</article>

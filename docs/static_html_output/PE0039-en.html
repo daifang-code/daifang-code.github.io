@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0039">PE0039: Infinite Loop</h2>
+    <h3>The exit conditions are based on a variable that isn't changed in the local loop will lead to an infinite loop. </h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0039</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The program contains an iteration or loop with an exit condition that cannot be reached, i.e., an infinite loop.</p>
+<h4>Vulnerability and risk</h4>
+<h5>denial of service attack</h5>
+<p>An infinite loop can cause a program to hang up indefinitely or crash, possibly allowing a denial-of-service (DoS) attack due to excessive use of CPU or memory resources.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Change the logic of the loop to avoid an infinite loop.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">global_var</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">global_var</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+      <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, the exit is based on variable <code>global_var</code>, which has been defined as a global variable outside the function <code>bad</code> and is never changed in the while loop. This will lead to an infinite loop.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">global_var</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">global_var</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="n">global_var</span><span class="o">--</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example, change the value of variable <code>global_var</code> in the while loop.</p>
+
+    </section>
+</article>

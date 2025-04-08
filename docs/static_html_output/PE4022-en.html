@@ -1,0 +1,42 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4022">PE4022: uninitial ctor</h2>
+    <h3>uninitial ctor</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE4022</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>A non-static data member of a class/struct is not initialised by the constructor.
+It may cause unexpected program behavior if the member is used with an uninitialized value later.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Critical</p>
+<h4>Demonstrative Examples</h4>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">Base</span><span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+  <span class="n">Base</span><span class="p">()</span><span class="o">:</span> <span class="n">m_b</span><span class="p">(</span><span class="mi">7</span><span class="p">),</span> <span class="n">m_a</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Compliant</span>
+
+  <span class="p">}</span>
+
+  <span class="n">Base</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span><span class="o">:</span> <span class="n">m_a</span><span class="p">(</span><span class="n">a</span><span class="p">){</span> <span class="c1">// Non-compliant</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">GetmB</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">m_b</span><span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="nl">private</span><span class="p">:</span>
+  <span class="kt">int</span> <span class="n">m_a</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">m_b</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+    </section>
+</article>

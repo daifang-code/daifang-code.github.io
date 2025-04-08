@@ -1,0 +1,44 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2251">SC2251: Using '!' outside conditions</h2>
+    <h3>This ! is not on a condition and skips errexit. Use `&& exit 1` instead, or make sure $? is checked.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2251</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This ! is not on a condition and skips errexit. Use <code>&amp;&amp; exit 1</code> instead, or make sure $? is checked.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">set</span> -e
+! <span class="nb">false</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">set</span> -e
+! <span class="nb">false</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="m">1</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck has found a command inverted with <code>!</code> that may have no effect. In particular, it does not appear as a condition in an <code>if</code> statement or <code>while</code> loop, or as the final command in a script or function.</p>
+<p>The most common reason for this is thinking that it'll trigger <code>set -e</code> aka <code>errexit</code> if a command succeeds, as in the example. This is not the case: <code>!</code> will inhibit errexit both on success and failure of the inverted command.</p>
+<p>Using <code>&amp;&amp; exit</code> will instead exit when failure when the command succeeds.</p>
+<h5>Exceptions:</h5>
+<p>ShellCheck will not detect cases where <code>$?</code> is implicitly or explicitly used to check the value afterwards:</p>
+
+<pre><code>set -e;
+check_success() { [ $? -eq 0 ] || exit 1; }
+! false; check_success
+! true; check_success
+</code></pre>
+<p>In this case, you can [[ignore]] the warning.</p>
+<h5>Related resources:</h5>
+<ul>
+<li>StackOverflow: <a href="https://stackoverflow.com/questions/39581150/why-do-i-need-parenthesis-in-bash-set-e-and-negated-return-code/39582012">Why do I need parenthesis In bash <code>set -e</code> and negated return code</a></li>
+</ul>
+
+    </section>
+</article>

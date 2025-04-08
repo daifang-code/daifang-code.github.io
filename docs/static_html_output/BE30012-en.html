@@ -1,0 +1,22 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE30012">BE30012: ASP</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE30012</dd>
+                    <dt>Tags</dt>
+                    <dd>csharp</dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>ASP.NET allows remote debugging of Web applications. if configured to do so. By default. debugging is subject to access control and requires platform-level authentication. If an attacker can successfully initiate a remote debugging session. it is likely that it will disclose sensitive information about the web application and the supporting infrastructure that can be valuable in formulating targeted system attacks. To disable debugging. open the Web.config file for the application and find the &lt;compilation&gt; element in the &lt;system.web&gt; section. Set the debug attribute to 'false'. Note that it is also possible to enable debugging for all applications in the Machine.config file. You must confirm that the debug attribute in the &lt;compilation&gt; element has not been set to 'true' in the Machine.config file. https://support.microsoft.com/en-us/help/815157/how-to-disable-debugging-for-asp-net-applications</p>
+<h4>Likelihood of exploit</h4>
+<p>Low</p>
+
+    </section>
+</article>

@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1011">SC1011: Invalid quote mark</h2>
+    <h3>This apostrophe terminated the single quoted string!</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1011</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This apostrophe terminated the single quoted string!</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;Nothing so needs reforming as other people&#39;</span>s habits.<span class="err">&#39;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;Nothing so needs reforming as other people&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;s habits.&#39;</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;Nothing so needs reforming as other people&#39;s habits.&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>When writing a string in single quotes, you have to make sure that any apostrophes in the text don't accidentally terminate the single quoted string prematurely.</p>
+<p>Escape them properly (see the correct code) or switch quotes to avoid the problem.</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

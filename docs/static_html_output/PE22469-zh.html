@@ -1,0 +1,36 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22469">PE22469: F811</h2>
+    <h3>Redefinition of unused name from line n</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22469</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>模块已导入两次，原始导入未使用。应该删除其中一个导入，并且您应该确保它正在文件中使用。</p>
+<h5>示例错误片段</h5>
+<p>在本例中，我们导入<code>json</code>又是一次。</p>
+
+<pre><code>import json
+import os
+import json
+
+</code></pre>
+<h5>最佳修复</h5>
+
+<pre><code>import json
+import os
+
+
+
+</code></pre>
+<h4>References</h4>
+
+    </section>
+</article>

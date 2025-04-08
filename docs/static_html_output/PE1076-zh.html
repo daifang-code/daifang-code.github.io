@@ -1,0 +1,46 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1076">PE1076: 资源注入</h2>
+    <h3>攻击者通过操纵资源标识符来利用验证输入信息过程中的缺陷</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1076</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>攻击者通过操纵资源标识符来利用验证输入信息过程中的缺陷，从而意想不到地实现某个资源的修改或说明（modification or specification）。</p>
+<h4>漏洞与风险</h4>
+<p>某个资源有个能遭受无意的修改或说明。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<ul>
+<li>确保所有发送给客户端的输入内容都经过了一个可接受的内容说明的清洗。</li>
+<li>对所有的内容进行输入验证。</li>
+<li>强制对软件定期打补丁。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>下面的例子展示了一个程序未经任何验证过程，从HTTP请求中获取端口号并以该端口号创建了一条socket管道。别有用心的用户可以通过使用代理来更改该端口号，从而获取到一条与服务器直接进行通讯的连接：</p>
+<div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">rPort</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&quot;remotePort&quot;</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="n">ServerSocket</span> <span class="n">srvr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServerSocket</span><span class="o">(</span><span class="n">rPort</span><span class="o">);</span>
+<span class="n">Socket</span> <span class="n">skt</span> <span class="o">=</span> <span class="n">srvr</span><span class="o">.</span><span class="na">accept</span><span class="o">();</span> 
+<span class="o">...</span>
+</pre></div>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.owasp.org/index.php/Resource_Injection<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://capec.mitre.org/data/definitions/240.html<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

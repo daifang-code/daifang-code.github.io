@@ -1,0 +1,68 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7479">BE7479: 可预测的伪随机数发生器（Scala）</h2>
+    <h3>可预测的伪随机数发生器（Scala）</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7479</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>可预测的伪随机数发生器（Scala）</p>
+<h4>漏洞与风险</h4>
+<p>在某些安全非常重要的环境中使用可预测的随机值会导致漏洞。
+例如，当值被用作：</p>
+<ul>
+<li>CSRF令牌：可预测的令牌可以导致CSRF攻击，攻击者将知道令牌的值。</li>
+<li>密码重置令牌（通过电子邮件发送）：可预测的密码令牌可以导致帐户接管，因为攻击者会猜测更改密码表单的URL
+  </li>
+<li>任何其它密钥值
+</li>
+</ul>
+<p>一个快速的解决方案可能是用更强的随机值替换使用<b>java.util.Random</b>，比如<b>java.security.SecureRandom</b>.
+</p>
+<p>
+<b>易受攻击的代码：</b><br/>
+<pre>import scala.util.Random
+def generateSecretToken() {
+    val result = Seq.fill(16)(Random.nextInt)
+    return result.map("%02x" format _).mkString
+}</pre>
+</p>
+<p>
+    <b>解决方法：</b>
+<pre>import java.security.SecureRandom
+def generateSecretToken() {
+    val rand = new SecureRandom()
+    val value = Array.ofDim[Byte](16)
+    rand.nextBytes(value)
+    return value.map("%02x" format _).mkString
+}</pre>
+</p>
+<p>
+<b>
+解决方法：</b>
+<pre>import java.security.SecureRandom
+import scala.util.Random._
+def generateSecretToken() {
+    val secRandom = javaRandomToRandom(new SecureRandom())
+    val result = Seq.fill(16)(secRandom.nextInt)
+    return result.map("%02x" format _).mkString
+}</pre>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://jazzy.id.au/default/2010/09/20/cracking_random_number_generators_part_1.html&quot;&gt;Cracking Random Number Generators - Part 1 (http://jazzy.id.au)&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://www.securecoding.cert.org/confluence/display/java/MSC02-J.+Generate+strong+random+numbers&quot;&gt;CERT: MSC02-J. Generate strong random numbers&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/330.html&quot;&gt;CWE-330: Use of Insufficiently Random Values&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://blog.h3xstream.com/2014/12/predicting-struts-csrf-token-cve-2014.html&quot;&gt;Predicting Struts CSRF Token (Example of real-life vulnerability and exploitation)&lt;/a&gt;</p>
+
+    </section>
+</article>

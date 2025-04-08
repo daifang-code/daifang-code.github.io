@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22218">PE22218: DUO108</h2>
+    <h3>DUO108</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22218</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO108</h4>
+<p>此linter搜索内置<code>input</code>函数的使用情况。这个函数相当于<code>eval（raw_input（…））</code>，因此通常允许任意与用户输入结合时，代码执行错误。</p>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Text here: &#39;</span><span class="p">)</span>
+<span class="n">Text</span> <span class="n">here</span><span class="p">:</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/passwd&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+<h2>正确代码</h2>
+<div class="highlight"><pre><span></span><span class="nb">raw_input</span><span class="p">(</span><span class="s1">&#39;Text here: &#39;</span><span class="p">)</span>
+<span class="n">Text</span> <span class="n">here</span><span class="p">:</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/etc/passwd&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+<h2>来源</h2>
+<h2>特别提及</h2>
+<p>*代码使用<code>六步移动输入</code>其行为类似于python3的<code>input</code>，因此是安全的</p>
+
+    </section>
+</article>

@@ -1,0 +1,68 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0135">PE0135: 不安全的反序列化</h2>
+    <h3>如果没有充分验证结果数据是否有效，应用程序将对不可信数据进行反序列化。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0135</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA, CWE-502 ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>序列化对象以进行通信或将其保存以供以后使用通常很方便。 但是，序列化的数据可能被攻击者修改，当开发人员在反序列化过程中（即在将对象返回给调用者之前）自行执行的一系列实例和方法调用没有限制时，攻击者有时可能利用它们来执行未授权的行为，如生成一个shell。</p>
+<h4>漏洞与风险</h4>
+<p>这可能导致两种主要类型的攻击：
+1 如果应用中存在可以在反序列化过程中或者之后被改变行为的类，则攻击者可以通过改变应用逻辑或者实现远程代码执行攻击。我们将其称为对象和数据结构攻击。
+2 典型的数据篡改攻击，如访问控制相关的攻击，其中使用了现有的数据结构，但内容发生了变化。</p>
+<h4>缓解与预防</h4>
+<p>唯一安全的架构模式是不接受来自不受信源的序列化对象，或使用只允许原始数据类型的序列化媒体。</p>
+<p>1 执行完整性检查，如：任何序列化对象的数字签名，以防止恶意对象创建或数据篡改。
+2 在创建对象之前强制执行严格的类型约束，因为代码通常被期望成一组可定义的类。绕过这种技术的方法已经被证明，所以完全依赖于它是不可取的。
+3 如果可能，隔离运行那些在低特权环境中反序列化的代码。
+4 记录反序列化的例外情况和失败信息，如：传入的类型不是预期的类型，或者反序列处理引发的例外情况。
+5 限制或监视来自于容器或服务器传入和传出的反序列化网络连接。
+6 监控反序列化，当用户持续进行反序列化时，对用户进行警告。</p>
+<ol>
+<li><p>避免从不可信任的数据来源进行反序列化，或者只序列化基本数据类型。</p>
+</li>
+<li><p>如果有的话，使用程序语言提供的签名特性来保证反序列化的数据没有污染。比如基于哈希的消息认证码（HMAC）可以被用来检查是否被修改。</p>
+</li>
+<li><p>当反序列化数据时，创建一个新的对象而不是仅反序列化。</p>
+</li>
+<li><p>显式地定义final的对象防止其被反序列化。</p>
+</li>
+<li><p>标记类的域为transient以防止其被反序列化。序列化和反序列化包含transient域的类时，transient域会变成空引用。这是很好的一种方式防止时间相关、环境相关或是敏感的变量被不当地传递的方式。</p>
+</li>
+</ol>
+<h4>漏洞利用威胁</h4>
+<p>高危</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">try</span> <span class="o">{</span>
+  <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;object.obj&quot;</span><span class="o">);</span>
+  <span class="n">ObjectInputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">));</span>
+  <span class="n">javax</span><span class="o">.</span><span class="na">swing</span><span class="o">.</span><span class="na">JButton</span> <span class="n">button</span> <span class="o">=</span> <span class="o">(</span><span class="n">javax</span><span class="o">.</span><span class="na">swing</span><span class="o">.</span><span class="na">JButton</span><span class="o">)</span> <span class="n">in</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+  <span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+<p>此代码在反序列化之前不会尝试验证文件的来源或内容。 攻击者可能能够用包含任意恶意代码的文件替换目标文件，该文件将在按下按钮时执行。</p>
+<h5>修复代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kd">private</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">in</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOException</span> <span class="o">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOException</span><span class="o">(</span><span class="s">&quot;Cannot be deserialized&quot;</span><span class="o">);</span> 
+<span class="o">}</span>
+</pre></div>
+<p>这里明确定义了最终的readObject()以防止反序列化。</p>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/502.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

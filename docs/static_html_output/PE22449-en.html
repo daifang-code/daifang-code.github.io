@@ -1,0 +1,56 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22449">PE22449: F405</h2>
+    <h3>Name may be undefined, or defined from star imports: module</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22449</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>This warning occurs in conjunction with issue F403,
+<code>'from module import *' used</code>. It means that the variable <code>name</code> <em>could</em>
+be undefined, but flake8 cannot be sure because it also <em>could</em> also be
+imported in the star imports.</p>
+<p>Confirm that the variable is defined in the star imports. If it is,
+explicitly import it instead of importing <code>*</code>. If not, then define the
+variable.</p>
+<h5>Anti-pattern</h5>
+
+<pre><code>from mymodule import *
+
+def print_name():
+    print(name)  # name could be defined in mymodule
+
+</code></pre>
+<h5>Best practice</h5>
+<p>Either explicitly import <code>name</code>…</p>
+
+<pre><code>from mymodule import name
+
+def print_name():
+    print(name)
+
+</code></pre>
+<p>…or define <code>name</code>.</p>
+
+<pre><code>from mymodule import *
+
+def print_name(name):
+    print(name)
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#imports<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

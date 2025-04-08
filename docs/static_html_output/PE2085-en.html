@@ -1,0 +1,42 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2085">PE2085: no-control-regex</h2>
+    <h3>disallow control characters in regular expressions (no-control-regex)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2085</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow control characters in regular expressions (no-control-regex)</h4>
+<p>Control characters are special, invisible characters in the ASCII range 0-31. These characters are rarely used in JavaScript strings so a regular expression containing these characters is most likely a mistake.</p>
+<h2>Rule Details</h2>
+<p>This rule disallows control characters in regular expressions.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-control-regex: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">pattern1</span> <span class="o">=</span> <span class="sr">/\x1f/</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">pattern2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">&quot;\x1f&quot;</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-control-regex: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">pattern1</span> <span class="o">=</span> <span class="sr">/\x20/</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">pattern2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">&quot;\x20&quot;</span><span class="p">);</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you need to use control character pattern matching, then you should turn this rule off.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-div-regex.md">no-div-regex</a></li>
+<li><a href="no-regex-spaces.md">no-regex-spaces</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,42 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22231">PE22231: DUO121</h2>
+    <h3>DUO121</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22231</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO121</h4>
+<p>这个短线搜索<code>临时文件.mktemp</code>功能。这个函数可能会在代码中引入竞争条件，这可能会产生负面影响安全。</p>
+<blockquote>
+<p>使用此函数可能会在程序中引入安全漏洞。通过&gt;当你用文件名it做任何事情的时候&gt;回来了，可能是别人打了你一拳。<code>mktemp（）</code>用法&gt;可以很容易地替换为<code>NamedTemporaryFile（）</code>，将其传递给&gt;<code>delete=False</code>参数。</p>
+</blockquote>
+<p>注意，<code>mkstemp</code>（带<code>s</code>）函数也是安全的。</p>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="n">temp_filename</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mktemp</span><span class="p">()</span>
+</pre></div>
+<h2>正确代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">delete</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">temp_filename</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="n">fd</span><span class="p">,</span> <span class="n">temp_filename</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">()</span>  <span class="c1"># &quot;mkstemp&quot; with &quot;s&quot;</span>
+</pre></div>
+<p>请注意，在这两种情况下都有（1）个要关闭的打开文件描述符和（2）要从磁盘上删除的文件。还要注意，NamedTemporaryFile<code>可以用作上下文管理器，例如使用</code>with`语句。</p>
+<h2>来源</h2>
+<h2>特别提及</h2>
+
+    </section>
+</article>

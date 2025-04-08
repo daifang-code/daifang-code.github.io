@@ -1,0 +1,72 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1088">PE1088: Header Manipulation</h2>
+    <h3>The software receives data from an upstream component, but does not neutralize or incorrectly neutralizes CR and LF characters before the data is included in outgoing HTTP headers</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1088</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Including unvalidated data in an HTTP header allows an attacker to specify the entirety of the HTTP response rendered by the browser. When an HTTP request contains unexpected CR (carriage return, also given by %0d or \r) and LF (line feed, also given by %0a or \n) characters the server may respond with an output stream that is interpreted as two different HTTP responses (instead of one). An attacker can control the second response and mount attacks such as cross-site scripting and cache poisoning attacks.</p>
+<p>HTTP response splitting weaknesses may be present when:</p>
+<ul>
+<li>Data enters a web application through an untrusted source, most frequently an HTTP request.</li>
+<li>The data is included in an HTTP response header sent to a web user without being validated for malicious characters.</li>
+</ul>
+<h4>Vulnerability and risk</h4>
+<p>CR and LF characters in an HTTP header may give attackers control of the remaining headers and body of the response the application intends to send, as well as allowing them to create additional responses entirely under their control.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<ul>
+<li><p>Assume all input is malicious. Use an &quot;accept known good&quot; input validation strategy, i.e., use a whitelist of acceptable inputs that strictly conform to specifications.</p>
+</li>
+<li><p>Use and specify an output encoding that can be handled by the downstream component that is reading the output.</p>
+</li>
+<li><p>Make sure that the application does not decode the same input twice.</p>
+</li>
+</ul>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<p>The following code segment reads the name of the author of a weblog entry, author, from an HTTP request and sets it in a cookie header of an HTTP response.</p>
+<div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">author</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="n">AUTHOR_PARAM</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="n">Cookie</span> <span class="n">cookie</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Cookie</span><span class="o">(</span><span class="s">&quot;author&quot;</span><span class="o">,</span> <span class="n">author</span><span class="o">);</span>
+<span class="n">cookie</span><span class="o">.</span><span class="na">setMaxAge</span><span class="o">(</span><span class="n">cookieExpiration</span><span class="o">);</span>
+<span class="n">response</span><span class="o">.</span><span class="na">addCookie</span><span class="o">(</span><span class="n">cookie</span><span class="o">);</span>
+</pre></div>
+<p>Assuming a string consisting of standard alpha-numeric characters, such as &quot;Jane Smith&quot;, is submitted in the request the HTTP response including this cookie might take the following form:</p>
+
+<pre><code>HTTP/1.1 200 OK
+...
+Set-Cookie: author=Jane Smith
+...
+</code></pre>
+<p>However, because the value of the cookie is formed of unvalidated user input the response will only maintain this form if the value submitted for AUTHOR_PARAM does not contain any CR and LF characters. If an attacker submits a malicious string, such as</p>
+
+<pre><code>Wiley Hacker\r\nHTTP/1.1 200 OK\r\n
+</code></pre>
+<p>then the HTTP response would be split into two responses of the following form:</p>
+
+<pre><code>HTTP/1.1 200 OK
+...
+Set-Cookie: author=Wiley Hacker HTTP/1.1 200 OK
+...
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/113.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://www.owasp.org/index.php/Top_10-2017_A1-Injection<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

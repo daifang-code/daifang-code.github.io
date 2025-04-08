@@ -1,0 +1,37 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2169">PE2169: no-spaced-func</h2>
+    <h3>disallow spacing between function identifiers and their applications (no-spaced-func)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2169</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow spacing between function identifiers and their applications (no-spaced-func)</h4>
+<p>This rule was <strong>deprecated</strong> in ESLint v3.3.0 and replaced by the <a href="func-call-spacing.md">func-call-spacing</a> rule.</p>
+<p>While it's possible to have whitespace between the name of a function and the parentheses that execute it, such patterns tend to look more like errors.</p>
+<h2>Rule Details</h2>
+<p>This rule disallows spacing between function identifiers and their applications.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-spaced-func: &quot;error&quot;*/</span>
+
+<span class="nx">fn</span> <span class="p">()</span>
+
+<span class="nx">fn</span>
+<span class="p">()</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-spaced-func: &quot;error&quot;*/</span>
+
+<span class="nx">fn</span><span class="p">()</span>
+</pre></div>
+
+    </section>
+</article>

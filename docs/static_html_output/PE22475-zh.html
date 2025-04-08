@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22475">PE22475: F841</h2>
+    <h3>Local variable name is assigned to but never used</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22475</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>函数中的局部变量已定义，但未被使用。应删除此局部变量。</p>
+<h5>示例错误片段</h5>
+
+<pre><code>def full_name(self):
+    # name is defined but not used
+    name = self.first_name + ' ' + self.last_name
+    return self.first_name
+
+
+
+</code></pre>
+<h4>References</h4>
+
+    </section>
+</article>

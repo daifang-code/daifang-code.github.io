@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="luobin" />
+<meta name="description" content="要求对象属性按序排列 (sort-keys)" />
+<meta name="keywords" content="">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="sort-keys"/>
+<meta property="og:description" content="要求对象属性按序排列 (sort-keys)"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE2235.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:05.854828+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/luobin.html">
+<meta property="article:section" content="misc"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; sort-keys</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/javascript.html">javascript</a>
+        </li>
+        <li>
+            <a href="./standard/style-issues.html">风格问题</a>
+        </li>
+        <li>
+            <a href="./category/code-style-and-efficiency.html">代码风格和效率</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE2235">sort-keys</h1>
+    <p>
+        在 2024-九月-28 发布于 <a href="./category/code-style-and-efficiency.html">代码风格和效率</a> 分类
+
+        &#8226; 3 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#sort-keys">要求对象属性按序排列 (sort-keys)</a><ul>
+<li><a href="#_1">缺陷详因</a></li>
+<li><a href="#_2">修改方案</a><ul>
+<li><a href="#desc">desc</a></li>
+<li><a href="#insensitive">insensitive</a></li>
+<li><a href="#natural">natural</a></li>
+</ul>
+</li>
+<li><a href="#_3">当该情况下该规则可忽略</a></li>
+<li><a href="#related-rules">Related Rules</a></li>
+<li><a href="#compatibility">Compatibility</a></li>
+<li><a href="#eslint">Eslint版本</a></li>
+<li><a href="#_4">来源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+  <div>
+    
+<p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h1 id="sort-keys">要求对象属性按序排列 (sort-keys)</h1>
+<p>当声明多个属性是，一些开发人员倾向于属性按字母顺序进行排列，可以在以后更容易地找到必要的属性。其他人则认为对属性进行排序增加了复杂性，并成为维护的负担。</p>
+<h2 id="_1">缺陷详因</h2>
+<p>该规则检查对象表达式中所有属性的定义，确认所有变量都是按字母顺序排序的。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: "error"*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"c"</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+
+<span class="c1">// Case-sensitive by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">C</span><span class="o">:</span> <span class="mi">3</span><span class="p">};</span>
+
+<span class="c1">// Non-natural order by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="o">:</span> <span class="nx">a</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="nx">c</span><span class="p">,</span> <span class="mi">10</span><span class="o">:</span> <span class="nx">b</span><span class="p">};</span>
+
+<span class="c1">// This rule checks computed properties which have a simple name as well.</span>
+<span class="c1">// Simple names are names which are expressed by an Identifier node or a Literal node.</span>
+<span class="kr">const</span> <span class="nx">S</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="s2">"s"</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s2">"c"</span><span class="p">]</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="nx">S</span><span class="p">]</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p><strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: "error"*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"b"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">};</span>
+
+<span class="c1">// Case-sensitive by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">C</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+
+<span class="c1">// Non-natural order by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="o">:</span> <span class="nx">a</span><span class="p">,</span> <span class="mi">10</span><span class="o">:</span> <span class="nx">b</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="nx">c</span><span class="p">};</span>
+
+<span class="c1">// This rule checks computed properties which have a simple name as well.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s2">"b"</span><span class="p">]</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="nx">b</span><span class="p">]</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">};</span>
+
+<span class="c1">// This rule ignores computed properties which have a non-simple name.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="nx">c</span> <span class="o">+</span> <span class="nx">d</span><span class="p">]</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s2">"c"</span> <span class="o">+</span> <span class="s2">"d"</span><span class="p">]</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="sb">`</span><span class="si">${</span><span class="nx">c</span><span class="si">}</span><span class="sb">`</span><span class="p">]</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="nx">tag</span><span class="sb">`c`</span><span class="p">]</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_2">修改方案</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">"sort-keys"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"error"</span><span class="p">,</span> <span class="s2">"asc"</span><span class="p">,</span> <span class="p">{</span><span class="nt">"caseSensitive"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">"natural"</span><span class="p">:</span> <span class="kc">false</span><span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>第一个选项是 <code>"asc"</code> 或 <code>"desc"</code>。</p>
+<ul>
+<li><code>"asc"</code> (默认) - 强制所有属性按升序排列。</li>
+<li><code>"desc"</code> - 强制所有属性按降序排列。</li>
+</ul>
+<p>第二个选项是个对象，有 2 个属性。</p>
+<ul>
+<li><code>caseSensitive</code> - 如果为 <code>true</code>，强制所有属性排序区分大小写。默认为 <code>true</code>。</li>
+<li><code>natural</code> - 如果为 <code>true</code> 强制所有属性按自然顺序排列。默认为 <code>false</code>。自然顺序以人的排序方式进行排序，比较包含字母和数字的字符串。它基本上上是按数字排序的，而不是按字母顺序排序。所以在自然顺序排序中数字 10 排在数字 3。</li>
+</ul>
+<p>比如：</p>
+<p><code>natural</code> 为 true，排序结果为：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>1
+3
+6
+8
+10
+</pre></div>
+</td></tr></table>
+<p><code>natural</code> 为 false，排序结果为：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>1
+10
+3
+6
+8
+</pre></div>
+</td></tr></table>
+<h3 id="desc">desc</h3>
+<p>选项 <code>"desc"</code> 的 <strong>错误</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: ["error", "desc"]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"b"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+
+<span class="c1">// Case-sensitive by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">C</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+
+<span class="c1">// Non-natural order by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">10</span><span class="o">:</span> <span class="nx">b</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="nx">c</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="nx">a</span><span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p>选项 <code>"desc"</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: ["error", "desc"]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"b"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+
+<span class="c1">// Case-sensitive by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">b</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">C</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+
+<span class="c1">// Non-natural order by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="o">:</span> <span class="nx">c</span><span class="p">,</span> <span class="mi">10</span><span class="o">:</span> <span class="nx">b</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="nx">a</span><span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<h3 id="insensitive">insensitive</h3>
+<p>选项 <code>{caseSensitive: false}</code> 的 <strong>错误</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: ["error", "asc", {caseSensitive: false}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">C</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">C</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p>选项 <code>{caseSensitive: false}</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: ["error", "asc", {caseSensitive: false}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">C</span><span class="o">:</span> <span class="mi">4</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">C</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">4</span><span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<h3 id="natural">natural</h3>
+<p>选项 <code>{natural: true}</code> 的 <strong>错误</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: ["error", "asc", {natural: true}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="o">:</span> <span class="nx">a</span><span class="p">,</span> <span class="mi">10</span><span class="o">:</span> <span class="nx">c</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="nx">b</span><span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<p>选项 <code>{natural: true}</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: ["error", "asc", {natural: true}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="o">:</span> <span class="nx">a</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="nx">b</span><span class="p">,</span> <span class="mi">10</span><span class="o">:</span> <span class="nx">c</span><span class="p">};</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_3">当该情况下该规则可忽略</h2>
+<p>如果你想收到关于属性顺序的通知，可以禁用此规则。</p>
+<h2 id="related-rules">Related Rules</h2>
+<ul>
+<li><a href="sort-imports">sort-imports</a></li>
+<li><a href="sort-vars">sort-vars</a></li>
+</ul>
+<h2 id="compatibility">Compatibility</h2>
+<ul>
+<li><strong>JSCS:</strong> <a href="http://jscs.info/rule/validateOrderInObjectKeys">validateOrderInObjectKeys</a></li>
+</ul>
+<h2 id="eslint">Eslint版本</h2>
+<p>该规则在 ESLint 3.3.0 中被引入。</p>
+<h2 id="_4">来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/sort-keys.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/sort-keys.md">Documentation source</a></li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

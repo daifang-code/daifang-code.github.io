@@ -1,0 +1,37 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7190">BE7190: 由于参数包不正确，方法不会复写父类中的方法</h2>
+    <h3>由于参数包不正确，方法不会复写父类中的方法</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7190</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>由于参数包不正确，方法不会复写父类中的方法</p>
+<h4>漏洞与风险</h4>
+<p>在子类中的方法不会复写超类中的类似方法，因为子类中的参数的类型并不完全匹配超类中对应的参数的类型。
+举个例子如下：</p>
+<pre><code>import alpha.Foo;
+public class A {
+    public int f(Foo x) { return 17; }
+}
+----
+import beta.Foo;
+public class B extends A {
+    public int f(Foo x) { return 42; }
+}
+</code></pre>
+<p>在B类中定义的<code>f(Foo)</code>方法不会复写<code>f(Foo)</code>method在类A中定义，因为参数类型是来自不同包的<code>Foo</code>。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

@@ -1,0 +1,55 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1074">PE1074: 访问控制</h2>
+    <h3>调用安全敏感型方法的应用代码必须对传入该类方法的参数进行验证</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1074</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>调用安全敏感型方法的应用代码必须对传入该类方法的参数进行验证。</p>
+<h4>漏洞与风险</h4>
+<p>特别地，某些安全敏感型方法会将null值解释为无害的值，但它们可能会重写默认的设置。尽管安全敏感型方法应该保守性编码，但用户端代码仍要对方法的参数进行验证，否则，未经验证的参数可能会被视作有效值被接收。没做到这点，那么将有可能出现权限放大及任意代码执行问题。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>透彻地理解安全敏感型方法并对它们的参数进行验证，以避免因意外参数值导致的边界情况。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>这段存在缺陷的代码展示了接收两个参数且以第二个参数作为访问控制上下文的<code>doPrivileged()</code>方法，它从先前保存的上下文中恢复访问权限：</p>
+<div class="highlight"><pre><span></span><span class="n">AccessController</span><span class="o">.</span><span class="na">doPrivileged</span><span class="o">(</span>
+  <span class="k">new</span> <span class="n">PrivilegedAction</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+      <span class="c1">// ...</span>
+    <span class="o">}</span>
+  <span class="o">},</span> <span class="n">accessControlContext</span><span class="o">);</span>
+</pre></div>
+<p>当传入的访问控制上下文为null时，<code>doPrivileged()</code>方法无法将当前的访问控制权限降至先前保存的上下文的访问控制权限。因此，当<code>accessCibtrikCibtext</code>参数为<code>null</code>时，这段代码将给当前访问控制上下文赋予过高的权限。</p>
+<h5>漏洞代码修复示例</h5>
+<p>这个合规的解决方案通过确保<code>accessControlContext</code>不为<code>null</code>来避免赋予过高的权限：</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">(</span><span class="n">accessControlContext</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="n">SecurityException</span><span class="o">(</span><span class="s">&quot;Missing AccessControlContext&quot;</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">AccessController</span><span class="o">.</span><span class="na">doPrivileged</span><span class="o">(</span>
+  <span class="k">new</span> <span class="n">PrivilegedAction</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+      <span class="c1">// ...</span>
+    <span class="o">}</span>
+  <span class="o">},</span> <span class="n">accessControlContext</span><span class="o">);</span>
+</pre></div>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://wiki.sei.cmu.edu/confluence/display/java/SEC55-J.+Ensure+that+security-sensitive+methods+are+called+with+validated+arguments<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

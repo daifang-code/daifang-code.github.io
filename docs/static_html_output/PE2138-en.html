@@ -1,0 +1,41 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2138">PE2138: no-new</h2>
+    <h3>Disallow new For Side Effects (no-new)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2138</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow new For Side Effects (no-new)</h4>
+<p>The goal of using <code>new</code> with a constructor is typically to create an object of a particular type and store that object in a variable, such as:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<p>It's less common to use <code>new</code> and not store the result, such as:</p>
+<div class="highlight"><pre><span></span><span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</pre></div>
+<p>In this case, the created object is thrown away because its reference isn't stored anywhere, and in many cases, this means that the constructor should be replaced with a function that doesn't require <code>new</code> to be used.</p>
+<h2>Rule Details</h2>
+<p>This rule is aimed at maintaining consistency and convention by disallowing constructor calls using the <code>new</code> keyword that do not assign the resulting object to a variable.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-new: &quot;error&quot;*/</span>
+
+<span class="k">new</span> <span class="nx">Thing</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-new: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Thing</span><span class="p">();</span>
+
+<span class="nx">Thing</span><span class="p">();</span>
+</pre></div>
+
+    </section>
+</article>

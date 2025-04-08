@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE19030">PE19030: webshell4</h2>
+    <h3>webshell4</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE19030</dd>
+                    <dt>标签</dt>
+                    <dd>cobra</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>安全风险</h2>
+
+<pre><code>    代码中存在webshell
+
+</code></pre>
+<h2>修复方案</h2>
+
+<pre><code>    将该标记片段代码删除
+
+</code></pre>
+<h2>匹配规则</h2>
+<p>(preg_replace|preg_filter)[/<em>\s]</em>(+[/<em>\s]</em>(($<em>(GET|POST|REQUEST|COOKIE).{0,25})|[^,]{0,250}chr<a href="101%7C0x65%7C0145%7C%5Cd+">\s(</a>[^,]{0,25}\s<em>|['&quot;]\s</em>(([^\s])[^,]{0,20}\7['&quot;]<em>|[(}[].{0,20}[(}]])\w</em>e\w<em>['&quot;])\s</em>,\s<em>([^),]</em>(assert|eval|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec)|(($</em>(GET|POST|REQUEST|COOKIE).{0,25})))</p>
+<h4>References</h4>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+
+    </section>
+</article>

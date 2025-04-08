@@ -1,0 +1,76 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7503">BE7503: MD2，MD4和MD5是弱散列函数</h2>
+    <h3>MD2，MD4和MD5是弱散列函数</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7503</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>MD2，MD4和MD5是弱散列函数</p>
+<h4>漏洞与风险</h4>
+<p>MD2、MD4和MD5算法不是推荐的MessageDigest。例如，应该使用<b>PBKDF2</b>来对密码进行散列。</p>
+<blockquote>
+    "MD5哈希函数的安全性受到了严重的损害。在一台拥有2.6 GHz奔腾4处理器的电脑（复杂度为2<sup>24.1</sup>）中，碰撞攻击可以在几秒钟内找到碰撞。[1] 此外，还有一个chosen-prefix碰撞攻击，可以使用现成的计算硬件（复杂度为2<sup>39</sup>）在几个小时内产生两个具有特定前缀的输入冲突。[2]"<br/>
+    - 
+<a href="https://en.wikipedia.org/wiki/MD5#Security">Wikipedia: MD5 - Security</a>
+</blockquote>
+<blockquote>
+    "<b>SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, 和SHA-512/256</b>:<br/>
+    所有哈希函数应用程序都可以使用这些哈希函数。"<br/>
+    - 
+<a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">NIST: Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths p.15</a>
+</blockquote>
+<blockquote>
+    "PBKDF的主要思想是通过增加时间来减慢字典或暴力攻击密码的速度。一个带有可能密码列表的攻击者可以使用已知的迭代计数器和salt来评估PBKDF。由于攻击者每次尝试都要花费大量的计算时间，所以应用字典或蛮力攻击变得更加困难。"<br/>
+- 
+<a href="http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf">NIST: Recommendation for Password-Based Key Derivation  p.12</a>
+</blockquote>
+<br/>
+<p>
+    <b>易受攻击的代码：</b><br/>
+    <pre>MessageDigest md5Digest = MessageDigest.getInstance("MD5");
+    md5Digest.update(password.getBytes());
+    byte[] hashValue = md5Digest.digest();</pre>
+
+<pre><code>&lt;pre&gt;byte[] hashValue = DigestUtils.getMd5Digest().digest(password.getBytes());&lt;/pre&gt;
+</code></pre>
+</p>
+<p>
+    <b>解决方案(使用bouncy castle):</b>
+    <pre>public static byte[] getEncryptedPassword(String password, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    PKCS5S2ParametersGenerator gen = new PKCS5S2ParametersGenerator(new SHA256Digest());
+    gen.init(password.getBytes("UTF-8"), salt.getBytes(), 4096);
+    return ((KeyParameter) gen.generateDerivedParameters(256)).getKey();
+}</pre>
+    <b>解决方案(java 8 或以上版本):</b><br/>
+    <pre>public static byte[] getEncryptedPassword(String password, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 4096, 256 * 8);
+    SecretKeyFactory f = SecretKeyFactory.getInstance(""PBKDF2WithHmacSHA256"");
+    return f.generateSecret(spec).getEncoded();
+}</pre>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<br/>
+<p>
+<b>引用</b><br/>
+[1]<a href="http://www.win.tue.nl/hashclash/On%20Collisions%20for%20MD5%20-%20M.M.J.%20Stevens.pdf">On Collisions for MD5</a>: Master Thesis by M.M.J. Stevens<br/>
+[2] 
+<a href="http://homepages.cwi.nl/~stevens/papers/stJOC%20-%20Chosen-Prefix%20Collisions%20for%20MD5%20and%20Applications.pdf">Chosen-prefix collisions for MD5 and applications</a>: Paper written by Marc Stevens<br/>
+[3]<a href="https://en.wikipedia.org/wiki/MD5">Wikipedia: MD5</a><br/>
+[4]<a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">NIST: Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths</a><br/>
+[5]<a href="http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf">NIST: Recommendation for Password-Based Key Derivation</a><br/>
+[6]<a href="http://stackoverflow.com/questions/22580853/reliable-implementation-of-pbkdf2-hmac-sha256-for-java">Stackoverflow: Reliable implementation of PBKDF2-HMAC-SHA256 for Java</a><br/>
+[7]<a href="http://cwe.mitre.org/data/definitions/327.html">CWE-327: Use of a Broken or Risky Cryptographic Algorithm</a>
+</p>
+
+    </section>
+</article>

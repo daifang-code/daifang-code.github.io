@@ -1,0 +1,437 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2045">PE2045: indent-legacy</h2>
+    <h3>(fixable) [command line](https://github.com/eslint/eslint/blob/master/docs/user-guide/command-line-interface)中的`--fix`选项能够自动修复一些由该规则报告的问题</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2045</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<p>(fixable) <a href="https://github.com/eslint/eslint/blob/master/docs/user-guide/command-line-interface">command line</a>中的<code>--fix</code>选项能够自动修复一些由该规则报告的问题。</p>
+<p>ESLint 4.0.0引入了一项重写后的<code>indent</code>规则，相比与之前的版本，它现在能够报出更多的问题。为了减轻迁移到ESLint 4.0.0的痛苦，我们引入了<code>indent-legacy</code>规则，它可以说是ESLint 3.x版本中<code>indent</code>规则的快照。在升级到4.0.0后，如果你的build失败了，那么你可以采取禁用<code>indent</code>规则后开启<code>indent-legacy</code>规则这一快速措施。但你最终还是应该切换到<code>indent</code>规则，以便在以后的版本中能够获取到新的bug修复以及提升。</p>
+<hr />
+<p>有一些常规的向导会要求嵌套代码块和语句使用特定的缩进，比如：</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">indentSize</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">indentSize</span> <span class="o">===</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="nx">type</span> <span class="o">!==</span> <span class="s1">&#39;tab&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Each next indentation will increase on 4 spaces&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>以下是不同的风格向导中推荐的最常见的方案：</p>
+<ul>
+<li>两个空格，不能更多，且不使用Tab： Google, npm, Node.js, Idiomatic, Felix</li>
+<li>Tabs: jQuery</li>
+<li>四个空格: Crockford</li>
+</ul>
+<h2>缺陷详因</h2>
+<p>该规则强制使用一种缩进风格，默认的风格是<code>四个空格</code>。</p>
+<h2>修改方案</h2>
+<p>该规则有一个允许混合的选项：</p>
+<p>例如，对两个空格的缩进：</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;indent&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<p>或是对tab的缩进：</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;indent&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;tab&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<p>默认选项下的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: &quot;error&quot;*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">b</span><span class="o">=</span><span class="nx">c</span><span class="p">;</span>
+  <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">e</span><span class="o">=</span><span class="nx">f</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>默认选项下的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: &quot;error&quot;*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">b</span><span class="o">=</span><span class="nx">c</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">e</span><span class="o">=</span><span class="nx">f</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>该规则有一个对象选项：</p>
+<ul>
+<li><code>&quot;SwitchCase&quot;</code> (default: 0) 对<code>switch</code>语句中<code>case</code>从句强制要求缩进等级。</li>
+<li><code>&quot;VariableDeclarator&quot;</code> (default: 1) 对<code>var</code>声明符强制要求缩进等级；该选项还可以接受一个对象来为<code>var</code>、<code>let</code>和<code>const</code>声明定义各自的规则。</li>
+<li><code>&quot;outerIIFEBody&quot;</code> (default: 1) 对文件级别的IIFE强制要求缩进等级。</li>
+<li><code>&quot;MemberExpression&quot;</code> (默认关闭) 对多行的属性链（变量声明和赋值除外）强制要求缩进等级。</li>
+<li><code>&quot;FunctionDeclaration&quot;</code> 接受一个对象来定义函数声明的规则。<ul>
+<li><code>parameters</code> (默认关闭) 对函数声明中的参数强制要求缩进等级。可以用一个数字来指示缩进等级，或使用<code>&quot;first&quot;</code>字符串来指明所有的声明都必须与第一个参数对齐。</li>
+<li><code>body</code> (default: 1) 对函数声明的主体强制要求缩进等级。</li>
+</ul>
+</li>
+<li><code>&quot;FunctionExpression&quot;</code> 接受一个对象来为函数表达式定义规则。<ul>
+<li><code>parameters</code> (默认关闭) 对函数函数表达式中的参数要求缩进等级。可以用一个数字来指示缩进等级，或使用<code>&quot;first&quot;</code>字符串来指明表达式的所有参数都必须与第一个参数对齐。</li>
+<li><code>body</code> (default: 1) 对函数表达式的主体强制要求缩进等级。</li>
+</ul>
+</li>
+<li><code>&quot;CallExpression&quot;</code> 接受一个对象来为函数调用表达式定义规则。<ul>
+<li><code>arguments</code> (默认关闭) 对调用表达式强制要求缩进等级。可以用一个数字来指示缩进等级，或使用<code>&quot;first&quot;</code>字符串来指明表达式的所有参数都必须与第一个参数对齐。</li>
+</ul>
+</li>
+<li><code>&quot;ArrayExpression&quot;</code> (default: 1) 对数组中的元素强制要求缩进等级。也可以使用<code>&quot;first&quot;</code>字符串来指示数组中的所有元素都必须与第一个元素对齐。</li>
+<li><code>&quot;ObjectExpression&quot;</code> (default: 1) 对对象中的属性强制要求缩进等级。也可以使用<code>&quot;first&quot;</code>字符串来指示对象内的所有属性都必须与第一个属性对齐。</li>
+</ul>
+<p>缩进等级代表着所说明缩进的乘积，例如：</p>
+<ul>
+<li>缩进为4个空格的前提下，当<code>VariableDeclarator</code>设置为2时，多行变量声明会以8个空格作为缩进。</li>
+<li>缩进为2个空格的前提下，当<code>VariableDeclarator</code>设置为2时，多行变量声明会以4个空格作为缩进。</li>
+<li>缩进为2个空格的前提下，当<code>VariableDeclarator</code>设置为<code>{&quot;var&quot;: 2, &quot;let&quot;: 2, &quot;const&quot;: 3}</code>时，<code>var</code>和<code>let</code>形式的多行变量声明会以4个空格作为缩进，<code>const</code>语句则会以6个空格作为缩进。</li>
+<li>缩进为tab的前提下，当<code>VariableDeclarator</code>设置为2时，多行变量声明会以2个tab作为缩进。</li>
+<li>缩进为2个空格的前提下，当<code>SwitchCase</code>设置为<code>0</code>时，以<code>switch</code>语句作为参照，<code>case</code>从句不会有任何缩进。</li>
+<li>缩进为2个空格的前提下，当<code>SwitchCase</code>设置为<code>1</code>时，以<code>switch</code>语句作为参照，<code>case</code>从句会以2个空格作为缩进。</li>
+<li>缩进为2个空格的前提下，当<code>SwitchCase</code>设置为<code>1</code>时，以<code>switch</code>语句作为参照，<code>case</code>从句会以4个空格作为缩进。</li>
+<li>缩进为tab的前提下，当<code>SwitchCase</code>设置为<code>2</code>时，以<code>switch</code>语句作为参照，<code>case</code>从句会以2个tab作为缩进。</li>
+<li>缩进为2个空格的前提下，当<code>MemberExpression</code>设置为<code>0</code>时，多行属性链会以0个空格作为缩进。</li>
+<li>缩进为2个空格的前提下，当<code>MemberExpression</code>设置为<code>1</code>时，多行属性链会以2个空格作为缩进。</li>
+<li>缩进为2个空格的前提下，当<code>MemberExpression</code>设置为<code>2</code>时，多行属性链会以4个空格作为缩进。</li>
+<li>缩进为4个空格的前提下，当<code>MemberExpression</code>设置为<code>0</code>时，多行属性链会以0个空格作为缩进。</li>
+<li>缩进为4个空格的前提下，当<code>MemberExpression</code>设置为<code>1</code>时，多行属性链会以4个空格作为缩进。</li>
+<li>缩进为4个空格的前提下，当<code>MemberExpression</code>设置为<code>2</code>时，多行属性链会以8个空格作为缩进。</li>
+</ul>
+<h5>tab</h5>
+<p>选项<code>&quot;tab&quot;</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, &quot;tab&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+     <span class="nx">b</span><span class="o">=</span><span class="nx">c</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+           <span class="nx">e</span><span class="o">=</span><span class="nx">f</span><span class="p">;</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项<code>&quot;tab&quot;</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, &quot;tab&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+<span class="cm">/*tab*/</span><span class="nx">b</span><span class="o">=</span><span class="nx">c</span><span class="p">;</span>
+<span class="cm">/*tab*/</span><span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+<span class="cm">/*tab*//*tab*/</span><span class="nx">e</span><span class="o">=</span><span class="nx">f</span><span class="p">;</span>
+<span class="cm">/*tab*/</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>SwitchCase</h5>
+<p>选项<code>2, { &quot;SwitchCase&quot;: 1 }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;SwitchCase&quot;: 1 }]*/</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span>
+<span class="k">case</span> <span class="s2">&quot;a&quot;</span><span class="o">:</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="k">case</span> <span class="s2">&quot;b&quot;</span><span class="o">:</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项<code>2, { &quot;SwitchCase&quot;: 1 }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;SwitchCase&quot;: 1 }]*/</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span>
+  <span class="k">case</span> <span class="s2">&quot;a&quot;</span><span class="o">:</span>
+    <span class="k">break</span><span class="p">;</span>
+  <span class="k">case</span> <span class="s2">&quot;b&quot;</span><span class="o">:</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h5>VariableDeclarator</h5>
+<p>选项<code>2, { &quot;VariableDeclarator&quot;: 1 }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;VariableDeclarator&quot;: 1 }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">,</span>
+    <span class="nx">c</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">,</span>
+    <span class="nx">c</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</pre></div>
+<p>选项<code>2, { &quot;VariableDeclarator&quot;: 1 }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;VariableDeclarator&quot;: 1 }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span><span class="p">,</span>
+  <span class="nx">b</span><span class="p">,</span>
+  <span class="nx">c</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">a</span><span class="p">,</span>
+  <span class="nx">b</span><span class="p">,</span>
+  <span class="nx">c</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</pre></div>
+<p>选项<code>2, { &quot;VariableDeclarator&quot;: 2 }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;VariableDeclarator&quot;: 2 }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">,</span>
+    <span class="nx">c</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">,</span>
+    <span class="nx">c</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</pre></div>
+<p>选项<code>2, { &quot;VariableDeclarator&quot;: { &quot;var&quot;: 2, &quot;let&quot;: 2, &quot;const&quot;: 3 } }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;VariableDeclarator&quot;: { &quot;var&quot;: 2, &quot;let&quot;: 2, &quot;const&quot;: 3 } }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">,</span>
+    <span class="nx">c</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">,</span>
+    <span class="nx">c</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</pre></div>
+<h5>outerIIFEBody</h5>
+<p>选项<code>2, { &quot;outerIIFEBody&quot;: 0 }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;outerIIFEBody&quot;: 0 }]*/</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="p">})();</span>
+
+
+<span class="k">if</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项<code>2, { &quot;outerIIFEBody&quot;: 0 }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;outerIIFEBody&quot;: 0 }]*/</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">})();</span>
+
+
+<span class="k">if</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>MemberExpression</h5>
+<p>选项<code>2, { &quot;MemberExpression&quot;: 1 }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;MemberExpression&quot;: 1 }]*/</span>
+
+<span class="nx">foo</span>
+<span class="p">.</span><span class="nx">bar</span>
+<span class="p">.</span><span class="nx">baz</span><span class="p">()</span>
+</pre></div>
+<p>选项<code>2, { &quot;MemberExpression&quot;: 1 }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;MemberExpression&quot;: 1 }]*/</span>
+
+<span class="nx">foo</span>
+  <span class="p">.</span><span class="nx">bar</span>
+  <span class="p">.</span><span class="nx">baz</span><span class="p">();</span>
+
+<span class="c1">// Any indentation is permitted in variable declarations and assignments.</span>
+<span class="kd">var</span> <span class="nx">bip</span> <span class="o">=</span> <span class="nx">aardvark</span><span class="p">.</span><span class="nx">badger</span>
+                  <span class="p">.</span><span class="nx">coyote</span><span class="p">;</span>
+</pre></div>
+<h5>FunctionDeclaration</h5>
+<p>选项<code>2, { &quot;FunctionDeclaration&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;FunctionDeclaration&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项<code>2, { &quot;FunctionDeclaration&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;FunctionDeclaration&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="p">,</span>
+    <span class="nx">qux</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项<code>2, { &quot;FunctionDeclaration&quot;: {&quot;parameters&quot;: &quot;first&quot;} }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;FunctionDeclaration&quot;: {&quot;parameters&quot;: &quot;first&quot;}}]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="p">,</span> <span class="nx">boop</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项<code>2, { &quot;FunctionDeclaration&quot;: {&quot;parameters&quot;: &quot;first&quot;} }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;FunctionDeclaration&quot;: {&quot;parameters&quot;: &quot;first&quot;}}]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span>
+             <span class="nx">qux</span><span class="p">,</span> <span class="nx">boop</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>FunctionExpression</h5>
+<p>选项<code>2, { &quot;FunctionExpression&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;FunctionExpression&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项<code>2, { &quot;FunctionExpression&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;FunctionExpression&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="p">,</span>
+    <span class="nx">qux</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项<code>2, { &quot;FunctionExpression&quot;: {&quot;parameters&quot;: &quot;first&quot;} }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;FunctionExpression&quot;: {&quot;parameters&quot;: &quot;first&quot;}}]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="p">,</span> <span class="nx">boop</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项<code>2, { &quot;FunctionExpression&quot;: {&quot;parameters&quot;: &quot;first&quot;} }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;FunctionExpression&quot;: {&quot;parameters&quot;: &quot;first&quot;}}]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span>
+                   <span class="nx">qux</span><span class="p">,</span> <span class="nx">boop</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>CallExpression</h5>
+<p>选项<code>2, { &quot;CallExpression&quot;: {&quot;arguments&quot;: 1} }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;CallExpression&quot;: {&quot;arguments&quot;: 1} }]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="p">,</span>
+      <span class="nx">qux</span>
+<span class="p">);</span>
+</pre></div>
+<p>选项<code>2, { &quot;CallExpression&quot;: {&quot;arguments&quot;: 1} }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;CallExpression&quot;: {&quot;arguments&quot;: 1} }]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span>
+<span class="p">);</span>
+</pre></div>
+<p>选项<code>2, { &quot;CallExpression&quot;: {&quot;arguments&quot;: &quot;first&quot;} }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;CallExpression&quot;: {&quot;arguments&quot;: &quot;first&quot;}}]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span> <span class="nx">boop</span><span class="p">,</span> <span class="nx">beep</span><span class="p">);</span>
+</pre></div>
+<p>选项<code>2, { &quot;CallExpression&quot;: {&quot;arguments&quot;: &quot;first&quot;} }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;CallExpression&quot;: {&quot;arguments&quot;: &quot;first&quot;}}]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="p">,</span> <span class="nx">boop</span><span class="p">,</span> <span class="nx">beep</span><span class="p">);</span>
+</pre></div>
+<h5>ArrayExpression</h5>
+<p>选项<code>2, { &quot;ArrayExpression&quot;: 1 }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;ArrayExpression&quot;: 1 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">bar</span><span class="p">,</span>
+<span class="nx">baz</span><span class="p">,</span>
+      <span class="nx">qux</span>
+<span class="p">];</span>
+</pre></div>
+<p>选项<code>2, { &quot;ArrayExpression&quot;: 1 }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;ArrayExpression&quot;: 1 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span>
+<span class="p">];</span>
+</pre></div>
+<p>选项<code>2, { &quot;ArrayExpression&quot;: &quot;first&quot; }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;ArrayExpression&quot;: &quot;first&quot;}]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span>
+<span class="p">];</span>
+</pre></div>
+<p>选项<code>2, { &quot;ArrayExpression&quot;: &quot;first&quot; }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;ArrayExpression&quot;: &quot;first&quot;}]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span>
+           <span class="nx">baz</span><span class="p">,</span>
+           <span class="nx">qux</span>
+<span class="p">];</span>
+</pre></div>
+<h5>ObjectExpression</h5>
+<p>选项<code>2, { &quot;ObjectExpression&quot;: 1 }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;ObjectExpression&quot;: 1 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="nx">baz</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nx">qux</span><span class="o">:</span> <span class="mi">3</span>
+<span class="p">};</span>
+</pre></div>
+<p>选项<code>2, { &quot;ObjectExpression&quot;: 1 }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;ObjectExpression&quot;: 1 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="o">:</span> <span class="mi">3</span>
+<span class="p">};</span>
+</pre></div>
+<p>选项<code>2, { &quot;ObjectExpression&quot;: &quot;first&quot; }</code>的<strong>错误</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;ObjectExpression&quot;: &quot;first&quot;}]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="o">:</span> <span class="mi">2</span> <span class="p">};</span>
+</pre></div>
+<p>选项<code>2, { &quot;ObjectExpression&quot;: &quot;first&quot; }</code>的<strong>正确</strong>代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;ObjectExpression&quot;: &quot;first&quot;}]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nx">baz</span><span class="o">:</span> <span class="mi">2</span> <span class="p">};</span>
+</pre></div>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSHint</strong>: <code>indent</code></li>
+<li><strong>JSCS</strong>: <a href="http://jscs.info/rule/validateIndentation">validateIndentation</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在ESLint 4.0.0-alpha.0中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/indent-legacy.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/indent-legacy.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

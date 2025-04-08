@@ -1,0 +1,73 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2022">PE2022: constructor-super</h2>
+    <h3>验证构造函数中 `super()` 的调用 (constructor-super)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2022</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>验证构造函数中 <code>super()</code> 的调用 (constructor-super)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>派生类中的构造函数必须调用 <code>super()</code>。非派生类的构造函数不能调用 <code>super()</code>JavaScript 引擎将引发一个运行时错误</p>
+<p>该规则检查是否有一个有效的 <code>super()</code> 调用。</p>
+<h2>缺陷详因</h2>
+<p>该规则旨在标记无效或缺失的 <code>super()</code> 调用。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint constructor-super: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">();</span>  <span class="c1">// This is a SyntaxError.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="kr">extends</span> <span class="nx">B</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>  <span class="c1">// Would throw a ReferenceError.</span>
+<span class="p">}</span>
+
+<span class="c1">// Classes which inherits from a non constructor are always problems.</span>
+<span class="kr">class</span> <span class="nx">A</span> <span class="kr">extends</span> <span class="kc">null</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">();</span>  <span class="c1">// Would throw a TypeError.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="kr">extends</span> <span class="kc">null</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>  <span class="c1">// Would throw a ReferenceError.</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint constructor-super: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="kr">extends</span> <span class="nx">B</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kr">super</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想收到构造函数中无效或缺失的 <code>super()</code> 调用，你可以关闭此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.24.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/constructor-super.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/constructor-super.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

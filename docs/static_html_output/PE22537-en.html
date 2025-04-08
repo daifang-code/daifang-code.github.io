@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22537">PE22537: E0203</h2>
+    <h3>E0203</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22537</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Message</h2>
+<p>Access to member %r before its definition line %s</p>
+<h2>Description</h2>
+<p>Used when an instance member is accessed before it's actually assigned.</p>
+<p>This message belongs to the classes checker.</p>
+<h2>Explanation</h2>
+<p>An example for such a situation is an instance attribute in <strong>init</strong>() that is read before it was initialized. This includes usage of the += operator on an uninitialized instance attribute. See also E0601 for uninitialized variables that are not instance attributes, or E1101 for entirely undefined members.</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

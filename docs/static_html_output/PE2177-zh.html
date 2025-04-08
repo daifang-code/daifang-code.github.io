@@ -1,0 +1,73 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2177">PE2177: no-trailing-spaces</h2>
+    <h3>禁用行尾空白 (no-trailing-spaces)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2177</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁用行尾空白 (no-trailing-spaces)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>有时在编辑文件的过程中，你可以在行的末尾以额外的空格作为结束。这些空格差异可以被源码控制系统识别出并被标记为差异，给开发人员带来挫败感。虽然这种额外的空格并不会造成功能性的问题，许多编码规范要求在提交代码之前删除尾部空格。</p>
+<h2>缺陷详因</h2>
+<p>该规则禁止使用行尾空白（空格、tab 和其它 Unicode 空白字符）。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-trailing-spaces: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">//•••••</span>
+<span class="kd">var</span> <span class="nx">baz</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span><span class="c1">//••</span>
+<span class="c1">//•••••</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-trailing-spaces: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">baz</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则有一个对象选项：</p>
+<ul>
+<li><code>&quot;skipBlankLines&quot;: false</code> (默认) 禁止在空行使用空白符</li>
+<li><code>&quot;skipBlankLines&quot;: true</code> 允许在空行使用空白符</li>
+<li><code>&quot;ignoreComments&quot;: false</code> (默认) 禁止在注释块中使用空白符</li>
+<li><code>&quot;ignoreComments&quot;: true</code> 允许在注释块中使用空白符</li>
+</ul>
+<h5>skipBlankLines</h5>
+<p>选项 <code>{ &quot;skipBlankLines&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-trailing-spaces: [&quot;error&quot;, { &quot;skipBlankLines&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">baz</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="c1">//•••••</span>
+</pre></div>
+<h5>ignoreComments</h5>
+<p>选项 <code>{ &quot;ignoreComments&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-trailing-spaces: [&quot;error&quot;, { &quot;ignoreComments&quot;: true }]*/</span>
+
+<span class="c1">//foo•</span>
+<span class="c1">//•••••</span>
+<span class="cm">/**</span>
+<span class="cm"> *•baz</span>
+<span class="cm"> *••</span>
+<span class="cm"> *•bar</span>
+<span class="cm"> */</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.7.1 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-trailing-spaces.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-trailing-spaces.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4019">PE4019: Negative integer misuses</h2>
+    <h3>Negative integer misuses</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE4019</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Negative return values of functions usually indicate an error in the called function, and thus shall 
+be checked before any use, such as indexing an array and assigning to an unsigned integer.</p>
+<h4>Vulnerability and risk</h4>
+<p>Neglecting to check negative return values may cause unexpected behaviors such as program crash, memory corruption
+and non-stopping loops.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Critical</p>
+<h4>Potential Mitigations</h4>
+<p>Return values of functions that may be negative must be checked before being used.</p>
+<h4>Demonstrative Examples</h4>
+
+<pre><code>void use(unsigned int a);
+
+int ret();
+
+void test(){
+    int a = ret();
+    use(a);  // detect
+    
+    std::string str;
+    str[a] = 'a'; // detect
+    
+}
+</code></pre>
+
+    </section>
+</article>

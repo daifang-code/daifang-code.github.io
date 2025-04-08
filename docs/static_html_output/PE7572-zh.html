@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7572">BE7572: 潜在的HTTP响应拆分</h2>
+    <h3>潜在的HTTP响应拆分</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7572</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>潜在的HTTP响应拆分</p>
+<h4>漏洞与风险</h4>
+<p>
+当HTTP请求包含意外的CR和LF字符时，服务器可能会响应输出流，该输出流被解释为两个不同的HTTP响应（而不是一个）。
+攻击者可以控制第二个响应并加载攻击，例如跨站点脚本和缓存污染攻击。
+根据OWASP，所有现代Java EE应用程序服务器中基本都修复了该问题，但验证输入仍然更好。
+如果您担心此风险，则应在所关注的平台上进行测试，以确定底层平台是否允许将CR或LF字符注入头。
+报告此弱点的优先级低于SQL注入等，如果您使用的是易受攻击的平台，请检查低优先级警告。
+</p>
+<br/>
+<p>
+<b>风险代码：</b><br/>
+<pre>String author = request.getParameter(AUTHOR_PARAMETER);
+// ...
+Cookie cookie = new Cookie("author", author);
+response.addCookie(cookie);</pre>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;https://www.owasp.org/index.php/HTTP_Response_Splitting&quot;&gt;OWASP: HTTP Response Splitting&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/113.html&quot;&gt;CWE-113: Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')&lt;/a&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/93.html&quot;&gt;CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection')&lt;/a&gt;&lt;br/&gt;</p>
+</p>
+
+    </section>
+</article>

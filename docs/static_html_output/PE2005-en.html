@@ -1,0 +1,125 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2005">PE2005: arrow-body-style</h2>
+    <h3>Require braces in arrow function body (arrow-body-style)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2005</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Require braces in arrow function body (arrow-body-style)</h4>
+<p>Arrow functions have two syntactic forms for their function bodies.  They may be defined with a <em>block</em> body (denoted by curly braces) <code>() =&gt; { ... }</code> or with a single expression <code>() =&gt; ...</code>, whose value is implicitly returned.</p>
+<h2>Rule Details</h2>
+<p>This rule can enforce or disallow the use of braces around arrow function body.</p>
+<h2>Options</h2>
+<p>The rule takes one or two options. The first is a string, which can be:</p>
+<ul>
+<li><code>&quot;always&quot;</code> enforces braces around the function body</li>
+<li><code>&quot;as-needed&quot;</code> enforces no braces where they can be omitted (default)</li>
+<li><code>&quot;never&quot;</code> enforces no braces around the function body (constrains arrow functions to the role of returning an expression)</li>
+</ul>
+<p>The second one is an object for more fine-grained configuration when the first option is <code>&quot;as-needed&quot;</code>. Currently, the only available option is <code>requireReturnForObjectLiteral</code>, a boolean property. It's <code>false</code> by default. If set to <code>true</code>, it requires braces and an explicit return for object literals.</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;arrow-body-style&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;always&quot;</span><span class="p">]</span>
+</pre></div>
+<h5>always</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">retv</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">retv</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">retv</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<h5>as-needed</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;as-needed&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;as-needed&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+       <span class="nx">bar</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;as-needed&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;as-needed&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">retv</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">retv</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">retv</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="cm">/* do nothing */</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// do nothing.</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">0</span> <span class="p">});</span>
+</pre></div>
+<h5>requireReturnForObjectLiteral</h5>
+<blockquote>
+<p>This option is only applicable when used in conjunction with the <code>&quot;as-needed&quot;</code> option.</p>
+</blockquote>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;requireReturnForObjectLiteral&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;as-needed&quot;, { &quot;requireReturnForObjectLiteral&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({});</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">0</span> <span class="p">});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;requireReturnForObjectLiteral&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;as-needed&quot;, { &quot;requireReturnForObjectLiteral&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span> <span class="p">};</span>
+</pre></div>
+<h5>never</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">retv</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">retv</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">retv</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">foo</span><span class="o">:</span> <span class="mi">0</span> <span class="p">});</span>
+</pre></div>
+
+    </section>
+</article>

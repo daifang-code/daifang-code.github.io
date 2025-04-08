@@ -1,0 +1,143 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2188">PE2188: no-unused-expressions</h2>
+    <h3>禁止未使用过的表达式 (no-unused-expressions)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2188</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止未使用过的表达式 (no-unused-expressions)</h4>
+<p>未使用过的表达式在程序中不起任何作用，通常是个逻辑错误。</p>
+<p>例如，<code>n + 1;</code> 不是语法错误，但它可能是程序员的书写错误，原本是想写赋值语句 <code>n += 1;</code>。</p>
+<h2>缺陷详因</h2>
+<p>此规则的目的在于消除未使用过的表达式，它们在程序中不起任何作用。</p>
+<p>该规则不适用于使用 <code>new</code> 操作符的函数或构造函数调用，因为它们可能会有副作用。</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">increment</span><span class="p">()</span> <span class="p">{</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+<span class="nx">increment</span><span class="p">();</span> <span class="c1">// return value is unused, but i changed as a side effect</span>
+
+<span class="kd">var</span> <span class="nx">nThings</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">Thing</span><span class="p">()</span> <span class="p">{</span> <span class="nx">nThings</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+<span class="k">new</span> <span class="nx">Thing</span><span class="p">();</span> <span class="c1">// constructed object is unused, but nThings changed as a side effect</span>
+</pre></div>
+<p>该规则不适用于指令（比如在脚本（模块或函数）顶部的 <code>&quot;use strict&quot;;</code>）。</p>
+<p>连续的表达式（使用逗号分隔，比如 <code>a = 1, b = 2</code>）总是被认为为被使用过的，除非它们的返回值被赋值给一个变量或被用在条件表达式中或函数调用。</p>
+<h2>修改方案</h2>
+<p>此规则在默认情况下，不需要任何参数。如果你想要开启一个或者更多的设置你可以通过一个如下所示的选项对象实现：</p>
+<ul>
+<li><code>allowShortCircuit</code> 设置为 <code>true</code> 将允许你在表达式中使用逻辑短路求值。（默认为 <code>false</code>）</li>
+<li><code>allowTernary</code> 设置为 <code>true</code> 将允许你在表达式中使用类似逻辑短路求值的三元运算符。（默认为 <code>false</code>）。</li>
+<li><code>allowTaggedTemplates</code> 设置为 <code>true</code> 将允许你在表达式中使用带标签的模板字面量 (默认: <code>false</code>)。</li>
+</ul>
+<p>这些选项只有在所有的代码路径要么直接改变状态（比如，赋值语句）或可以有 <em>副作用</em>（例如，函数调用）才允许出现未使用过的表达式。</p>
+<p>默认选项 <code>{ &quot;allowShortCircuit&quot;: false, &quot;allowTernary&quot;: false }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unused-expressions: &quot;error&quot;*/</span>
+
+<span class="mi">0</span>
+
+<span class="k">if</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="mi">0</span>
+
+<span class="p">{</span><span class="mi">0</span><span class="p">}</span>
+
+<span class="nx">f</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="p">{}</span>
+
+<span class="nx">a</span> <span class="o">&amp;&amp;</span> <span class="nx">b</span><span class="p">()</span>
+
+<span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">()</span>
+
+<span class="nx">c</span> <span class="o">=</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">;</span>
+
+<span class="nx">a</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="kd">function</span> <span class="nx">namedFunctionInExpressionContext</span> <span class="p">()</span> <span class="p">{</span><span class="nx">f</span><span class="p">();}</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="nx">anIncompleteIIFE</span> <span class="p">()</span> <span class="p">{});</span>
+
+<span class="nx">injectGlobal</span><span class="sb">`body{ color: red; }`</span>
+</pre></div>
+<p>注意，一个或多个字符串表达式（无论有无分号）如果不是在脚本、模块或函数（单独的，不被其它语句打断的）顶部都被认为是未使用过的。否则，它们将被视为对 JavaScript 引擎很有用的指令的一部分。包括严格模式指令：</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="s2">&quot;use asm&quot;</span>
+<span class="s2">&quot;use stricter&quot;</span><span class="p">;</span>
+<span class="s2">&quot;use babel&quot;</span>
+<span class="s2">&quot;any other strings like this in the prologue&quot;</span><span class="p">;</span>
+</pre></div>
+<p>默认选项 <code>{ &quot;allowShortCircuit&quot;: false, &quot;allowTernary&quot;: false }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unused-expressions: &quot;error&quot;*/</span>
+
+<span class="p">{}</span> <span class="c1">// In this context, this is a block statement, not an object literal</span>
+
+<span class="p">{</span><span class="nx">myLabel</span><span class="o">:</span> <span class="nx">someVar</span><span class="p">}</span> <span class="c1">// In this context, this is a block statement with a label and expression, not an object literal</span>
+
+<span class="kd">function</span> <span class="nx">namedFunctionDeclaration</span> <span class="p">()</span> <span class="p">{}</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="nx">aGenuineIIFE</span> <span class="p">()</span> <span class="p">{}());</span>
+
+<span class="nx">f</span><span class="p">()</span>
+
+<span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">new</span> <span class="nx">C</span>
+
+<span class="k">delete</span> <span class="nx">a</span><span class="p">.</span><span class="nx">b</span>
+
+<span class="k">void</span> <span class="nx">a</span>
+</pre></div>
+<h5>allowShortCircuit</h5>
+<p>选项 <code>{ &quot;allowShortCircuit&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unused-expressions: [&quot;error&quot;, { &quot;allowShortCircuit&quot;: true }]*/</span>
+
+<span class="nx">a</span> <span class="o">||</span> <span class="nx">b</span>
+</pre></div>
+<p>选项 <code>{ &quot;allowShortCircuit&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unused-expressions: [&quot;error&quot;, { &quot;allowShortCircuit&quot;: true }]*/</span>
+
+<span class="nx">a</span> <span class="o">&amp;&amp;</span> <span class="nx">b</span><span class="p">()</span>
+<span class="nx">a</span><span class="p">()</span> <span class="o">||</span> <span class="p">(</span><span class="nx">b</span> <span class="o">=</span> <span class="nx">c</span><span class="p">)</span>
+</pre></div>
+<h5>allowTernary</h5>
+<p>选项 <code>{ &quot;allowTernary&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unused-expressions: [&quot;error&quot;, { &quot;allowTernary&quot;: true }]*/</span>
+
+<span class="nx">a</span> <span class="o">?</span> <span class="nx">b</span> <span class="o">:</span> <span class="mi">0</span>
+<span class="nx">a</span> <span class="o">?</span> <span class="nx">b</span> <span class="o">:</span> <span class="nx">c</span><span class="p">()</span>
+</pre></div>
+<p>选项 <code>{ &quot;allowTernary&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unused-expressions: [&quot;error&quot;, { &quot;allowTernary&quot;: true }]*/</span>
+
+<span class="nx">a</span> <span class="o">?</span> <span class="nx">b</span><span class="p">()</span> <span class="o">:</span> <span class="nx">c</span><span class="p">()</span>
+<span class="nx">a</span> <span class="o">?</span> <span class="p">(</span><span class="nx">b</span> <span class="o">=</span> <span class="nx">c</span><span class="p">)</span> <span class="o">:</span> <span class="nx">d</span><span class="p">()</span>
+</pre></div>
+<h5>allowShortCircuit and allowTernary</h5>
+<p>选项 <code>{ &quot;allowShortCircuit&quot;: true, &quot;allowTernary&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unused-expressions: [&quot;error&quot;, { &quot;allowShortCircuit&quot;: true, &quot;allowTernary&quot;: true }]*/</span>
+
+<span class="nx">a</span> <span class="o">?</span> <span class="nx">b</span><span class="p">()</span> <span class="o">||</span> <span class="p">(</span><span class="nx">c</span> <span class="o">=</span> <span class="nx">d</span><span class="p">)</span> <span class="o">:</span> <span class="nx">e</span><span class="p">()</span>
+</pre></div>
+<h5>allowTaggedTemplates</h5>
+<p>选项 <code>{ &quot;allowTaggedTemplates&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unused-expressions: [&quot;error&quot;, { &quot;allowTaggedTemplates&quot;: true }]*/</span>
+
+<span class="sb">`some untagged template string`</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>{ &quot;allowTaggedTemplates&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unused-expressions: [&quot;error&quot;, { &quot;allowTaggedTemplates&quot;: true }]*/</span>
+
+<span class="nx">tag</span><span class="sb">`some tagged template string`</span><span class="p">;</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.1.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-unused-expressions.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-unused-expressions.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

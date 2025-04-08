@@ -1,0 +1,41 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2152">PE2152: no-proto</h2>
+    <h3>Disallow Use of `__proto__` (no-proto)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2152</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow Use of <code>__proto__</code> (no-proto)</h4>
+<p><code>__proto__</code> property has been deprecated as of ECMAScript 3.1 and shouldn't be used in the code. Use <code>getPrototypeOf</code> method instead.</p>
+<h2>Rule Details</h2>
+<p>When an object is created <code>__proto__</code> is set to the original prototype property of the object’s constructor function. <code>getPrototypeOf</code> is the preferred method of getting &quot;the prototype&quot;.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-proto: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="s2">&quot;__proto__&quot;</span><span class="p">];</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-proto: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you need to support legacy browsers, you might want to turn this rule off, since support for <code>getPrototypeOf</code> is not yet universal.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="http://ejohn.org/blog/objectgetprototypeof/">Object.getPrototypeOf</a></li>
+</ul>
+
+    </section>
+</article>

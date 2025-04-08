@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7243">BE7243: 使用notify()而不是notifyAll()</h2>
+    <h3>使用notify()而不是notifyAll()</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7243</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>使用notify()而不是notifyAll()</p>
+<h4>漏洞与风险</h4>
+<p>此方法调用<code>notify()</code>而不是<code>notifyAll()</code>.&nbsp;
+ Java监视器通常用于多种条件。&nbsp; 调用<code>notify()</code>只会唤醒一个线程，这意味着被唤醒的线程可能不是调用者满意的线程。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

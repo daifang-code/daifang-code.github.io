@@ -1,0 +1,42 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22426">PE22426: E741</h2>
+    <h3>Do not use variables named 'I', 'O', or 'l'</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22426</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>名为<code>I</code>可以容易混淆。</p>
+<p>将这些变量的名称更改为更具描述性的名称。</p>
+<h5>示例错误片段</h5>
+<p>本例中的代码可能会被误解为<code>0 * 1.08</code>（0乘以1.8）。</p>
+
+<pre><code>O = 100.0
+total = O * 1.08
+
+</code></pre>
+<h5>最佳修复</h5>
+<p>这个例子说明我们要乘以一个<code>order</code>变量另一个号码。</p>
+
+<pre><code>order = 100.0
+total = order * 1.08
+
+
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#names-to-avoid<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2154">SC2154: Use of uninitialized variable</h2>
+    <h3>var is referenced but not assigned.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2154</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>var is referenced but not assigned.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">var</span><span class="o">=</span>name
+<span class="nv">n</span><span class="o">=</span><span class="m">42</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$var_$n</span><span class="s2">.jpg&quot;</span>   <span class="c1"># overextended</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><span class="nv">target</span><span class="o">=</span><span class="s2">&quot;world&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;hello </span><span class="nv">$tagret</span><span class="s2">&quot;</span>  <span class="c1"># misspelled</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;Result: </span><span class="si">${</span><span class="nv">mycmd</span><span class="p"> -a myfile</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># trying to execute commands</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">var</span><span class="o">=</span>name
+<span class="nv">n</span><span class="o">=</span><span class="m">42</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">var</span><span class="si">}</span><span class="s2">_</span><span class="nv">$n</span><span class="s2">.jpg&quot;</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><span class="nv">target</span><span class="o">=</span><span class="s2">&quot;world&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;hello </span><span class="nv">$target</span><span class="s2">&quot;</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;Result: </span><span class="k">$(</span>mycmd -a myfile<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck has noticed that you reference a variable that is not assigned. Double check that the variable is indeed assigned, and that the name is not misspelled.</p>
+<p>Note: This message only triggers for variables with lowercase characters in their name (<code>foo</code> and <code>kFOO</code> but not <code>FOO</code>) due to the standard convention of using lowercase variable names for unexported, local variables.</p>
+<h5>Exceptions:</h5>
+<p>ShellCheck intentionally does not attempt to figure out runtime or dynamic assignments like with <code>source &quot;$(date +%F).sh&quot;</code> or <code>eval var=value</code>. See [[SC2034]] for an extended discussion of why this is the case.</p>
+<p>If you know for a fact that the variable is set, you can use <code>${var:?}</code> to fail if the variable is unset (or empty), initialize it to a default value if uninitialized with <code>: &quot;${var:=}&quot;</code>, or explicitly initialize/declare it with <code>var=&quot;&quot;</code> or <code>declare var</code>. You can also disable the message with a [[directive]].</p>
+
+    </section>
+</article>

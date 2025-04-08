@@ -1,0 +1,91 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0089">PE0089: Process Control</h2>
+    <h3>Executing commands or loading libraries from an untrusted source or in an untrusted environment can cause an application to execute malicious commands (and payloads) on behalf of an attacker. </h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0089</dd>
+                    <dt>Tags</dt>
+                    <dd>C, C++, JAVA, CWE-114</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Process control vulnerabilities take two forms:</p>
+<ol>
+<li>An attacker can change the command that the program executes: the attacker explicitly controls what the command is.</li>
+<li>An attacker can change the environment in which the command executes: the attacker implicitly controls what the command means.</li>
+</ol>
+<p>Process control vulnerabilities of the first type occur when either data enters the application from an untrusted source and the data is used as part of a string representing a command that is executed by the application. By executing the command, the application gives an attacker a privilege or capability that the attacker would not otherwise have.</p>
+<h4>Vulnerability and risk</h4>
+<p>Execute Unauthorized Code or Commands</p>
+<h4>Potential Mitigations</h4>
+<p>Libraries that are loaded should be well understood and come from a trusted source. The application can execute code contained in the native libraries, which often contain calls that are susceptible to other security problems, such as buffer overflows or command injection. All native libraries should be validated to determine if the application requires the use of the library. It is very difficult to determine what these native libraries actually do, and the potential for malicious code is high. In addition, the potential for an inadvertent mistake in these native libraries is also high, as many are written in C or C++ and may be susceptible to buffer overflow or race condition problems. To help prevent buffer overflow attacks, validate all input to native calls for content and length. If the native library does not come from a trusted source, review the source code of the library. The library should be built from the reviewed source before using it.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Critical</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code Example 1</h5>
+<p>The following code uses System.loadLibrary() to load code from a native library named library.dll, which is normally found in a standard system directory.</p>
+<div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;library.dll&quot;</span><span class="o">);</span>
+<span class="o">...</span>
+</pre></div>
+<p>The problem here is that System.loadLibrary() accepts a library name, not a path, for the library to be loaded. From the Java 1.4.2 API documentation this function behaves as follows [1]: A file containing native code is loaded from the local file system from a place where library files are conventionally obtained. The details of this process are implementation-dependent. The mapping from a library name to a specific filename is done in a system-specific manner. If an attacker is able to place a malicious copy of library.dll higher in the search order than file the application intends to load, then the application will load the malicious copy instead of the intended file. Because of the nature of the application, it runs with elevated privileges, which means the contents of the attacker's library.dll will now be run with elevated privileges, possibly giving them complete control of the system.</p>
+<h5>Fixed code Example 1</h5>
+<div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="c1">// Use absolute path</span>
+<span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;C:\\path_to_real_lib\\library.dll&quot;</span><span class="o">);</span>
+<span class="o">...</span>
+</pre></div>
+<h5>Vulnerable code Example 2</h5>
+<p>The following code from a privileged application uses a registry entry to determine the directory in which it is installed and loads a library file based on a relative path from the specified directory.</p>
+<div class="highlight"><pre><span></span><span class="p">...</span>
+<span class="n">RegQueryValueEx</span><span class="p">(</span><span class="n">hkey</span><span class="p">,</span> <span class="s">&quot;APPHOME&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">BYTE</span><span class="o">*</span><span class="p">)</span><span class="n">home</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">size</span><span class="p">);</span>
+<span class="kt">char</span><span class="o">*</span> <span class="n">lib</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">home</span><span class="p">)</span> <span class="o">+</span> <span class="n">strlen</span><span class="p">(</span><span class="n">INITLIB</span><span class="p">));</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">lib</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">strcpy</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="n">home</span><span class="p">);</span>
+  <span class="n">strcat</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="n">INITCMD</span><span class="p">);</span>
+  <span class="n">LoadLibrary</span><span class="p">(</span><span class="n">lib</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">...</span>
+</pre></div>
+<p>The code in this example allows an attacker to load an arbitrary library, from which code will be executed with the elevated privilege of the application, by modifying a registry key to specify a different path containing a malicious version of INITLIB. Because the program does not validate the value read from the environment, if an attacker can control the value of APPHOME, they can fool the application into running malicious code.</p>
+<h5>Fixed code Example 2</h5>
+<div class="highlight"><pre><span></span><span class="p">...</span>
+
+<span class="c1">// Ensure the safety of data before updating Reg</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">is_safe_key</span><span class="p">(</span><span class="n">hkey</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">is_safe</span><span class="p">(</span><span class="n">home</span><span class="p">))</span> <span class="p">{</span>
+ <span class="n">error_handle</span><span class="p">(</span><span class="s">&quot;Unsafe Reg editing&quot;</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">RegQueryValueEx</span><span class="p">(</span><span class="n">hkey</span><span class="p">,</span> <span class="s">&quot;APPHOME&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">BYTE</span><span class="o">*</span><span class="p">)</span><span class="n">home</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">size</span><span class="p">);</span>
+<span class="kt">char</span><span class="o">*</span> <span class="n">lib</span><span class="o">=</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">home</span><span class="p">)</span><span class="o">+</span><span class="n">strlen</span><span class="p">(</span><span class="n">INITLIB</span><span class="p">));</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">lib</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">strcpy</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="n">home</span><span class="p">);</span>
+  <span class="n">strcat</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="n">INITCMD</span><span class="p">);</span>
+  <span class="n">LoadLibrary</span><span class="p">(</span><span class="n">lib</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">...</span>
+</pre></div>
+<h5>Vulnerable code Example 3</h5>
+<p>The following code is from a web-based administration utility that allows users access to an interface through which they can update their profile on the system. The utility makes use of a library named liberty.dll, which is normally found in a standard system directory.</p>
+<div class="highlight"><pre><span></span><span class="n">LoadLibrary</span><span class="p">(</span><span class="s">&quot;liberty.dll&quot;</span><span class="p">);</span>
+</pre></div>
+<p>The problem is that the program does not specify an absolute path for liberty.dll. If an attacker is able to place a malicious library named liberty.dll higher in the search order than file the application intends to load, then the application will load the malicious copy instead of the intended file. Because of the nature of the application, it runs with elevated privileges, which means the contents of the attacker's liberty.dll will now be run with elevated privileges, possibly giving the attacker complete control of the system. The type of attack seen in this example is made possible because of the search order used by LoadLibrary() when an absolute path is not specified. If the current directory is searched before system directories, as was the case up until the most recent versions of Windows, then this type of attack becomes trivial if the attacker can execute the program locally. The search order is operating system version dependent, and is controlled on newer operating systems by the value of the registry key: HKLM\System\CurrentControlSet\Control\Session Manager\SafeDllSearchMode</p>
+<h5>Fixed code Example 3</h5>
+<div class="highlight"><pre><span></span><span class="c1">// Use absolute path</span>
+<span class="n">LoadLibrary</span><span class="p">(</span><span class="s">&quot;C:</span><span class="se">\\</span><span class="s">path_to_real_lib</span><span class="se">\\</span><span class="s">liberty.dll&quot;</span><span class="p">);</span>
+</pre></div>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/114.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

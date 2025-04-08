@@ -1,0 +1,34 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7303">BE7303: Format string placeholder incompatible with passed argument</h2>
+    <h3>Format string placeholder incompatible with passed argument</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7303</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Format string placeholder incompatible with passed argument</p>
+<h4>Vulnerability and risk</h4>
+<p>
+The format string placeholder is incompatible with the corresponding
+argument. For example,
+<code>
+  System.out.println("%d\n", "hello");
+</code>
+<p>The %d placeholder requires a numeric argument, but a string value is
+passed instead.
+A runtime exception will occur when
+this statement is executed.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

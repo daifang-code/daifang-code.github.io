@@ -1,0 +1,22 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE30003">BE30003: The application uses the potentially dangerous Html</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE30003</dd>
+                    <dt>Tags</dt>
+                    <dd>csharp</dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The application uses the potentially dangerous Html.Raw construct in conjunction with a user-supplied variable. The recommendation is to avoid using HTML assembly. but if it is extremely necessary to allow Html. we suggest the following: support only a fixed subset of Html. after the user submits content. analyze the Html and filter it in a whitelist of allowed tags and attributes. Be very careful when filtering and eliminating anything you are unsure of. https://owasp.org/www-community/attacks/xss/.</p>
+<h4>Likelihood of exploit</h4>
+<p>Medium</p>
+
+    </section>
+</article>

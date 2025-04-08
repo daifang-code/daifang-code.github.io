@@ -1,0 +1,130 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2230">PE2230: rest-spread-spacing</h2>
+    <h3>强制剩余和扩展运算符及其表达式之间有空格 (rest-spread-spacing)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2230</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制剩余和扩展运算符及其表达式之间有空格 (rest-spread-spacing)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>ES2015 引入了剩余和扩展运算符，用于将可遍历结构扩展为单个个体。其用法举例如下：</p>
+<div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">numArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span> <span class="o">+</span> <span class="nx">c</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">add</span><span class="p">(...</span><span class="nx">numArr</span><span class="p">);</span> <span class="c1">// -&gt; 6</span>
+
+<span class="kd">let</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">let</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">];</span>
+<span class="nx">arr1</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">arr2</span><span class="p">);</span> <span class="c1">// -&gt; [1, 2, 3, 4, 5, 6]</span>
+
+<span class="kd">let</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="p">...</span><span class="nx">arr</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+<span class="nx">a</span><span class="p">;</span> <span class="c1">// -&gt; 1</span>
+<span class="nx">b</span> <span class="c1">// -&gt; 2</span>
+<span class="nx">arr</span><span class="p">;</span> <span class="c1">// -&gt;  [3, 4, 5]</span>
+
+<span class="kd">function</span> <span class="nx">numArgs</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">numArgs</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">);</span> <span class="c1">// -&gt; 3</span>
+</pre></div>
+<p>除上述之外，目前人们建议将对象的剩余和扩展属性添加到规范。使用如下：</p>
+<div class="highlight"><pre><span></span><span class="kd">let</span> <span class="p">{</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="p">...</span><span class="nx">z</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span> <span class="p">};</span>
+<span class="nx">x</span><span class="p">;</span> <span class="c1">// -&gt; 1</span>
+<span class="nx">y</span><span class="p">;</span> <span class="c1">// -&gt; 2</span>
+<span class="nx">z</span><span class="p">;</span> <span class="c1">// -&gt; { a: 3, b: 4 }</span>
+
+<span class="kd">let</span> <span class="nx">n</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="p">...</span><span class="nx">z</span> <span class="p">};</span>
+<span class="nx">n</span><span class="p">;</span> <span class="c1">// -&gt; { x: 1, y: 2, a: 3, b: 4 }</span>
+</pre></div>
+<p>和其他运算符一样，若允许在剩余和扩展运算符及其运算表达式之间有空格，可能导致同一个代码库的空格不一致。</p>
+<h2>缺陷详因</h2>
+<p>该规则旨在强制剩余和扩展运算符及其表达式之间的空格一致。该规则被启用时还支持仍在实验中的对象的剩余和扩展属性：</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;parser修改方案&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;ecmaEslint版本&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="nt">&quot;ecmaFeatures&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;experimentalObjectRestSpread&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>请阅读用户指南章节 <a href="/docs/user-guide/configuring#specifying-parser-options">configuring parser options</a> 了解更多。</p>
+<h2>修改方案</h2>
+<p>该规则有一个参数：值为 <code>&quot;never&quot;</code> 或 <code>&quot;always&quot;</code> 的字符串。默认值为 <code>&quot;never&quot;</code> 。</p>
+<h5>&quot;never&quot;</h5>
+<p>参数为默认值 <code>&quot;never&quot;</code> 时，扩展运算符及其表达式之间不允许有空格。</p>
+<div class="highlight"><pre><span></span><span class="err">rest-spread-spacing:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span>
+</pre></div>
+<p>或者</p>
+<div class="highlight"><pre><span></span><span class="err">rest-spread-spacing:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;never&quot;</span><span class="p">]</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint rest-spread-spacing: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="nx">fn</span><span class="p">(...</span> <span class="nx">args</span><span class="p">)</span>
+<span class="p">[...</span> <span class="nx">arr</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="p">...</span> <span class="nx">arr</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+<span class="kd">function</span> <span class="nx">fn</span><span class="p">(...</span> <span class="nx">args</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span> <span class="p">}</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="p">...</span> <span class="nx">z</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="nx">n</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="p">...</span> <span class="nx">z</span> <span class="p">};</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint rest-spread-spacing: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="nx">fn</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span>
+<span class="p">[...</span><span class="nx">arr</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="p">...</span><span class="nx">arr</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+<span class="kd">function</span> <span class="nx">fn</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span> <span class="p">}</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="p">...</span><span class="nx">z</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="nx">n</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="p">...</span><span class="nx">z</span> <span class="p">};</span>
+</pre></div>
+<h5>&quot;always&quot;</h5>
+<p>参数值为 <code>&quot;always&quot;</code> 时，扩展运算符及其表达式之间要求有空格。</p>
+<div class="highlight"><pre><span></span><span class="err">rest-spread-spacing:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;always&quot;</span><span class="p">]</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint rest-spread-spacing:[&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="nx">fn</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span>
+<span class="p">[...</span><span class="nx">arr</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="p">...</span><span class="nx">arr</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+<span class="kd">function</span> <span class="nx">fn</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span> <span class="p">}</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="p">...</span><span class="nx">z</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="nx">n</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="p">...</span><span class="nx">z</span> <span class="p">};</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint rest-spread-spacing: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="nx">fn</span><span class="p">(...</span> <span class="nx">args</span><span class="p">)</span>
+<span class="p">[...</span> <span class="nx">arr</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="p">...</span> <span class="nx">arr</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+<span class="kd">function</span> <span class="nx">fn</span><span class="p">(...</span> <span class="nx">args</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span> <span class="p">}</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="p">...</span> <span class="nx">z</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="nx">n</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="p">...</span> <span class="nx">z</span> <span class="p">};</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>另外，如果你不关心在剩余和扩展运算符及其表达式之间强制空格一致，可以安全地禁用该规则。</p>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://github.com/tc39/proposal-object-rest-spread">Object Rest/Spread Properties for ECMAScript</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 2.12.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/rest-spread-spacing.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/rest-spread-spacing.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

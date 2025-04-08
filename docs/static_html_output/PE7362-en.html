@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7362">BE7362: Class overrides a method implemented in super class Adapter wrongly</h2>
+    <h3>Class overrides a method implemented in super class Adapter wrongly</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7362</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Class overrides a method implemented in super class Adapter wrongly</p>
+<h4>Vulnerability and risk</h4>
+<p> This method overrides a method found in a parent class, where that class is an Adapter that implements
+a listener defined in the java.awt.event or javax.swing.event package. As a result, this method will not
+get called when the event occurs.</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

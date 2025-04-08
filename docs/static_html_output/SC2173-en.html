@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2173">SC2173: Improper signal handling</h2>
+    <h3>SIGKILL/SIGSTOP can not be trapped.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2173</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>SIGKILL/SIGSTOP can not be trapped.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">trap</span> <span class="s1">&#39;echo &quot;unkillable&quot;&#39;</span> KILL
+</pre></div>
+<h5>Correct code:</h5>
+<p>Not applicable. This is not possible.</p>
+<h5>Rationale:</h5>
+<p>SIGKILL and SIGSTOP can not be caught/ignored (according to POSIX and as implemented on platforms including Linux and FreeBSD). Trying to trap this signal has undefined results.</p>
+<h5>Exceptions:</h5>
+<p>None. If you come across one, please file an issue about it.</p>
+
+    </section>
+</article>

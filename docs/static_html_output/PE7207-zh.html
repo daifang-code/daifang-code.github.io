@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7207">BE7207: 类是可序列化的，但不定义serialVersionUID</h2>
+    <h3>类是可序列化的，但不定义serialVersionUID</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7207</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>类是可序列化的，但不定义serialVersionUID</p>
+<h4>漏洞与风险</h4>
+<p>这个类实现<code>Serializable</code>接口，但是没有定义一个<code>serialVersionUID</code>字段。
+例如对.class对象添加引用这样一个简单的更改会在类中添加合成的字段，但这将改变隐藏的serialVersionUID（例如，添加对<code>String.class</code>的引用将产生一个静态字段类<code>class$java$lang$String</code>）。
+另外，对字节码编译器来说，不同的源代码会使用不同的命名约定来生成用于引用类对象或内部类的合成变量。
+为了确保跨版本的Serializable的可操作性, 可以考虑添加一个显式的serialVersionUID。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

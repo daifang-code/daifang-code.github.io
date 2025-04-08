@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7330">BE7330: 不兼容的位掩码</h2>
+    <h3>不兼容的位掩码</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7330</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>不兼容的位掩码</p>
+<h4>漏洞与风险</h4>
+<p> 这个方法比较了<code>(e | C)</code> to D.表达式和D。由于常量C和D是特殊值，这个比较结果总是不相等的。这可能会显示为一个逻辑或拼写错误。</p>
+<p> 通常，这个错误的发生是因为代码想要在一个位集合中执行成员测试，但是却使用按位或操作符("|")而不是按位与("&")。</p>
+<p>同样的错误也会出现在像<code>(e & A | B) == C</code>的表达式中，该表达式表达的是<code>((e & A) | B) == C</code>，但您需要的可能是<code>(e & (A | B)) == C</code>。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

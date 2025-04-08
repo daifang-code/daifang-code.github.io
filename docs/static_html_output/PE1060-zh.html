@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1060">PE1060: 迭代器边界检查</h2>
+    <h3>循环中，没有检查迭代器自增的边界条件。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1060</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>循环中，没有检查迭代器自增的边界条件。</p>
+<h4>漏洞与风险</h4>
+<p>迭代器自增的边界条件不明确会导致程序进入死循环或者直接导致程序崩溃。</p>
+<h4>缓解与预防</h4>
+<p>添加迭代器自增边界条件的检查项</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

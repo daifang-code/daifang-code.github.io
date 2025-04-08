@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22242">PE22242: DUO132</h2>
+    <h3>DUO132</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22242</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO132</h4>
+<p>This linter searches for insecure keyword argument use in the <code>urllib3</code> module.
+Specifically, it looks for objects that may have HTTPS certification
+verification disabled by setting <code>&quot;NONE&quot;</code>, <code>&quot;CERT_NONE&quot;</code>, <code>CERT_NONE</code>, or
+<code>ssl.CERT_NONE</code> set for the <code>cert_reqs</code> keyward argument. These values disable
+verification and thus allow for insecure HTTPS connections.</p>
+<h2>Problematic code</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib3</span>
+<span class="kn">import</span> <span class="nn">ssl</span>
+<span class="kn">from</span> <span class="nn">ssl</span> <span class="kn">import</span> <span class="n">CERT_NONE</span>
+
+<span class="n">urllib3</span><span class="o">.</span><span class="n">PoolManager</span><span class="p">(</span><span class="n">cert_reqs</span><span class="o">=</span><span class="s2">&quot;CERT_NONE&quot;</span><span class="p">)</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">ProxyManager</span><span class="p">(</span><span class="n">cert_reqs</span><span class="o">=</span><span class="s2">&quot;CERT_NONE&quot;</span><span class="p">)</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">HTTPSConnectionPool</span><span class="p">(</span><span class="n">cert_reqs</span><span class="o">=</span><span class="s2">&quot;NONE&quot;</span><span class="p">)</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">connection_from_url</span><span class="p">(</span><span class="n">cert_reqs</span><span class="o">=</span><span class="n">ssl</span><span class="o">.</span><span class="n">CERT_NONE</span><span class="p">)</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">proxy_from_url</span><span class="p">(</span><span class="n">cert_reqs</span><span class="o">=</span><span class="n">CERT_NONE</span><span class="p">)</span>
+</pre></div>
+<h2>Correct code</h2>
+<p>Simply not specifying <code>cert_reqs</code> will default to secure behavior. Further,
+setting <code>ssl.CERT_REQUIRED</code> or its variants will ensure verification is
+performed.</p>
+<h2>Rationale</h2>
+<p>HTTPS certificate verification ensures your requests are communicating with
+whom they're supposed to be. Without this there could be an attacker
+impersonating the server you intend to be communicating with. To prevent this
+you must ensure certification verification is enabled.</p>
+<h2>Exceptions</h2>
+<ul>
+<li>Code connecting to internal network services (although these should strive for full HTTPS as well)</li>
+<li>Code connecting to local development services or in test environments</li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,88 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2044">SC2044: Looping on 'find' directive results</h2>
+    <h3>For loops over find output are fragile. Use find -exec or a while read loop.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2044</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>For loops over find output are fragile. Use find -exec or a while read loop.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span> file in <span class="k">$(</span>find mydir -mtime -7 -name <span class="s1">&#39;*.mp3&#39;</span><span class="k">)</span>
+<span class="k">do</span>
+  <span class="nb">let</span> count++
+  <span class="nb">echo</span> <span class="s2">&quot;Playing file no. </span><span class="nv">$count</span><span class="s2">&quot;</span>
+  play <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s2">&quot;Played </span><span class="nv">$count</span><span class="s2"> files&quot;</span>
+</pre></div>
+<p>This will fail for filenames containing spaces and similar, such as <code>My File.mp3</code>, and has a series of potential globbing issues depending on other filenames in the directory like (if you have <code>MyFile2.mp3</code> and <code>MyFile[2014].mp3</code>, the former file will play twice and the latter will not play at all).</p>
+<h5>Correct code:</h5>
+<p>There are many possible fixes, each with its pros and cons.</p>
+<p>The most general fix (that requires the least amount of thinking to apply) is having <code>find</code> output a <code>\0</code> separated list of files and consuming them in a <code>while read</code> loop:</p>
+<div class="highlight"><pre><span></span><span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span> <span class="nb">read</span> -r -d <span class="s1">&#39;&#39;</span> file
+<span class="k">do</span>
+  <span class="nb">let</span> count++
+  <span class="nb">echo</span> <span class="s2">&quot;Playing file no. </span><span class="nv">$count</span><span class="s2">&quot;</span>
+  play <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
+<span class="k">done</span> &lt;   &lt;<span class="o">(</span>find mydir -mtime -7 -name <span class="s1">&#39;*.mp3&#39;</span> -print0<span class="o">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;Played </span><span class="nv">$count</span><span class="s2"> files&quot;</span>
+</pre></div>
+<p>In usage it's very similar to the <code>for</code> loop: it gets its output from a <code>find</code> statement, it executes a shell script body, it allows updating/aggregating variables, and the variables are available when the loop ends.</p>
+<p>It requires Bash, and works with GNU, Busybox, OS X, FreeBSD and OpenBSD find, but not POSIX find.</p>
+<h5>If <code>find</code> is just matching globs recursively</h5>
+<p>If you don't need <code>find</code> logic like <code>-mtime -7</code> and just use it to match globs recursively (all <code>*.mp3</code> files under a directory), you can instead use <code>globstar</code> and <code>nullglob</code> instead of <code>find</code>, and still use a <code>for</code> loop:</p>
+<div class="highlight"><pre><span></span><span class="nb">shopt</span> -s globstar nullglob
+<span class="k">for</span> file in mydir/**/*.mp3
+<span class="k">do</span>
+  <span class="nb">let</span> count++
+  <span class="nb">echo</span> <span class="s2">&quot;Playing file no. </span><span class="nv">$count</span><span class="s2">&quot;</span>
+  play <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s2">&quot;Played </span><span class="nv">$count</span><span class="s2"> files&quot;</span>
+</pre></div>
+<p>This is bash 4 specific.</p>
+<h5>For POSIX</h5>
+<p>If you need POSIX compliance, this is a fair approach:</p>
+<div class="highlight"><pre><span></span>find mydir ! -name <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">printf</span> <span class="s2">&quot;*\n*&quot;</span><span class="k">)</span><span class="s2">&quot;</span> -name <span class="s1">&#39;*.mp3&#39;</span> &gt; tmp
+<span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span> <span class="nb">read</span> -r file
+<span class="k">do</span>
+  <span class="nb">let</span> count++
+  <span class="nb">echo</span> <span class="s2">&quot;Playing file #</span><span class="nv">$count</span><span class="s2">&quot;</span>
+  play <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
+<span class="k">done</span> &lt; tmp
+rm tmp
+<span class="nb">echo</span> <span class="s2">&quot;Played </span><span class="nv">$count</span><span class="s2"> files&quot;</span>
+</pre></div>
+<p>The only problem is for filenames containing line feeds. A <code>! -name &quot;$(printf &quot;*\n*&quot;)&quot;</code> has been added to simply skip these files, just in case there are any.</p>
+<p>If you don't need variables to be available after the loop (here, if you don't need to print the final play count at the end), you can skip the <code>tmp</code> file and just pipe from <code>find</code> to <code>while</code>.</p>
+<h5>For simple commands with no aggregation</h5>
+<p>If you don't need a shell script loop body or any form of variable  like if we only wanted to play the file, we can dramatically simplify while maintaining POSIX compatibility:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Simple and POSIX</span>
+find mydir -name <span class="s1">&#39;*.mp3&#39;</span> -exec play <span class="o">{}</span> <span class="se">\;</span>
+</pre></div>
+<p>This does not allow things like <code>let counter++</code> because <code>let</code> is a shell builtin, not an external command.</p>
+<h5>For shell commands with no aggregation</h5>
+<p>If we do need a shell script body but no aggregation, you can do the above but invoking <code>sh</code> (this is still POSIX):</p>
+<div class="highlight"><pre><span></span>find mydir -name <span class="s1">&#39;*.mp3&#39;</span> -exec sh -c <span class="s1">&#39;</span>
+<span class="s1">    echo &quot;Playing ${1%.mp3}&quot;</span>
+<span class="s1">    play &quot;$1&quot;</span>
+<span class="s1">  &#39;</span> sh <span class="o">{}</span> <span class="se">\;</span>
+</pre></div>
+<p>This would not be possible without <code>sh</code>, because <code>${1%.mp3}</code> is a shell construct that <code>find</code> can't evaluate by itself. If we had tried to <code>let counter++</code> in this loop, we would have found that the value never changes.</p>
+<p>Note that using <code>+</code> instead of <code>\;</code>, and using an embedded <code>for file in &quot;$@&quot;</code> loop rather than <code>&quot;$1&quot;</code>, will not allow aggregating variables. This is because for large lists, <code>find</code> will invoke the command multiple times, each time with some chunk of the input.</p>
+<h5>Rationale:</h5>
+<p><code>for var in $(find ...)</code>  loops rely on word splitting and will evaluate globs, which will wreck havoc with filenames containing whitespace or glob characters.</p>
+<p><code>find -exec</code> <code>for i in glob</code> and <code>find</code>+<code>while</code> do not rely on word splitting, so they avoid this problem.</p>
+<h5>Exceptions</h5>
+<p>If you know about and carefully apply <code>IFS=$'\n'</code> and <code>set -f</code>, you could choose to ignore this message.</p>
+
+    </section>
+</article>

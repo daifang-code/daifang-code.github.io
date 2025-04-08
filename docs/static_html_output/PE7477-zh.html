@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7477">BE7477: 过分宽松的CORS政策</h2>
+    <h3>过分宽松的CORS政策</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7477</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>过分宽松的CORS政策</p>
+<h4>漏洞与风险</h4>
+<p>
+在HTML5之前，Web浏览器强制执行Same Origin Policy，以确保JavaScript能够访问Web页面的内容，JavaScript和Web页面都必须来自同一个域。
+如果没有Same Origin Policy，恶意网站就可以使用客户凭证使JavaScript从其它网站加载敏感信息，并通过它进行筛选，并将其反馈给攻击者。
+如果一个名为Access-Control-Allow-Origin的新HTTP头被定义，那么HTML5就有可能使JavaScript访问跨域的数据。
+有了这个头，一个Web服务器就定义了哪些其它域可以使用跨源请求访问它的域。
+然而，在定义头时应该谨慎，因为过于宽松的CORS策略将允许恶意应用程序以不恰当的方式与受害者应用程序通信，从而导致欺骗、数据窃取、中继和其它攻击。
+</p>
+<p>
+    <b>易受攻击的代码：</b>
+<pre>response.addHeader("Access-Control-Allow-Origin", "*");</pre>
+</p>
+<p>
+    <b>解决方案：</b>
+<br/>
+避免使用Access-Control-Allow-Origin header的值，这表明任何域上运行的JavaScript可以对应用程序的数据进行访问。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>References</h4>
+<p>&lt;a href=&quot;https://www.w3.org/TR/cors/&quot;&gt;W3C Cross-Origin Resource Sharing&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://enable-cors.org/&quot;&gt;Enable Cross-Origin Resource Sharing&lt;/a&gt;&lt;br/&gt;</p>
+</p>
+
+    </section>
+</article>

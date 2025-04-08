@@ -1,0 +1,39 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22433">PE22433: W292</h2>
+    <h3>No newline at end of file</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22433</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>文件应以换行符结尾。</p>
+<h5>示例错误片段</h5>
+<p>假设下面的例子是一个完整的文件。</p>
+
+<pre><code>import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+</code></pre>
+<h5>最佳修复</h5>
+<p>假设下面的例子是一个完整的文件。</p>
+
+<pre><code>import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# This is a new line that ends the file.
+
+
+
+</code></pre>
+<h4>References</h4>
+
+    </section>
+</article>

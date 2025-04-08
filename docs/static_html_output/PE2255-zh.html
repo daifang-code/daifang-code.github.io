@@ -1,0 +1,99 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2255">PE2255: yield-star-spacing</h2>
+    <h3>强制在 `yield*` 表达式中 `*` 周围使用空格  (yield-star-spacing)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2255</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制在 <code>yield*</code> 表达式中 <code>*</code> 周围使用空格  (yield-star-spacing)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<h2>缺陷详因</h2>
+<p>该规则强制在 <code>yield*</code> 表达式中 <code>*</code> 左右使用空格。</p>
+<p>To use this rule you either need to <a href="../user-guide/configuring">use the <code>es6</code> environment</a> or
+<a href="../user-guide/configuring">在 <code>parser修改方案</code>中设置 <code>ecmaEslint版本</code> 为 <code>6</code></a>。</p>
+<h2>修改方案</h2>
+<p>该规则有一个对象选项，两个属性 <code>before</code> 和 <code>after</code>，值为 <code>true</code> 或 <code>false</code>。</p>
+<ul>
+<li><code>before</code> 强制在 <code>yield</code> 和 <code>*</code> 之间有空格。
+如果为 <code>true</code>，要求有一个空格，否则禁止有空格。</li>
+<li><code>after</code> 强制在 <code>*</code> 和 参数之间有空格。
+如果为 <code>true</code>，要求有一个空格，否则禁止有空格。</li>
+</ul>
+<p>默认为 <code>{&quot;before&quot;: false, &quot;after&quot;: true}</code> 。</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;yield-star-spacing&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nt">&quot;before&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&quot;after&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">}]</span>
+</pre></div>
+<p>该选项也有简写形式：</p>
+<ul>
+<li><code>{&quot;before&quot;: false, &quot;after&quot;: true}</code> → <code>&quot;after&quot;</code></li>
+<li><code>{&quot;before&quot;: false, &quot;after&quot;: true}</code> → <code>&quot;after&quot;</code></li>
+<li><code>{&quot;before&quot;: true, &quot;after&quot;: false}</code> → <code>&quot;before&quot;</code></li>
+<li><code>{&quot;before&quot;: true, &quot;after&quot;: false}</code> → <code>&quot;before&quot;</code></li>
+<li><code>{&quot;before&quot;: true, &quot;after&quot;: true}</code> → <code>&quot;both&quot;</code></li>
+<li><code>{&quot;before&quot;: true, &quot;after&quot;: true}</code> → <code>&quot;both&quot;</code></li>
+<li><code>{&quot;before&quot;: false, &quot;after&quot;: false}</code> → <code>&quot;neither&quot;</code></li>
+<li><code>{&quot;before&quot;: false, &quot;after&quot;: false}</code> → <code>&quot;neither&quot;</code></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="s2">&quot;yield-star-spacing&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;after&quot;</span><span class="p">]</span>
+</pre></div>
+<h2>Examples</h2>
+<h5>after</h5>
+<p>默认选项 <code>&quot;after&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint yield-star-spacing: [&quot;error&quot;, &quot;after&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span><span class="o">*</span> <span class="nx">generator</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">yield</span><span class="o">*</span> <span class="nx">other</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>before</h5>
+<p>选项 <code>&quot;before&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint yield-star-spacing: [&quot;error&quot;, &quot;before&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="o">*</span><span class="nx">generator</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">yield</span> <span class="o">*</span><span class="nx">other</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>both</h5>
+<p>选项 <code>&quot;both&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint yield-star-spacing: [&quot;error&quot;, &quot;both&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="o">*</span> <span class="nx">generator</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">yield</span> <span class="o">*</span> <span class="nx">other</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>neither</h5>
+<p>选项 <code>&quot;neither&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint yield-star-spacing: [&quot;error&quot;, &quot;neither&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span><span class="o">*</span><span class="nx">generator</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">yield</span><span class="o">*</span><span class="nx">other</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你的项目不使用 generator 函数或你不关心空格的一致性，你不需要使用此规则。</p>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://leanpub.com/understandinges6/read/#leanpub-auto-generators">Understanding ES6: Generators</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 2.0.0-alpha-1 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/yield-star-spacing.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/yield-star-spacing.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

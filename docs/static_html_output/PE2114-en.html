@@ -1,0 +1,63 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2114">PE2114: no-implied-eval</h2>
+    <h3>Disallow Implied eval() (no-implied-eval)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2114</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow Implied eval() (no-implied-eval)</h4>
+<p>It's considered a good practice to avoid using <code>eval()</code> in JavaScript. There are security and performance implications involved with doing so, which is why many linters (including ESLint) recommend disallowing <code>eval()</code>. However, there are some other ways to pass a string and have it interpreted as JavaScript code that have similar concerns.</p>
+<p>The first is using <code>setTimeout()</code>, <code>setInterval()</code> or <code>execScript()</code> (Internet Explorer only), all of which can accept a string of JavaScript code as their first argument. For example:</p>
+<div class="highlight"><pre><span></span><span class="nx">setTimeout</span><span class="p">(</span><span class="s2">&quot;alert(&#39;Hi!&#39;);&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+</pre></div>
+<p>This is considered an implied <code>eval()</code> because a string of JavaScript code is
+ passed in to be interpreted. The same can be done with <code>setInterval()</code> and <code>execScript()</code>. Both interpret the JavaScript code in  the global scope. For  both <code>setTimeout()</code> and <code>setInterval()</code>, the first argument can also be a function, and that is considered safer and is more performant:</p>
+<div class="highlight"><pre><span></span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Hi!&quot;</span><span class="p">);</span>
+<span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
+</pre></div>
+<p>The best practice is to always use a function for the first argument of <code>setTimeout()</code> and <code>setInterval()</code> (and avoid <code>execScript()</code>).</p>
+<h2>Rule Details</h2>
+<p>This rule aims to eliminate implied <code>eval()</code> through the use of <code>setTimeout()</code>, <code>setInterval()</code> or <code>execScript()</code>. As such, it will warn when either function is used with a string as the first argument.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-implied-eval: &quot;error&quot;*/</span>
+
+<span class="nx">setTimeout</span><span class="p">(</span><span class="s2">&quot;alert(&#39;Hi!&#39;);&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+
+<span class="nx">setInterval</span><span class="p">(</span><span class="s2">&quot;alert(&#39;Hi!&#39;);&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+
+<span class="nx">execScript</span><span class="p">(</span><span class="s2">&quot;alert(&#39;Hi!&#39;)&quot;</span><span class="p">);</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="s2">&quot;count = 5&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">setInterval</span><span class="p">(</span><span class="s2">&quot;foo = bar&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-implied-eval: &quot;error&quot;*/</span>
+
+<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Hi!&quot;</span><span class="p">);</span>
+<span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
+
+<span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Hi!&quot;</span><span class="p">);</span>
+<span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you want to allow <code>setTimeout()</code> and <code>setInterval()</code> with string arguments, then you can safely disable this rule.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-eval.md">no-eval</a></li>
+</ul>
+
+    </section>
+</article>

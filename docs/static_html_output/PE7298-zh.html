@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7298">BE7298: 提供的参数的类型与格式说明符不匹配</h2>
+    <h3>提供的参数的类型与格式说明符不匹配</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7298</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>提供的参数的类型与格式说明符不匹配</p>
+<h4>漏洞与风险</h4>
+<p>其中一个参数与相应的格式字符串说明符不兼容。因此，这将在执行时生成runtime异常。
+例如，<code>String.format("%d", "1")</code>将生成异常，因为字符串"1"与格式说明符％d不兼容。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

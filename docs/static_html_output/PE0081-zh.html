@@ -1,0 +1,141 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0081">PE0081: SQL 注入</h2>
+    <h3>SQL注入是一种代码注入技术，用于攻击数据驱动的应用程序，其中恶意的SQL语句被插入到输入字段中从而被恶意执行。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0081</dd>
+                    <dt>标签</dt>
+                    <dd>Web, Java, Injection, CWE-89 ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>SQL注入漏洞在SQL查询的元素源自不可信源的应用程序中出现。如果没有预防措施，不可信数据可能会恶意更改查询，导致信息泄漏或数据修改。</p>
+<p>假设系统通过向SQL数据库发出以下查询来对用户进行身份验证。 如果查询返回任何结果，则认证成功; 否则，认证失败。</p>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">db_user</span> <span class="k">WHERE</span> <span class="n">username</span><span class="o">=</span><span class="s1">&#39;&lt;USERNAME&gt;&#39;</span> <span class="k">AND</span>  <span class="n">password</span><span class="o">=</span><span class="s1">&#39;&lt;PASSWORD&gt;&#39;</span>
+</pre></div>
+<p>假设攻击者可以用&lt;USERNAME&gt;和&lt;PASSWORD&gt;替换任意字符串。 在这种情况下，可以通过向以下&lt;USERNAME&gt;提供任意密码来绕过认证机制：</p>
+<div class="highlight"><pre><span></span><span class="n">validuser</span><span class="s1">&#39; OR &#39;</span><span class="mi">1</span><span class="s1">&#39;=&#39;</span><span class="mi">1</span>
+</pre></div>
+<p>身份验证例程动态构建以下查询：</p>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">db_user</span> <span class="k">WHERE</span> <span class="n">username</span><span class="o">=</span><span class="s1">&#39;validuser&#39;</span> <span class="k">OR</span> <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span> <span class="k">AND</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;&lt;PASSWORD&gt;&#39;</span>
+</pre></div>
+<p>如果validuser是有效的用户名，则此SELECT语句会在表中生成有效用户记录。从而不再检查密码是否正确，因为<code>username='validuser'</code>为true; 因此，OR之后的语句就不会被验证。只要OR之后的组件生成语法上正确的SQL表达式，攻击者就被授予validuser的访问权限。</p>
+<p>同样，攻击者可以用任意用户名为&lt;PASSWORD&gt;提供以下字符串：</p>
+<div class="highlight"><pre><span></span><span class="s1">&#39; OR &#39;</span><span class="mi">1</span><span class="s1">&#39;=&#39;</span><span class="mi">1</span>
+</pre></div>
+<p>产生下面的查询语句：</p>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">db_user</span> <span class="k">WHERE</span> <span class="n">username</span><span class="o">=</span><span class="s1">&#39;&lt;USERNAME&gt;&#39;</span> <span class="k">AND</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;&#39;</span> <span class="k">OR</span> <span class="s1">&#39;1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span>
+</pre></div>
+<p><code>'1'='1'</code>总是计算为真，导致查询产生数据库中的每一行。在这种情况下，攻击者将被认证而不需要有效的用户名或密码。</p>
+<h4>漏洞与风险</h4>
+<p>SQL注入是一种代码注入技术，用于攻击数据驱动的应用程序，其中恶意的SQL语句被插入到输入字段中从而被恶意执行。（例如将数据库内容转储给攻击者）。SQL注入必须利用应用程序软件中的安全漏洞，例如，当用户输入不正确地过滤嵌入SQL语句中的字符串文字转义字符或者用户输入未被强类型化和意外执行时。 SQL注入通常被称为网站的攻击媒介，但可以用来攻击任何类型的SQL数据库。</p>
+<p>SQL注入攻击允许攻击者欺骗身份，篡改现有数据，引起拒绝问题（如排除交易或更改余额），允许完整披露系统上的所有数据，销毁数据或使其不可用，并成为 数据库服务器管理员。</p>
+<h4>缓解与预防</h4>
+<p>防止SQL注入的主要手段是清理和验证，通常将其实施为参数化查询和存储过程。</p>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>JDBC库提供了一个用于构建清理不可信数据的SQL命令的API。java.sql.PreparedStatement类正确地转义输入字符串，正确使用时可以防止SQL注入。 此代码示例修改doPrivilegedAction（）方法以使用PreparedStatement而不是java.sql.Statement。 但是，准备好的语句仍然允许SQL注入攻击，通过将unsanitized输入参数用户名插入预准备语句中。</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.sql.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.DriverManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.ResultSet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.SQLException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.Statement</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">Login</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">Connection</span> <span class="nf">getConnection</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+    <span class="n">DriverManager</span><span class="o">.</span><span class="na">registerDriver</span><span class="o">(</span><span class="k">new</span>
+            <span class="n">com</span><span class="o">.</span><span class="na">microsoft</span><span class="o">.</span><span class="na">sqlserver</span><span class="o">.</span><span class="na">jdbc</span><span class="o">.</span><span class="na">SQLServerDriver</span><span class="o">());</span>
+    <span class="n">String</span> <span class="n">dbConnection</span> <span class="o">=</span>
+      <span class="n">PropertyManager</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&quot;db.connection&quot;</span><span class="o">);</span>
+    <span class="c1">// Can hold some value like</span>
+    <span class="c1">// &quot;jdbc:microsoft:sqlserver://&lt;HOST&gt;:1433,&lt;UID&gt;,&lt;PWD&gt;&quot;</span>
+    <span class="k">return</span> <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="n">dbConnection</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="n">String</span> <span class="nf">hashPassword</span><span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Create hash of password</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doPrivilegedAction</span><span class="o">(</span>
+    <span class="n">String</span> <span class="n">username</span><span class="o">,</span> <span class="kt">char</span><span class="o">[]</span> <span class="n">password</span>
+  <span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">getConnection</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">connection</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// Handle error</span>
+    <span class="o">}</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">String</span> <span class="n">pwd</span> <span class="o">=</span> <span class="n">hashPassword</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+      <span class="n">String</span> <span class="n">sqlString</span> <span class="o">=</span> <span class="s">&quot;select * from db_user where username=&quot;</span> <span class="o">+</span>
+        <span class="n">username</span> <span class="o">+</span> <span class="s">&quot; and password =&quot;</span> <span class="o">+</span> <span class="n">pwd</span><span class="o">;</span>     
+      <span class="n">PreparedStatement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sqlString</span><span class="o">);</span>
+
+      <span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+      <span class="k">if</span> <span class="o">(!</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">SecurityException</span><span class="o">(</span><span class="s">&quot;User name or password incorrect&quot;</span><span class="o">);</span>
+      <span class="o">}</span>
+
+      <span class="c1">// Authenticated; proceed</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="k">try</span> <span class="o">{</span>
+        <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Forward to handler</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h5>漏洞代码修复示例</h5>
+<p>该修复示例使用参数查询，字符作为参数的占位符。还会验证用户名参数的长度，防止攻击者提交任意长的用户名。</p>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">doPrivilegedAction</span><span class="o">(</span>
+  <span class="n">String</span> <span class="n">username</span><span class="o">,</span> <span class="kt">char</span><span class="o">[]</span> <span class="n">password</span>
+<span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+  <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">getConnection</span><span class="o">();</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">connection</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Handle error</span>
+  <span class="o">}</span>
+  <span class="k">try</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">pwd</span> <span class="o">=</span> <span class="n">hashPassword</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+
+    <span class="c1">// Validate username length</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">username</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// Handle error</span>
+    <span class="o">}</span>
+
+    <span class="n">String</span> <span class="n">sqlString</span> <span class="o">=</span>
+      <span class="s">&quot;select * from db_user where username=? and password=?&quot;</span><span class="o">;</span>
+    <span class="n">PreparedStatement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sqlString</span><span class="o">);</span>
+    <span class="n">stmt</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">username</span><span class="o">);</span>
+    <span class="n">stmt</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">pwd</span><span class="o">);</span>
+    <span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="n">SecurityException</span><span class="o">(</span><span class="s">&quot;User name or password incorrect&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Authenticated; proceed</span>
+  <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// Forward to handler</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p>使用PreparedStatement类的<code>set*()</code>方法来执行强类型检查。此技术可缓解SQL注入漏洞，因为输入可通过双引号内的自动陷入正确转义。 请注意，即使在将数据插入数据库的查询中也必须使用准备好的语句。</p>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/89.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

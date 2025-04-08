@@ -1,0 +1,72 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4014">PE4014: 通过用户控制的SQL关键字绕过授权</h2>
+    <h3>软件使用的数据库表其中包括了某个用户不应有权访问的记录，但该软件执行的一个SQL语句中的关键字却可以受该用户控制。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE4014</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>软件使用的数据库表其中包括了某个用户不应有权访问的记录，但该软件执行的一个SQL语句中的关键字却可以受该用户控制。</p>
+<h4>漏洞与风险</h4>
+<p>如果用户可以将关键字设置为任何值，那么该用户就可以修改该关键字指向未经授权的记录。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>要避免该漏洞，你应该：</p>
+<ul>
+<li>对用户输入的关键字进行验证，确保其只能访问该用户有权访问的记录。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="kt">char</span> <span class="n">username</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>  <span class="c1">//用户名</span>
+<span class="p">...</span>
+<span class="kt">int</span> <span class="n">sql_compare</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>  <span class="c1">//判断字符串是否符合构建sql语句的要求，是则返回1，否则返回0</span>
+<span class="kt">void</span> <span class="nf">sql_query</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">staffID</span><span class="p">)</span>  <span class="c1">//staffID为用户输入数据，不超过10个字符</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">sql_compare</span><span class="p">(</span><span class="n">staffID</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="kt">char</span> <span class="n">sqlQuery</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;SELECT * FROM employee WHERE staffID = &#39;&quot;</span><span class="p">;</span>
+        <span class="n">strcat</span><span class="p">(</span><span class="n">sqlQuery</span><span class="p">,</span> <span class="n">staffID</span><span class="p">);</span>  <span class="c1">//用户输入的staffID可能不在其访问权限内</span>
+        <span class="n">strcat</span><span class="p">(</span><span class="n">sqlQuery</span><span class="p">,</span> <span class="s">&quot;&#39;&quot;</span><span class="p">);</span>
+        <span class="c1">//在数据库中执行sqlQuery语句</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<h5>规范用法示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="kt">char</span> <span class="n">username</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>  <span class="c1">//用户名</span>
+<span class="p">...</span>
+<span class="kt">int</span> <span class="n">sql_compare</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>  <span class="c1">//判断字符串是否符合构建sql语句的要求，是则返回1，否则返回0</span>
+<span class="kt">char</span><span class="o">*</span> <span class="nf">find_departID</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>  <span class="c1">//根据用户名返回其所在部门的部门ID</span>
+<span class="kt">void</span> <span class="nf">sql_query</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">staffID</span><span class="p">)</span>  <span class="c1">//staffID为用户输入数据，不超过10个字符</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">sql_compare</span><span class="p">(</span><span class="n">staffID</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="c1">//查询语句增加部门ID查询条件</span>
+        <span class="kt">char</span> <span class="n">sqlQuery</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;SELECT * FROM employee WHERE staffID = &#39;&quot;</span><span class="p">;</span>
+        <span class="n">strcat</span><span class="p">(</span><span class="n">sqlQuery</span><span class="p">,</span> <span class="n">staffID</span><span class="p">);</span>
+        <span class="n">strcat</span><span class="p">(</span><span class="n">sqlQuery</span><span class="p">,</span> <span class="s">&quot;&#39; and DepartID = &#39;&quot;</span><span class="p">);</span>
+        <span class="n">strcat</span><span class="p">(</span><span class="n">sqlQuery</span><span class="p">,</span> <span class="n">find_departID</span><span class="p">(</span><span class="n">username</span><span class="p">));</span>
+        <span class="n">strcat</span><span class="p">(</span><span class="n">sqlQuery</span><span class="p">,</span> <span class="s">&quot;&#39;&quot;</span><span class="p">);</span>
+        <span class="c1">//在数据库中执行sqlQuery语句</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

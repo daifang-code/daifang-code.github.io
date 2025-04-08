@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2120">SC2120: Improper parameter passing</h2>
+    <h3>foo references arguments, but none are ever passed.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2120</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>foo references arguments, but none are ever passed.</h4>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>sayhello<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Hello </span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+sayhello
+</pre></div>
+<p><code>./myscript World</code> just prints &quot;Hello &quot; instead of &quot;Hello World&quot;.</p>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>sayhello<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Hello </span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+sayhello <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+<p><code>./myscript World</code> now prints &quot;Hello World&quot;.</p>
+<h5>Rationale:</h5>
+<p>In a function, <code>$1</code> and up refers to the function's parameters, not the script's parameters.</p>
+<p>If you want to process your script's parameters in a function, you have to explicitly pass them. You can do this with <code>myfunction &quot;$@&quot;</code>.</p>
+<p>Note that <code>&quot;$@&quot;</code> refers to the current context's positional parameters, so if you call a function from a function, you have to pass in <code>&quot;$@&quot;</code> to both of them:</p>
+<div class="highlight"><pre><span></span>first<span class="o">()</span> <span class="o">{</span> second <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span><span class="p">;</span> <span class="o">}</span>
+second<span class="o">()</span> <span class="o">{</span> <span class="nb">echo</span> <span class="s2">&quot;The first script parameter is: </span><span class="nv">$1</span><span class="s2">&quot;</span><span class="p">;</span> <span class="o">}</span>
+first <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Exceptions</h5>
+<p>If the parameters are optional and you currently just don't want to use them, you can ignore this message. In versions strictly greater than v0.6.0, ignoring SC2120 on a function will also disable SC2119 on each of the call sites.</p>
+
+    </section>
+</article>

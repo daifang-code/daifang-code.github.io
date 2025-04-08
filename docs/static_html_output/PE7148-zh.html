@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7148">BE7148: 裸露的notify()</h2>
+    <h3>裸露的notify()</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7148</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>裸露的notify()</p>
+<h4>漏洞与风险</h4>
+<p>对notify() 或notifyAll()的调用是在没有任何（明显的）伴随修改可变对象状态的情况下进行的。通常，在监视器上调用notify方法是因为另一个线程正在等待的某些条件变为true。但是，要使条件有意义，它必须涉及两个线程都可见的堆对象。</p>
+  <p>此错误不一定表示错误，因为可变对象状态的更改可能发生在方法中，该方法随后调用包含通知的方法。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0077">PE0077: 结构体填充导致内存浪费</h2>
+    <h3>结构体填充导致内存浪费。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0077</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>结构体成员根据它们在程序文本中的声明顺序排列。结构体中可能会使用填充字符，保证结构在内存中正确对齐。结构体填充是为了在多重的架构上方便成员快速访问。<br />
+如果结构体中的成员定义顺序不当，可能会造成过多的结构体填充的产生，导致系统内存的浪费。</p>
+<h4>漏洞与风险</h4>
+<h5>资源浪费</h5>
+<p>如果结构体中的成员定义顺序不当，可能会造成过多的结构体填充的产生，导致系统内存的浪费。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>检查结构体成员的放置顺序，重排结构体成员节省不必要的空间使用。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">bad</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">c1</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<p>在上面的代码中，由于结构体的成员分布不当，其中每个字符类型（char）的成员，都要占用一个独立的int位长，造成了过多的结构体填充的产生。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">bad</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">c1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<p>在上面的代码中，两个char类型的成员定义相连，共占用一个int位长，减少了过多的结构体填充造成的内存浪费。</p>
+
+    </section>
+</article>

@@ -1,0 +1,50 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0094">PE0094: 使用伪随机数发生器（PRNG）</h2>
+    <h3>使用伪随机数生成器（PRNG），但PRNG的算法不具有很高的密码强度，容易被破解。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0094</dd>
+                    <dt>标签</dt>
+                    <dd>C, C++, CWE-338</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>伪随机数发生器（PRNG）通常不是为密码学设计的。有时对于使用随机数的算法来说，一个平庸的随机性来源是足够的或者更好的。 弱发生器通常需要较少的处理能力和不使用系统上珍贵的有限熵源。虽然这些PRNG可能具有非常有用的功能，但可以使用这些相同的功能来破解加密。</p>
+<h4>漏洞与风险</h4>
+<p>如果使用PRNG进行身份验证和授权（例如会话ID或用于生成加密密钥的种子），则攻击者可能能够轻松地猜出ID或加密密钥并获得对受限功能的访问权限。</p>
+<h4>缓解与预防</h4>
+<p>使用为所有加密使用基于硬件的随机数生成的函数。在Windows上使用CyptGenRandom，在Linux上使用hw_rand()。</p>
+<h4>漏洞利用威胁</h4>
+<p>Low</p>
+<h4>演示示例</h4>
+<h5>漏洞缺陷示例 1</h5>
+<p>本例使用伪随机数发生器rand()生成一个随机数：</p>
+<div class="highlight"><pre><span></span><span class="n">srand</span><span class="p">(</span><span class="n">time</span><span class="p">());</span>
+<span class="kt">int</span> <span class="n">randNum</span> <span class="o">=</span> <span class="n">rand</span><span class="p">();</span>
+</pre></div>
+<h5>漏洞缺陷示例 2</h5>
+<p>这个例子使用random()函数生成一个10个伪随机数的序列。当random()缺少种子时，它的行为就像rand()，每次运行使用它的程序时都会产生相同的随机数序列。</p>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* Always generates the same sequence */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%ld, &quot;</span><span class="p">,</span> <span class="n">random</span><span class="p">());</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/338.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="luobin" />
+<meta name="description" content="Require using arrow functions for callbacks (prefer-arrow-callback)" />
+<meta name="keywords" content="">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="prefer-arrow-callback"/>
+<meta property="og:description" content="Require using arrow functions for callbacks (prefer-arrow-callback)"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE2215.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:06.032829+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/luobin.html">
+<meta property="article:section" content="misc"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; prefer-arrow-callback</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/javascript.html">javascript</a>
+        </li>
+        <li>
+            <a href="./standard/style-issues.html">Style issues</a>
+        </li>
+        <li>
+            <a href="./category/code-style-and-efficiency.html">Code style and efficiency</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE2215">prefer-arrow-callback</h1>
+    <p>
+        Posted on September 28, 2024 in <a href="./category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+        &#8226; 2 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#require-using-arrow-functions-for-callbacks-prefer-arrow-callback">Require using arrow functions for callbacks (prefer-arrow-callback)</a><ul>
+<li><a href="#rule-details">Rule Details</a></li>
+<li><a href="#options">Options</a><ul>
+<li><a href="#allownamedfunctions">allowNamedFunctions</a></li>
+<li><a href="#allowunboundthis">allowUnboundThis</a></li>
+</ul>
+</li>
+<li><a href="#when-not-to-use-it">When Not To Use It</a></li>
+<li><a href="#further-reading">Further Reading</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+  <div>
+    
+<p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h1 id="require-using-arrow-functions-for-callbacks-prefer-arrow-callback">Require using arrow functions for callbacks (prefer-arrow-callback)</h1>
+<p>Arrow functions can be an attractive alternative to function expressions for callbacks or function arguments.</p>
+<p>For example, arrow functions are automatically bound to their surrounding scope/context. This provides an alternative to the pre-ES6 standard of explicitly binding function expressions to achieve similar behavior.</p>
+<p>Additionally, arrow functions are:</p>
+<ul>
+<li>
+<p>less verbose, and easier to reason about.</p>
+</li>
+<li>
+<p>bound lexically regardless of where or when they are invoked.</p>
+</li>
+</ul>
+<h2 id="rule-details">Rule Details</h2>
+<p>This rule locates function expressions used as callbacks or function arguments. An error will be produced for any that could be replaced by an arrow function without changing the result.</p>
+<p>The following examples <strong>will</strong> be flagged:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/* eslint prefer-arrow-callback: "error" */</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span><span class="p">;</span> <span class="p">});</span> <span class="c1">// ERROR</span>
+<span class="c1">// prefer: foo(a =&gt; a)</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">;</span> <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span> <span class="c1">// ERROR</span>
+<span class="c1">// prefer: foo(() =&gt; this.a)</span>
+</pre></div>
+</td></tr></table>
+<p>Instances where an arrow function would not produce identical results will be ignored.</p>
+<p>The following examples <strong>will not</strong> be flagged:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/* eslint prefer-arrow-callback: "error" */</span>
+<span class="cm">/* eslint-env es6 */</span>
+
+<span class="c1">// arrow function callback</span>
+<span class="nx">foo</span><span class="p">(</span><span class="nx">a</span> <span class="p">=&gt;</span> <span class="nx">a</span><span class="p">);</span> <span class="c1">// OK</span>
+
+<span class="c1">// generator as callback</span>
+<span class="nx">foo</span><span class="p">(</span><span class="kd">function</span><span class="o">*</span><span class="p">()</span> <span class="p">{</span> <span class="k">yield</span><span class="p">;</span> <span class="p">});</span> <span class="c1">// OK</span>
+
+<span class="c1">// function expression not used as callback or function argument</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span><span class="p">;</span> <span class="p">};</span> <span class="c1">// OK</span>
+
+<span class="c1">// unbound function expression callback</span>
+<span class="nx">foo</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">;</span> <span class="p">});</span> <span class="c1">// OK</span>
+
+<span class="c1">// recursive named function callback</span>
+<span class="nx">foo</span><span class="p">(</span><span class="kd">function</span> <span class="nx">bar</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">n</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span> <span class="o">+</span> <span class="nx">bar</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> <span class="p">});</span> <span class="c1">// OK</span>
+</pre></div>
+</td></tr></table>
+<h2 id="options">Options</h2>
+<p>Access further control over this rule's behavior via an options object.</p>
+<p>Default: <code>{ allowNamedFunctions: false, allowUnboundThis: true }</code></p>
+<h3 id="allownamedfunctions">allowNamedFunctions</h3>
+<p>By default <code>{ "allowNamedFunctions": false }</code>, this <code>boolean</code> option prohibits using named functions as callbacks or function arguments.</p>
+<p>Changing this value to <code>true</code> will reverse this option's behavior by allowing use of named functions without restriction.</p>
+<p><code>{ "allowNamedFunctions": true }</code> <strong>will not</strong> flag the following example:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/* eslint prefer-arrow-callback: [ "error", { "allowNamedFunctions": true } ] */</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{});</span>
+</pre></div>
+</td></tr></table>
+<h3 id="allowunboundthis">allowUnboundThis</h3>
+<p>By default <code>{ "allowUnboundThis": true }</code>, this <code>boolean</code> option allows function expressions containing <code>this</code> to be used as callbacks, as long as the function in question has not been explicitly bound.</p>
+<p>When set to <code>false</code> this option prohibits the use of function expressions as callbacks or function arguments entirely, without exception.</p>
+<p><code>{ "allowUnboundThis": false }</code> <strong>will</strong> flag the following examples:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/* eslint prefer-arrow-callback: [ "error", { "allowUnboundThis": false } ] */</span>
+<span class="cm">/* eslint-env es6 */</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">;</span> <span class="p">});</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span> <span class="p">});</span>
+
+<span class="nx">someArray</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">itm</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">doSomething</span><span class="p">(</span><span class="nx">itm</span><span class="p">);</span> <span class="p">},</span> <span class="nx">someObject</span><span class="p">);</span>
+</pre></div>
+</td></tr></table>
+<h2 id="when-not-to-use-it">When Not To Use It</h2>
+<ul>
+<li>
+<p>In environments that have not yet adopted ES6 language features (ES3/5).</p>
+</li>
+<li>
+<p>In ES6+ environments that allow the use of function expressions when describing callbacks or function arguments.</p>
+</li>
+</ul>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions">More on ES6 arrow functions</a></li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

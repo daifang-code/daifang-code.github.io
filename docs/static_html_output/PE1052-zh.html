@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1052">PE1052: 不精确的数学表达式</h2>
+    <h3>计算结果精度丢失</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1052</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>当对类型进行强制转换时，由于每种类型所占的字节数不同，这就会导致计算结果的丢失。</p>
+<h4>漏洞与风险</h4>
+<h5>数值精度</h5>
+<p>浮点型转换成整型就会造成精度损失，在数值计算中，要非常小心，对精度非常有要求。基类指针转换成派生类指针风险非常大。</p>
+<h4>缓解与预防</h4>
+<p>以前类型转换，就直接用int(a)，double(b)等方式。这种方式不区分类型转换的风险，并且有些bug是类型转换引起的，如果显性的来进行强制类型转换，可以方便bug排查。比如基类和派生类的转换风险很大，用B*(A)就非常不合适，但用关键字进行强制类型转换，就可以用查找的方式在程序中找到不同风险级别的转换。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>演示示例</h4>
+<h5>漏洞缺陷示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">float</span> <span class="n">a</span><span class="o">=</span><span class="mf">10.01</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">b</span><span class="o">=</span><span class="n">a</span><span class="p">;</span><span class="c1">//detect</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞缺陷修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">float</span> <span class="n">a</span><span class="o">=</span><span class="mf">10.01</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+  <span class="kt">float</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">=</span><span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>将a赋值给转换为浮点数的b。</p>
+
+    </section>
+</article>

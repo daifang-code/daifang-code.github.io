@@ -1,0 +1,268 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2023">PE2023: curly</h2>
+    <h3>要求遵循大括号约定 (curly)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2023</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求遵循大括号约定 (curly)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>当代码块只有一条语句时，JavaScript 允许省略大括号。然而，很多人认为，在块区域前后时刻保留大括号是一种最佳实践，即使他们是可有可无的，因为省略大括号会导致错误，并且降低代码的清晰度。所以以下模式：</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+</pre></div>
+<p>能被重写为：</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>然而，依然有人更乐意在有多条执行语句时才使用大括号。</p>
+<h2>缺陷详因</h2>
+<p>此规则目的在于，通过确保代码块使用了大括号包裹以避免bug的发生，并且增加代码的清晰度</p>
+<h2>修改方案</h2>
+<h5>all</h5>
+<p>默认选项 <code>&quot;all&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: &quot;error&quot;*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">bar</span><span class="p">)</span>
+    <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="nx">qux</span><span class="p">();</span>
+</pre></div>
+<p>默认选项 <code>&quot;all&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: &quot;error&quot;*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>multi</h5>
+<p>默认情况下当 <code>if</code>、<code>else</code>、<code>for</code>、<code>while</code> 或 <code>do</code> 不使用大括号包裹代码时，会给出警告。然而，你可以指定当块中有多条语句时才使用大括号，而当代码块中只有一条语句时只会给出警告。</p>
+<p>选项 <code>&quot;multi&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>&quot;multi&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+
+<span class="k">else</span> <span class="nx">foo</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+    <span class="nx">doSomethingElse</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>multi-line</h5>
+<p>另外，你可以放宽规则，允许在单行中省略大括号，而<code>if</code>、<code>else if</code>、<code>else</code>、<code>for</code>、<code>while</code> 和 <code>do</code>，在其他使用中依然会强制使用大括号。实现如上定制，配置规则如下：</p>
+<p><code>&quot;multi-line&quot;</code>选项的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi-line&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">doSomething</span><span class="p">();</span>
+<span class="k">else</span>
+  <span class="nx">doSomethingElse</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">foo</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">);</span>
+</pre></div>
+<p>选项 <code>&quot;multi-line&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi-line&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">foo</span><span class="o">++</span><span class="p">;</span> <span class="k">else</span> <span class="nx">doSomething</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="nx">baz</span><span class="p">()</span>
+<span class="k">else</span> <span class="nx">doSomething</span><span class="p">();</span>
+
+<span class="k">do</span> <span class="nx">something</span><span class="p">();</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span>
+  <span class="o">&amp;&amp;</span> <span class="nx">bar</span><span class="p">)</span> <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">++</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+    <span class="nx">doSomethingElse</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>multi-or-nest</h5>
+<p>如果 <code>if</code>、<code>else if</code>、<code>else</code>、<code>for</code>、<code>while</code> 和 <code>do</code> 的代码主体中只包含一条语句，你可以使用另外一个配置来强制省略大括号。同时在其他的情况下，强制使用大括号。</p>
+<p>选项 <code>&quot;multi-or-nest&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi-or-nest&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">foo</span><span class="p">)</span>
+    <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">bar</span><span class="o">:</span> <span class="nx">baz</span><span class="p">,</span>
+        <span class="nx">qux</span><span class="o">:</span> <span class="nx">foo</span>
+    <span class="p">};</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+      <span class="nx">doSomething</span><span class="p">();</span>
+  <span class="k">else</span>
+      <span class="nx">doSomethingElse</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">foo</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+    <span class="c1">// some comment</span>
+    <span class="nx">bar</span><span class="p">();</span>
+</pre></div>
+<p>选项 <code>&quot;multi-or-nest&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi-or-nest&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">bar</span><span class="o">:</span> <span class="nx">baz</span><span class="p">,</span>
+        <span class="nx">qux</span><span class="o">:</span> <span class="nx">foo</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+      <span class="nx">doSomething</span><span class="p">();</span>
+  <span class="k">else</span>
+      <span class="nx">doSomethingElse</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">foo</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// some comment</span>
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>consistent</h5>
+<p>When using any of the <code>multi*</code> options, you can add an option to enforce all bodies of a <code>if</code>,
+当在使用任何 <code>multi*</code> 选项时，你可以添加一个参数来强制 <code>if</code>、<code>else if</code> 和 <code>else</code> 中所有的代码块使用或者不使用大括号。</p>
+<p>选项 <code>&quot;multi&quot;, &quot;consistent&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi&quot;, &quot;consistent&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">();</span>
+    <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span>
+    <span class="nx">buz</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">faa</span><span class="p">)</span>
+    <span class="nx">bor</span><span class="p">();</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nx">other</span><span class="p">();</span>
+    <span class="nx">things</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+    <span class="nx">foo</span><span class="p">();</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>&quot;multi&quot;, &quot;consistent&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi&quot;, &quot;consistent&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">();</span>
+    <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">buz</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">faa</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bor</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">other</span><span class="p">();</span>
+    <span class="nx">things</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+    <span class="nx">foo</span><span class="p">();</span>
+<span class="k">else</span>
+    <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你没有严格约定何时是否使用块语句，你可以放心的禁用此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.2 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/curly.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/curly.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,34 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2028">SC2028: Improper using of 'echo'</h2>
+    <h3>echo won't expand escape sequences. Consider printf.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2028</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>echo won't expand escape sequences. Consider printf.</h4>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;Name:\t</span><span class="nv">$value</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">printf</span> <span class="s1">&#39;Name:\t%s\n&#39;</span> <span class="s2">&quot;</span><span class="nv">$value</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>Backslash escapes like <code>\t</code> and <code>\n</code> are not expanded by echo, and become literal backslash-t, backslash-n.</p>
+<p><code>printf</code> does expand these sequences, and should be used instead.</p>
+<p>Other, non-portable methods include <code>echo -e '\t'</code> and <code>echo $'\t'</code>. ShellCheck will warn if this is used in a script with shebang <code>#!/bin/sh</code>.</p>
+<p>If you actually wanted a literal backslash-t, use</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;\\t&quot;</span>
+</pre></div>
+<h5>Exceptions</h5>
+<p>None</p>
+
+    </section>
+</article>

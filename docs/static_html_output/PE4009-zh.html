@@ -1,0 +1,50 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4009">PE4009: 可逆的散列算法</h2>
+    <h3>软件采用的散列算法具有可逆算法，该算法可利用生成的散列值确定原始输入,或者可以找到一个输入产生相同的散列值。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE4009</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>软件采用的散列算法具有可逆算法，该算法可利用生成的散列值确定原始输入,或者可以找到一个输入产生相同的散列值。</p>
+<h4>漏洞与风险</h4>
+<p>攻击者可通过逆向算法获取原始输入或产生相同散列值的输入，进而绕过依赖散列算法的安全认证。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>要避免该漏洞，你应该：</p>
+<ul>
+<li>采用当前公认的不可逆标准散列算法。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;sha.h&quot;</span><span class="cp"></span>
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">CryptoPP</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">encryptor</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">input</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">output</span><span class="p">)</span>  <span class="c1">//加密函数，输出参数返回加密后的字符串</span>
+<span class="p">{</span>
+    <span class="n">SHA1</span> <span class="n">sha1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">sha1</span><span class="p">.</span><span class="n">enc</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">output</span><span class="p">);</span>  <span class="c1">//使用SHA1散列加密算法</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<h5>规范用法示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;sha.h&quot;</span><span class="cp"></span>
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">CryptoPP</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">encryptor</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">input</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">output</span><span class="p">)</span>  <span class="c1">//加密函数，输出参数返回加密后的字符串</span>
+<span class="p">{</span>
+    <span class="n">SHA256</span> <span class="n">sha256</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">sha256</span><span class="p">.</span><span class="n">enc</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">output</span><span class="p">);</span>  <span class="c1">//使用SHA256标准散列加密算法</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

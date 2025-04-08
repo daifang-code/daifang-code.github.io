@@ -1,0 +1,84 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0703">PE0703: Use After Free/Double free</h2>
+    <h3>Referencing memory after it has been freed can cause a program to crash, use unexpected values, or execute code. </h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0703</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The use of previously-freed memory can have any number of adverse consequences, ranging from the corruption of valid data to the execution of arbitrary code, depending on the instantiation and timing of the flaw. The simplest way data corruption may occur involves the system's reuse of the freed memory. Use-after-free errors have two common and sometimes overlapping causes:</p>
+<ul>
+<li>Error conditions and other exceptional circumstances.</li>
+<li>Confusion over which part of the program is responsible for freeing the memory.</li>
+</ul>
+<p>In this scenario, the memory in question is allocated to another pointer validly at some point after it has been freed. The original pointer to the freed memory is used again and points to somewhere within the new allocation. As the data is changed, it corrupts the validly used memory; this induces undefined behavior in the process.</p>
+<p>If the newly allocated data chances to hold a class, in C++ for example, various function pointers may be scattered within the heap data. If one of these function pointers is overwritten with an address to valid shellcode, execution of arbitrary code can be achieved.</p>
+<h4>Vulnerability and risk</h4>
+<ul>
+<li>The use of previously freed memory may corrupt valid data, if the memory area in question has been allocated and used properly elsewhere.</li>
+<li>If chunk consolidation occurs after the use of previously freed data, the process may crash when invalid data is used as chunk information.</li>
+<li>If malicious data is entered before chunk consolidation can take place, it may be possible to take advantage of a write-what-where primitive to execute arbitrary code.</li>
+</ul>
+<h4>Likelihood of Exploit</h4>
+<p>Critical</p>
+<h4>Potential mitigations</h4>
+<ul>
+<li>Make sure the memory is no longer used before release</li>
+<li>When freeing pointers, be sure to set them to NULL once they are freed. However, the utilization of multiple or complex data structures may lower the usefulness of this strategy.</li>
+</ul>
+<h4>Demonstrative Examples</h4>
+<h5>Code example 1</h5>
+<div class="highlight"><pre><span></span><span class="kt">char</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span> <span class="p">(</span><span class="n">SIZE</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">abrt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">abrt</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">logError</span><span class="p">(</span><span class="s">&quot;operation aborted before commit&quot;</span><span class="p">,</span> <span class="n">ptr</span><span class="p">);</span> <span class="c1">// ptr is freed by free(ptr)</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed code example 1</h5>
+<div class="highlight"><pre><span></span><span class="kt">char</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span> <span class="p">(</span><span class="n">SIZE</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">abrt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">abrt</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">logError</span><span class="p">(</span><span class="s">&quot;operation aborted before commit&quot;</span><span class="p">,</span> <span class="n">ptr</span><span class="p">);</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Code example 2</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad2</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+    <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="c1">// double free</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed code example 2</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good2</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+    <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/415.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://cwe.mitre.org/data/definitions/416.html<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+<li id="fn-3"><p>https://wiki.sei.cmu.edu/confluence/display/c/MEM30-C.+Do+not+access+freed+memory<a href="#fnref-3" class="footnote">&#8617;</a></p></li>
+<li id="fn-4"><p>https://wiki.sei.cmu.edu/confluence/display/cplusplus/MEM50-CPP.+Do+not+access+freed+memory<a href="#fnref-4" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,101 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2092">PE2092: no-duplicate-case</h2>
+    <h3>Rule to disallow a duplicate case label (no-duplicate-case)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2092</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Rule to disallow a duplicate case label (no-duplicate-case)</h4>
+<p>If a <code>switch</code> statement has duplicate test expressions in <code>case</code> clauses, it is likely that a programmer copied a <code>case</code> clause but forgot to change the test expression.</p>
+<h2>Rule Details</h2>
+<p>This rule disallows duplicate test expressions in <code>case</code> clauses of <code>switch</code> statements.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-duplicate-case: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">one</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>         <span class="c1">// duplicate test expression</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">one</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nx">one</span><span class="o">:</span>         <span class="c1">// duplicate test expression</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s2">&quot;1&quot;</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="s2">&quot;2&quot;</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="s2">&quot;1&quot;</span><span class="o">:</span>         <span class="c1">// duplicate test expression</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-duplicate-case: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">one</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">one</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s2">&quot;1&quot;</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="s2">&quot;2&quot;</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="s2">&quot;3&quot;</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

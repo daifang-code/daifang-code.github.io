@@ -1,0 +1,5208 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='../../../theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="../../../theme/stylesheet/normalize.min.css">
+    <script src="../../../theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="../../../theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../../../theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="../../../theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">      <meta name="author" content="Pinpoint Team"/>
+    <meta name="description" content="Manual and documents for Sourcebrella Pinpoint"/> <meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Pinpoint Document"/>
+<meta property="og:description" content="Manual and documents for Sourcebrella Pinpoint"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="../../.."/>
+ 
+    <title>Pinpoint Document &ndash; Category</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href="../../..">
+                <img src="../../../theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href="../../..">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="../../../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="../../../standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="../../../standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="../../../standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="../../../standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="../../../standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="../../../standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="../../../standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="../../../standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+          <article>
+            <h1>
+            类型和封装 (97)
+            </h1>
+        </article>
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7449">没有使用类型限定符的值在需要具有该限定符的值时使用</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>没有使用类型限定符的值在需要具有该限定符的值时使用</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>一个值被使用的方式需要用类型限定符来注释。类型限定符是严格的，因此该工具拒绝任何没有适当注释的值。</p>
+<p>为了强制一个值有一个严格的注释，定义一个恒等函数，其中返回值用严格的注释标注。这是将一个不带注释的值转换为一个严格类型限定符注释值的唯一方法。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7121">定义的equals()方法没有重写Object.equals(Object)</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>定义的equals()方法没有重写Object.equals(Object)</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>这个类定义了一个<code>equals()</code>方法不会重写<code>java.lang.Object</code>类中定义的<code>equals(Object)</code>方法。
+实际上，这个类应该定义一个<code>boolean equals(Object)</code>方法。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7127">取compareTo()/ compare()的结果的相反数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>取compareTo()/ compare()的结果的相反数</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此代码取CompareTo或Compare方法的返回值的相反数。</p>
+<p>如果返回值是整数MIN_VALUE，取相反数也无法得到预期想要的结果。</p>
+<p>那么你可以通过反转操作数的顺序而不是取结果相反数的方法来达到相同的预期结果。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7049">协变数组赋值给局部变量</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>协变数组赋值给局部变量</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>协变类型数组被分配给局部变量。如果其它类型的引用在之后的代码中存储在此数组中，则可能会在运行时抛出ArrayStoreException：
+</p>
+<pre><code>Number[] arr = new Integer[10];
+arr[0] = 1.0;</code></pre>
+<p>为避免这种情况，我们应考虑更改已创建数组的类型或局部变量类型。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7405">涉及基本类型（primitive）数组的不可能的转换</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>涉及基本类型（primitive）数组的不可能的转换</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此强制转换将始终抛出ClassCastException。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7306">使用String的format方法时有非法的参数也经过了格式化操作</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>使用String的format方法时有非法的参数也经过了格式化操作</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>调用具有可变数量参数的格式字符串方法，但传递的参数多于格式字符串实际使用的参数。这不会导致运行时异常，但代码可能会自动省略打算包含在格式化字符串中的信息。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7107">finalizer使父类的finalizer无效化</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>finalizer使父类的finalizer无效化</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>这个空的<code>finalize()</code>方法显式地无效化了由其超类定义的finalizer，代码将不会执行为超类定义的任何finalize操作。除非这是程序员的本意，否则应删除此方法。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7196">类定义equal(Object)，它应该是equals(Object)吗？</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>类定义equal(Object)，它应该是equals(Object)吗？</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>该类定义了一个<code>equal(Object)</code>的方法。此方法不会重写<code>java.lang.Object</code>中的<code>equal(Object)</code>方法。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7052">类实现Cloneable接口却没有定义或使用clone方法</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>类实现Cloneable接口却没有定义或使用clone方法</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>
+类实现了Cloneable接口，但没有定义或使用clone方法。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7303">格式化字符串占位符与传递的参数不兼容</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>格式化字符串占位符与传递的参数不兼容</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>格式字符串占位符与相应的参数不兼容。例如，
+<code>
+  System.out.println("%d\n", "hello");
+</code>
+<p>％d占位符需要数字参数，但这里传递的是字符串值。执行此语句时将发生运行时间异常。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p></p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7053">clone方法没有调用super.clone()</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>clone方法没有调用super.clone()</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>非final类定义了一个不调用super.clone()的clone()方法。
+如果此类（“<i>A</i>”）由子类（“<i>B</i>”）扩展，并且子类<i>B</i>调用super.clone()，那么<i>B</i>的clone()方法可能会返回一个<i> A </i>类型的对象，这违反了clone()的标准合约。
+如果所有clone()方法都调用super.clone()，那它们将保证使用Object.clone()返回正确类型的对象。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7439">类是final但声明了受保护的字段</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>类是final但声明了受保护的字段</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此类声明为final，但声明字段是protected。由于该类是final的，因此无法从中派生，并且protected的使用令人困惑。该字段的访问修饰符应更改为private或public，以表示该字段的真实用途。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7108">Finalizer只会调用父类finalizer而没有别的用途</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>Finalizer只会调用父类finalizer而没有别的用途</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p> 此<code>finalize()</code>方法唯一做的就是调用超类的finalize()方法。这是一个多余的方法，应该删除它。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7177">字段是一个可变数组</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>字段是一个可变数组</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p> 一个final静态字段引用一个数组，
+它可能被另一个包中的恶意代码或意外更改。
+这段代码可以自由地修改数组的内容。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7125">compareTo()/ compare()返回Integer.MIN_VALUE</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>compareTo()/ compare()返回Integer.MIN_VALUE</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>在某些情况下，这个compareTo或compare方法返回常量Integer.MIN_VALUE。
+  compareTo用返回值结果的符号表示实际判断结果，人们有时会直接取compareTo的返回值的负数，来获得参数倒转过来的结果。如果返回的值不是Integer.MIN_VALUE，这种方法是可行的。
+    因此应该只返回-1而不是Integer.MIN_VALUE。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7456">要求具有类型限定符的值，但却标记为未知</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>要求具有类型限定符的值，但却标记为未知</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>一个值被用在了一个要求它永远是一个类型限定符表示的值的地方，但是有一个明确的注释说明不知道需要拥有那个类型限定符的值在哪里。使用方法或注释都不正确。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7190">由于参数包不正确，方法不会复写父类中的方法</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>由于参数包不正确，方法不会复写父类中的方法</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>在子类中的方法不会复写超类中的类似方法，因为子类中的参数的类型并不完全匹配超类中对应的参数的类型。
+举个例子如下：</p>
+<pre><code>import alpha.Foo;
+public class A {
+    public int f(Foo x) { return 17; }
+}</code></pre></p>
+<hr/>
+<p>import beta.Foo;
+public class B extends A {
+    public int f(Foo x) { return 42; }
+}
+</p>
+<p>在B类中定义的<code>f(Foo)</code>方法不会复写<code>f(Foo)</code>method在类A中定义，因为参数类型是来自不同包的<code>Foo</code>。
+</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7182">公共枚举方法无条件地设置其字段</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>公共枚举方法无条件地设置其字段</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>在public enum中声明的这个公共方法无条件地设置枚举字段，因此该字段可以被另一个包中的恶意代码或其它意外改变。尽管可变的枚举字段可用于延迟初始化，但将它们暴露给外部是一种不好的做法。
+请考虑删除此方法或将其声明为package-private。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7179">字段是一个可变的集合（collection），应该封装保护</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>字段是一个可变的集合（collection），应该封装保护</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>一个可变集合（collection）实例被分配给一个final静态字段，
+因此，它可能被另一个包中的恶意代码或意外更改。
+为了避免这一漏洞，可以将该字段封装保护，
+或者你可以将这个字段包装到Collections.unmodifiableSet/List/Map/etc中。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7109">Finalizer不会调用父类的finalizer</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>Finalizer不会调用父类的finalizer</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p> 这个<code>finalize()</code>方法不会调用它的超类的<code>finalize()</code>方法。因此，不会执行为超类定义的任何finalizer操作。我们应添加对 <code>super.finalize()</code>的调用。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7216">可序列化类中的非transient 不可序列化实例字段</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>可序列化类中的非transient 不可序列化实例字段</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p> 此Serializable类定义非基本类型实例字段，该字段既不是transient 的，可序列化的，也不是<code>java.lang.Object</code>, 并且似乎不实现<code>Externalizable</code>接口或
+<code>readObject()</code> 和<code>writeObject()</code> 方法。 
+如果在此字段中存储不可序列化对象，则将不能正确反序列化此类的对象。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7048">方法返回协变数组</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>方法返回协变数组</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>从该方法返回协变数组。如果调用的代码尝试在返回的数组中存储某些其它类型的数据，则可能在运行时导致ArrayStoreException。</p></p>
+<p>请考虑更改已创建数组的类型或方法返回类型。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7402">可疑的强制转换具体集合（collection）的过程</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>可疑的强制转换具体集合（collection）的过程</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此代码将抽象集合（例如Collection，List或Set）强制转换为特定的具体实现（例如ArrayList或HashSet）。这种转换可能是不正确的，它可能会使您的代码变得易受攻击，因为它使自己在将来更难转换为其它具体实现。除非您有特殊原因，否则只需使用抽象集合类。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7440">方法在布尔表达式中分配布尔文字</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>方法在布尔表达式中分配布尔文字</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此方法将一个布尔值（true或false）分配给if或while表达式中的布尔变量。这很可能应该是使用==的布尔比较，而不是使用=的赋值。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7308">使用指针相等性来比较不同的类型</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>使用指针相等性来比较不同的类型</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此方法使用指针相等性来比较两个看起来不同类型的引用。此比较的结果在运行时始终为false。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7111">equals检查不一致的操作</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>equals检查不一致的操作</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>  这个equals方法检查参数是否是某种不兼容的类型（即，既不是定义equals方法的类的超类也不是子类的类）。例如，Foo类可能有一个equals方法，如下所示：</p>
+<pre><code>public boolean equals(Object o) {
+    if (o instanceof Foo)
+        return name.equals(((Foo)o).name);
+    else if (o instanceof String)
+        return name.equals(o);
+    else return false;
+}
+</code></pre>
+<p>这被认为是不好的做法，因为它很难实现对称和传递的equals方法。很可能发生意料之外的情况。</p>
+</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7206">Comparator没有实现Serializable的接口</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>Comparator没有实现Serializable的接口</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>该类实现了<code>Comparator</code>接口。
+你应该考虑它是否也应该实现<code>Serializable</code>接口。
+如果使用比较器来构造一个<code>TreeMap</code>的有序集合，
+那<code>TreeMap</code>只有在比较器也是可序列化的情况下才可序列化。
+由于大多数比较器几乎没有状态，通常使它们可序列化是简单且良好的防御性编程。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7435">方法访问拥有类的私有成员变量</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>方法访问拥有类的私有成员变量</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>内部类的此方法从拥有类的私有成员变量读取或写入，或调用拥有类的私有方法。编译器必须生成一个特殊方法来访问此私有成员，从而降低其效率。放宽对成员变量或方法的保护将允许编译器将其视为普通访问。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7302">格式字符串参数的数量与占位符的数量不一致</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>格式字符串参数的数量与占位符的数量不一致</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>调用具有可变数量参数的格式字符串方法，但传递的参数数量与格式字符串中的％占位符数量不匹配。这可能不符合程序员意图。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7450">将值与不兼容的类型限定符进行比较</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>将值与不兼容的类型限定符进行比较</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>将指定为携带类型限定符注释的值与不携带该限定符的值进行比较。</p><p>
+更准确地说，使用类型限定符注释的值指定when = ALWAYS与相同类型限定符指定when = NEVER的值进行比较。</p><p></p>
+<p>例如，假设@NonNegative是类型限定符注释@Negative(when = When.NEVER)的别名。
+以下代码将生成此warning，因为return语句需要@NonNegative值，但会收到一个标记为@Negative的值。</p>
+<pre><code>public boolean example(@Negative Integer value1, @NonNegative Integer value2) {
+    return value1.equals(value2);
+}
+</code></pre></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7184">字段名称应以小写字母开头</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>字段名称应以小写字母开头</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>
+非final的字段名称应该是混合情形：这个词的第一个字母小写，下一个次的第一个字母大写。
+ </p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7403">未经检查/未经确认的转换</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>未经检查/未经确认的转换</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>这个强制转换是未检查的，并且并非所有类型的实例都可以强制转换为它所要转换的类型。检查您的程序逻辑是否确保此强制转换不会失败。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7442">泛型参数和方法参数之间没有关系</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>泛型参数和方法参数之间没有关系</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>对泛型集合方法的这种调用包含一个与集合参数不兼容的类的参数（即，参数的类型既不是超类型也不是相应泛型参数的子类型）。
+因此，集合不太可能包含与此处使用方法参数相等的任何对象。最可能的是，错误的值被传递给方法。通常，两个不相关的类的实例不相等。例如，如果Foo和Bar类与子类型无关，那么Foo的实例不应该等于Bar的实例。
+在其它问题中，这样做可能会导致不对称的equals方法。</p>
+<p>通常，两个不相关的类的实例不相等。例如，如果<code>Foo</code>和<code>Bar</code>类与子类型无关，那么<code>Foo</code>的实例不应该等于<code>Bar</code>的实例。在其它问题中，这样做可能会导致不对称的equals方法。例如，如果定义<code>Foo</code>类以使<code>Foo</code>等于<code>String</code>，则equals方法不对称，因为<code>String</code>只能等于<code>String</code>。</p>
+<p>
+在极少数情况下，人们确实定义了非对称的equals方法，并且仍然设法让他们的代码工作。虽然没有API记录或保证它，但通常情况下，如果您检查<code>Collection<string></string></code>包含一个<code>Foo</code>，那么参数的equals方法可以用于执行相等性检查（例如，<code>Foo</code>类的equals方法)。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7126">compareTo()/ compare()不正确地处理float或double值</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>compareTo()/ compare()不正确地处理float或double值</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此方法使用以下方式比较double或float值：val1 &gt; val2 ? 1 : val1 &lt; val2 ? -1 : 0。
+当变量为-0.0和NaN值时，这种方法这可能导致错误的排序结果或损坏的集合（如果比较的值用作关键值）。考虑使用Double.compare或Float.compare静态方法，它们可以正确处理所有特殊情况。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7120">定义协变equals()方法，继承了Object.equals(Object)</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>定义协变equals()方法，继承了Object.equals(Object)</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此类定义了协变的<code>equals()</code>方法，但继承了基本<code>java.lang.Object</code>类中定义的常规<code>equals(Object)</code>方法。该类应该可以定义一个<code>boolean equals(Object)</code>方法。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7105">finalizer应该是protected，而不是public</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>finalizer应该是protected，而不是public</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p> 类的<code>finalize()</code> 方法应该具有受保护的访问权限，而不是公共访问权限。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7305">非法格式字符串</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>非法格式字符串</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>格式字符串在语法上无效，执行此语句时将发生运行时间异常。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7300">数组使用格式字符串以无用的方式格式化</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>数组使用格式字符串以无用的方式格式化</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>
+用格式字符串格式化的参数之一是数组。这将使用无用的格式进行格式化，例如[I@304282，它实际上不显示数组的内容。
+考虑使用<code>Arrays.asList(...)</code>包装数组，然后再将其处理为格式化。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7050">在协变数组中存储可能不兼容的元素</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>在协变数组中存储可能不兼容的元素</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>值存储在数组中，值类型与数组类型不匹配。
+从分析中可以知道，实际数组的类型比其变量或字段的声明类型占用的字节更少，并且此赋值不满足初始的数组类型。此赋值操作可能会在运行时抛出ArrayStoreException。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7441">泛型调用中未检查的类型</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>泛型调用中未检查的类型</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>这种对泛型集合方法的调用在编译类型Object时传递参数，其中期望泛型类型参数中的特定类型。
+因此，标准Java类型系统和静态分析都不能提供关于作为参数传递的对象是否是适当类型的有用信息。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7301">格式字符串没有先前的参数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>格式字符串没有先前的参数</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>格式字符串指定一个相对索引，用于请求重用前一格式说明符的参数。但是，没有之前的参数。
+例如，</p>
+<p><code>formatter.format("%&lt;s %s", "a", "b")</code>
+</p>
+<p>在执行时会抛出MissingFormatArgumentException。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7112">equals方法比较类名而不是类对象</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>equals方法比较类名而不是类对象</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此方法通过检查两个对象的类名是否相同来判断两个对象是否是同一个类。如果它们由不同的类加载器加载，则可以使用具有相同名称的不同类。因此只需检查类对象是否相同。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7110">显式调用finalizer</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>显式调用finalizer</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此方法包含对对象的<code>finalize()</code>方法的显式调用。 因为finalizer方法应该只执行一次，而且只能由VM执行，如此调用的代码很容易出问题。
+</p></p>
+<p>例如，如果一组连接的对象可终结，可能同时在不同的线程中，VM将在所有可终结对象上调用finalize方法。
+因此，在类X的finalize方法中，调用X引用对象的finalize是非常糟糕的，因为它们可能已经在单独的线程中完成了。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7453">可能不带有类型限定符的值始终以需要该类型限定符的方式使用</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>可能不带有类型限定符的值始终以需要该类型限定符的方式使用</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>一个被注释为possibility的值不是由类型限定符表示的值的实例，但是这个值一定是以一种需要用该类型限定符表示的值的方式使用。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7454">可能携带类型限定符的值始终以禁止具有该类型限定符的方式使用</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>可能携带类型限定符的值始终以禁止具有该类型限定符的方式使用</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>一个被注释为possibility的值是由类型限定符表示的值的一个实例，
+而且这个值肯定会以禁止那个类型限定符表示的值的方式使用。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7019">类引用了无法解析的类或方法</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>类引用了无法解析的类或方法</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此类引用了一个类或方法，该类或方法无法针对它正在分析的库进行解析。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7047">协变数组赋值给字段</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>协变数组赋值给字段</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>协变类型数组被分配给一个字段。如果之后将某个其它类型的数据存储在此数组中，可能会抛出ArrayStoreException。如下面的代码所示：
+</p><pre><code>Number[] arr = new Integer [10];
+arr [0] = 1.0; </code> </pre>
+<p>考虑更改已创建数组的类型或字段类型。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7411">强制地转换为抽象集合（collection）</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>强制地转换为抽象集合（collection）</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此代码将Collection转换为抽象集合（例如<code>List</code>, <code>Set</code>, 或<code>Map</code>)）。请确定对象是您要转换的类型。如果您只需要遍历collection，则无需将其强制转换为Set或List。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7123">定义协变的equals()方法</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>定义协变的equals()方法</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>这个类定义了一个协变的<code>equals()</code>。若要正确地重写<code>java.lang.Object</code>中的equals()方法，<code>equals()</code>必须接收<code>java.lang.Object</code>类型的参数。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7174">字段本应被重构为final</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>字段本应被重构为final</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>这个静态字段是public的但不是final，它可以被另一个包中的恶意代码或意外更改。
+为了避免这种缺点，可以将该字段设计为final。
+然而，静态初始化器包含不止一个写入字段，所以这样做需要进行一些重构。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7304">格式字符串引用缺少参数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>格式字符串引用缺少参数</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>传递的参数不满足格式字符串中的占位符。执行此语句时将发生运行时间异常。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7218">不可序列化的类有一个可序列化的内部类</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>不可序列化的类有一个可序列化的内部类</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p> 此Serializable类是不可序列化类的内部类。因此，尝试序列化它的同时也将尝试关联与其相关联的外部类的实例，从而导致运行时错误。</p>
+<p>
+如果可能的话，使内部类成为静态内部类应该可以解决问题。使外部类可序列化也可能有用，但这意味着在序列化内部类的实例时总是会序列化外部类的实例，这通常不符合您的需求。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7409">instanceof将始终返回false</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>instanceof将始终返回false</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此instanceof测试将始终返回false。虽然这是安全的，但请确保它不存在一些误解或其它逻辑错误。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7202">私有readResolve方法不被子类继承</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>私有readResolve方法不被子类继承</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>该类定义了一个私有的readResolve方法。由于它是私有的，因此子类不会继承它。这可能是有意的，也可以，但应该进行审查以确保它符合预期。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7204">类是可序列化的，但其父类没有定义一个void构造函数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>类是可序列化的，但其父类没有定义一个void构造函数</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>该类实现<code>Serializable</code>接口但它的超类没有。
+当这样的对象被反序列化时，超类的字段需要调用超类的void构造函数才能进行初始化。
+由于超类没有一个void构造函数，因此序列化和反序列化将在运行时失败。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7208">readResolve方法必须声明返回一个Object类型的对象</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>readResolve方法必须声明返回一个Object类型的对象</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p> 为了使序列化机制能够识别readResolve方法，必须声明返回类型为Object。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7299">使用％b格式说明符格式化的非布尔参数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>使用％b格式说明符格式化的非布尔参数</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>非Boolean类型的参数正在使用％b格式说明符进行格式化。这不会引发异常，相反它将为任何非空值打印true，对于null打印false。格式化字符串的功能有点奇怪，也许与您想要的不一样。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7172">字段应该是final的和protected的</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>字段应该是final的和protected的</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>一个可变的静态字段可以通过其它包中的恶意代码或意外被改变。
+该字段可以被封装为protected或final来避免这种问题。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7173">字段本应是final</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>字段本应是final</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>这个静态字段是public的，但不是final，
+因此可以被另一个包中的恶意代码修改。
+这一字段可以被设计成final以避免这个漏洞。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7185">实现同一接口实现类不能使用相同的名称</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>实现同一接口实现类不能使用相同的名称</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>这个类/接口有一个简单的名称，它与实现/扩展接口的名称相同，除了接口处于不同的包中。（例如，<code>alpha.Foo</code>延伸为<code>beta.Foo</code>)
+这可能会非常令人困惑，创建很多你必须查看导入语句去解决引用的情况，和许多不能复写超类方法的偶然定义机会。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7059">不可变类的字段应该是final字段</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>不可变类的字段应该是final字段</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>该类使用net.jcip.annotations.Immutable或javax.annotation.concurrent.Immutable进行注释，这些注释的规则要求所有字段都是final字段。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7452">值注释为从不带有类型限定符但却用在需要携带该限定符的地方</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>值注释为从不带有类型限定符但却用在需要携带该限定符的地方</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>一个被指定为不带类型限定符注释的值将在需要该值携带注释的地方使用。</p>
+<p>更准确地说，一个带类型限定符注释的值指定when=NEVER可以保证一次或多次使用，在这些使用中同一类型限定符指定when=ALWAYS。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7205">子类实现了Externalizable接口，但没有定义一个void的构造函数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>子类实现了Externalizable接口，但没有定义一个void的构造函数</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>
+该类实现了<code>Externalizable</code>接口，但是没有定义一个void构造函数。当Externalizable对象被反序列化时，
+它们首先需要通过调用void构造函数。
+因为这个类没有一个构造函数，在运行时序列化和反序列化将会失败。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7448">集合（collection）不应包含自身</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>集合（collection）不应包含自身</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>如果集合包含自身（例如，如果<code>s.contains(s)</code>为真），则对泛型集合方法的调用才有意义。但这种情况不可能为真，如果它是真的会导致很多问题（例如计算哈希码导致无限递归），而且错误的值很可能作为参数传递。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7070">无法使用reflection来检查是否存在没有运行时间保留的注释</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>无法使用reflection来检查是否存在没有运行时间保留的注释</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p> 除非注释本身已使用@Retention(RetentionPolicy.RUNTIME)注释，否则使用reflection无法检查注释
+（例如，通过使用isAnnotationPresent方法）。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7404">未经检查/未经确认的方法返回值转换</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>未经检查/未经确认的方法返回值转换</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此代码对未经检查的方法返回值进行强制转换。代码可能以这样的方式调用方法，即保证转换是安全的，但Pinpoint无法验证转换是否安全。检查您的程序逻辑是否确保此强制转换不会失败。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7106">空的finalizer应该被删除</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>空的finalizer应该被删除</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>空的<code>finalize()</code> 方法是无用的，应删除它们。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7408">无法对toArray()结果实行向下转换操作</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>无法对toArray()结果实行向下转换操作</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此代码将集合调用<code>toArray()</code>的结果转换为比<code>Object[]</code>更具体的类型，如：</p>
+<pre><code>String[] getAsArray(Collection<string> c) {
+    return (String[]) c.toArray();
+}
+</string></code></pre>
+<p>这经常会因为抛出ClassCastException而失败。几乎所有集合的<code>toArray()</code>都返回一个<code>Object[]</code>。它们实际上无法做任何其它事情，因为Collection对象没有引用集合的声明泛型类型。</p>
+<p>从集合中获取特定类型数组的正确方法是使用<code>c.toArray(new String[]);</code>或<code>c.toArray(new String[c.size()]);</code>（后者效率稍高）。
+<p>这有一个常见/已知的异常。<code>Arrays.asList(...)</code>返回的列表的<code>toArray()</code>方法将返回一个covariantly类型的数组。例如，<code>Arrays.asArray(new String[] { "a" }).toArray()</code>将返回一个<code>String []</code>。Pinpoint试图检测并抑制此类情况，但可能会漏报一些错误。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p></p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7124">定义了covariant compareTo()方法</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>定义了covariant compareTo()方法</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此类定义协变的<code>compareTo()</code>方法。
+  要正确重写Comparable接口中的<code>compareTo()</code>方法，<code>compareTo()</code>的参数必须是<code>java.lang.Object</code>类型。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7209">transient 字段不是由反序列化设置的</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>transient 字段不是由反序列化设置的</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此类包含一个在类中多次进行更新的字段，它似乎是类的状态的一部分。但是，由于该字段未在readObject或readResolve中被设置为transient，它将包含该类中反序列化实例的缺省值。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7436">方法直接分配一个xml接口的特定实现</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>方法直接分配一个xml接口的特定实现</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此方法分配一个xml接口的特定实现。最好使用提供的factory类来创建这些对象，以便可以在运行时更改实现。参照</p>
+<ul>
+<li>javax.xml.parsers.DocumentBuilderFactory</li>
+<li>javax.xml.parsers.SAXParserFactory</li>
+<li>javax.xml.transform.TransformerFactory</li>
+<li>org.w3c.dom.Document.create<i>XXXX</i></li>
+</ul>
+<p>了解详情。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7178">字段是一个可变的集合（collection）</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>字段是一个可变的集合（collection）</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>
+一个可变集合（collection）实例被分配给一个final静态字段，
+因此，它可以被另一个包中的恶意代码或意外更改。
+为了避免这一漏洞，我们可以考虑将这个字段包装到Collections.unmodifiableSet/List/Map/etc中。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7171">应该将字段移出接口并封装为protected</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>应该将字段移出接口并封装为protected</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>
+接口中定义的最终静态字段引用可变对象，例如数组或散列表。
+这个可变对象可能被恶意代码或其它包中的意外更改。
+要解决此问题，需要将字段移动到类并将其封装为protected以避免此漏洞。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7176">字段是一个可变的哈希表</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>字段是一个可变的哈希表</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>一个final静态字段引用一个散列表，可以通过其它包中的恶意代码或意外被访问。
+这段代码可以自由地修改散列表的内容。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7307">MessageFormat提供了printf风格的格式</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>MessageFormat提供了printf风格的格式</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>调用一个方法，该方法需要Java printf格式字符串和参数列表。然而，格式字符串不包含任何格式说明符（例如，％s），但包含消息格式元素（例如，{0}）。当需要printf样式的格式字符串时，代码可能正在提供MessageFormat字符串。在运行时，所有参数都将被忽略，格式字符串将完全按照提供的方式返回，而不进行任何格式化。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7410">instanceof将始终返回true</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>instanceof将始终返回true</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此instanceof测试将始终返回true（除非测试的值为null）。虽然这是安全的，但请确保它不存在一些误解或其它逻辑错误。如果您真的想测试为null的值，那么做一个null测试而不是一个instanceof测试可能会更合理。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7438">抽象方法已经在实现的接口中定义</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>抽象方法已经在实现的接口中定义</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此抽象方法已在此抽象类实现的接口中定义。可以删除此方法，因为它不提供其它的值。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7195">类定义了tostring()，应该是toString()？</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>类定义了tostring()，应该是toString()？</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>该类定义了一个名为<code>tostring()</code>的方法。此方法不会重写<code>java.lang.Object</code>中的<code>tostring()</code>方法。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7191">由于参数包不正确，方法不会复写父类中的方法</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>由于参数包不正确，方法不会复写父类中的方法</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>在子类中的方法不会重写超类中的类似方法，因为子类中的参数的类型并不完全匹配超类中对应的参数的类型。
+举个例子如下：</p>
+<pre><code>import alpha.Foo;
+public class A {
+    public int f(Foo x) { return 17; }
+}</code></pre></p>
+<hr/>
+<p>import beta.Foo;
+public class B extends A {
+    public int f(Foo x) { return 42; }
+    public int f(alpha.Foo x) { return 27; }
+}
+</p>
+<p>类B中定义的f（Foo）方法不会重写类A中定义的f（Foo）方法，因为参数类型是来自不同包的Foo。</p>
+<p>在这种情况下，子类确实定义了一个带有签名的方法，它与超类中的方法相同。这种方法非常令人困惑，你应该考虑删除或弃用这种
+有相似但不相同签名的方法。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7455">要求不具有类型限定符的值被标记为未知</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>要求不具有类型限定符的值被标记为未知</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>一个值被用在了一个要求它永远不会是一个类型限定符表示的值的地方，但是有一个明确的注释声明不知道禁止拥有那个类型限定符的值在哪里。使用方法或注释都是不正确。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7181">枚举字段是公开的和可变的</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>枚举字段是公开的和可变的</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>在公共枚举中定义可变public字段，可以被另一个包中的恶意代码或其它意外改变。。尽管可变的枚举字段可用于延迟初始化，但将它们暴露给外部是一种不好的做法。考虑将此字段声明为final和/或package-private。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7051">类定义clone()但不实现Cloneable接口</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>类定义clone()但不实现Cloneable接口</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p> 
+此类定义了clone()方法，但该类未实现Cloneable接口。
+在某些情况下这是合理的（例如，您想控制子类如何克隆自己），但请确保这是您的目的。</p>
+</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7219">非序列化的值存储在可序列化类的实例字段中</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>非序列化的值存储在可序列化类的实例字段中</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p> 不可序列化的值存储在可序列化类的非transient 字段中。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7183">方法名称应以小写字母开头</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>方法名称应以小写字母开头</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>
+方法应该是动词,
+在混合情况下：第一个字母应小写，
+每个内部单词的第一个字母应大写。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7194">类定义了hashcode()，原本应该是hashCode()？</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>类定义了hashcode()，原本应该是hashCode()？</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>该类定义了一个名为<code>hashcode()</code>的方法。这个方法不会在<code>java.lang.Object</code>中重写我们想要的<code>hashcode()</code>。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7201">readResolve方法不能声明为静态方法</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>readResolve方法不能声明为静态方法</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p> 为了使序列化机制能够识别readResolve方法，不能将其声明为静态方法。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7406">无法实现的类转换</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>无法实现的类转换</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此强制转换将始终抛出ClassCastException。
+Pinpoint跟踪instanceof检查中的类型信息，并使用从方法返回和字段加载的更准确的值类型信息。
+因此，对于只有声明的变量类型它可能具有更准确的信息，并且可以使用它来确定转换将始终在运行时抛出异常。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7118">类不会重写父类中的equals</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>类不会重写父类中的equals</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p> 此类继承了一个定义了equals方法的类，并往里添加字段。但此类自己不定义equals方法。因此，此类比较实例相等性时将忽略子类的标识和添加的字段。确保这是您的目的，那么您不需要重写equals方法。您也可以重写方法，用来记录子类的只返回调用super.equals(o)的equals方法的结果。
+  </p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7407">无法进行的向下转换</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>无法进行的向下转换</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此强制转换将始终抛出ClassCastException。
+通过分析认为它知道正在转换的值的精确类型，因此将其向下转换为子类型的尝试将始终抛出ClassCastException失败。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7004">类尺寸过于臃肿</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>类尺寸过于臃肿</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>这个类的尺寸过于臃肿。
+</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7186">继承同一父类的子类不能使用相同的名称</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>继承同一父类的子类不能使用相同的名称</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>该类有一个简单的名称，与其超类的名称相同，只是它的超类位于不同的包中（例如，<code>alpha.Foo</code> extends <code>beta.Foo</code>）。
+ 
+ 这可能会产生混乱，创建许多情况，您必须查看import语句去解决引用的情况，和许多不能复写超类方法的情况。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7207">类是可序列化的，但不定义serialVersionUID</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>类是可序列化的，但不定义serialVersionUID</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>这个类实现<code>Serializable</code>接口，但是没有定义一个<code>serialVersionUID</code>字段。
+例如对.class对象添加引用这样一个简单的更改会在类中添加合成的字段，但这将改变隐藏的serialVersionUID（例如，添加对<code>String.class</code>的引用将产生一个静态字段类<code>class$java$lang$String</code>）。
+另外，对字节码编译器来说，不同的源代码会使用不同的命名约定来生成用于引用类对象或内部类的合成变量。
+为了确保跨版本的Serializable的可操作性, 可以考虑添加一个显式的serialVersionUID。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7298">提供的参数的类型与格式说明符不匹配</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>提供的参数的类型与格式说明符不匹配</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>其中一个参数与相应的格式字符串说明符不兼容。因此，这将在执行时生成runtime异常。
+例如，<code>String.format("%d", "1")</code>将生成异常，因为字符串"1"与格式说明符％d不兼容。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7437">方法完全调用父类方法</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>方法完全调用父类方法</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此派生方法仅调用相同的超类方法传入到接收的参数。可以删除此方法，因为它不提供其它值。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7451">值注释为携带一个类型限定符，但是该值规定不能携带该限定符</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>值注释为携带一个类型限定符，但是该值规定不能携带该限定符</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>指定为携带类型限定符注释的值将在要求该值不能携带该注释的位置中使用。</p>
+<p>
+更确切地说，使用指定when=ALWAYS的类型限定符注释的值保证达到使用相同类型限定符指定的when=NEVER。</p>
+<p>例如，假设@NonNegative是类型限定符注释@Negative(when = When.NEVER)的别名。
+以下代码将生成此warining，因为return语句需要@NonNegative值，但会收到一个标记为@Negative的值。</p>
+<pre><code>public @NonNegative Integer example(@Negative Integer value) {
+    return value;
+}
+</code></pre></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7215">方法必须是私有的才能使序列化工作</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>方法必须是私有的才能使序列化工作</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p> 该类实现Serializable接口，并为自定义序列化/反序列化定义了一个方法。
+但是因为这个方法并没有被声明为private，它将被序列化/反序列化API所忽略。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/java.html">java</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/java/quality issues/type and encapsulation.html">类型和封装</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE7122">定义的equals()方法不会重写equals(Object)</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/type-and-encapsulation.html">类型和封装</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>定义的equals()方法不会重写equals(Object)</p>
+<h1 id="_2">漏洞与风险</h1>
+<p><p>此类定义<code>equals()</code>的方法不会重写<code>java.lang.Object</code>中定义的<code>equals(Object)</code>方法。相反，它从超类继承了<code>equals(Object)</code>方法。
+  该类应该定义一个<code>boolean equals(Object)</code>方法。</p></p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/java.html">JAVA</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : "../../..",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

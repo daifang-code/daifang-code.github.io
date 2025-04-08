@@ -1,0 +1,51 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0026">PE0026: 类型提升前整数溢出</h2>
+    <h3>算术表达式的结果在提升到一个大数据类型之前可能会导致溢出。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0026</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>两个整数在进行算术运算时，字节数小的类型会提升到字节数大的类型，然后进行运算。如果计算的结果超出了字节数大的类型的范围，会导致溢出。
+例如，在两个整数的乘法运算中，结果可能会超出整数的表示范围。</p>
+<h4>漏洞与风险</h4>
+<h5>整数溢出</h5>
+<p>整数溢出导致结果超出开发人员的预期，导致未知行为的发生。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>为了避免整数溢出，在算术运算之前将任意操作数提升为字节数大的类型。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2147483648</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">z</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">z</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// detect</span>
+    <span class="c1">// Do something.</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，x * y 的结果超出了unsigned int的最大范围(2^32 − 1 即 4,294,967,295)。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2147483648</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">z</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(((</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">z</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="c1">// Do something.</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，为了避免 x * y 导致的整数溢出，将x提前转换成 unsigned long long 类型。</p>
+
+    </section>
+</article>

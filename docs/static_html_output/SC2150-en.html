@@ -1,0 +1,36 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2150">SC2150: Improper use of '-exec'</h2>
+    <h3>-exec does not automatically invoke a shell. Use -exec sh -c .. for that.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2150</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>-exec does not automatically invoke a shell. Use -exec sh -c .. for that.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>find . -type f -exec <span class="s1">&#39;cat {} | wc -l&#39;</span> <span class="se">\;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>find . -type f -exec sh -c <span class="s1">&#39;cat {} | wc -l&#39;</span> <span class="se">\;</span>         <span class="c1"># Insecure</span>
+find . -type f -exec sh -c <span class="s1">&#39;cat &quot;$1&quot; | wc -l&#39;</span> _ <span class="o">{}</span> <span class="se">\;</span>  <span class="c1"># Secure</span>
+</pre></div>
+<p>Sometimes the command can also be rewritten to not require <code>find</code> to invoke a shell:</p>
+<div class="highlight"><pre><span></span>find . -type f -exec wc -l <span class="o">{}</span> <span class="se">\;</span> <span class="p">|</span> cut -d <span class="s1">&#39; &#39;</span> -f <span class="m">1</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>find <code>-exec</code> and <code>-execdir</code> uses <code>execve(2)</code> style semantics, meaning it expects an executable and zero or more arguments that should be passed to it.</p>
+<p>It does not use <code>system(3)</code> style semantics, meaning it does not accept a shell command as a string, to be parsed and evaluated by the system's command interpreter.</p>
+<p>If you want <code>find</code> to execute a shell command, you have to specify <code>sh</code> (or <code>bash</code>) as the executable, <code>-c</code> as first argument and your shell command as the second.</p>
+<p>To prevent command injection, the filename can be passed as a separate argument to sh and referenced as a positional parameter.</p>
+<h5>Exceptions</h5>
+<p>This warning would trigger falsely if executing a program with spaces in the path, if no other arguments were specified.</p>
+
+    </section>
+</article>

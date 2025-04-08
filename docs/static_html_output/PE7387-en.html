@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7387">BE7387: Test for circular dependencies among classes</h2>
+    <h3>Test for circular dependencies among classes</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7387</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Test for circular dependencies among classes</p>
+<h4>Vulnerability and risk</h4>
+<p>
+    This class has a circular dependency with other classes. This makes building these classes
+    difficult, as each is dependent on the other to build correctly. Consider using interfaces
+    to break the hard dependency.
+    </p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

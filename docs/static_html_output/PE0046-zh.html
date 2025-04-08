@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0046">PE0046: 未检测函数返回值为负数</h2>
+    <h3>对于可能返回负数的函数，在使用函数的返回值之前必须检测其是否为负数。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0046</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>对于可能返回负数的函数，在使用函数的返回值之前必须检测其是否为负数。错误的将函数返回值直接用作数组下标，循环变量等情况，而没有验证其是否为负数，可能会导致程序崩溃，死循环，整型溢出等问题。</p>
+<h4>漏洞与风险</h4>
+<h5>程序崩溃</h5>
+<p>对于可能返回负数的函数，在使用函数的返回值之前必须检测其是否为负数。错误的将函数返回值直接用作数组下标，循环变量等情况，而没有验证其是否为负数，可能会导致程序崩溃，死循环，整型溢出等问题。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>对于可能返回负数的函数，在使用函数的返回值之前必须检测其是否为负数。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">some_function</span><span class="p">();</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">buff</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">();</span> <span class="c1">// some_function() might return -1</span>
+  <span class="n">buff</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// Defect: buffer underrun at buff[-1]</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，some_function()可能会返回一个负数，在第5行将返回值用作数组下标时，导致缓冲区溢出问题。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">some_function</span><span class="p">();</span>
+
+<span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">buff</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">();</span> <span class="c1">// some_function() might return -1</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">buff</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在使用some_function()的返回值作为数组下标之前，确保返回值一定为非负数。</p>
+
+    </section>
+</article>

@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7406">BE7406: 无法实现的类转换</h2>
+    <h3>无法实现的类转换</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7406</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>无法实现的类转换</p>
+<h4>漏洞与风险</h4>
+<p>此强制转换将始终抛出ClassCastException。
+Pinpoint跟踪instanceof检查中的类型信息，并使用从方法返回和字段加载的更准确的值类型信息。
+因此，对于只有声明的变量类型它可能具有更准确的信息，并且可以使用它来确定转换将始终在运行时抛出异常。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

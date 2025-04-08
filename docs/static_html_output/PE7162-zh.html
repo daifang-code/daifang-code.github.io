@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7162">BE7162: 非同步get方法，同步set方法</h2>
+    <h3>非同步get方法，同步set方法</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7162</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>非同步get方法，同步set方法</p>
+<h4>漏洞与风险</h4>
+<p>这个类包含类似的命名的get和set方法，其中set方法已同步且get方法未同步。
+<p>这可能会导致运行时错误，因为get方法的调用者不一定会看到对象的一致状态。
+  get方法应该是同步的。&lt;/p&gt;</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

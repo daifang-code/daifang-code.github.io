@@ -1,0 +1,37 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2193">SC2193: Suspicious condition</h2>
+    <h3>The arguments to this comparison can never be equal. Make sure your syntax is correct.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2193</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>The arguments to this comparison can never be equal. Make sure your syntax is correct.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="o">[</span> <span class="nv">$var</span>+1 <span class="o">==</span> <span class="m">5</span> <span class="o">]</span>              <span class="c1"># Unevaluated math</span>
+<span class="o">[</span> <span class="s2">&quot;{</span><span class="nv">$var</span><span class="s2">}&quot;</span> <span class="o">==</span> <span class="s2">&quot;value&quot;</span> <span class="o">]</span>      <span class="c1"># Swapped around $ and {</span>
+<span class="o">[</span> <span class="s2">&quot;</span><span class="k">$(</span>cmd1<span class="k">)</span><span class="s2"> | cmd2&quot;</span> <span class="o">==</span> <span class="s2">&quot;42&quot;</span> <span class="o">]</span> <span class="c1"># Ended with ) too soon</span>
+<span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2"> &quot;</span> <span class="o">==</span> *.png <span class="o">]]</span>       <span class="c1"># Trailing space</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="o">[</span> <span class="k">$((</span>var+1<span class="k">))</span> <span class="o">==</span> <span class="m">5</span> <span class="o">]</span>          <span class="c1"># Evaluated math</span>
+<span class="o">[</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">var</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;value&quot;</span> <span class="o">]</span>      <span class="c1"># Correct variable expansion</span>
+<span class="o">[</span> <span class="s2">&quot;</span><span class="k">$(</span>cmd1 <span class="p">|</span> cmd2<span class="k">)</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;42&quot;</span> <span class="o">]</span> <span class="c1"># Correct command substitution</span>
+<span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$var</span><span class="s2">&quot;</span> <span class="o">==</span> *.png <span class="o">]]</span>        <span class="c1"># No trailing space</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck has determined that the two values you're comparing can never be equal.</p>
+<p>Most of the time, this happens because of a syntax issue that introduced unintended literal characters into one of the arguments.</p>
+<p>The left-hand side in the problematic examples will always contain (respectively) curly braces, pipe and trailing space. The right-hand sides are literal values and a pattern without trailing spaces, so they will never be equal. The statement is therefore useless, strongly indicating a bug.</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

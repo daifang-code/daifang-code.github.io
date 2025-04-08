@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7391">BE7391: Class exposes synchronization and semaphores in its public interface</h2>
+    <h3>Class exposes synchronization and semaphores in its public interface</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7391</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Class exposes synchronization and semaphores in its public interface</p>
+<h4>Vulnerability and risk</h4>
+<p>
+    This class uses synchronization along with wait(), notify() or notifyAll() on itself (the this
+    reference). Client classes that use this class, may, in addition, use an instance of this class
+    as a synchronizing object. Because two classes are using the same object for synchronization,
+    Multithread correctness is suspect. You should not synchronize nor call semaphore methods on
+    a public reference. Consider using a internal private member variable to control synchronization.
+    </p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0070">PE0070: Malloc Sizeof</h2>
+    <h3>Malloc Sizeof</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0070</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Using malloc, calloc, or realloc functions to allocate memory will not match the size you expect to get. The intent is to use sizeof to calculate the size of the actual type, but the result is the size of the pointer.
+This situation causes the allocated memory to be less than the expected allocation size, and finally results in undefined behavior, such as buffer overflow.</p>
+<h4>Vulnerability and risk</h4>
+<h5>buffer overflow</h5>
+<p>The sizeof operation of the pointer during memory allocation causes the allocated memory to be less than the expected allocation size, and finally causes undefined behavior, such as buffer overflow.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Calculate the size of the memory correctly when applying for memory.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap1</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">A</span><span class="p">));</span>
+  <span class="c1">// expected-warning {{Result of &#39;calloc&#39; is converted to a pointer of //type &#39;struct A&#39;, which is incompatible with sizeof operand type </span>
+  <span class="c1">// &#39;struct A *&#39;}} </span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap2</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ap1</span><span class="p">));</span> 
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, the sizeof operation is performed on the pointer during memory allocation, resulting in less memory allocation than expected.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap1</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">A</span><span class="p">));</span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap2</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ap1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, the memory size is correctly calculated when applying for memory.</p>
+
+    </section>
+</article>

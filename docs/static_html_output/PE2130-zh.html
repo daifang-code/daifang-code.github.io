@@ -1,0 +1,59 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2130">PE2130: no-multi-assign</h2>
+    <h3>禁止连续赋值 (no-multi-assign)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2130</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止连续赋值 (no-multi-assign)</h4>
+<p>对变量连续赋值可能会导致意想不到的结果，而且难以阅读。</p>
+<div class="highlight"><pre><span></span><span class="nx">a</span> <span class="o">=</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">c</span> <span class="o">=</span> <span class="nx">d</span><span class="p">;</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则禁止在单行语句中使用多个赋值。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-multi-assign: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span> <span class="o">=</span> <span class="s2">&quot;baz&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span>
+    <span class="nx">b</span> <span class="o">=</span>
+    <span class="nx">c</span><span class="p">;</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-multi-assign: &quot;error&quot;*/</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s2">&quot;baz&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="s2">&quot;baz&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">c</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">c</span><span class="p">;</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="max-statements-per-line">max-statements-per-line</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 3.14.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-multi-assign.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-multi-assign.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

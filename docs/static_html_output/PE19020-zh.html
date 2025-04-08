@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE19020">PE19020: 不安全的随机数</h2>
+    <h3>不安全的随机数</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE19020</dd>
+                    <dt>标签</dt>
+                    <dd>cobra</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>安全风险</h2>
+
+<pre><code>    使用可预测的随机数会导致漏洞。
+
+</code></pre>
+<h2>修复方案</h2>
+
+<pre><code>    建议使用`java.security.SecureRandom`替代` java.util.Random`。
+    ```java
+    import org.apache.commons.codec.binary.Hex;
+
+    String generateSecretToken() {
+        SecureRandom secRandom = new SecureRandom();
+
+        byte[] result = new byte[32];
+        secRandom.nextBytes(result);
+        return Hex.encodeHexString(result);
+    }
+    ```
+    - [CWE-330](http://cwe.mitre.org/data/definitions/330.html)
+
+
+</code></pre>
+<h2>匹配规则</h2>
+<p>new Random\s*(|Random.next</p>
+<h4>References</h4>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+
+    </section>
+</article>

@@ -1,0 +1,44 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7509">BE7509: Regex DOS (ReDOS)</h2>
+    <h3>Regex DOS (ReDOS)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7509</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Regex DOS (ReDOS)</p>
+<h4>Vulnerability and risk</h4>
+<p>
+    Regular expressions (regexs) are frequently subject to Denial of Service (DOS) attacks (called ReDOS). This is due to the fact that regex engines 
+    may take a large amount of time when analyzing certain strings, depending on how the regex is defined.
+<p>
+    For example, for the regex: <b>^(a+)+$</b>, the input "<code>aaaaaaaaaaaaaaaaX</code>" will cause the regex engine to analyze 65536 
+different paths.<sup>[1] Example taken from OWASP references</sup></p>
+<p>
+Therefore, it is possible that a single request may cause a large amount of computation on the server side. 
+The problem with this regex, and others like it, is that there are two different ways the same input character can be accepted by the 
+Regex due to the + (or a *) inside the parenthesis, and the + (or a *) outside the parenthesis. The way this is written, either + could 
+consume the character 'a'. To fix this, the regex should be rewritten to eliminate the ambiguity. For example, this could simply be 
+rewritten as: <b>^a+$</b>, which is presumably what the author meant anyway (any number of a's). Assuming that's what the original 
+regex meant, this new regex can be evaluated quickly, and is not subject to ReDOS.
+</p>
+<p>It is recommended to find ReDos via ReScue<a href="https://2bdenny.github.io/ReScue/">ReScue</a>.</p>
+<h4>Likelihood of Exploit</h4>
+<p>critical</p>
+<h4>References</h4>
+<p>&lt;a href=&quot;http://www.jroller.com/sebastianKuebeck/entry/detecting_and_preventing_redos_vulnerabilities&quot;&gt;Sebastian Kubeck's Weblog: Detecting and Preventing ReDoS Vulnerabilities&lt;/a&gt;&lt;br/&gt;
+&lt;sup&gt;[1]&lt;/sup&gt; &lt;a href=&quot;https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS&quot;&gt;OWASP: Regular expression Denial of Service&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/400.html&quot;&gt;CWE-400: Uncontrolled Resource Consumption ('Resource Exhaustion')&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://2bdenny.github.io/ReScue/&quot;&gt;ReScue&lt;/a&gt;</p>
+</p>
+
+    </section>
+</article>

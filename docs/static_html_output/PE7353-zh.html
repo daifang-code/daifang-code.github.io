@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7353">BE7353: 低效使用String.indexOf(String)</h2>
+    <h3>低效使用String.indexOf(String)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7353</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>低效使用String.indexOf(String)</p>
+<h4>漏洞与风险</h4>
+<p>这段代码将一个长度为1的字符串传递给String.indexOf()。使用String.indexOf()的整数实现更有效。例如，调用<code>myString.indexOf('.')</code>而不是<code>myString.indexOf(".")</code></p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

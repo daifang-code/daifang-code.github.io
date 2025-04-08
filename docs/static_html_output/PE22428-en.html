@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22428">PE22428: E743</h2>
+    <h3>Do not define functions named 'I', 'O', or 'l'</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22428</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Functions named <code>I</code>, <code>O</code>, and <code>l</code> can be very hard to read. This is
+because the letter <code>I</code> and the letter <code>l</code> are easily confused, and the
+letter <code>O</code> and the number <code>0</code> can be easily confused.</p>
+<p>Change the names of these functions to something more descriptive.</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#names-to-avoid<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

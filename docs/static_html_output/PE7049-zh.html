@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7049">BE7049: 协变数组赋值给局部变量</h2>
+    <h3>协变数组赋值给局部变量</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7049</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>协变数组赋值给局部变量</p>
+<h4>漏洞与风险</h4>
+<p>协变类型数组被分配给局部变量。如果其它类型的引用在之后的代码中存储在此数组中，则可能会在运行时抛出ArrayStoreException：
+</p>
+<pre><code>Number[] arr = new Integer[10];
+arr[0] = 1.0;</code></pre>
+<p>为避免这种情况，我们应考虑更改已创建数组的类型或局部变量类型。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

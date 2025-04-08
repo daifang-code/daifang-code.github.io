@@ -1,0 +1,42 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0009">PE0009: Char I/O Return Error</h2>
+    <h3>The return value of certain stdio functions is incorrectly assigned to a char variable instead of an int.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0009</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Functions fgetc(), getc(), getchar(), and istream::get(), which return int values, not char values. Assigning an int value to a char variable truncates the value. If the char variable is unsigned, the loworder 8 bits of the int value are not put into the char variable, which is a modulo operation if the int value is non-negative. If the int value is -1, the low-order 8 bits of the representation of -1 are put into the char variable, which results in a value of 255. If the char variable is signed, an int value of -1 remains -1 in the char variable, but any int value greater than 127 becomes a negative value in the char variable. Using a signed char variable is also unsafe. A stray ӱ character (0xFF) will cause the program to erroneously think that EOF is reached. The C standard requires that such functions be passed an integer in the range of -1 to 255. A signed char variable can potentially have values as low as -128.</p>
+<h4>Vulnerability and risk</h4>
+<h5>truncate value error</h5>
+<p>Assigning an int value to a char variable truncates the value.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>Assigning the return value of functions fgetc(), getc(), getchar(), and istream::get() to a int value.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+  <span class="n">c</span> <span class="o">=</span> <span class="n">getc</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, returns an int value to variable c, which is a char value at line 3.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="n">i</span> <span class="o">=</span> <span class="n">getc</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example, returns an int value to variable i, which is a int value at line 3.</p>
+
+    </section>
+</article>

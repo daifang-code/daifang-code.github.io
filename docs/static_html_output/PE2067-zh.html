@@ -1,0 +1,126 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2067">PE2067: newline-before-return</h2>
+    <h3>要求 `return` 语句之前有一空行 (newline-before-return)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2067</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求 <code>return</code> 语句之前有一空行 (newline-before-return)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>该规则在 ESLint v4.0.0 中 <strong>已弃用</strong>，被 <a href="padding-line-between-statements">padding-line-between-statements</a> 替代。</p>
+<p>在 JavaScript 中，并没有硬性的规定在 <code>return</code> 语句之前应该有空行。然而，清晰的描述函数的返回位置可以大大提高可读性和代码的清晰度。例如：</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">baz</span> <span class="o">=</span> <span class="s1">&#39;baz&#39;</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bar</span> <span class="o">=</span> <span class="nx">baz</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">bar</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>通过在 <code>return</code> 语句和它之前的语句之间添加空行，可以使函数的退出位置以及函数的返回值更加清晰：</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">baz</span> <span class="o">=</span> <span class="s1">&#39;baz&#39;</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bar</span> <span class="o">=</span> <span class="nx">baz</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="nx">bar</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则要求在 <code>return</code> 语句之前添加空行以提高代码清晰度，除了 <code>return</code> 语句空中的唯一语句（比如 if 语句）。注释将被忽略，而且不会记为空行。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint newline-before-return: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="cm">/* multi-line</span>
+<span class="cm">    comment */</span>
+    <span class="k">return</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint newline-before-return: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">bar</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="c1">// comment</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你对 <code>return</code> 语句之前的空白没有严格的约定，你可以禁用此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="newline-after-var">newline-after-var</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 2.3.0 被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/newline-before-return.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/newline-before-return.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

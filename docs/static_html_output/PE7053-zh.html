@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7053">BE7053: clone方法没有调用super.clone()</h2>
+    <h3>clone方法没有调用super.clone()</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7053</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>clone方法没有调用super.clone()</p>
+<h4>漏洞与风险</h4>
+<p>非final类定义了一个不调用super.clone()的clone()方法。
+如果此类（“<i>A</i>”）由子类（“<i>B</i>”）扩展，并且子类<i>B</i>调用super.clone()，那么<i>B</i>的clone()方法可能会返回一个<i> A </i>类型的对象，这违反了clone()的标准合约。
+如果所有clone()方法都调用super.clone()，那它们将保证使用Object.clone()返回正确类型的对象。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

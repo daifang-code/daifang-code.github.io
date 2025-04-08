@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1105">PE1105: JSON Injection</h2>
+    <h3>When an application uses untrusted user inputs to construct a JSON data, attackers may inject arbitrary elements</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1105</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>JSON is a syntax for serializing objects, arrays, numbers, strings, booleans, and null, typically used by applications to store date or send messages.
+For example, the following example is the simplest Key→Value example of JSON (name/value pairs, key-value pairs):</p>
+<div class="highlight"><pre><span></span><span class="p">{</span> <span class="s">&quot;UserName&quot;</span><span class="o">:</span> <span class="s">&quot;xxser&quot;</span><span class="p">,</span> <span class="s">&quot;PassWord&quot;</span><span class="o">:</span> <span class="s">&quot;nike&quot;</span><span class="p">,</span> <span class="s">&quot;email&quot;</span><span class="o">:</span> <span class="s">&quot;root@secbug.org&quot;</span> <span class="p">}</span>
+</pre></div>
+<p>After understanding the basic JSON knowledge, let's look at the injection in JSON.
+In the basics of JSON, we learned that JSON distinguishes the meaning of each character based on quotation marks (&quot;), colons (:), commas (,), and curly braces ({}). If a malicious user injects maliciously into JSON Character, then JSON will parse failure. For example, the value of PassWord is:</p>
+<div class="highlight"><pre><span></span><span class="n">Admin</span><span class="s">&quot;888</span>
+</pre></div>
+<p>Then the assembled JSON data bits are as follows:</p>
+<div class="highlight"><pre><span></span><span class="s">&quot;PassWord&quot;</span><span class="o">:</span> <span class="s">&quot;admin&quot;</span><span class="mi">888</span><span class="s">&quot;</span>
+</pre></div>
+<p>The quotation marks in PassWord will destroy the entire JSON structure, causing JSON parsing to fail.</p>
+<h4>Vulnerability and risk</h4>
+<p>When an application uses untrusted user inputs to construct a JSON file, attackers may inject arbitrary elements that cause a parsing error or even change the structure of the JSON file.  JSON injection can also lead to code execution or cross-site scripting.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>1 Escape its key characters. Such as:</p>
+<div class="highlight"><pre><span></span><span class="s">&quot;admin&quot;</span><span class="mi">888</span><span class="s">&quot;</span>
+</pre></div>
+<p>Convert to</p>
+<div class="highlight"><pre><span></span><span class="s">&quot;admin</span><span class="se">\&quot;</span><span class="s">888&quot;</span>
+<span class="err">```</span><span class="n">c</span>
+<span class="n">This</span> <span class="n">way</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span> <span class="n">JSON</span> <span class="n">can</span> <span class="n">be</span> <span class="n">parsed</span><span class="p">.</span> <span class="n">If</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s"> appears in the string, you also need to escape it to &quot;</span><span class="err">\\</span><span class="s">&quot;.</span>
+<span class="mi">2</span> <span class="n">Use</span> <span class="n">some</span> <span class="n">third</span><span class="o">-</span><span class="n">party</span> <span class="n">components</span><span class="p">.</span> <span class="n">Taking</span> <span class="n">Java</span> <span class="n">as</span> <span class="n">an</span> <span class="n">example</span><span class="p">,</span> <span class="n">using</span> <span class="n">JSON</span><span class="o">-</span><span class="n">lib</span><span class="p">.</span><span class="n">jar</span> <span class="n">to</span> <span class="n">form</span> <span class="n">JSON</span> <span class="n">data</span> <span class="n">can</span> <span class="n">effectively</span> <span class="n">avoid</span> <span class="n">JSON</span> <span class="n">injection</span><span class="p">.</span>
+</pre></div>
+
+    </section>
+</article>

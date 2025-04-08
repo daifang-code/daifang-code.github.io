@@ -1,0 +1,66 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22244">PE22244: DUO134</h2>
+    <h3>DUO134</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22244</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO134</h4>
+<p>This linter searches for insecure attribute use of the <code>cryptography</code> module.</p>
+<p>The Python <code>cryptography</code> library has become the defacto standard for
+crytographic operations. Cryptographic operations are notoriously difficult
+to get correct and often come with many gotchas. This linter searches for
+insecure cryptographic primitives and operations in the <code>cryptography</code> library.</p>
+<h2>Problematic code</h2>
+<p>Any code using the following primitives/attributes should be considered
+cryptographically deprecated and insecure:</p>
+<div class="highlight"><pre><span></span><span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">hashes</span><span class="o">.</span><span class="n">MD5</span>
+<span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">hashes</span><span class="o">.</span><span class="n">SHA1</span>
+<span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">ciphers</span><span class="o">.</span><span class="n">modes</span><span class="o">.</span><span class="n">ECB</span>
+<span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">ciphers</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">Blowfish</span>
+<span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">ciphers</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">ARC4</span>
+<span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">ciphers</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">IDEA</span>
+</pre></div>
+<p>Dlint also looks for PKCS1 v1.5 usage via the following attribute:</p>
+<div class="highlight"><pre><span></span><span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">asymmetric</span><span class="o">.</span><span class="n">padding</span><span class="o">.</span><span class="n">PKCS1v15</span>
+</pre></div>
+<p>This primitive is not as strictly insecure as the above primitives, but its
+usage should still be limited.</p>
+<h2>Correct code</h2>
+<p>There are secure alternatives documented in the following locations:</p>
+<ul>
+<li><a href="https://cryptography.io/en/latest/hazmat/primitives/cryptographic-hashes/">https://cryptography.io/en/latest/hazmat/primitives/cryptographic-hashes/</a></li>
+<li><a href="https://cryptography.io/en/latest/hazmat/primitives/symmetric-encryption/#algorithms">https://cryptography.io/en/latest/hazmat/primitives/symmetric-encryption/#algorithms</a></li>
+</ul>
+<p>For PKCS1 v1.5 alternatives consider the following:</p>
+<ul>
+<li>For signing operations: <a href="https://cryptography.io/en/latest/hazmat/primitives/asymmetric/rsa/#cryptography.hazmat.primitives.asymmetric.padding.PSS"><code>cryptography.hazmat.primitives.asymmetric.padding.PSS</code></a></li>
+<li>For encryption operations: <a href="https://cryptography.io/en/latest/hazmat/primitives/asymmetric/rsa/#cryptography.hazmat.primitives.asymmetric.padding.OAEP"><code>cryptography.hazmat.primitives.asymmetric.padding.OAEP</code></a></li>
+</ul>
+<h2>Rationale</h2>
+<p>The problematic hashing algorithms mentioned above have known collision
+weaknesses.</p>
+<p>The use of the ECB cipher mode can leave significant patterns in the output,
+which can be used for cryptanalysis.</p>
+<p>The problematic cipher algorithms mentioned above are susceptible to attacks
+when using weak keys and can have serious weaknesses in their initial stream
+output.</p>
+<p>Finally, PKCS1 v1.5, when used in encryption operations, is vulnerable to chosen
+ciphertext attacks.</p>
+<h2>Exceptions</h2>
+<ul>
+<li><code>PKCS1v15</code> may be used for legacy applications, but should not be considered</li>
+</ul>
+<p>for new applications. It is still recommended to move away from <code>PKCS1v15</code>
+usage as soon as possible.</p>
+
+    </section>
+</article>

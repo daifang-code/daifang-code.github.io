@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2162">SC2162: Improper use of read command</h2>
+    <h3>read without -r will mangle backslashes</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2162</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>read without -r will mangle backslashes</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;Enter name:&quot;</span>
+<span class="nb">read</span> name
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;Enter name:&quot;</span>
+<span class="nb">read</span> -r name
+</pre></div>
+<h5>Rationale:</h5>
+<p>By default, <code>read</code> will interpret backslashes before spaces and line feeds, and otherwise strip them. This is rarely expected or desired.</p>
+<p>Normally you just want to read data, which is what <code>read -r</code> does. You should always use <code>-r</code> unless you have a good reason not to.</p>
+<p>Note that <a href="https://www.tldp.org/LDP/abs/html/internal.html#READR"><code>read -r</code></a> will still strip leading and trailing spaces. <code>IFS=&quot;&quot; read -r</code> prevents this.</p>
+<h5>Exceptions:</h5>
+<p>If you want backslashes to affect field splitting and line terminators instead of being read, you can disable this message with a [[directive]].</p>
+
+    </section>
+</article>

@@ -1,0 +1,50 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0070">PE0070: 内存分配时对指针进行sizeof操作</h2>
+    <h3>内存分配时对指针进行sizeof操作</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0070</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>使用malloc、calloc或者realloc函数来分配内存的大小会与期望获取的大小不符。这种情况通常发生在sizeof关键字的使用上面。意图使用sizeof计算实际类型的大小，结果却计算了指针的大小。<br />
+这种情况会导致分配内存少于期望分配的大小，最后导致未定义行为，比如缓冲区溢出。</p>
+<h4>漏洞与风险</h4>
+<h5>缓冲区溢出</h5>
+<p>内存分配时对指针进行sizeof操作，这种情况会导致分配内存少于期望分配的大小，最后导致未定义行为，比如缓冲区溢出。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>申请内存时正确地计算内存的大小。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap1</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">A</span><span class="p">));</span>
+  <span class="c1">// expected-warning {{Result of &#39;calloc&#39; is converted to a pointer of type </span>
+  <span class="c1">// &#39;struct A&#39;, which is incompatible with sizeof operand type</span>
+  <span class="c1">// &#39;struct A *&#39;}} </span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap2</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ap1</span><span class="p">));</span> 
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，内存分配时对指针进行sizeof操作，导致分配内存少于期望分配的大小。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap1</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">A</span><span class="p">));</span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap2</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ap1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，申请内存时正确地计算内存的大小。</p>
+
+    </section>
+</article>

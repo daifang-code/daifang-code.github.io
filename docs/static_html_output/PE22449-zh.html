@@ -1,0 +1,53 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22449">PE22449: F405</h2>
+    <h3>Name may be undefined, or defined from star imports: module</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22449</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>此警告与问题F403一起出现，<code>'from module import *' used</code>。这意味着变量<code>name</code><em>可能</em>未定义，但flake8不能确定，因为它也可以进口星空进口。</p>
+<p>确认变量是在star导入中定义的。如果是的话，显式地导入它，而不是导入<code>*</code>。如果不是，则定义变量。</p>
+<h5>示例错误片段</h5>
+
+<pre><code>from mymodule import *
+
+def print_name():
+    print(name)  # name could be defined in mymodule
+
+</code></pre>
+<h5>最佳修复</h5>
+<p>显式导入<code>name</code>…</p>
+
+<pre><code>from mymodule import name
+
+def print_name():
+    print(name)
+
+</code></pre>
+<p>…或定义<code>name</code>。</p>
+
+<pre><code>from mymodule import *
+
+def print_name(name):
+    print(name)
+
+
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#imports<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7103">BE7103: 可能的字段重复检查</h2>
+    <h3>可能的字段重复检查</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7103</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>可能的字段重复检查</p>
+<h4>漏洞与风险</h4>
+<p> 此方法可能包含双重检查锁定的实例。 根据Java内存模型的语义，这个习惯用法是不正确的。 有关详细信息，请参阅网页<a href="http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html"> http://www.cs.umd.edu/~pugh/java/memoryModel/DoubleCheckedLocking.html</a>。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

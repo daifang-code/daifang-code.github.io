@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7537">BE7537: Hazelcast symmetric encryption</h2>
+    <h3>Hazelcast symmetric encryption</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7537</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Hazelcast symmetric encryption</p>
+<h4>Vulnerability and risk</h4>
+<p>The network communications for Hazelcast is configured to use a symmetric cipher (probably DES or blowfish).</p>
+<p>Those ciphers alone do not provide integrity or secure authentication. The use of asymmetric encryption is preferred.</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+<h4>References</h4>
+<p>&lt;a href=&quot;http://projects.webappsec.org/w/page/13246945/Insufficient%20Transport%20Layer%20Protection&quot;&gt;WASC-04: Insufficient Transport Layer Protection&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://docs.hazelcast.org/docs/3.5/manual/html/encryption.html&quot;&gt;Hazelcast Documentation: Encryption&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/326.html&quot;&gt;CWE-326: Inadequate Encryption Strength&lt;/a&gt;</p>
+</p>
+
+    </section>
+</article>

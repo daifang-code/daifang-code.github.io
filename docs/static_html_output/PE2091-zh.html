@@ -1,0 +1,62 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2091">PE2091: no-dupe-keys</h2>
+    <h3>禁止在对象字面量中出现重复的键 (no-dupe-keys)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2091</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止在对象字面量中出现重复的键 (no-dupe-keys)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>在你的应用程序中，如果对象字面量中出现多个属性有同样的键可能会到导致意想不到的情况出现。</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;qux&quot;</span>
+<span class="p">};</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则禁止在对象字面量中出现重复的键。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-dupe-keys: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;qux&quot;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;bar&quot;</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;qux&quot;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mh">0x1</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="mi">1</span><span class="o">:</span> <span class="s2">&quot;qux&quot;</span>
+<span class="p">};</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-dupe-keys: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="nx">quxx</span><span class="o">:</span> <span class="s2">&quot;qux&quot;</span>
+<span class="p">};</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-dupe-keys.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-dupe-keys.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

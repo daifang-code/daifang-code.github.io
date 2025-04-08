@@ -1,0 +1,44 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0010">PE0010: Delete Void Pointer</h2>
+    <h3>According to the C++ standard, deleting a pointer with type void\* is an undefined behavior.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0010</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>In many implementations, deleting a pointer to void is treated like calling free() in that the memory is deallocated but destructors do not run. However, even if that is the intended behavior, it is dangerous to rely on it for the following reasons:</p>
+<ul>
+<li>The behavior is undefined by the language standard. The implementation can technically do anything, and some compilers have optimizers that aggressively transform code that relies on undefined behavior.</li>
+<li>If the allocation site is changed, for example, to allocate an array of objects, the deallocation site will silently do the wrong thing.</li>
+</ul>
+<h4>Vulnerability and risk</h4>
+<h5>undefined behavior</h5>
+<p>According to the C++ standard, deleting a pointer with type void* is an undefined behavior.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>Do not delete void pointer.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="n">delete</span> <span class="n">p</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, delete is used on a pointer of type void at line 2.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="n">delete</span> <span class="n">p</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example, delete is used on a pointer of type int at line 2.</p>
+
+    </section>
+</article>

@@ -1,0 +1,146 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2116">PE2116: no-inner-declarations</h2>
+    <h3>禁止在嵌套的语句块中出现变量或 `function` 声明 (no-inner-declarations)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2116</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止在嵌套的语句块中出现变量或 <code>function</code> 声明 (no-inner-declarations)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>在 ES6 之前的 JavaScript 中，函数声明只能在程序或另一个函数体的顶层，尽管解析器有时会<a href="https://code.google.com/p/esprima/issues/detail?id=422">错误地接受它们</a>。这只适用于函数声明；命名的或匿名的函数表达式是可以出现在任何允许的地方。</p>
+<div class="highlight"><pre><span></span><span class="c1">// Good</span>
+<span class="kd">function</span> <span class="nx">doSomething</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="c1">// Bad</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">doSomethingElse</span> <span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">anotherThing</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">fn</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="c1">// Good</span>
+        <span class="nx">fn</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">expression</span><span class="p">()</span> <span class="p">{</span> <span class="p">};</span>
+
+        <span class="c1">// Bad</span>
+        <span class="kd">function</span> <span class="nx">declaration</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>可以在任何地方声明变量，甚至是在深层嵌套的语句块中。由于变量声明提升，把声明放在程序或函数体的顶部会使代码更清晰，在任何地方随意声明变量的做法通常是不可取的。注意 <a href="https://leanpub.com/understandinges6/read#leanpub-auto-block-bindings">block bindings</a> 中提到的 <code>let</code> 和 <code>const</code> 不会被提升，因此它们不受此规则影响。</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// Good</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+
+<span class="c1">// Good</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">bar1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Bad</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">bar2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">doSomething</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Good</span>
+    <span class="kd">var</span> <span class="nx">baz</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+    <span class="c1">// Bad</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">baz</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">quux</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则要求函数声明和变量声明（可选的）在程序或函数体的顶部。</p>
+<h2>修改方案</h2>
+<p>该规则有一个字符串选项：</p>
+<ul>
+<li><code>&quot;functions&quot;</code> (默认) 禁止 <code>function</code> 声明出现在嵌套的语句块中</li>
+<li><code>&quot;both&quot;</code> 禁止 <code>function</code> 和 <code>var</code> 声明出现在嵌套的语句块中</li>
+</ul>
+<h5>functions</h5>
+<p>默认选项 <code>&quot;functions&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-inner-declarations: &quot;error&quot;*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">doSomething</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">doSomethingElse</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">function</span> <span class="nx">doAnotherThing</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>默认选项 <code>&quot;functions&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-inner-declarations: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">doSomething</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">doSomethingElse</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">doAnotherThing</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">asyncCall</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span> <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">fn</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fn</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">fnExpression</span><span class="p">()</span> <span class="p">{</span> <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+<h5>both</h5>
+<p>选项 <code>&quot;both&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-inner-declarations: [&quot;error&quot;, &quot;both&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">doAnotherThing</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">81</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>&quot;both&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-inner-declarations: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">baz</span> <span class="o">=</span> <span class="mi">43</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">doAnotherThing</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">baz</span> <span class="o">=</span> <span class="mi">81</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>当 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=585536">block-scoped functions</a> 出现在 ES6 中时，函数声明的部分规则将被废弃，但在那之前，它应该是行之有效的。当使用 <a href="block-scoped-var">block-scoped-var</a> 规则时或者在嵌套块中声明变量是可以接受的（尽管有变量声明提升）时候，可以不再检测变量声明。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.6.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-inner-declarations.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-inner-declarations.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

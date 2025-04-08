@@ -1,0 +1,453 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="ddj" />
+<meta name="description" content="LDAP注入是一种利用基于Web的应用程序构建用户输入的LDAP语句的攻击。" />
+<meta name="keywords" content="Web, Java, Injection, CWE-116, FIND-SEC-BUGS">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="LDAP 注入"/>
+<meta property="og:description" content="LDAP注入是一种利用基于Web的应用程序构建用户输入的LDAP语句的攻击。"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE0082.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:06.016829+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/ddj.html">
+<meta property="article:section" content="Checkers/JAVA"/>
+<meta property="article:tag" content="Web"/>
+<meta property="article:tag" content="Java"/>
+<meta property="article:tag" content="Injection"/>
+<meta property="article:tag" content="CWE-116"/>
+<meta property="article:tag" content="FIND-SEC-BUGS"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; LDAP 注入</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/c.html">c</a>
+              <a href="./standard/java.html">java</a>
+        </li>
+        <li>
+            <a href="./standard/security-issues.html">安全问题</a>
+        </li>
+        <li>
+            <a href="./category/input-validation-and-representation.html">输入验证与表示</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE0082">LDAP 注入</h1>
+    <p>
+        在 2024-九月-28 发布于 <a href="./category/input-validation-and-representation.html">输入验证与表示</a> 分类
+
+        &#8226; 1 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">缓解与预防</a></li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">演示实例</a><ul>
+<li><a href="#_6">漏洞代码示例</a></li>
+<li><a href="#_7">漏洞代码修复示例</a></li>
+</ul>
+</li>
+<li><a href="#_8">引用</a></li>
+</ul>
+</div>
+
+  <div>
+    
+<h1 id="_1">缺陷描述</h1>
+<p>轻量级目录访问协议（LDAP）允许应用程序远程执行操作，例如搜索和修改目录中的记录。 LDAP注入源自输入清理和验证不足，并允许恶意用户使用目录服务收集受限信息。</p>
+<p>白名单可用于将输入限制为有效字符列表。下表中列出了必须从白名单中排除的字符和字符序列（包括Java命名和目录接口（JNDI）元字符和LDAP特殊字符）。</p>
+<p>从白名单中排除的字符和序列：</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>字符序列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>#</td>
+<td>Hash character at the beginning of the string</td>
+</tr>
+<tr>
+<td>' and "</td>
+<td>Single and double quote</td>
+</tr>
+<tr>
+<td>( and )</td>
+<td>Round braces</td>
+</tr>
+<tr>
+<td>+ and *</td>
+<td>Addition and multiplication operators</td>
+</tr>
+<tr>
+<td>, and ;</td>
+<td>Comma and semicolon</td>
+</tr>
+<tr>
+<td>/ and \</td>
+<td>Forward slash and backslash</td>
+</tr>
+<tr>
+<td>&lt; and &gt;</td>
+<td>Angle brackets</td>
+</tr>
+<tr>
+<td>\\</td>
+<td>Double slashes*</td>
+</tr>
+<tr>
+<td>\u0000</td>
+<td>Unicode NULL character</td>
+</tr>
+<tr>
+<td>space</td>
+<td>Space character at beginning or end of string</td>
+</tr>
+<tr>
+<td>这是一个字符序列。</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="_2">漏洞与风险</h1>
+<p>下表列出了与缺陷相关的不同后果。'范围'标识了被违反的应用程序安全区域，而'影响'则描述了如果攻击者成功利用此漏洞所产生的负面技术影响。   </p>
+<table>
+<thead>
+<tr>
+<th>范围</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>机密性</td>
+<td>执行未经授权的代码或命令; 阅读应用数据; 修改应用数据</td>
+</tr>
+<tr>
+<td>完整可用性</td>
+<td>攻击者可能包含更改LDAP查询的输入，该查询允许执行意外的命令或代码，允许读取或修改敏感数据或导致其他意外行为</td>
+</tr>
+</tbody>
+</table>
+<h1 id="_3">缓解与预防</h1>
+<p>1 使用正确的LDAP编码函数
+2 使用自动从LDAP注入进行保护的框架
+3 额外防御</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>高危</p>
+<h1 id="_5">演示实例</h1>
+<h3 id="_6">漏洞代码示例</h3>
+<p>这个漏洞代码示例允许方法searchRecord()的调用者使用LDAP协议在目录中搜索记录。字符串过滤器用于过滤与调用者提供的用户名和密码匹配的条目的结果集。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// String userSN = "S*"; // Invalid</span>
+<span class="c1">// String userPassword = "*"; // Invalid</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LDAPInjection</span> <span class="o">{</span>       
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">searchRecord</span><span class="o">(</span><span class="n">String</span> <span class="n">userSN</span><span class="o">,</span> <span class="n">String</span> <span class="n">userPassword</span><span class="o">)</span>  
+  <span class="kd">throws</span> <span class="n">NamingException</span> <span class="o">{</span>        
+    <span class="n">Hashtable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span>  <span class="n">env</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hashtable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;();</span>
+    <span class="n">env</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">INITIAL_CONTEXT_FACTORY</span><span class="o">,</span> <span class="s">"com.sun.jndi.ldap.LdapCtxFactory"</span><span class="o">);</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">DirContext</span> <span class="n">dctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InitialDirContext</span><span class="o">(</span><span class="n">env</span><span class="o">);</span>
+
+      <span class="n">SearchControls</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SearchControls</span><span class="o">();</span>
+      <span class="n">String</span><span class="o">[]</span> <span class="n">attributeFilter</span> <span class="o">=</span> <span class="o">{</span><span class="s">"cn"</span><span class="o">,</span> <span class="s">"mail"</span><span class="o">};</span>
+      <span class="n">sc</span><span class="o">.</span><span class="na">setReturningAttributes</span><span class="o">(</span><span class="n">attributeFilter</span><span class="o">);</span>
+      <span class="n">sc</span><span class="o">.</span><span class="na">setSearchScope</span><span class="o">(</span><span class="n">SearchControls</span><span class="o">.</span><span class="na">SUBTREE_SCOPE</span><span class="o">);</span>
+      <span class="n">String</span> <span class="n">base</span> <span class="o">=</span> <span class="s">"dc=example,dc=com"</span><span class="o">;</span>
+
+      <span class="c1">// The following resolves to (&amp;(sn=S*)(userPassword=*))     </span>
+      <span class="n">String</span> <span class="n">filter</span> <span class="o">=</span> <span class="s">"(&amp;(sn="</span> <span class="o">+</span> <span class="n">userSN</span> <span class="o">+</span> <span class="s">")(userPassword="</span> <span class="o">+</span> <span class="n">userPassword</span> <span class="o">+</span> <span class="s">"))"</span><span class="o">;</span>
+
+      <span class="n">NamingEnumeration</span><span class="o">&lt;?&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">dctx</span><span class="o">.</span><span class="na">search</span><span class="o">(</span><span class="n">base</span><span class="o">,</span> <span class="n">filter</span><span class="o">,</span> <span class="n">sc</span><span class="o">);</span>
+      <span class="k">while</span> <span class="o">(</span><span class="n">results</span><span class="o">.</span><span class="na">hasMore</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">SearchResult</span> <span class="n">sr</span> <span class="o">=</span> <span class="o">(</span><span class="n">SearchResult</span><span class="o">)</span> <span class="n">results</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+        <span class="n">Attributes</span> <span class="n">attrs</span> <span class="o">=</span> <span class="o">(</span><span class="n">Attributes</span><span class="o">)</span> <span class="n">sr</span><span class="o">.</span><span class="na">getAttributes</span><span class="o">();</span>
+        <span class="n">Attribute</span> <span class="n">attr</span> <span class="o">=</span> <span class="o">(</span><span class="n">Attribute</span><span class="o">)</span> <span class="n">attrs</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"cn"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">attr</span><span class="o">);</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="o">(</span><span class="n">Attribute</span><span class="o">)</span> <span class="n">attrs</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"mail"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">attr</span><span class="o">);</span>
+      <span class="o">}</span>    
+      <span class="n">dctx</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NamingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// Forward to handler</span>
+    <span class="o">}</span>
+  <span class="o">}</span> 
+<span class="o">}</span>
+</pre></div>
+</td></tr></table>
+<p>如上所述，当恶意用户输入特制输入时，此基本身份验证方案无法将搜索查询的输出限制为用户具有访问权限的信息。</p>
+<h3 id="_7">漏洞代码修复示例</h3>
+<p>此漏洞代码修复示例使用白名单来清理用户输入，以便过滤器字符串仅包含有效字符。在此代码中，userSN可能只包含字母和空格，而密码可能只包含字母数字字符。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// String userSN = "Sherlock Holmes"; // Valid</span>
+<span class="c1">// String userPassword = "secret2";   // Valid</span>
+
+<span class="c1">// ... beginning of LDAPInjection.searchRecord()...</span>
+<span class="n">sc</span><span class="o">.</span><span class="na">setSearchScope</span><span class="o">(</span><span class="n">SearchControls</span><span class="o">.</span><span class="na">SUBTREE_SCOPE</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">base</span> <span class="o">=</span> <span class="s">"dc=example,dc=com"</span><span class="o">;</span>
+
+<span class="k">if</span> <span class="o">(!</span><span class="n">userSN</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="s">"[\\w\\s]*"</span><span class="o">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">userPassword</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="s">"[\\w]*"</span><span class="o">))</span> <span class="o">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">"Invalid input"</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="n">String</span> <span class="n">filter</span> <span class="o">=</span> <span class="s">"(&amp;(sn = "</span> <span class="o">+</span> <span class="n">userSN</span> <span class="o">+</span> <span class="s">")(userPassword="</span> <span class="o">+</span> <span class="n">userPassword</span> <span class="o">+</span> <span class="s">"))"</span><span class="o">;</span>
+
+<span class="c1">// ... remainder of LDAPInjection.searchRecord()...    </span>
+</pre></div>
+</td></tr></table>
+<p>当数据库字段（例如密码）必须包含特殊字符时，确保将真实数据以过滤后的形式存储在数据库中以及在进行验证或比较之前对任何用户输入进行规范化至关重要。 不建议在没有全面的标准化和基于白名单的例程的情况下使用在JNDI和LDAP中具有特殊含义的字符。 在将特殊字符添加到白名单表达式之前，必须将其转换为已过滤后的安全值，然后才能对输入进行验证。同样，用户输入的标准化应该在验证步骤之前进行。</p>
+<h1 id="_8">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-CEW">
+<p>http://cwe.mitre.org/data/definitions/116.html <a class="footnote-backref" href="#fnref-CEW" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn-OWASP">
+<p>https://www.owasp.org/index.php/Top_10-2017_A1-Injection <a class="footnote-backref" href="#fnref-OWASP" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/web.html">Web</a>
+      <a href="./tag/java.html">Java</a>
+      <a href="./tag/injection.html">Injection</a>
+      <a href="./tag/cwe-116.html">CWE-116</a>
+      <a href="./tag/find-sec-bugs.html">FIND-SEC-BUGS</a>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

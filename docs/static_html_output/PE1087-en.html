@@ -1,0 +1,39 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1087">PE1087: OGNL Expression Injection</h2>
+    <h3>Forced double OGNL evaluation, when evaluated on raw user input in tag attributes, may lead to remote code execution</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1087</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Forced double OGNL(Object-Graph Navigation Language) evaluation, when evaluated on raw user input in tag attributes, may lead to remote code execution.</p>
+<h4>Vulnerability and risk</h4>
+<p>The Apache Struts frameworks when forced, performs double evaluation of attributes' values assigned to certain tags so it is possible to pass in a value that will be evaluated again when a tag's attributes will be rendered.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<ul>
+<li><p>Always validate incoming parameters' values when re-assigning them to certain Struts' tags attributes.</p>
+</li>
+<li><p>Don't use %{...} syntax in tag attributes other than value unless you have a valid use-case.</p>
+</li>
+<li><p>Alternatively upgrade to Struts 2.3.20.3, Struts 2.3.24.3 or Struts 2.3.28</p>
+</li>
+</ul>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwiki.apache.org/confluence/display/WW/S2-036<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,138 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2186">PE2186: no-unsafe-finally</h2>
+    <h3>disallow control flow statements in `finally` blocks (no-unsafe-finally)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2186</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow control flow statements in <code>finally</code> blocks (no-unsafe-finally)</h4>
+<p>JavaScript suspends the control flow statements of <code>try</code> and <code>catch</code> blocks until the execution of <code>finally</code> block finishes. So, when <code>return</code>, <code>throw</code>, <code>break</code>, or <code>continue</code> is used in <code>finally</code>, control flow statements inside <code>try</code> and <code>catch</code> are overwritten, which is considered as unexpected behavior. Such as:</p>
+<div class="highlight"><pre><span></span><span class="c1">// We expect this function to return 1;</span>
+<span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// 1 is returned but suspended until finally block ends</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// 3 is returned before 1, which we did not expect</span>
+    <span class="p">}</span>
+<span class="p">})();</span>
+
+<span class="c1">// &gt; 3</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="c1">// We expect this function to throw an error, then return</span>
+<span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Try&quot;</span><span class="p">);</span> <span class="c1">// error is thrown but suspended until finally block ends</span>
+    <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// 3 is returned before the error is thrown, which we did not expect</span>
+    <span class="p">}</span>
+<span class="p">})();</span>
+
+<span class="c1">// &gt; 3</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="c1">// We expect this function to throw Try(...) error from the catch block</span>
+<span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Try&quot;</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span> <span class="c1">// The error thrown from try block is caught and rethrown</span>
+    <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Finally&quot;</span><span class="p">);</span> <span class="c1">// Finally(...) is thrown, which we did not expect</span>
+    <span class="p">}</span>
+<span class="p">})();</span>
+
+<span class="c1">// &gt; Uncaught Error: Finally(...)</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="c1">// We expect this function to return 0 from try block.</span>
+<span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">label</span><span class="o">:</span> <span class="k">try</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 0 is returned but suspended until finally block ends</span>
+  <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+    <span class="k">break</span> <span class="nx">label</span><span class="p">;</span> <span class="c1">// It breaks out the try-finally block, before 0 is returned.</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">})();</span>
+
+<span class="c1">// &gt; 1</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule disallows <code>return</code>, <code>throw</code>, <code>break</code>, and <code>continue</code> statements inside <code>finally</code> blocks. It allows indirect usages, such as in <code>function</code> or <code>class</code> definitions.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unsafe-finally: &quot;error&quot;*/</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unsafe-finally: &quot;error&quot;*/</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unsafe-finally: &quot;error&quot;*/</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;hola!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unsafe-finally: &quot;error&quot;*/</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="s2">&quot;hola!&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unsafe-finally: &quot;error&quot;*/</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+        <span class="k">switch</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;hola!&quot;</span><span class="p">)</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you want to allow control flow operations in <code>finally</code> blocks, you can turn this rule off.</p>
+
+    </section>
+</article>

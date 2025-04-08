@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7329">BE7329: Check to see if ((...) & 0) == 0</h2>
+    <h3>Check to see if ((...) & 0) == 0</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7329</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Check to see if ((...) &amp; 0) == 0</p>
+<h4>Vulnerability and risk</h4>
+<p> This method compares an expression of the form <code>(e &amp; 0)</code> to 0,
+which will always compare equal.
+This may indicate a logic error or typo.</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

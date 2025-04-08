@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7309">BE7309: Call to equals() comparing different types</h2>
+    <h3>Call to equals() comparing different types</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7309</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Call to equals() comparing different types</p>
+<h4>Vulnerability and risk</h4>
+<p> This method calls equals(Object) on two references of different
+class types and analysis suggests they will be to objects of different classes
+at runtime. Further, examination of the equals methods that would be invoked suggest that either
+this call will always return false, or else the equals method is not be symmetric (which is
+a property required by the contract
+for equals in class Object).
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+
+    </section>
+</article>

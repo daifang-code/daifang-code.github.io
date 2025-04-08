@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7153">BE7153: Invokes run on a thread (did you mean to start it instead?)</h2>
+    <h3>Invokes run on a thread (did you mean to start it instead?)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7153</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Invokes run on a thread (did you mean to start it instead?)</p>
+<h4>Vulnerability and risk</h4>
+<p> This method explicitly invokes <code>run()</code> on an object.&nbsp;
+  In general, classes implement the <code>Runnable</code> interface because
+  they are going to have their <code>run()</code> method invoked in a new thread,
+  in which case <code>Thread.start()</code> is the right method to call.</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+
+    </section>
+</article>

@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7017">BE7017: Method with Optional return type returns explicit null</h2>
+    <h3>Method with Optional return type returns explicit null</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7017</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Method with Optional return type returns explicit null</p>
+<h4>Vulnerability and risk</h4>
+<p>
+    The usage of Optional return type (java.util.Optional or com.google.common.base.Optional)
+    always means that explicit null returns were not desired by design.
+    Returning a null value in such case is a contract violation and will most likely break client code.
+       </p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

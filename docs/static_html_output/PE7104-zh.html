@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7104">BE7104: 可能暴露部分初始化对象</h2>
+    <h3>可能暴露部分初始化对象</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7104</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>可能暴露部分初始化对象</p>
+<h4>漏洞与风险</h4>
+<p>看起来这个方法使用带有双重检查锁定的惰性字段初始化。
+虽然字段被正确地声明为volatile，但是在字段赋值之后可能会更改对象的内部结构，因此另一个线程可能会看到部分初始化的对象。</p>
+<p>要解决此问题，请考虑首先将对象存储到局部变量中，并在完全构造后将其保存到volatile字段中。 </p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

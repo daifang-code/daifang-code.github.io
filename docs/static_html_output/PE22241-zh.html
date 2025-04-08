@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22241">PE22241: DUO131</h2>
+    <h3>DUO131</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22241</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO131</h4>
+<p>此linter搜索<code>urllib3</code>模块的不安全属性使用。特别是使用<code>disable_warnings</code>函数。此功能禁用警告，如未验证的HTTPS请求、没有SNI的HTTPS请求可用，对证书丢失SAN的主机的HTTPS请求，等等。</p>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib3</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">()</span>
+</pre></div>
+<h2>来源</h2>
+<p><code>urllib3</code>生成的警告旨在阻止用户执行不安全的web请求（同时防止其他常见的，非安全相关错误）。禁用此功能会导致不安全不被注意的请求。</p>
+<h2>特别提及</h2>
+
+    </section>
+</article>

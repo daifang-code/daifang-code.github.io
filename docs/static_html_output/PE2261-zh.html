@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2261">PE2261: no-empty-character-class</h2>
+    <h3>该规则已被ESLint v1.0移除，且由`no-empty-character-class`规则替代</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2261</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<p>该规则已被ESLint v1.0<strong>移除</strong>，且由<code>no-empty-character-class</code>规则<strong>替代</strong>。</p>
+<p>Empty character classes in regular expressions do not match anything and can result in code that may not work as intended.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="sr">/^abc[]/</span><span class="p">;</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>This rule is aimed at highlighting possible typos and unexpected behavior in regular expressions which may arise from the use of empty character classes.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="sr">/^abc[]/</span><span class="p">;</span>
+
+<span class="sr">/^abc[]/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+
+<span class="nx">bar</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^abc[]/</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="sr">/^abc/</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="sr">/^abc[a-z]/</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">&quot;^abc[]&quot;</span><span class="p">);</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>This rule was introduced in ESLint 0.0.9 and removed in 1.0.0-rc-1.</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-empty-class.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

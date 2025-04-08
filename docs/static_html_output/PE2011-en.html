@@ -1,0 +1,152 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2011">PE2011: callback-return</h2>
+    <h3>Enforce Return After Callback (callback-return)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2011</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Enforce Return After Callback (callback-return)</h4>
+<p>The callback pattern is at the heart of most I/O and event-driven programming
+ in JavaScript.</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">doSomething</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">callback</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>To prevent calling the callback multiple times it is important to <code>return</code> anytime the callback is triggered outside
+ of the main function body. Neglecting this technique often leads to issues where you do something more than once.
+ For example, in the case of an HTTP request, you may try to send HTTP headers more than once leading Node.js to <code>throw</code>
+ a <code>Can't render headers after they are sent to the client.</code> error.</p>
+<h2>Rule Details</h2>
+<p>This rule is aimed at ensuring that callbacks used outside of the main function block are always part-of or immediately
+preceding a <code>return</code> statement. This rule decides what is a callback based on the name of the function being called.</p>
+<h2>Options</h2>
+<p>The rule takes a single option - an array of possible callback names - which may include object methods. The default callback names are <code>callback</code>, <code>cb</code>, <code>next</code>.</p>
+<h5>Default callback names</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>[&quot;callback&quot;, &quot;cb&quot;, &quot;next&quot;]</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint callback-return: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">callback</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>[&quot;callback&quot;, &quot;cb&quot;, &quot;next&quot;]</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint callback-return: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">callback</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Supplied callback names</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the option <code>[&quot;done&quot;, &quot;send.error&quot;, &quot;send.success&quot;]</code>:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint callback-return: [&quot;error&quot;, [&quot;done&quot;, &quot;send.error&quot;, &quot;send.success&quot;]]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">done</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">done</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">bar</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">send</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">send</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">send</span><span class="p">.</span><span class="nx">success</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the option <code>[&quot;done&quot;, &quot;send.error&quot;, &quot;send.success&quot;]</code>:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint callback-return: [&quot;error&quot;, [&quot;done&quot;, &quot;send.error&quot;, &quot;send.success&quot;]]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">done</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">done</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">bar</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">send</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">send</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">send</span><span class="p">.</span><span class="nx">success</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Known Limitations</h2>
+<p>Because it is difficult to understand the meaning of a program through static analysis, this rule has limitations:</p>
+<ul>
+<li><em>false negatives</em> when this rule reports correct code, but the program calls the callback more than one time (which is incorrect behavior)</li>
+<li><em>false positives</em> when this rule reports incorrect code, but the program calls the callback only one time (which is correct behavior)</li>
+</ul>
+<h5>Passing the callback by reference</h5>
+<p>The static analysis of this rule does not detect that the program calls the callback if it is an argument of a function (for example,  <code>setTimeout</code>).</p>
+<p>Example of a <em>false negative</em> when this rule reports correct code:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint callback-return: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">callback</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// this is bad, but WILL NOT warn</span>
+    <span class="p">}</span>
+    <span class="nx">callback</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Triggering the callback within a nested function</h5>
+<p>The static analysis of this rule does not detect that the program calls the callback from within a nested function or an immediately-invoked function expression (IIFE).</p>
+<p>Example of a <em>false negative</em> when this rule reports correct code:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint callback-return: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">callback</span><span class="p">();</span> <span class="c1">// this is bad, but WILL NOT warn</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="nx">callback</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>If/else statements</h5>
+<p>The static analysis of this rule does not detect that the program calls the callback only one time in each branch of an <code>if</code> statement.</p>
+<p>Example of a <em>false positive</em> when this rule reports incorrect code:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint callback-return: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span> <span class="c1">// this is fine, but WILL warn</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">callback</span><span class="p">();</span>    <span class="c1">// this is fine, but WILL warn</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>There are some cases where you might want to call a callback function more than once. In those cases this rule
+ may lead to incorrect behavior. In those cases you may want to reserve a special name for those callbacks and
+ not include that in the list of callbacks that trigger warnings.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://github.com/maxogden/art-of-node#callbacks">The Art Of Node: Callbacks</a></li>
+<li><a href="https://docs.nodejitsu.com/articles/errors/what-are-the-error-conventions/">Nodejitsu: What are the error conventions?</a></li>
+</ul>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="handle-callback-err.md">handle-callback-err</a></li>
+</ul>
+
+    </section>
+</article>

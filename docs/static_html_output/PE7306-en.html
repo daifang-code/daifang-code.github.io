@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7306">BE7306: More arguments are passed than are actually used in the format string</h2>
+    <h3>More arguments are passed than are actually used in the format string</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7306</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>More arguments are passed than are actually used in the format string</p>
+<h4>Vulnerability and risk</h4>
+<p>
+A format-string method with a variable number of arguments is called,
+but more arguments are passed than are actually used by the format string.
+This won't cause a runtime exception, but the code may be silently omitting
+information that was intended to be included in the formatted string.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

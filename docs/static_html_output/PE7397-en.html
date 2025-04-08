@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7397">BE7397: A known null value is checked to see if it is an instance of a type</h2>
+    <h3>A known null value is checked to see if it is an instance of a type</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7397</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>A known null value is checked to see if it is an instance of a type</p>
+<h4>Vulnerability and risk</h4>
+<p>
+This instanceof test will always return false, since the value being checked is guaranteed to be null.
+Although this is safe, make sure it isn't
+an indication of some misunderstanding or some other logic error.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+
+    </section>
+</article>

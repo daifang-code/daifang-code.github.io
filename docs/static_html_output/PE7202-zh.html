@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7202">BE7202: 私有readResolve方法不被子类继承</h2>
+    <h3>私有readResolve方法不被子类继承</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7202</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>私有readResolve方法不被子类继承</p>
+<h4>漏洞与风险</h4>
+<p>该类定义了一个私有的readResolve方法。由于它是私有的，因此子类不会继承它。这可能是有意的，也可以，但应该进行审查以确保它符合预期。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

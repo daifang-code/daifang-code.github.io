@@ -1,0 +1,42 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2160">SC2160: Suspicious condition</h2>
+    <h3>Instead of '[ true ]', just use 'true'.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2160</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Instead of '[ true ]', just use 'true'.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> <span class="nb">true</span> <span class="o">]</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;always triggers&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">true</span>
+<span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;always triggers&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>This is a stylistic suggestion to use <code>true</code> instead of <code>[ true ]</code>.</p>
+<p><code>[ true ]</code> seems to suggest that the value &quot;true&quot; is somehow relevant to the statement. This is not the case, it doesn't matter. You can replace it with <code>[ false ]</code> or <code>[ wombat ]</code>, and it will still always be true:</p>
+<p>String  | In brackets  | Outside brackets
+--------|--------------|-----------------
+true    | true         | true
+false   | true         | false
+wombat  | true         | unknown command</p>
+<p>It's therefore better to use it without brackets, so that the &quot;true&quot; actually matters.</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

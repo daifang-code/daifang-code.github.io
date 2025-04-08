@@ -1,0 +1,38 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22211">PE22211: DUO101</h2>
+    <h3>DUO101</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22211</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO101</h4>
+<p>此林楣查找非空的<code>inlineCallbacks'函数</code>return<code>statements。使用非空</code>return<code>语句和</code>YOUND`同一函数中的语句是语法错误。</p>
+<p>这不是一个安全漏洞，但在构建'twisted'时是一个常见的错误`应用。</p>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">twisted.internet</span> <span class="kn">import</span> <span class="n">defer</span>
+
+<span class="nd">@defer.inlineCallbacks</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">arg</span>
+</pre></div>
+<h2>正确代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">twisted.internet</span> <span class="kn">import</span> <span class="n">defer</span>
+
+<span class="nd">@defer.inlineCallbacks</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="n">defer</span><span class="o">.</span><span class="n">returnValue</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+</pre></div>
+<h2>来源</h2>
+<h2>特别提及</h2>
+<p>*如果您使用的是python3.3+，那么可以使用<code>return</code>语句而不是<code>returnValue</code></p>
+
+    </section>
+</article>

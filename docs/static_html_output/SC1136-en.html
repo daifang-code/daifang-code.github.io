@@ -1,0 +1,39 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1136">SC1136: Unexpected characters after`]`</h2>
+    <h3>Unexpected characters after terminating `]`. Missing semicolon/linefeed?</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1136</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Unexpected characters after terminating <code>]</code>. Missing semicolon/linefeed?</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> -e <span class="s2">&quot;foo.txt&quot;</span> <span class="o">]</span>: <span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Exists&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> -e <span class="s2">&quot;foo.txt&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">echo</span> <span class="s2">&quot;Exists&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck found unexpected characters after the <code>]</code> or <code>]]</code> in a <code>test</code> expression. In the example, a colon was accidentally used instead of a semicolon.</p>
+<p>Similarly, a missing space before a comment (<code>[ -e foo ]#comment</code>), an additional square bracket (<code>[[ -e foo ]]]</code>), or a missing semicolon before a <code>then</code> on the same line (<code>if [ foo ]then</code>) can cause this warning.</p>
+<p>Make sure the <code>]</code> or <code>]]</code> is not immediately followed by another shell word character.</p>
+<h5>Exceptions:</h5>
+<p>None</p>
+<h5>Related resources:</h5>
+<ul>
+<li>Help by adding links to BashFAQ, StackOverflow, man pages, POSIX, etc!</li>
+</ul>
+
+    </section>
+</article>

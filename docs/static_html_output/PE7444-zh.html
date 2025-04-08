@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7444">BE7444: 由于重新使用Entry对象，添加entry集合的元素可能会失败</h2>
+    <h3>由于重新使用Entry对象，添加entry集合的元素可能会失败</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7444</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>由于重新使用Entry对象，添加entry集合的元素可能会失败</p>
+<h4>漏洞与风险</h4>
+<p>允许entrySet()方法返回底层Map的视图，其中在迭代期间重新使用并返回单个Entry对象。从Java 1.6开始，IdentityHashMap和EnumMap实行了上述的做法。迭代这样的Map时，Entry值仅在您到达下一次迭代之前有效。例如，如果您尝试将这样的entrySet传递给addAll方法，那么代码就会出错。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2141">PE2141: no-new-require</h2>
+    <h3>Disallow new require (no-new-require)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2141</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow new require (no-new-require)</h4>
+<p>The <code>require</code> function is used to include modules that exist in separate files, such as:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">appHeader</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;app-header&#39;</span><span class="p">);</span>
+</pre></div>
+<p>Some modules return a constructor which can potentially lead to code such as:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">appHeader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;app-header&#39;</span><span class="p">);</span>
+</pre></div>
+<p>Unfortunately, this introduces a high potential for confusion since the code author likely meant to write:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">appHeader</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;app-header&#39;</span><span class="p">));</span>
+</pre></div>
+<p>For this reason, it is usually best to disallow this particular expression.</p>
+<h2>Rule Details</h2>
+<p>This rule aims to eliminate use of the <code>new require</code> expression.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-new-require: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">appHeader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;app-header&#39;</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-new-require: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">AppHeader</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;app-header&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">appHeader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppHeader</span><span class="p">();</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you are using a custom implementation of <code>require</code> and your code will never be used in projects where a standard <code>require</code> (CommonJS, Node.js, AMD) is expected, you can safely turn this rule off.</p>
+
+    </section>
+</article>

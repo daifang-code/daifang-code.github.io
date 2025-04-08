@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7015">BE7015: 对同一个字段进行同步操作和null检查</h2>
+    <h3>对同一个字段进行同步操作和null检查</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7015</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>对同一个字段进行同步操作和null检查</p>
+<h4>漏洞与风险</h4>
+<p>一个被同步的字段不大可能为空。如果它为null然后同步，将会抛出一个NullPointerException，检查将毫无意义。这类情况最好在另一个字段进行同步 。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

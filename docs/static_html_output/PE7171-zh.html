@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7171">BE7171: 应该将字段移出接口并封装为protected</h2>
+    <h3>应该将字段移出接口并封装为protected</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7171</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>应该将字段移出接口并封装为protected</p>
+<h4>漏洞与风险</h4>
+<p>
+接口中定义的最终静态字段引用可变对象，例如数组或散列表。
+这个可变对象可能被恶意代码或其它包中的意外更改。
+要解决此问题，需要将字段移动到类并将其封装为protected以避免此漏洞。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

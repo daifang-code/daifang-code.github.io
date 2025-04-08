@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7408">BE7408: 无法对toArray()结果实行向下转换操作</h2>
+    <h3>无法对toArray()结果实行向下转换操作</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7408</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>无法对toArray()结果实行向下转换操作</p>
+<h4>漏洞与风险</h4>
+<p>此代码将集合调用<code>toArray()</code>的结果转换为比<code>Object[]</code>更具体的类型，如：</p>
+<pre><code>String[] getAsArray(Collection<String> c) {
+    return (String[]) c.toArray();
+}
+</code></pre>
+<p>这经常会因为抛出ClassCastException而失败。几乎所有集合的<code>toArray()</code>都返回一个<code>Object[]</code>。它们实际上无法做任何其它事情，因为Collection对象没有引用集合的声明泛型类型。</p>
+<p>从集合中获取特定类型数组的正确方法是使用<code>c.toArray(new String[]);</code>或<code>c.toArray(new String[c.size()]);</code>（后者效率稍高）。
+<p>这有一个常见/已知的异常。<code>Arrays.asList(...)</code>返回的列表的<code>toArray()</code>方法将返回一个covariantly类型的数组。例如，<code>Arrays.asArray(new String[] { "a" }).toArray()</code>将返回一个<code>String []</code>。Pinpoint试图检测并抑制此类情况，但可能会漏报一些错误。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

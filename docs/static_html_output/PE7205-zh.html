@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7205">BE7205: 子类实现了Externalizable接口，但没有定义一个void的构造函数</h2>
+    <h3>子类实现了Externalizable接口，但没有定义一个void的构造函数</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7205</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>子类实现了Externalizable接口，但没有定义一个void的构造函数</p>
+<h4>漏洞与风险</h4>
+<p>
+该类实现了<code>Externalizable</code>接口，但是没有定义一个void构造函数。当Externalizable对象被反序列化时，
+它们首先需要通过调用void构造函数。
+因为这个类没有一个构造函数，在运行时序列化和反序列化将会失败。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

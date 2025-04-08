@@ -1,0 +1,59 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4005">PE4005: Store sensitive data to unlocked memory</h2>
+    <h3>The memory stored sensitive information is not locked or mislocked.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE4005</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The memory stored sensitive information is not locked or mislocked.</p>
+<h4>Vulnerability and risk</h4>
+<p>This sensitive information may be written by the virtual memory manager from memory into the swap file of the disk. An attacker could easier to access this sensitive information.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>Select the appropriate platform protection mechanism to lock the memory that stores sensitive information, and check the return value of the method to ensure that the locking operation is performed correctly.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">parameter</span><span class="p">)</span>  <span class="c1">//Parameter length does not exceed 20 characters</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">password</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>  <span class="c1">//*password stores sensitive information</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">30</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">password</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">strcpy</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>  <span class="c1">//the memory password point to is unlocked</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed code example</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;windows.h&gt;</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">parameter</span><span class="p">)</span>  <span class="c1">//Parameter length does not exceed 20 characters</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">password</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>  <span class="c1">//*password stores sensitive information</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">30</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">password</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">VirtualLock</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>  <span class="c1">//Lock the memory pointed to by password and check the return value to ensure that the lock operation is performed correctly</span>
+        <span class="p">{</span>
+            <span class="n">strcpy</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">parameter</span><span class="p">);</span>
+            <span class="p">...</span>
+            <span class="n">VirtualUnlock</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>  <span class="c1">//unlock memory</span>
+        <span class="p">}</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

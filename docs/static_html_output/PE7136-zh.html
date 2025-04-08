@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7136">BE7136: 类继承equals()并使用Object.hashCode()</h2>
+    <h3>类继承equals()并使用Object.hashCode()</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7136</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>类继承equals()并使用Object.hashCode()</p>
+<h4>漏洞与风险</h4>
+<p>这个类从抽象的超类中继承了对象<code>equals(Object)</code>，从<code>java.lang.Object</code>继承了<code>equals(Object)</code>，它返回了哈希码标识，一个由VM分配给对象的任意值。因此，这个类很可能违反相等对象必须具有相等的值的规定。</p>
+<p>如果您不想定义hashCode方法，并且/或者不相信该对象将被放入HashMap / Hashtable，请定义<code>equals(Object)</code>方法来抛出<code>UnsupportedOperationException</code>。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

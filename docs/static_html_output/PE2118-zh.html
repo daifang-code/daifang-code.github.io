@@ -1,0 +1,214 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2118">PE2118: no-invalid-this</h2>
+    <h3>禁止 `this` 关键字在类或类对象之外出现 (no-invalid-this)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2118</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止 <code>this</code> 关键字在类或类对象之外出现 (no-invalid-this)</h4>
+<p>在严格模式下，类或者类对象之外的 <code>this</code> 关键字可能是 <code>undefined</code> 并且引发 <code>TypeError</code>。</p>
+<h2>缺陷详因</h2>
+<p>此规则目的在于标记类或者类对象之外的 <code>this</code> 关键字的使用。</p>
+<p>基本上该规则检查一个包含 <code>this</code> 关键字的函数是一个构造函数还是方法。</p>
+<p>此规则从以下条件中判断函数是否是一个构造函数：</p>
+<ul>
+<li>该函数的名字以大写字母开头。</li>
+<li>该函数被赋值给一个以大小字母开头的变量。</li>
+<li>该函数是 ES2015 类构造函数。</li>
+</ul>
+<p>此规则从以下条件中判断函数是否是一个方法：</p>
+<ul>
+<li>该函数在对象字面量上。</li>
+<li>该函数被赋值给一个属性。</li>
+<li>该函数是一个 ES2015 类的方法、getter 或 setter。(除静态方法)</li>
+</ul>
+<p>此规则允许在以下函数中出现 <code>this</code> 关键字：</p>
+<ul>
+<li>该函数的 <code>call/apply/bind</code> 方法被直接调用。</li>
+<li>如果给出 <code>thisArg</code>，该函数是数组方法的一个回调（比如<code>.forEach()</code>）。</li>
+<li>函数在 JSDoc 注释标记中有 <code>@this</code> 标签。</li>
+</ul>
+<p>其它情况被认为是有问题的。</p>
+<p>This rule applies <strong>only</strong> in strict mode.
+该规则 <strong>只</strong> 在严格模式下生效。如果在 ESLint 配置中设置了 <code>&quot;parser修改方案&quot;: { &quot;sourceType&quot;: &quot;module&quot; }</code>，你的代码即使没有使用 <code>&quot;use strict&quot;</code>指令，也是处于严格模式下的。</p>
+<p>在严格模式下，<strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-invalid-this: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">baz</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">baz</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span>
+<span class="p">})();</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">baz</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">baz</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">baz</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// `this` of arrow functions is the outer scope&#39;s.</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">aaa</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+            <span class="c1">// There is in a method `aaa`, but `foo` is not a method.</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="nx">baz</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">foo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">baz</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<p>在严格模式下，<strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-invalid-this: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">Foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// OK, this is in a legacy style constructor.</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">baz</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// OK, this is in a constructor.</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nx">baz</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// OK, this is in a method (this function is on object literal).</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// OK, this is in a method (this function is on object literal).</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">get</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// OK, this is in a method (this function is on object literal).</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// OK, this is in a method (this function is on object literal).</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}}</span>
+<span class="p">});</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// OK, this is in a method (this function is on object literal).</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperties</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// OK, this is in a method (this function is on object literal).</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}}</span>
+<span class="p">});</span>
+
+<span class="kd">function</span> <span class="nx">Foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// OK, this is in a method (this function assigns to a property).</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nx">baz</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// OK, this is in a method (this function assigns to a property).</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">Foo</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// OK, this is in a method (this function assigns to a property).</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// OK, this is in a method.</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nx">baz</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kr">static</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// OK, this is in a method (static methods also have valid this).</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nx">baz</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// OK, the `bind` method of this function is called directly.</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}).</span><span class="nx">bind</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+
+<span class="nx">foo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// OK, `thisArg` of `.forEach()` is given.</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">baz</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">);</span>
+<span class="p">},</span> <span class="nx">thisArg</span><span class="p">);</span>
+
+<span class="cm">/** @this Foo */</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// OK, this function has a `@this` tag in its JSDoc comment.</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想收到 <code>this</code> 关键字在类或者类对象之外使用的通知，你可以关闭此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 1.0.0-rc-2 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-invalid-this.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-invalid-this.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

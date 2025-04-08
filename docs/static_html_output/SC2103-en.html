@@ -1,0 +1,50 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2103">SC2103: Better directive choice exists</h2>
+    <h3>Use a ( subshell ) to avoid having to cd back.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2103</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Use a ( subshell ) to avoid having to cd back.</h4>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span> dir in */
+<span class="k">do</span>
+  <span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$dir</span><span class="s2">&quot;</span>
+  convert index.png index.jpg
+  <span class="nb">cd</span> ..
+<span class="k">done</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span> dir in */
+<span class="k">do</span>
+  <span class="o">(</span>
+  <span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$dir</span><span class="s2">&quot;</span> <span class="o">||</span> <span class="nb">exit</span>
+  convert index.png index.jpg
+  <span class="o">)</span>
+<span class="k">done</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> dir in */
+<span class="k">do</span>
+  <span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$dir</span><span class="s2">&quot;</span> <span class="o">||</span> <span class="nb">exit</span>
+  convert index.png index.jpg
+  <span class="nb">cd</span> ..
+<span class="k">done</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>When doing <code>cd dir; somestuff; cd ..</code>, <code>cd dir</code> can fail when permissions are lacking, if the dir was deleted, or if <code>dir</code> is actually a file.</p>
+<p>In this case, <code>somestuff</code> will run in the wrong directory and <code>cd ..</code> will take you to an even more wrong directory. In a loop, this will likely cause the next <code>cd</code> to fail as well, propagating this error and running these commands far away from the intended directories.</p>
+<p>Check <code>cd</code>s exit status and/or use subshells to limit the effects of <code>cd</code>.</p>
+<h5>Exceptions</h5>
+<p>If you set variables you can't use a subshell. In that case, you should definitely check the exit status of <code>cd</code>, which will also silence this suggestion.</p>
+
+    </section>
+</article>

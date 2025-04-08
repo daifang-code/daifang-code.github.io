@@ -1,0 +1,82 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0062">PE0062: 除零错误</h2>
+    <h3>在程序执行除法或余数运算时，如果除数为零，会发生运行时错误，导致程序崩溃。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0062</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP, Java</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>对整数执行的除法或余数运算时易受到零除错误的影响。因此，在对整数类型进行除法或余数运算时，除数必须在运算之前检查为零。对浮点数执行的除法和余数运算不受此规则约束。</p>
+<h4>漏洞与风险</h4>
+<h5>程序崩溃</h5>
+<p>在程序执行除法运算时，如果除数为零，会发生运行时错误。通常会导致程序异常终止。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>缓解与预防</h4>
+<p>在执行除法运算前，尤其是将运算结果等不确定值作为除数的时候，一定要对除数进行非零验证。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例 1</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在除法运算a/b时，除数b为0，导致程序崩溃。</p>
+<h5>漏洞代码修复示例 1</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">good</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在执行除法运算a/b之前，验证了除数b不为0。</p>
+<h5>漏洞代码示例 2</h5>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">test_bad</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">ret</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">){</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ret</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">);</span>  <span class="c1">// @@bad@@</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p>在上面的代码中，在除法运算a/b时，除数b为0，导致程序崩溃。</p>
+<h5>漏洞代码修复示例 2</h5>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">test_good</span><span class="o">{</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">ret</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">){</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ret</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span>
+    	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">);</span>  <span class="c1">// @@good@@</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p>在上面的代码中，在执行除法运算a/b之前，验证了除数b不为0。</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://wiki.sei.cmu.edu/confluence/display/c/INT33-C.+Ensure+that+division+and+remainder+operations+do+not+result+in+divide-by-zero+errors<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://wiki.sei.cmu.edu/confluence/display/c/INT33-C.+Ensure+that+division+and+remainder+operations+do+not+result+in+divide-by-zero+errors<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+<li id="fn-3"><p>cwe.mitre.org/data/definitions/369.html<a href="#fnref-3" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

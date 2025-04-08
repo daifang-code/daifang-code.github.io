@@ -1,0 +1,76 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1112">PE1112: 硬编码的密码</h2>
+    <h3>该软件在入站认证过程或与外界设备进行的出站交流过程中使用了硬编码的密码</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1112</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>该软件在入站认证过程或与外界设备进行的出站交流过程中使用了硬编码的密码。</p>
+<h4>漏洞与风险</h4>
+<p>硬编码密码常常会引起严重的、连系统管理员也难以察觉的认证失败现象。尽管观测到了这一现象，系统管理员往往会因为问题难以修复，而被迫无奈将产品完全禁用。硬编码密码问题存在两种主要的形式：</p>
+<ul>
+<li>入站：软件的某个认证机制对硬编码密码进行检测。</li>
+<li>出站：软件在与别的系统或组件连接的过程中使用了硬编码的密码。</li>
+</ul>
+<p>在入站问题上，软件中包含一个默认的管理员账户，与该账号相关联的一个简单的密码被硬编码到了产品中。该产品的每次安装使用的都是这个硬编码的密码，系统管理员无法更改或禁用这个密码，除非手动对程序源码进行修改，或者通过打补丁修复。如果这个密码被发现或公开（在Internet上这是很常见的一个现象），那么任何知道这一点的人都能够使用该产品。结果是，因为该产品的所有安装使用的都是同一个硬编码密码（这可能会涉及到不同的组织），像蠕虫之类的大型攻击将会有机可乘。</p>
+<p>出站问题可以应用到与后端服务进行认证的前端系统中。后端系统可能会要求使用一个简单就能获取到的固定的密码。程序员可能会将后端用到的私密信息硬编码到前端软件中。任意的软件使用者都可能提取出这个密码信息。因为从二进制中提取出密码通常是轻而易举的，所以使用了硬编码密码的客户端系统往往存在更大的风险。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<ul>
+<li>对出站的认证：将密码存储在源码之外的一个有强力的安全保护的、经加密的配置文件或数据库中，隔绝所有外来者对这些关键信息的访问。</li>
+<li>对入站认证：在初始登录中，与其使用一个硬编码的默认用户名、密码账户，可以使用一种“初始登录”模式，要求用户输入一个独立的强密码。</li>
+<li>对入站的认证：对密码使用单向的哈希加密，并将这些哈希值存储在有合理的访问控制的配置文件或数据库中</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>以下的代码使用一个硬编码的密码来连接数据库：</p>
+<div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="s">&quot;scott&quot;</span><span class="o">,</span> <span class="s">&quot;tiger&quot;</span><span class="o">);</span>
+<span class="o">...</span>
+</pre></div>
+<p>这是一个连接中客户端上存在硬编码密码的例子。虽然这段代码能够正常运行，但任何能够看到这段代码的人都能够清楚知道访问密码。像这样的程序一旦被交付，那么就没人能对密码为“tiger”的账号“scott”怎么样，除非对程序打补丁。狡猾的员工如果得知了这一信息，那么他就能过利用该信息入侵到系统中。更坏的情况是，如果攻击者拥有该应用的字节码，那么他们就能够通过<code>javap -c</code>来访问到反汇编代码，进而获取到各种密码的值。如下面例子所展示：</p>
+
+<pre><code>javap -c ConnMngr.class
+22: ldc #36; //String jdbc:mysql://ixne.com/rxsql
+24: ldc #38; //String scott
+26: ldc #17; //String tiger
+</code></pre>
+<h5>漏洞代码示例 2</h5>
+<p>以下是一个关于后端内部硬编码密码的例子：</p>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">VerifyAdmin</span><span class="o">(</span><span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+<span class="k">if</span> <span class="o">(!</span><span class="n">password</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;Mew!&quot;</span><span class="o">))</span> <span class="o">{</span>
+<span class="k">return</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="c1">//Diagnostic Mode</span>
+<span class="k">return</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+<p>任何该程序的实体都能够使用相同的密码来进入诊断模式。如果程序是以二进制only（binary-only)的形式发行的话，那么情况会更加严重，因为想要改变该密码或禁用掉该功能都将变得十分困难。</p>
+<h5>漏洞代码示例 3</h5>
+<p>这个例子展示了含有明文的username/password对的属性文件：</p>
+<div class="highlight"><pre><span></span><span class="err">#</span> <span class="n">Java</span> <span class="n">Web</span> <span class="n">App</span> <span class="n">ResourceBundle</span> <span class="n">properties</span> <span class="n">file</span> 
+<span class="o">...</span>
+<span class="n">webapp</span><span class="o">.</span><span class="na">ldap</span><span class="o">.</span><span class="na">username</span><span class="o">=</span><span class="n">secretUsername</span>
+<span class="n">webapp</span><span class="o">.</span><span class="na">ldap</span><span class="o">.</span><span class="na">password</span><span class="o">=</span><span class="n">secretPassword</span>
+<span class="o">...</span>
+</pre></div>
+<p>配置文件中不该包含用户名以及密码这样的信息，上述类似的属性文件也不该以明文方式存储这些信息，否则，任何能够访问这些文件的人都能够以此访问相应的资源。如果可能，那么请将这类信息加密，以避免出现<a href="http://cwe.mitre.org/data/definitions/260.html">CWE-260</a>或<a href="http://cwe.mitre.org/data/definitions/13.html">CWE-13</a>中的情况。</p>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/259.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

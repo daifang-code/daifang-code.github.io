@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7151">BE7151: 可以因为引用可变对象而暴露内部的字段表示</h2>
+    <h3>可以因为引用可变对象而暴露内部的字段表示</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7151</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>可以因为引用可变对象而暴露内部的字段表示</p>
+<h4>漏洞与风险</h4>
+<p>该代码将一个外部可变对象的引用存储到对象的内部表示中。
+<p>如果实例是由不受信任的代码访问的，并且对可变对象的未检查的更改将危及安全性或其它重要属性，那么你将需要做一些不同的事情。</p>
+<p>在许多情况下，存储对象的副本是更好的方法。&lt;/p&gt;</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

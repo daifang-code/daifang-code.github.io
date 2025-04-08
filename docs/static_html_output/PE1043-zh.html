@@ -1,0 +1,54 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1043">PE1043: 不正确的实现operator=</h2>
+    <h3>operator= 不符合c/c++规范，operator=应该返回一个对自身的引用（使用return *this）</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1043</dd>
+                    <dt>标签</dt>
+                    <dd>CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>operator=()没有对所有成员变量赋值</p>
+<p>operator= 不符合c/c++规范，operator=应该返回一个对自身的引用（使用return *this）</p>
+<p>operator=用在相同变量（a=a）是危险的，可能造成动态内存的错误，请检查确定这里安全</p>
+<h4>漏洞与风险</h4>
+<p>对自己赋值除了效率低下以外，一个赋值运算符必须首先释放掉一个
+对象的资源（去掉旧值），然后根据新值分配新的资源。在自己给自己赋值的情
+况下，释放旧的资源将是灾难性的，因为在分配新的资源时会需要旧的资源。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>让 operator=返回*this 的引用</p>
+<p>在 operator=中对所有数据成员赋值</p>
+<p>在 operator=中检查给自己赋值的情况</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="n">Derived</span><span class="o">&amp;</span> <span class="n">Derived</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Derived</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span> <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">rhs</span><span class="p">.</span><span class="n">y</span><span class="p">;</span> <span class="c1">// 给 Derived 仅有的数据成员赋值</span>
+  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，Derived 对象的 Base 部分的数据成员 x 在赋值运算符中未受影响，调用operator=，变量的Base部分不会被赋值操作改变。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="n">Derived</span><span class="o">&amp;</span> <span class="n">Derived</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Derived</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span> <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+  <span class="n">Base</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span> <span class="c1">// 调用 this-&gt;Base::operator=</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">rhs</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在 Derived 的赋值运算符里显式地对 Derived 的 Base 部分赋值。</p>
+<h4>References</h4>
+<p><a href="%E7%BE%8E">1</a>Scott Meyers著.Effective C++[M].电子工业出版社,.</p>
+
+    </section>
+</article>

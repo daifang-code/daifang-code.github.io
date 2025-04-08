@@ -1,0 +1,82 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1063">PE1063: 参数传递NULL值</h2>
+    <h3>给可变参数的函数最后一个参数传递NULL。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1063</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>给可变参数函数的最后一个参数传递NULL。C99标准指出，如果va_arg()使用的类型与实际的下一个参数的类型不兼容（根据默认的参数升级规则进行升级），则该行为未定义。</p>
+<h4>漏洞与风险</h4>
+<h5>没有被定义的行为</h5>
+<p>在体系结构的实践中，如果sizeof(int) != sizeof(void*)，并且NULL被定义为0或任何其他指向int的空指针常量，这将导致程序的崩溃。</p>
+<h4>缓解与预防</h4>
+<p>禁止给可变参数函数的最后一个参数传递NULL。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>演示示例</h4>
+<h5>漏洞缺陷示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">ap</span><span class="p">;</span>
+  <span class="n">va_start</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%018p, %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">p</span> <span class="o">&amp;</span> <span class="mi">255</span> <span class="o">?</span> <span class="nl">p</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span>
+      <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">va_end</span><span class="p">(</span><span class="n">ap</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">g</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s2</span> <span class="o">=</span> <span class="s">&quot;x&quot;</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s3</span> <span class="o">=</span> <span class="s">&quot;ERROR&quot;</span><span class="p">;</span>
+  <span class="n">f</span><span class="p">(</span><span class="s">&quot;first&quot;</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s3</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">);</span><span class="c1">//detect</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">g</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>根据示例代码，我们假设第七个实参0表示可变参数函数的最后一个值，并在代码中以传递NULL表示可变参数遍历结束。为了让错误更明显，我们在0后添加s3，如果达不到想要的预期则继续向后遍历输出&quot;ERROR&quot;。
+由于体系结构的问题，第七个实参0是一个32位的值，8个字节中只有4个字节被初始化为0，以if(!p)判断不会break，从而继续执行输出&quot;ERROR&quot;。
+在x86_64系统中，我们如果想在第七个参数0结束遍历，不输出ERROR则需要将第七个实参由0改为0L。</p>
+<h5>漏洞缺陷修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">ap</span><span class="p">;</span>
+  <span class="n">va_start</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%018p, %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">p</span> <span class="o">&amp;</span> <span class="mi">255</span> <span class="o">?</span> <span class="nl">p</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span>
+      <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">va_end</span><span class="p">(</span><span class="n">ap</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">g</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s2</span> <span class="o">=</span> <span class="s">&quot;x&quot;</span><span class="p">;</span>
+  <span class="c1">// changing 0 to 0L for the 7th argument </span>
+  <span class="c1">// (which is intended to act as sentinel) makes </span>
+  <span class="c1">// the error go away on x86_64</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s3</span> <span class="o">=</span> <span class="s">&quot;ERROR&quot;</span><span class="p">;</span>
+  <span class="n">f</span><span class="p">(</span><span class="s">&quot;first&quot;</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="mi">0L</span><span class="p">,</span> <span class="n">s3</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">g</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/762.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

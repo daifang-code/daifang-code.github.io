@@ -1,0 +1,260 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2023">PE2023: curly</h2>
+    <h3>Require Following Curly Brace Conventions (curly)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2023</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Require Following Curly Brace Conventions (curly)</h4>
+<p>JavaScript allows the omission of curly braces when a block contains only one statement. However, it is considered by many to be best practice to <em>never</em> omit curly braces around blocks, even when they are optional, because it can lead to bugs and reduces code clarity. So the following:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+</pre></div>
+<p>Can be rewritten as:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>There are, however, some who prefer to only use braces when there is more than one statement to be executed.</p>
+<h2>Rule Details</h2>
+<p>This rule is aimed at preventing bugs and increasing code clarity by ensuring that block statements are wrapped in curly braces. It will warn when it encounters blocks that omit curly braces.</p>
+<h2>Options</h2>
+<h5>all</h5>
+<p>Examples of <strong>incorrect</strong> code for the default <code>&quot;all&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: &quot;error&quot;*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">bar</span><span class="p">)</span>
+    <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="nx">qux</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the default <code>&quot;all&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: &quot;error&quot;*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>multi</h5>
+<p>By default, this rule warns whenever <code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>, or <code>do</code> are used without block statements as their body. However, you can specify that block statements should be used only when there are multiple statements in the block and warn when there is only one statement in the block.</p>
+<p>Examples of <strong>incorrect</strong> code for the <code>&quot;multi&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the <code>&quot;multi&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+
+<span class="k">else</span> <span class="nx">foo</span><span class="p">();</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+    <span class="nx">doSomethingElse</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>multi-line</h5>
+<p>Alternatively, you can relax the rule to allow brace-less single-line <code>if</code>, <code>else if</code>, <code>else</code>, <code>for</code>, <code>while</code>, or <code>do</code>, while still enforcing the use of curly braces for other instances.</p>
+<p>Examples of <strong>incorrect</strong> code for the <code>&quot;multi-line&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi-line&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+  <span class="nx">doSomething</span><span class="p">();</span>
+<span class="k">else</span>
+  <span class="nx">doSomethingElse</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">foo</span><span class="p">(</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the <code>&quot;multi-line&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi-line&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">foo</span><span class="o">++</span><span class="p">;</span> <span class="k">else</span> <span class="nx">doSomething</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="nx">baz</span><span class="p">()</span>
+<span class="k">else</span> <span class="nx">doSomething</span><span class="p">();</span>
+
+<span class="k">do</span> <span class="nx">something</span><span class="p">();</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span>
+  <span class="o">&amp;&amp;</span> <span class="nx">bar</span><span class="p">)</span> <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">++</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+    <span class="nx">doSomethingElse</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>multi-or-nest</h5>
+<p>You can use another configuration that forces brace-less <code>if</code>, <code>else if</code>, <code>else</code>, <code>for</code>, <code>while</code>, or <code>do</code> if their body contains only one single-line statement. And forces braces in all other cases.</p>
+<p>Examples of <strong>incorrect</strong> code for the <code>&quot;multi-or-nest&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi-or-nest&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">foo</span><span class="p">)</span>
+    <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">bar</span><span class="o">:</span> <span class="nx">baz</span><span class="p">,</span>
+        <span class="nx">qux</span><span class="o">:</span> <span class="nx">foo</span>
+    <span class="p">};</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+      <span class="nx">doSomething</span><span class="p">();</span>
+  <span class="k">else</span>
+      <span class="nx">doSomethingElse</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">foo</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+    <span class="c1">// some comment</span>
+    <span class="nx">bar</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the <code>&quot;multi-or-nest&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi-or-nest&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">bar</span><span class="o">:</span> <span class="nx">baz</span><span class="p">,</span>
+        <span class="nx">qux</span><span class="o">:</span> <span class="nx">foo</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+      <span class="nx">doSomething</span><span class="p">();</span>
+  <span class="k">else</span>
+      <span class="nx">doSomethingElse</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">foo</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// some comment</span>
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>consistent</h5>
+<p>When using any of the <code>multi*</code> options, you can add an option to enforce all bodies of a <code>if</code>,
+<code>else if</code> and <code>else</code> chain to be with or without braces.</p>
+<p>Examples of <strong>incorrect</strong> code for the <code>&quot;multi&quot;, &quot;consistent&quot;</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi&quot;, &quot;consistent&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">();</span>
+    <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span>
+    <span class="nx">buz</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">faa</span><span class="p">)</span>
+    <span class="nx">bor</span><span class="p">();</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nx">other</span><span class="p">();</span>
+    <span class="nx">things</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+    <span class="nx">foo</span><span class="p">();</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the <code>&quot;multi&quot;, &quot;consistent&quot;</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint curly: [&quot;error&quot;, &quot;multi&quot;, &quot;consistent&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">();</span>
+    <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">buz</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">faa</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bor</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">other</span><span class="p">();</span>
+    <span class="nx">things</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+    <span class="nx">foo</span><span class="p">();</span>
+<span class="k">else</span>
+    <span class="nx">baz</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span>
+    <span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you have no strict conventions about when to use block statements and when not to, you can safely disable this rule.</p>
+
+    </section>
+</article>

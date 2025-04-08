@@ -1,0 +1,162 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2235">PE2235: sort-keys</h2>
+    <h3>require object keys to be sorted (sort-keys)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2235</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>require object keys to be sorted (sort-keys)</h4>
+<p>When declaring multiple properties, some developers prefer to sort property names alphabetically to be able to find necessary property easier at the later time. Others feel that it adds complexity and becomes burden to maintain.</p>
+<h2>Rule Details</h2>
+<p>This rule checks all property definitions of object expressions and verifies that all variables are sorted alphabetically.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+
+<span class="c1">// Case-sensitive by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">C</span><span class="o">:</span> <span class="mi">3</span><span class="p">};</span>
+
+<span class="c1">// Non-natural order by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="o">:</span> <span class="nx">a</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="nx">c</span><span class="p">,</span> <span class="mi">10</span><span class="o">:</span> <span class="nx">b</span><span class="p">};</span>
+
+<span class="c1">// This rule checks computed properties which have a simple name as well.</span>
+<span class="c1">// Simple names are names which are expressed by an Identifier node or a Literal node.</span>
+<span class="kr">const</span> <span class="nx">S</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="nx">S</span><span class="p">]</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">};</span>
+
+<span class="c1">// Case-sensitive by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">C</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+
+<span class="c1">// Non-natural order by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="o">:</span> <span class="nx">a</span><span class="p">,</span> <span class="mi">10</span><span class="o">:</span> <span class="nx">b</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="nx">c</span><span class="p">};</span>
+
+<span class="c1">// This rule checks computed properties which have a simple name as well.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="nx">b</span><span class="p">]</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">};</span>
+
+<span class="c1">// This rule ignores computed properties which have a non-simple name.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="nx">c</span> <span class="o">+</span> <span class="nx">d</span><span class="p">]</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;c&quot;</span> <span class="o">+</span> <span class="s2">&quot;d&quot;</span><span class="p">]</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="sb">`</span><span class="si">${</span><span class="nx">c</span><span class="si">}</span><span class="sb">`</span><span class="p">]</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="nx">tag</span><span class="sb">`c`</span><span class="p">]</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+
+<span class="c1">// This rule ignores objects that have a spread operator in them.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">b</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">...</span><span class="nx">c</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+</pre></div>
+<h2>Options</h2>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;sort-keys&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;asc&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nt">&quot;caseSensitive&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&quot;natural&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+<p>The 1st option is <code>&quot;asc&quot;</code> or <code>&quot;desc&quot;</code>.</p>
+<ul>
+<li><code>&quot;asc&quot;</code> (default) - enforce properties to be in ascending order.</li>
+<li><code>&quot;desc&quot;</code> - enforce properties to be in descending order.</li>
+</ul>
+<p>The 2nd option is an object which has 2 properties.</p>
+<ul>
+<li><code>caseSensitive</code> - if <code>true</code>, enforce properties to be in case-sensitive order. Default is <code>true</code>.</li>
+<li><code>natural</code> - if <code>true</code>, enforce properties to be in natural order. Default is <code>false</code>. Natural Order compares strings containing combination of letters and numbers in the way a human being would sort. It basically sorts numerically, instead of sorting alphabetically. So the number 10 comes after the number 3 in Natural Sorting.</li>
+</ul>
+<p>Example for a list:</p>
+<p>With <code>natural</code> as true, the ordering would be
+1
+3
+6
+8
+10</p>
+<p>With <code>natural</code> as false, the ordering would be
+1
+10
+3
+6
+8</p>
+<h5>desc</h5>
+<p>Examples of <strong>incorrect</strong> code for the <code>&quot;desc&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: [&quot;error&quot;, &quot;desc&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;b&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+
+<span class="c1">// Case-sensitive by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">C</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+
+<span class="c1">// Non-natural order by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">10</span><span class="o">:</span> <span class="nx">b</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="nx">c</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="nx">a</span><span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the <code>&quot;desc&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: [&quot;error&quot;, &quot;desc&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+
+<span class="c1">// Case-sensitive by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">b</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">C</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+
+<span class="c1">// Non-natural order by default.</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="o">:</span> <span class="nx">c</span><span class="p">,</span> <span class="mi">10</span><span class="o">:</span> <span class="nx">b</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span> <span class="nx">a</span><span class="p">};</span>
+</pre></div>
+<h5>insensitive</h5>
+<p>Examples of <strong>incorrect</strong> code for the <code>{caseSensitive: false}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: [&quot;error&quot;, &quot;asc&quot;, {caseSensitive: false}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">C</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">C</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the <code>{caseSensitive: false}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: [&quot;error&quot;, &quot;asc&quot;, {caseSensitive: false}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">C</span><span class="o">:</span> <span class="mi">4</span><span class="p">};</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">C</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">4</span><span class="p">};</span>
+</pre></div>
+<h5>natural</h5>
+<p>Examples of <strong>incorrect</strong> code for the <code>{natural: true}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: [&quot;error&quot;, &quot;asc&quot;, {natural: true}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="o">:</span> <span class="nx">a</span><span class="p">,</span> <span class="mi">10</span><span class="o">:</span> <span class="nx">c</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="nx">b</span><span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for the <code>{natural: true}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint sort-keys: [&quot;error&quot;, &quot;asc&quot;, {natural: true}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="o">:</span> <span class="nx">a</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="nx">b</span><span class="p">,</span> <span class="mi">10</span><span class="o">:</span> <span class="nx">c</span><span class="p">};</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to notify about properties' order, then it's safe to disable this rule.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="sort-imports.md">sort-imports</a></li>
+<li><a href="sort-vars.md">sort-vars</a></li>
+</ul>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS:</strong> <a href="https://jscs-dev.github.io/rule/validateOrderInObjectKeys">validateOrderInObjectKeys</a></li>
+</ul>
+
+    </section>
+</article>

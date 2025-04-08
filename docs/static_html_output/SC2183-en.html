@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2183">SC2183: Unmatched arguments for printf</h2>
+    <h3>This format string has 2 variables, but is passed 1 arguments.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2183</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This format string has 2 variables, but is passed 1 arguments.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">printf</span> <span class="s2">&quot;Hello %s, welcome to %s.\n&quot;</span> <span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">printf</span> <span class="s2">&quot;Hello %s, welcome to %s.\n&quot;</span> <span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$HOSTNAME</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck has noticed that you're using a <code>printf</code> format string with more <code>%s</code> variables than arguments to fill them.</p>
+<p>In the problematic example case, the last <code>%s</code> will just become an empty string every time.</p>
+<p>Either remove the unused variables from the format string, or add enough arguments to fill them.</p>
+<h5>Exceptions:</h5>
+<p>When using the Ksh/Bash <code>%T</code> timestamp extension, such as <code>printf 'The time is %(%H:%M)T\n'</code>, an argument of <code>-1</code> and no argument are both taken to mean the current time. In these cases, consider specifying <code>-1</code> explicitly.</p>
+
+    </section>
+</article>

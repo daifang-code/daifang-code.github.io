@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7146">BE7146: 可变的servlet字段</h2>
+    <h3>可变的servlet字段</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7146</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>可变的servlet字段</p>
+<h4>漏洞与风险</h4>
+<p>Web服务器通常只创建一个servlet或JSP类的实例（即，将该类视为Singleton），并且将有多个线程调用该实例上的方法来为多个同时请求提供服务。
+因此，具有可变实例字段通常会产生竞争条件。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

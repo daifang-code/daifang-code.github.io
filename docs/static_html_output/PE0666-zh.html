@@ -1,0 +1,68 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0666">PE0666: 数据竞争</h2>
+    <h3>一个进程中两个或多个线程同时访问同一个内存区域，并且至少一个访问是写操作，触发数据竞争。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0666</dd>
+                    <dt>标签</dt>
+                    <dd>DataRace, C, CPP, JAVA, CSHARP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/Foo</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>满足如下条件时触发数据竞争</p>
+<ul>
+<li>一个进程中两个或多个线程同时访问同一个内存区域；</li>
+<li>至少一个访问是写操作；</li>
+<li>这些线程没有使用锁去控制对该内存区域的访问。</li>
+</ul>
+<h4>漏洞与风险</h4>
+<h5>不可预测的行为</h5>
+<p>当数据竞争发生时，访问的顺序是不确定的，并且不同的运行依据不同的执行顺序，会给出不同的计算结果。虽然有些数据竞争是良性的（例如循环等待中的内存访问），但是很多数据竞争在程序中是缺陷。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<ul>
+<li>使用合适的同步手段（例如锁，mutex等）。</li>
+<li>使用线程之前仔细考虑。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">var</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">Thread1</span><span class="p">()</span> <span class="p">{</span>  <span class="c1">// 执行一个线程</span>
+  <span class="n">var</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">Thread2</span><span class="p">()</span> <span class="p">{</span>  <span class="c1">// 执行另一个线程</span>
+  <span class="n">var</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>这个最简单的数据竞争，同时也是最可能发生的数据竞争：两个线程都不经过任何的同步访问同一个变量。多数情况下这个数据竞争是无害的（允许数据不那么精确），但是有些是极端有害的（例如这个是你的银行账户）。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">var</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">Thread1</span><span class="p">()</span> <span class="p">{</span>  <span class="c1">// 执行一个线程</span>
+  <span class="n">lock</span><span class="p">(</span><span class="n">threadMutex</span><span class="p">);</span>
+  <span class="n">var</span><span class="o">++</span><span class="p">;</span>
+  <span class="n">unlock</span><span class="p">(</span><span class="n">threadMutex</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">Thread2</span><span class="p">()</span> <span class="p">{</span>  <span class="c1">// 执行另一个线程</span>
+  <span class="n">lock</span><span class="p">(</span><span class="n">threadMutex</span><span class="p">);</span>
+  <span class="n">var</span><span class="o">++</span><span class="p">;</span>
+  <span class="n">unlock</span><span class="p">(</span><span class="n">threadMutex</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>在修复后的代码中，两个加锁和两个解锁操作被加入到程序中用于构成临界区，这个临界区用于保护变量<em>var</em>。</p>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/362.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

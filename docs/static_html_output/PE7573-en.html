@@ -1,0 +1,71 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7573">BE7573: Potential CRLF Injection for logs</h2>
+    <h3>Potential CRLF Injection for logs</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7573</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Potential CRLF Injection for logs</p>
+<h4>Vulnerability and risk</h4>
+<p>
+    When data from an untrusted source is put into a logger and not neutralized correctly,
+    an attacker could forge log entries or include malicious content.
+    Inserted false entries could be used to skew statistics, distract the administrator
+    or even to implicate another party in the commission of a malicious act.
+    If the log file is processed automatically, the attacker can render the file unusable
+    by corrupting the format of the file or injecting unexpected characters.
+    An attacker may also inject code or other commands into the log file and take advantage
+    of a vulnerability in the log processing utility (e.g. command injection or XSS).
+</p>
+<br/>
+<p>
+<b>Code at risk:</b><br/>
+<pre>String val = request.getParameter("user");
+String metadata = request.getParameter("metadata");
+[...]
+if(authenticated) {
+    log.info("User " + val + " (" + metadata + ") was authenticated successfully");
+}
+else {
+    log.info("User " + val + " (" + metadata + ") was not authenticated");
+}
+</pre>
+<p>A malicious user could send the metadata parameter with the value: &lt;code&gt;&quot;Firefox) was authenticated successfully\r\n[INFO] User bbb (Internet Explorer&quot;&lt;/code&gt;.</p>
+</p>
+<p>&lt;b&gt;Solution:&lt;/b&gt;&lt;br/&gt;</p>
+<p>
+You can manually sanitize each parameter.
+<pre>
+log.info("User " + val.replaceAll("[\r\n]","") + " (" + userAgent.replaceAll("[\r\n]","") + ") was not authenticated");
+</pre>
+</p>
+<p>
+You can also configure your logger service to replace new line for all message events. Here is sample configuration for LogBack <a href="https://logback.qos.ch/manual/layouts.html#replace">using the replace function</a>.
+<pre>
+<pattern<%-5level - %replace(%msg){'[\r\n]', ''}%n</pattern<
+</pre>
+</p>
+<p>
+Finally, you can use a logger implementation that replace new line by spaces.
+The project <a href="https://github.com/javabeanz/owasp-security-logging">OWASP Security Logging</a> has an implementation for Logback and Log4j.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+<h4>References</h4>
+<p>&lt;a href=&quot;http://cwe.mitre.org/data/definitions/117.html&quot;&gt;CWE-117: Improper Output Neutralization for Logs&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/93.html&quot;&gt;CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection')&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://logback.qos.ch/manual/layouts.html#replace&quot;&gt;CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection')&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://github.com/javabeanz/owasp-security-logging&quot;&gt;OWASP Security Logging&lt;/a&gt;&lt;br/&gt;</p>
+</p>
+
+    </section>
+</article>

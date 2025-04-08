@@ -1,0 +1,41 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22434">PE22434: W293</h2>
+    <h3>Blank line contains whitespace</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22434</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Blank lines should not contain any tabs or spaces.</p>
+<h5>Anti-pattern</h5>
+<p><strong>Note:</strong> The <code>•</code> character represents a space.</p>
+
+<pre><code>def first_func():
+    pass
+••••  # This line contains four spaces
+
+def second_func():
+    pass
+
+</code></pre>
+<h5>Best practice</h5>
+
+<pre><code>def first_func():
+    pass
+
+
+def second_func():
+    pass
+
+</code></pre>
+<h4>References</h4>
+
+    </section>
+</article>

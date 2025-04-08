@@ -1,0 +1,44 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22383">PE22383: E133</h2>
+    <h3>Closing bracket is missing indentation</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22383</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>右括号缺少缩进。只有在<code>--hang-closing</code>flag，切换的默认行为右括号，以便它们需要悬挂缩进。</p>
+<h5>示例错误片段</h5>
+<p><strong>注意：</strong>这不是默认的反模式。只有在以下情况下才会发生这种情况使用了<code>--hang-closing</code>标志。</p>
+
+<pre><code>my_list = [
+    1, 2, 3,
+    4, 5, 6,
+]
+
+</code></pre>
+<h5>最佳修复</h5>
+
+<pre><code>my_list = [
+    1, 2, 3,
+    4, 5, 6,
+    ]
+
+
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#indentation<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

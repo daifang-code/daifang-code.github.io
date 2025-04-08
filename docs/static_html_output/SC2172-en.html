@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2172">SC2172: Portability issue</h2>
+    <h3>Trapping signals by number is not well defined. Prefer signal names.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2172</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Trapping signals by number is not well defined. Prefer signal names.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">trap</span> myfunc <span class="m">28</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">trap</span> myfunc WINCH
+</pre></div>
+<h5>Rationale:</h5>
+<p>Signal numbers can vary between platforms. Prefer signal names, which are fixed.</p>
+<p>Signal numbers 1, 2, 3, 6, 9, 14 and 15 are specified as parts of the optional POSIX XSI and ShellCheck will not warn about these.</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

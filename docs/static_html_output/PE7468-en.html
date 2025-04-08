@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7468">BE7468: Format String Manipulation</h2>
+    <h3>Format String Manipulation</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7468</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Format String Manipulation</p>
+<h4>Vulnerability and risk</h4>
+<p>
+Allowing user input to control format parameters could enable an attacker to cause exceptions to be thrown or leak information.<br/>
+Attackers may be able to modify the format string argument, such that an exception is thrown. If this exception is left uncaught, it may crash the application. Alternatively, if sensitive information is used within the unused arguments, attackers may change the format string to reveal this information.<br/>
+The example code below lets the user specify the decimal points to which it shows the balance. The user can in fact specify anything causing an exception to be thrown which could lead to application failure. Even more critical within this example, if an attacker can specify the user input "2f %3$s %4$.2", the format string would be "The customer: %s %s has the balance %4$.2f %3$s %4$.2". This would then lead to the sensitive accountNo to be included within the resulting string.
+</p>
+<p>
+    <b>Vulnerable Code:</b><br/>
+<pre>Formatter formatter = new Formatter(Locale.US);
+String format = "The customer: %s %s has the balance %4$." + userInput + "f";
+formatter.format(format, firstName, lastName, accountNo, balance);</pre>
+</p>
+<p>
+    <b>Solution:</b><br/>
+Avoid using user controlled values in the format string argument.
+</p>
+<br/>
+<p>
+<b>References</b><br/>
+<a href="http://cwe.mitre.org/data/definitions/134.html">CWE-134: Use of Externally-Controlled Format String</a><br/>
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+
+    </section>
+</article>

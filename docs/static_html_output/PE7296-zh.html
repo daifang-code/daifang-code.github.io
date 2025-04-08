@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7296">BE7296: 传递给函数的基本类型（primitive）数组需要可变数量的对象参数</h2>
+    <h3>传递给函数的基本类型（primitive）数组需要可变数量的对象参数</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7296</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>传递给函数的基本类型（primitive）数组需要可变数量的对象参数</p>
+<h4>漏洞与风险</h4>
+<p>此代码将基本类型（primitive）数组传递给一个采用可变数量的对象参数的函数。这将创建一个长度为1的数组来保存基本类型（primitive）数组并将其传递给函数。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

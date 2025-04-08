@@ -1,0 +1,40 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7190">BE7190: Method doesn't override method in superclass due to wrong package for parameter</h2>
+    <h3>Method doesn't override method in superclass due to wrong package for parameter</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7190</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Method doesn't override method in superclass due to wrong package for parameter</p>
+<h4>Vulnerability and risk</h4>
+<p> The method in the subclass doesn't override a similar method in a superclass because the type of a parameter doesn't exactly match
+the type of the corresponding parameter in the superclass. For example, if you have:</p>
+<pre><code>import alpha.Foo;
+public class A {
+    public int f(Foo x) { return 17; }
+}
+----
+import beta.Foo;
+public class B extends A {
+    public int f(Foo x) { return 42; }
+}
+</code></pre>
+<p>The <code>f(Foo)</code> method defined in class <code>B</code> doesn't
+override the
+<code>f(Foo)</code> method defined in class <code>A</code>, because the argument
+types are <code>Foo</code>'s from different packages.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

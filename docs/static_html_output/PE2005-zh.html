@@ -1,0 +1,133 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2005">PE2005: arrow-body-style</h2>
+    <h3>要求箭头函数体使用大括号 (arrow-body-style)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2005</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求箭头函数体使用大括号 (arrow-body-style)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>箭头函数的主题有两种语法格式。它们可以被定义为一个 <em>块</em>(用大括号)<code>() =&gt; { ... }</code> 或只用单一的表达式<code>() =&gt; ...</code>，隐式返回值。</p>
+<h2>缺陷详因</h2>
+<p>该规则可以强制或禁止箭头函数体使用大括号。</p>
+<h2>修改方案</h2>
+<p>该规则有一到两个选项。第一个选项是个字符串，可以是：</p>
+<ul>
+<li><code>&quot;always&quot;</code> 强制在箭头函数体周围使用大括号</li>
+<li><code>&quot;as-needed&quot;</code> 当大括号是可以省略的，强制不使用它们 (默认)</li>
+<li><code>&quot;never&quot;</code> 禁止在函数体周围出现大括号 (将箭头函数限制为返回结果的表达式)</li>
+</ul>
+<p>第二个选项是个对象，当第一个选项是 <code>&quot;as-needed&quot;</code>，可以进行更加细粒度的配置。目前，唯一有效的选项是一个布尔属性 <code>requireReturnForObjectLiteral</code>。默认为 <code>false</code>。如果设置为 <code>true</code>，它要求使用大括号，并且显示返回对象字面量。</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;arrow-body-style&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;always&quot;</span><span class="p">]</span>
+</pre></div>
+<h5>always</h5>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;always&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">retv</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">retv</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">retv</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<h5>as-needed</h5>
+<p>默认选项 <code>&quot;as-needed&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;as-needed&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+       <span class="nx">bar</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<p>默认选项 <code>&quot;as-needed&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;as-needed&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">retv</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">retv</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">retv</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">foo</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">bar</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">();</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="cm">/* do nothing */</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// do nothing.</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">0</span> <span class="p">});</span>
+</pre></div>
+<h5>requireReturnForObjectLiteral</h5>
+<blockquote>
+<p>该选项只适合与`&quot;as-needed&quot;配合使用。</p>
+</blockquote>
+<p>选项 <code>{ &quot;requireReturnForObjectLiteral&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;as-needed&quot;, { &quot;requireReturnForObjectLiteral&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({});</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">0</span> <span class="p">});</span>
+</pre></div>
+<p>选项 <code>{ &quot;requireReturnForObjectLiteral&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;as-needed&quot;, { &quot;requireReturnForObjectLiteral&quot;: true }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span> <span class="p">};</span>
+</pre></div>
+<h5>never</h5>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">retv</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">retv</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">retv</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<p>选项 <code>&quot;never&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint arrow-body-style: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">foo</span><span class="o">:</span> <span class="mi">0</span> <span class="p">});</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 1.8.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/arrow-body-style.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/arrow-body-style.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

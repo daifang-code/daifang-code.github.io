@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7371">BE7371: Static Thread.interrupted() method invoked on thread instance</h2>
+    <h3>Static Thread.interrupted() method invoked on thread instance</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7371</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Static Thread.interrupted() method invoked on thread instance</p>
+<h4>Vulnerability and risk</h4>
+<p>
+This method invokes the Thread.interrupted() method on a Thread object that appears to be a Thread object that is
+not the current thread. As the interrupted() method is static, the interrupted method will be called on a different
+object than the one the author intended.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

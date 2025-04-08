@@ -1,0 +1,237 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2207">PE2207: object-property-newline</h2>
+    <h3>强制将对象的属性放在不同的行上 (object-property-newline)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2207</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制将对象的属性放在不同的行上 (object-property-newline)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>该规则允许你限制对象字面量中属性的位置。你可以禁止属性规范的任意部分出现在与其他属性规范的任意部分的同一行上。你可以绝对禁止或通过调用一个对象选项来允许一个例外，允许对象的所有属性在同一行上。</p>
+<h2>缺陷详因</h2>
+<h5>Motivations</h5>
+<p>该规则可以确保，正如某些风格指南所要求的那样，属性分散在不同的行中可以获得更好的可读性。例如，你可以禁止所有这些：</p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span><span class="p">}]};</span>
+<span class="kr">const</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span><span class="p">}]</span>
+<span class="p">};</span>
+<span class="kr">const</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span><span class="p">}]</span>
+<span class="p">};</span>
+<span class="kr">const</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="p">[</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+<p>相反，你可以遵守该规则，这样写：</p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">a</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span>
+    <span class="p">}]</span>
+<span class="p">};</span>
+</pre></div>
+<p>or</p>
+<p>或</p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="p">[</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="nx">a</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+<p>该规则的另一个好处是，当一个属性改变时，可以显示出特异性的差别：</p>
+<div class="highlight"><pre><span></span>// More specific
+ var obj = {
+     foo: &quot;foo&quot;,
+<span class="gd">-    bar: &quot;bar&quot;,</span>
+<span class="gi">+    bar: &quot;bazz&quot;,</span>
+     baz: &quot;baz&quot;
+ };
+</pre></div>
+<div class="highlight"><pre><span></span>// Less specific
+<span class="gd">-var obj = { foo: &quot;foo&quot;, bar: &quot;bar&quot;, baz: &quot;baz&quot; };</span>
+<span class="gi">+var obj = { foo: &quot;foo&quot;, bar: &quot;bazz&quot;, baz: &quot;baz&quot; };</span>
+</pre></div>
+<h5>Optional Exception</h5>
+<p>该规则有一个对象选项， <code>allowAllPropertiesOnSameLine</code> (一个弃用的同义词是  <code>allowMultiplePropertiesPerLine</code>)。如果你设置此选项为 <code>true</code>，像上面前两个对象字面量，即所有属性都在同一行上，将被允许，但除了下面这个</p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="s1">&#39;a.m.&#39;</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="s1">&#39;p.m.&#39;</span><span class="p">,</span>
+    <span class="nx">c</span><span class="o">:</span> <span class="s1">&#39;daylight saving time&#39;</span>
+<span class="p">};</span>
+</pre></div>
+<p>将被禁止，因为两个属性，不是全部的属性出现在同一行上。</p>
+<h5>Notations</h5>
+<p>该规则适用于所有的属性规范，不管是什么符号，包括：</p>
+<ul>
+<li><code>a: 1</code> (ES5)</li>
+<li><code>a: 1</code> (ES5)</li>
+<li><code>a</code> (ES2015 shorthand property)</li>
+<li><code>[`prop${a}`]</code> (ES2015 计算的属性名)</li>
+</ul>
+<p>因此，该规则（没有对象选项）禁止下面这两个：</p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span>
+        <span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="p">]</span><span class="o">:</span> <span class="s1">&#39;01&#39;</span>
+<span class="p">};</span>
+<span class="kr">const</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span><span class="o">:</span> <span class="s1">&#39;01&#39;</span>
+<span class="p">};</span>
+</pre></div>
+<p>（此行为与下面引用的 JSCS 规则不同，它不将以 <code>[</code> 开头的计算属性作为属性规范的一部分。JSCS 规则禁止第二种格式，但允许第一种格式。）</p>
+<h5>Multiline Properties</h5>
+<p>该规则禁止至少一个字符的属性与至少一个字符的其他属性出现在同一行。例如，该规则禁止：</p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s1">&#39;Officiële website van de Europese Unie&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Официален уебсайт на Европейския съюз&#39;</span>
+<span class="p">],</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">};</span>
+</pre></div>
+<p>因为一个字符的属性 <code>a</code> 与属性 <code>b</code> 在同一行上。</p>
+<p>可选的例外不允许这种情况出现，因为整个属性跨了4行，而不是1行。</p>
+<h5>Inter-property Delimiters</h5>
+<p>分隔属性的逗号和任意空白不被认为是属性的一部分。因此，giant规则允许下面这种格式：</p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">newFunction</span> <span class="o">=</span> <span class="nx">multiplier</span> <span class="p">=&gt;</span> <span class="p">({</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">multiplier</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span> <span class="o">*</span> <span class="nx">multiplier</span><span class="p">,</span>
+    <span class="nx">c</span><span class="o">:</span> <span class="mi">8</span> <span class="o">*</span> <span class="nx">multiplier</span>
+<span class="p">});</span>
+<span class="kr">const</span> <span class="nx">newFunction</span> <span class="o">=</span> <span class="nx">multiplier</span> <span class="p">=&gt;</span> <span class="p">({</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">multiplier</span>
+    <span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span> <span class="o">*</span> <span class="nx">multiplier</span>
+    <span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">8</span> <span class="o">*</span> <span class="nx">multiplier</span>
+<span class="p">});</span>
+</pre></div>
+<p>（这种行为与下面引用的 JSCS 规则不同，JSCS 规则允许第一种，禁止第二种。）</p>
+<h5>--fix</h5>
+<p>如果使用命令行 <code>--fix</code> 选项调用此规则，通常会修改违反此规则的对象字面量。每种情况的修改都是将一个属性移动下一行，无论是否与前一个属性的一部分还是全部在同一行上。例如，</p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="s1">&#39;a.m.&#39;</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="s1">&#39;p.m.&#39;</span><span class="p">,</span>
+    <span class="nx">c</span><span class="o">:</span> <span class="s1">&#39;daylight saving time&#39;</span>
+<span class="p">};</span>
+</pre></div>
+<p>被转换为：</p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="s1">&#39;a.m.&#39;</span><span class="p">,</span>
+<span class="nx">b</span><span class="o">:</span> <span class="s1">&#39;p.m.&#39;</span><span class="p">,</span>
+    <span class="nx">c</span><span class="o">:</span> <span class="s1">&#39;daylight saving time&#39;</span>
+<span class="p">};</span>
+</pre></div>
+<p>修改不取决于对象选项是否被设为 <code>true</code>。换句话说，ESLint 不会将所有的属性放置到一行，即使对象选项允许那么做。</p>
+<p>如果注释在同一行的第二个或后续的属性之前，ESLint 不会纠正违反此规则的行为，因为 ESLint 不能决定要把注释放到哪一行。</p>
+<p>综上所述，应用于此规则的 <code>--fix</code> 选项，不会符合其他规则，比如 <code>indent</code> 规则，但是，如果其他规则也有效，该选项也适用。</p>
+<h2>Examples</h2>
+<p>选项 <code>allowAllPropertiesOnSameLine</code> 设为 <code>false</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-property-newline: &quot;error&quot;*/</span>
+
+<span class="kr">const</span> <span class="nx">obj0</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="nx">baz</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span> <span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">obj1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="nx">baz</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">obj2</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">obj3</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">?</span> <span class="s2">&quot;foo&quot;</span> <span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">]</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">baz</span><span class="o">:</span> <span class="p">[</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="mi">4</span><span class="p">,</span>
+        <span class="mi">8</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="s2">&quot;antidisestablishmentarianistically&quot;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="s2">&quot;yugoslavyalılaştırabildiklerimizdenmişsiniz&quot;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">obj4</span> <span class="o">=</span> <span class="p">{</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">domain</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="kr">const</span> <span class="nx">obj5</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="nx">domain</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="s2">&quot;complexdomain&quot;</span> <span class="o">:</span> <span class="s2">&quot;simpledomain&quot;</span>
+<span class="p">]</span><span class="o">:</span> <span class="kc">true</span><span class="p">};</span>
+</pre></div>
+<p>选项 <code>allowAllPropertiesOnSameLine</code> 设为 <code>false</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-property-newline: &quot;error&quot;*/</span>
+
+<span class="kr">const</span> <span class="nx">obj1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">obj2</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span>
+    <span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span>
+    <span class="p">,</span> <span class="nx">baz</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="kr">const</span> <span class="nx">obj3</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">user</span><span class="p">,</span>
+    <span class="p">[</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">?</span> <span class="s2">&quot;foo&quot;</span> <span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">]</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="o">:</span> <span class="p">[</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="mi">4</span><span class="p">,</span>
+        <span class="mi">8</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+<p>选项 <code>{ &quot;allowAllPropertiesOnSameLine&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-property-newline: [&quot;error&quot;, { &quot;allowAllPropertiesOnSameLine&quot;: true }]*/</span>
+
+<span class="kr">const</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="nx">baz</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span> <span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">obj2</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="nx">baz</span><span class="o">:</span> <span class="s2">&quot;baz&quot;</span>
+<span class="p">};</span>
+<span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="kr">const</span> <span class="nx">obj3</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">user</span><span class="p">,</span> <span class="p">[</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">?</span> <span class="s2">&quot;foo&quot;</span> <span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">]</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">baz</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你想要决定是否要将属性放在单独的行上，你可以关闭此规则。</p>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS</strong>: This rule provides partial compatibility with <a href="http://jscs.info/rule/requireObjectKeysOnNewLine">requireObjectKeysOnNewLine</a>.</li>
+</ul>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="brace-style">brace-style</a></li>
+<li><a href="comma-dangle">comma-dangle</a></li>
+<li><a href="key-spacing">key-spacing</a></li>
+<li><a href="object-curly-spacing">object-curly-spacing</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 2.10.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/object-property-newline.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/object-property-newline.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

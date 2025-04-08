@@ -1,0 +1,22 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE30038">BE30038: The Anti-forgery token is missing</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE30038</dd>
+                    <dt>Tags</dt>
+                    <dd>csharp</dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The Anti-forgery token is missing. Without this validation. an attacker could send a link to the victim and. visiting the malicious link. a web page would trigger a POST request (because it is a blind attack - the attacker does not see a response to the triggered request and does not have the use of the GET request and GET requests must not change a server state by default) for the site. The victim would not be able to recognize that an action is taken in the background. but his cookie would be sent automatically if he was authenticated on the website. This attack requires no special interaction other than visiting a website.</p>
+<h4>Likelihood of exploit</h4>
+<p>Low</p>
+
+    </section>
+</article>

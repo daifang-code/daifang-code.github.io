@@ -1,0 +1,78 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22243">PE22243: DUO133</h2>
+    <h3>DUO133</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22243</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO133</h4>
+<p>This linter searches for use of the <code>Crypto</code> module.</p>
+<p>The <code>Crypto</code> module is provided by the <a href="https://github.com/dlitz/pycrypto"><code>pycrypto</code></a>
+library. This library is no longer maintained and has known vulnerabilities
+and exploits (<a href="https://github.com/dlitz/pycrypto/issues/176">dlitz/pycrypto#176</a>,
+<a href="https://github.com/dlitz/pycrypto/issues/253">dlitz/pycrypto#253</a>,
+<a href="https://github.com/dlitz/pycrypto/issues/269">dlitz/pycrypto#269</a>).</p>
+<h2>Problematic code</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;This is a key&#39;</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="s1">&#39;This is an IV&#39;</span><span class="p">)</span>
+<span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;One if by land, two if by sea&#39;</span>
+<span class="n">ciphertext</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+<h2>Correct code</h2>
+<p>This is just an example, but if you really are trying to accomplish symmetric
+key encryption then take a look at <a href="https://cryptography.io/en/latest/fernet/">Fernet</a>:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cryptography.fernet</span> <span class="kn">import</span> <span class="n">Fernet</span>
+
+<span class="n">key</span> <span class="o">=</span> <span class="n">Fernet</span><span class="o">.</span><span class="n">generate_key</span><span class="p">()</span>
+<span class="n">fernet</span> <span class="o">=</span> <span class="n">Fernet</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="n">message</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;One if by land, two if by sea&#39;</span>
+<span class="n">token</span> <span class="o">=</span> <span class="n">fernet</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+<p>To illustrate corrections to the above code:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cryptography.hazmat.primitives.ciphers</span> <span class="kn">import</span> <span class="n">Cipher</span><span class="p">,</span> <span class="n">algorithms</span><span class="p">,</span> <span class="n">modes</span>
+<span class="kn">from</span> <span class="nn">cryptography.hazmat.backends</span> <span class="kn">import</span> <span class="n">default_backend</span>
+
+<span class="n">cipher</span> <span class="o">=</span> <span class="n">Cipher</span><span class="p">(</span>
+    <span class="n">algorithms</span><span class="o">.</span><span class="n">AES</span><span class="p">(</span><span class="s1">&#39;This is a key&#39;</span><span class="p">),</span>
+    <span class="n">modes</span><span class="o">.</span><span class="n">CBC</span><span class="p">(</span><span class="s1">&#39;This is an IV&#39;</span><span class="p">),</span>
+    <span class="n">backend</span><span class="o">=</span><span class="n">default_backend</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">encryptor</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="n">encryptor</span><span class="p">()</span>
+<span class="n">message</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;One if by land, two if by sea&#39;</span>
+<span class="n">ciphertext</span> <span class="o">=</span> <span class="n">encryptor</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="o">+</span> <span class="n">encryptor</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Cryptodome.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;This is a key&#39;</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="s1">&#39;This is an IV&#39;</span><span class="p">)</span>
+<span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;One if by land, two if by sea&#39;</span>
+<span class="n">ciphertext</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+<h2>Rationale</h2>
+<p>Using <code>pycrypto</code> is insecure for these reasons:</p>
+<ul>
+<li>The library is unmaintained - future bugs will not be fixed.</li>
+<li>There are known vulnerabilities along with working exploits.</li>
+<li>The library's API does not encourage safe-by-default, simple, obvious code.</li>
+</ul>
+<p>Cryptography operations are notorious difficult, so working with a library
+that prioritizes simplicity and safety should be preferred.</p>
+<p>The <code>cryptography</code> library is considered best-practice in the Python community.
+The <code>pycryptodomex</code> library should only be used when API-compatibility is
+necessary and <code>cryptography</code> cannot be used. Note that <code>pycryptodomex</code> is
+recommended over <code>pycryptodome</code> so Dlint can efficiently detect which library
+is being used. Both <code>pycrypto</code> and <code>pycryptodome</code> use the <code>Crypto</code> module,
+whereas <code>pycryptodomex</code> uses <code>Cryptodome</code>. This makes usage easier to detect.</p>
+<h2>Exceptions</h2>
+<p>None</p>
+
+    </section>
+</article>

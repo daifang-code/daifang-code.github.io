@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2009">SC2009: bad 'grep'</h2>
+    <h3>SC2009 Consider using pgrep instead of grepping ps output.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2009</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>SC2009 Consider using pgrep instead of grepping ps output.</h2>
+<h5>Problematic Code:</h5>
+<div class="highlight"><pre><span></span>ps ax <span class="p">|</span> grep -v grep <span class="p">|</span> grep <span class="s2">&quot;</span><span class="nv">$service</span><span class="s2">&quot;</span> &gt; /dev/null
+</pre></div>
+<h5>Correct Code:</h5>
+<div class="highlight"><pre><span></span>pgrep -f <span class="s2">&quot;</span><span class="nv">$service</span><span class="s2">&quot;</span> &gt; /dev/null
+</pre></div>
+<h5>Rationale:</h5>
+<p>If you are just after a pid from a running program, then pgrep is a much safer alternative. Especially if you are also looking for a pid belonging to a certain user or group. All of the parameters are in one command and it can eliminate multiple greps, cuts, seds, awks, etc.</p>
+<p>If you want a field that's not the pid, consider doing this through <code>ps</code> + <code>pgrep</code> instead of <code>ps</code> + <code>grep</code>:</p>
+
+<pre><code>for pid in $(pgrep '^python$')
+do
+  user=$(ps -o user= -p &quot;$pid&quot;)
+  echo &quot;The process $pid is run by $user&quot;
+done
+</code></pre>
+<p>This is more robust than <code>ps .. | grep python | cut ..</code> because it does not try to match against unrelated fields, such as if the user's name was <code>pythonguru</code>.</p>
+<h5>Exceptions</h5>
+<p>You can [[ignore]] this error if you are trying to match against something that <code>pgrep</code> doesn't support:</p>
+
+<pre><code># pgrep does not support filtering by 'nice' value
+# shellcheck disable=SC2009
+ps -axo nice=,pid= | grep -v '^  0'
+</code></pre>
+
+    </section>
+</article>

@@ -1,0 +1,88 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2160">PE2160: no-restricted-syntax</h2>
+    <h3>禁止使用特定的语法 (no-restricted-syntax)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2160</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止使用特定的语法 (no-restricted-syntax)</h4>
+<p>JavaScript 有很多语言特征，并不是每个人都喜欢所有的特征。因此，一些项目选择完全禁用某些特定的语言特征。例如，你可以禁止 <code>try-catch</code> 或 <code>class</code> 的使用，或者你可以决定是否禁用 <code>in</code> 操作符。</p>
+<p>这个规则不是为你想要关闭的每个语言特性创建单独的规则，而是允许您配置你想要限制使用的语法元素。这些元素为(ESTree)(https://github.com/estree/estree)的节点类型。例如，函数声明由 <code>FunctionDeclaration</code> 表示，<code>with</code> 语句由 <code>WithStatement</code> 表示。你会发现 AST 节点名称的完整列表可以使用 (GitHub)(https://github.com/eslint/espree/blob/master/lib/ast-node-types.js) 和使用(在线解析器)(https://eslint.org/parser/)，查看代码包含什么类型的节点。</p>
+<p>你也可以指定<a href="../developer-guide/selectors">AST 选择器</a>来进行限制，允许对语法模式进行更精确的控制。</p>
+<h2>缺陷详因</h2>
+<p>该规则禁止使用特定的（由用户来指定）语法。</p>
+<h2>修改方案</h2>
+<p>该规则有一个选项，是个字符串列表，列表中的每个字符串都是一个 AST 选择器。</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;no-restricted-syntax&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;FunctionExpression&quot;</span><span class="p">,</span> <span class="s2">&quot;WithStatement&quot;</span><span class="p">,</span> <span class="s2">&quot;BinaryExpression[operator=&#39;in&#39;]&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>另外，该规则还接受对象作为选项，指定选择器和可选的自定义消息：</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;no-restricted-syntax&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;error&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;FunctionExpression&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Function expressions are not allowed.&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;CallExpression[callee.name=&#39;setTimeout&#39;][arguments.length!=2]&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;setTimeout must always be invoked with two arguments.&quot;</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>如果使用 <code>message</code> 属性指定了一个自定义消息，ESLint 在报告 <code>selector</code> 属性中指定的语法时将使用该消息。</p>
+<p>字符串选项和对象格式的选项可以自由的根据需要混合使用。</p>
+<p>选项 <code>&quot;FunctionExpression&quot;, &quot;WithStatement&quot;, BinaryExpression[operator='in']</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint no-restricted-syntax: [&quot;error&quot;, &quot;FunctionExpression&quot;, &quot;WithStatement&quot;, &quot;BinaryExpression[operator=&#39;in&#39;]&quot;] */</span>
+
+<span class="kd">with</span> <span class="p">(</span><span class="nx">me</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">dontMess</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">doSomething</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{};</span>
+
+<span class="nx">foo</span> <span class="k">in</span> <span class="nx">bar</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>&quot;FunctionExpression&quot;, &quot;WithStatement&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint no-restricted-syntax: [&quot;error&quot;, &quot;FunctionExpression&quot;, &quot;WithStatement&quot;, &quot;BinaryExpression[operator=&#39;in&#39;]&quot;] */</span>
+
+<span class="nx">me</span><span class="p">.</span><span class="nx">dontMess</span><span class="p">();</span>
+
+<span class="kd">function</span> <span class="nx">doSomething</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="nx">foo</span> <span class="k">instanceof</span> <span class="nx">bar</span><span class="p">;</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想限制你的代码使用 JavaScript 任何的特征或语法，不应使用此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-alert">no-alert</a></li>
+<li><a href="no-console">no-console</a></li>
+<li><a href="no-debugger">no-debugger</a></li>
+<li><a href="no-restricted-properties">no-restricted-properties</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 1.4.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-restricted-syntax.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-restricted-syntax.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

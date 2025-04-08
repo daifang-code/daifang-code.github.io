@@ -1,0 +1,2396 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='../../../theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="../../../theme/stylesheet/normalize.min.css">
+    <script src="../../../theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="../../../theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../../../theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="../../../theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">      <meta name="author" content="Pinpoint Team"/>
+    <meta name="description" content="Manual and documents for Sourcebrella Pinpoint"/> <meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Pinpoint Document"/>
+<meta property="og:description" content="Manual and documents for Sourcebrella Pinpoint"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="../../.."/>
+ 
+    <title>Pinpoint Document &ndash; Category</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href="../../..">
+                <img src="../../../theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href="../../..">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="../../../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="../../../standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="../../../standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="../../../standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="../../../standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="../../../standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="../../../standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="../../../standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="../../../standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+          <article>
+            <h1>
+            API误用 (21)
+            </h1>
+        </article>
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1066">错误的使用memset函数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">不正确地释放内存(内存泄漏)</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a><ul>
+<li><a href="#_6">阶段: 实施</a></li>
+<li><a href="#_7">阶段: 架构和设计</a></li>
+<li><a href="#_8">阶段: 架构与设计; 构建与编译</a></li>
+</ul>
+</li>
+<li><a href="#_9">演示实例</a><ul>
+<li><a href="#_10">漏洞代码示例</a></li>
+</ul>
+</li>
+<li><a href="#_11">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>程序在使用后没有正确地跟踪和释放分配的内存，这会缓慢消耗剩余的内存。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">不正确地释放内存(内存泄漏)</h4>
+<p>程序在使用后没有正确地跟踪和释放分配的内存，这会缓慢消耗剩余的内存。</p>
+<p>这通常是由于错误处理格式错误的数据或者意外中断会话而引发的。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>中等</p>
+<h1 id="_5">缓解与预防</h1>
+<h4 id="_6">阶段: 实施</h4>
+<p>策略: 库或框架</p>
+<p>选择一种提供自动内存管理的语言或工具，或者使手动内存管理不易出错。
+例如，Linux中的glibc提供了对于无效指针错误的保护。</p>
+<p>当使用Xcode定位OS X或iOS时，启用自动引用计数（ARC）[ REF-391 ]。</p>
+<p>为了在进行C++编程时正确和一致地管理内存，可考虑使用智能指针类，如std :: auto_ptr（由ISO / IEC ISO / IEC 14882：2003定义），std :: shared_ptr和std :: unique_ptr（由即将发布的C++标准修订版，非正式地称为C++ 1x）或等效解决方案（如Boost）。</p>
+<h4 id="_7">阶段: 架构和设计</h4>
+<p>使用抽象库来抽象化有风险的API，这并不是一个完整的解决方案。</p>
+<h4 id="_8">阶段: 架构与设计; 构建与编译</h4>
+<p>使用Boehm-Demers-Weiser垃圾收集器或valgrind来检测代码中的泄漏。</p>
+<p>注意：这并不是一个完整的解决方案，因为它不是100％有效。</p>
+<h1 id="_9">演示实例</h1>
+<h3 id="_10">漏洞代码示例</h3>
+<p>example1</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="o">*</span> <span class="nf">getBlock</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">buf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">buf</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">BLOCK_SIZE</span><span class="p">)</span> <span class="o">!=</span> <span class="n">BLOCK_SIZE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">buf</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>如果对read()的调用没有返回预期的字节数，则C函数会泄露分配的内存块。</p>
+<p>example2</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">bar</span> <span class="nf">connection</span><span class="p">(){</span>
+    <span class="n">foo</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">1024</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">foo</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">endConnection</span><span class="p">(</span><span class="n">bar</span> <span class="n">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1">//thread 1</span>
+    <span class="c1">//On a connection</span>
+    <span class="n">foo</span><span class="o">=</span><span class="n">connection</span><span class="p">();</span> <span class="c1">//thread 2</span>
+    <span class="c1">//When the connection ends</span>
+    <span class="n">endConnection</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>每次建立连接时都会分配更多内存。所以如果一个人打开越来越多的连接，机器最终会耗尽内存。</p>
+<h1 id="_11">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cwe">
+<p>https://cwe.mitre.org/data/definitions/401.html <a class="footnote-backref" href="#fnref-cwe" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1051">错误使用cmath库函数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">缓解与预防</a></li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>误用cmath库中的函数，使用错误的参数</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>导致程序错误或无法正常运行。</p>
+<h1 id="_3">缓解与预防</h1>
+<p>使用正确的cmath库中的函数以及正确的参数。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>中</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0047">不正确地使用strlen函数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">未定义的行为</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>如果你想要通过 <code>strlen(p)+1</code> 来表示指针p所指向的字符串长度加上1个额外的字节来存放'\0'，那么当p指向的字符串长度为0时，<code>strlen(p+1)</code> 或 <code>strlen(p-1)</code> 的结果是未定义的。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">未定义的行为</h4>
+<p>当p指向的字符串长度为0时，<code>strlen(p+1)</code> 或 <code>strlen(p-1)</code> 的结果是未定义的。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_5">缓解与预防</h1>
+<p>正确地使用strlen函数来获取字符串长度。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">bad</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">new_name</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">new_name</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span> <span class="c1">//bad_alloc_strlen</span>
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">new_name</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">new_name</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，使用<code>strlen(name+1)</code>来获取需要分配的内存长度，当指针name指向的字符串长度为0时，<code>strlen(name+1)</code>的结果是未定义的。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">good</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">new_name</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">new_name</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> 
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">new_name</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">new_name</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，正确地使用使用strlen(name)+1来获取需要分配的内存长度。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1063">参数传递NULL值</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">没有被定义的行为</a></li>
+</ul>
+</li>
+<li><a href="#_4">缓解与预防</a></li>
+<li><a href="#_5">漏洞利用威胁</a></li>
+<li><a href="#_6">演示示例</a><ul>
+<li><a href="#_7">漏洞缺陷示例</a></li>
+<li><a href="#_8">漏洞缺陷修复示例</a></li>
+</ul>
+</li>
+<li><a href="#_9">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>给可变参数函数的最后一个参数传递NULL。C99标准指出，如果va_arg()使用的类型与实际的下一个参数的类型不兼容（根据默认的参数升级规则进行升级），则该行为未定义。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h3 id="_3">没有被定义的行为</h3>
+<p>在体系结构的实践中，如果sizeof(int) != sizeof(void*)，并且NULL被定义为0或任何其他指向int的空指针常量，这将导致程序的崩溃。</p>
+<h1 id="_4">缓解与预防</h1>
+<p>禁止给可变参数函数的最后一个参数传递NULL。</p>
+<h1 id="_5">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_6">演示示例</h1>
+<h3 id="_7">漏洞缺陷示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">ap</span><span class="p">;</span>
+  <span class="n">va_start</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%018p, %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">p</span> <span class="o">&amp;</span> <span class="mi">255</span> <span class="o">?</span> <span class="nl">p</span> <span class="p">:</span> <span class="s">""</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span>
+      <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">va_end</span><span class="p">(</span><span class="n">ap</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">g</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s2</span> <span class="o">=</span> <span class="s">"x"</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s3</span> <span class="o">=</span> <span class="s">"ERROR"</span><span class="p">;</span>
+  <span class="n">f</span><span class="p">(</span><span class="s">"first"</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s3</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">);</span><span class="c1">//detect</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">g</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>根据示例代码，我们假设第七个实参0表示可变参数函数的最后一个值，并在代码中以传递NULL表示可变参数遍历结束。为了让错误更明显，我们在0后添加s3，如果达不到想要的预期则继续向后遍历输出"ERROR"。
+由于体系结构的问题，第七个实参0是一个32位的值，8个字节中只有4个字节被初始化为0，以if(!p)判断不会break，从而继续执行输出"ERROR"。
+在x86_64系统中，我们如果想在第七个参数0结束遍历，不输出ERROR则需要将第七个实参由0改为0L。</p>
+<h3 id="_8">漏洞缺陷修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">ap</span><span class="p">;</span>
+  <span class="n">va_start</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%018p, %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">p</span> <span class="o">&amp;</span> <span class="mi">255</span> <span class="o">?</span> <span class="nl">p</span> <span class="p">:</span> <span class="s">""</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span>
+      <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">va_end</span><span class="p">(</span><span class="n">ap</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">g</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s2</span> <span class="o">=</span> <span class="s">"x"</span><span class="p">;</span>
+  <span class="c1">// changing 0 to 0L for the 7th argument </span>
+  <span class="c1">// (which is intended to act as sentinel) makes </span>
+  <span class="c1">// the error go away on x86_64</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">s3</span> <span class="o">=</span> <span class="s">"ERROR"</span><span class="p">;</span>
+  <span class="n">f</span><span class="p">(</span><span class="s">"first"</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="mi">0L</span><span class="p">,</span> <span class="n">s3</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">g</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="_9">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cwe">
+<p>https://cwe.mitre.org/data/definitions/762.html <a class="footnote-backref" href="#fnref-cwe" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0025">使用open函数创建文件时缺少参数mode</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">不安全的文件权限</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>创建一个具有不充分的受限访问权限的文件可能允许未授权用户访问这个文件。尽管文件访问权限极大地依赖于文件系统，许多文件创建函数还是提供了一些用于设置（至少是影响）访问权限的机制。当使用这些函数创建文件时，应该指定适当的访问权限，以防止违背意图的访问。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">不安全的文件权限</h4>
+<p>使用POSIX函数open()创建文件，但是未提供这个文件的访问权限可能导致文件创建时具有过度的访问权限。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>中</p>
+<h1 id="_5">缓解与预防</h1>
+<p>当使用O_CREAT创建文件时，在open()函数的第3个参数中指定文件的访问权限。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">file_name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+
+    <span class="cm">/* Initialize file_name */</span>
+
+    <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_WRONLY</span><span class="p">);</span>
+    <span class="cm">/* Access permissions were missing */</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+        <span class="cm">/* Handle error */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，使用POSIX函数open()创建文件，但是未提供这个文件的访问权限可能导致文件创建时具有过度的访问权限。这种省略已经知道会产生潜在的风险。例如CVE-2006-1174。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">file_name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">file_access_permissions</span><span class="p">;</span>
+
+    <span class="cm">/* Initialize file_name and file_access_permissions */</span>
+    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span>
+        <span class="n">file_name</span><span class="p">,</span>
+        <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_WRONLY</span><span class="p">,</span>
+        <span class="n">file_access_permissions</span>
+    <span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+        <span class="cm">/* Handle error */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，创建文件的访问权限应该在open()函数的第3个参数中指定。同样，权限的值由umask()的值所修改。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1007">不正确的whence值</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">缓解与预防</a></li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">演示示例</a><ul>
+<li><a href="#_6">漏洞缺陷示例</a></li>
+<li><a href="#_7">漏洞缺陷修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">fseek</span> <span class="p">(</span> <span class="kt">FILE</span> <span class="o">*</span> <span class="n">stream</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">int</span> <span class="n">origin</span> <span class="p">);</span>
+</pre></div>
+</td></tr></table>
+<p>第三个参数(origin)：用作偏移参考的位置。它由<code>&lt;cstdio&gt;</code>中定义的以下其中一个常量专门用作此函数的参数</p>
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>参考位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SEEK_SET</td>
+<td>文件开头</td>
+</tr>
+<tr>
+<td>SEEK_CUR</td>
+<td>当前文件指针</td>
+</tr>
+<tr>
+<td>SEEK_END</td>
+<td>文件末尾</td>
+</tr>
+</tbody>
+</table>
+<h1 id="_2">漏洞与风险</h1>
+<p>如果第三个参数不是SEEK_SET, SEEK_END 或 SEEK_CUR，会导致未定义的行为。</p>
+<h1 id="_3">缓解与预防</h1>
+<p>fseek()的第三个参数应该是SEEK_SET，SEEK_END或SEEK_CUR。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_5">演示示例</h1>
+<h3 id="_6">漏洞缺陷示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#define N 5</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">student</span><span class="p">{</span>
+  <span class="kt">long</span> <span class="n">sno</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+  <span class="kt">float</span> <span class="n">score</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="p">}</span><span class="n">STU</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="n">filename</span><span class="p">,</span><span class="n">STU</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span><span class="p">;</span>
+  <span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">"rb+"</span><span class="p">);</span>
+  <span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="o">-</span><span class="mi">1L</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="mi">4</span><span class="p">);</span> <span class="c1">// 4 is not a valid whence argument</span>
+  <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="n">fp</span><span class="p">);</span>
+  <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="_7">漏洞缺陷修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#define N 5</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">student</span><span class="p">{</span>
+  <span class="kt">long</span> <span class="n">sno</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+  <span class="kt">float</span> <span class="n">score</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="p">}</span><span class="n">STU</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="n">filename</span><span class="p">,</span><span class="n">STU</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span><span class="p">;</span>
+  <span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">"rb+"</span><span class="p">);</span>
+  <span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="o">-</span><span class="mi">1L</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="n">SEEK_END</span><span class="p">);</span>
+  <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="n">fp</span><span class="p">);</span>
+  <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/c.html">C++</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1009">在调用字符串操作的函数中使用空指针作为参数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">缓解与预防</a></li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">演示示例</a><ul>
+<li><a href="#_6">漏洞缺陷示例</a></li>
+</ul>
+</li>
+<li><a href="#_7">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>不要在需要对象的任何实例中使用空指针，包括以下情况：</p>
+<ul>
+<li>调用空对象的实例方法</li>
+<li>访问或修改空对象的字段</li>
+<li>将null的长度视为数组</li>
+<li>访问或修改null的元素，就像它是一个数组一样</li>
+<li>抛出null，就像它是一个Throwable值一样</li>
+</ul>
+<p>在需要对象的情况下使用null会导致引发NullPointerException，从而中断程序或线程的执行。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>在需要对象的情况下使用null会导致引发NullPointerException，从而中断程序或线程的执行。</p>
+<h1 id="_3">缓解与预防</h1>
+<p>不要在需要对象的任何实例中使用空指针。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>严重</p>
+<h1 id="_5">演示示例</h1>
+<h3 id="_6">漏洞缺陷示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">strcpy_null_dst</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// expected-warning{{Null pointer argument in call to string copy function}}</span>
+  <span class="n">strcpy</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span> 
+
+  <span class="c1">// expected-warning{{Null pointer argument in call to string length function}}</span>
+  <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> 
+
+  <span class="kt">char</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="s">"123"</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{Null pointer argument in call to string comparison </span>
+  <span class="c1">// function}}</span>
+  <span class="n">strcmp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="_7">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cert">
+<p>https://wiki.sei.cmu.edu/confluence/display/java/EXP01-J.+Do+not+use+a+null+in+a+case+where+an+object+is+required.html <a class="footnote-backref" href="#fnref-cert" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1067">错误的使用输入/输出API</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#12345">在资源使用周期内的不当控制（问题1、2、3、4、5）</a></li>
+<li><a href="#1">使用过期的文件描述符（问题1）</a></li>
+<li><a href="#6">在存储器缓冲区范围内操作的不当限制（问题6）</a></li>
+<li><a href="#7">函数调用的参数数量不正确（问题7）</a></li>
+</ul>
+</li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">缓解与预防</a><ul>
+<li><a href="#_5">阶段: 测试</a></li>
+<li><a href="#_6">阶段: 测试</a></li>
+</ul>
+</li>
+<li><a href="#_7">演示实例</a><ul>
+<li><a href="#_8">漏洞代码示例（输入缺少字段宽度限制）</a></li>
+<li><a href="#_9">漏洞代码修复示例（输入缺少字段宽度限制）</a></li>
+</ul>
+</li>
+<li><a href="#_10">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>错误的使用输入/输出API问题包括：</p>
+<ol>
+<li>
+<p>输出流的无效，例如在fclose(); fread()中使用了已经关闭的文件。</p>
+</li>
+<li>
+<p>在输入流上调用fflush()可能会在非linux系统上导致未定义的行为。</p>
+</li>
+<li>
+<p>读写文件操作之间没有重置读取指针(fseek, fsetpos or rewind fflush)会导致不确定的程序行为。</p>
+</li>
+<li>
+<p>对只能写入的文件进行读取操作。对只读文件进行写操作。使用的文件未打开。</p>
+</li>
+<li>
+<p>在以追加模式打开的文件上执行的重新定位操作不起作用。</p>
+</li>
+<li>
+<p>没有字段宽度限制可能会导致大量输入数据崩溃。添加一个字段宽度说明符来解决这个问题。</p>
+</li>
+<li>
+<p>错误的输入输出参数数量错误或错误的输入输出参数位置错误。</p>
+</li>
+</ol>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="12345">在资源使用周期内的不当控制（问题1、2、3、4、5）</h4>
+<p>在创建，使用和发布的整个生命周期中，软件没有维护或不正确地维护对资源的控制权。</p>
+<p>资源往往有明确的说明如何创建，使用和销毁。当软件不遵循这些说明时，它可能会导致意外行为和潜在的可利用状态。</p>
+<p>即使没有明确的指示，也应遵守各种原则，例如“在创建完成之前不要使用对象”，或者“在对象被销毁后不要使用它”。</p>
+<h4 id="1">使用过期的文件描述符（问题1）</h4>
+<p>该软件在关闭后使用或访问文件描述符。</p>
+<p>在特定文件或设备的文件描述符被释放后，它可以被重新使用。该代码可能不会写入原始文件，因为重用的文件描述符可能会引用不同的文件或设备。</p>
+<h4 id="6">在存储器缓冲区范围内操作的不当限制（问题6）</h4>
+<p>该软件在内存缓冲区上执行操作，但它可以读取或写入缓冲区预期边界之外的内存位置。</p>
+<p>某些语言允许直接寻址内存位置，并且不会自动确保这些位置对于正在引用的内存缓冲区有效。这可能导致对可能与其他变量，数据结构或内部程序数据相关联的内存位置执行读取或写入操作。</p>
+<p>因此，攻击者可能能够执行任意代码，改变预期的控制流程，读取敏感信息或导致系统崩溃。</p>
+<h4 id="7">函数调用的参数数量不正确（问题7）</h4>
+<p>该软件调用一个函数，过程或例程，但调用者指定的参数过多或参数太少，这可能会导致未定义的行为和最终的缺陷。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+<h1 id="_4">缓解与预防</h1>
+<h4 id="_5">阶段: 测试</h4>
+<p>使用静态分析工具来检查未发布的代码。</p>
+<h4 id="_6">阶段: 测试</h4>
+<p>由于此函数调用通常会产生不正确的行为，因此通常会在测试或软件正常运行期间检测到该行为。在测试过程中，所有可能的控制路径通常都会暴露这种弱点，除非在极少数情况下，错误的函数调用会意外产生正确的结果，或者提供的参数类型与预期的参数类型非常相似。</p>
+<h1 id="_7">演示实例</h1>
+<h3 id="_8">漏洞代码示例（输入缺少字段宽度限制）</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>输入5或者更大长度的字符可能导致程序崩溃。</p>
+<h3 id="_9">漏洞代码修复示例（输入缺少字段宽度限制）</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%4s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>这里正确的用法是使用'scanf("%4s\n", c);'，因为最大字段宽度不包括终止空字节。</p>
+<h1 id="_10">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cwe1">
+<p>https://cwe.mitre.org/data/definitions/664.html <a class="footnote-backref" href="#fnref-cwe1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn-cwe2">
+<p>https://cwe.mitre.org/data/definitions/910.html <a class="footnote-backref" href="#fnref-cwe2" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn-cwe3">
+<p>https://cwe.mitre.org/data/definitions/119.html <a class="footnote-backref" href="#fnref-cwe3" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+<li id="fn-cwe4">
+<p>https://cwe.mitre.org/data/definitions/685.html <a class="footnote-backref" href="#fnref-cwe4" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn-linux">
+<p>http://linux.die.net/man/3/scanf <a class="footnote-backref" href="#fnref-linux" title="Jump back to footnote 5 in the text">↩</a></p>
+</li>
+<li id="fn-opensource">
+<p>http://www.opensource.apple.com/source/xnu/xnu-1456.1.26/libkern/stdio/scanf.c <a class="footnote-backref" href="#fnref-opensource" title="Jump back to footnote 6 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0071">不正确地使用strncat库函数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">缓冲区溢出</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>函数原型： <code>extern char *strncat(char *dest,char *src,int n)</code> <br/>
+参数说明：src为源字符串，dest为目的字符串，n为指定的src中的前n个字符。<br/>
+函数功能：把src所指字符串的前n个字符添加到dest结尾处，覆盖dest结尾处的'\0'，实现字符串连接。  </p>
+<p>strncat()的最后一个参数不应该是缓冲区的总长度，而应该是调用strncpy()后缓冲区剩余的长度。这两个函数都要求指定剩余的长度而不是缓冲区的总长度。由于剩余的长度在每次添加或删除数据时都会改变，因此程序员必须跟踪这些改变或重新计算剩余长度。这个过程很容易出错，并且可能会导致缓冲区溢出。<br/>
+下面的调用在使用strncat()连接字符串之前正确地计算了剩余的空间：  </p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">strncat</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="n">strlen</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</td></tr></table>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">缓冲区溢出</h4>
+<p>错误地计算n的值可能会导致拼接到dest的字符串超出dest的内存大小，导致缓冲区溢出。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>中</p>
+<h1 id="_5">缓解与预防</h1>
+<p>正确地计算需要拷贝的长度。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">src</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">dest</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">'a'</span><span class="p">,</span> <span class="sc">'b'</span><span class="p">,</span> <span class="sc">'c'</span><span class="p">};</span>
+  <span class="n">strncat</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="s">"AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="c1">// expected-warning {{Potential buffer overflow.</span>
+  <span class="c1">// Replace with 'sizeof(dest) - strlen(dest) - 1' or use a safer 'strlcat' API}} </span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，使用sizeof(dest) - 1计算出的长度超出了dest剩余的长度，导致缓冲区溢出。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">src</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">dest</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">'a'</span><span class="p">,</span> <span class="sc">'b'</span><span class="p">,</span> <span class="sc">'c'</span><span class="p">};</span>
+  <span class="n">strncat</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="s">"AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"</span><span class="p">,</span> \
+          <span class="k">sizeof</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="n">strlen</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，正确地计算需要拷贝的长度。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1044">不当使用memset函数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">不匹配的内存管理例程</a></li>
+<li><a href="#_4">不合适的初始化</a></li>
+<li><a href="#_5">依赖于未定义的，未指定的或实现定义的行为</a></li>
+</ul>
+</li>
+<li><a href="#_6">漏洞利用威胁</a></li>
+<li><a href="#_7">缓解与预防</a></li>
+<li><a href="#_8">演示示例</a><ul>
+<li><a href="#_9">漏洞缺陷示例</a></li>
+<li><a href="#_10">漏洞缺陷修复示例</a></li>
+</ul>
+</li>
+<li><a href="#_11">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>使用memset赋值class是危险的，比如memset会打乱虚函数表或者破坏构造函数逻辑。只有对整数类型的变量使用memset函数初始化为0才是安全的，对其他类型例如浮点型变量使用memset函数初始化为0是不安全的行为。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">不匹配的内存管理例程</h4>
+<p>应用程序尝试将内存资源返回给系统，但它调用与最初用于分配资源的函数不兼容的释放函数。</p>
+<h4 id="_4">不合适的初始化</h4>
+<p>软件不合适地进行初始化或错误地初始化资源，这可能会导致资源在访问或使用时出现不可预测的情况。</p>
+<h4 id="_5">依赖于未定义的，未指定的或实现定义的行为</h4>
+<p>该软件以某种方式使用API​​函数，数据结构或其他实体，这种方式依赖于并非始终保证为该实体保留的属性，当所需的属性发生变化时，例如软件移植到不同平台或发生交互错误（CWE-435）时，这可能导致缺陷发生。</p>
+<h1 id="_6">漏洞利用威胁</h1>
+<p>高</p>
+<h1 id="_7">缓解与预防</h1>
+<p>不使用memset赋值class。</p>
+<h1 id="_8">演示示例</h1>
+<h3 id="_9">漏洞缺陷示例</h3>
+<p>下面测试用例中，类B存在float类型的变量，不能使用memset来初始化为0。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">Bad</span><span class="p">{</span>
+<span class="nl">private</span><span class="p">:</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">test</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Bad</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">memset</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Bad</span><span class="p">));</span> <span class="c1">// Bad</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="_10">漏洞缺陷修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">Good</span><span class="p">{</span>
+<span class="nl">private</span><span class="p">:</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">b</span><span class="p">;</span>
+<span class="nl">public</span><span class="p">:</span>
+  <span class="kt">void</span> <span class="n">setA</span><span class="p">(</span><span class="kt">int</span> <span class="n">pa</span><span class="p">)</span> <span class="p">{</span> <span class="n">a</span> <span class="o">=</span> <span class="n">pa</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">setB</span><span class="p">(</span><span class="kt">int</span> <span class="n">pb</span><span class="p">)</span> <span class="p">{</span> <span class="n">b</span> <span class="o">=</span> <span class="n">pb</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">test</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Good</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">b</span><span class="p">.</span><span class="n">setA</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">b</span><span class="p">.</span><span class="n">setB</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">ret</span>
+</pre></div>
+</td></tr></table>
+<h1 id="_11">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cwe">
+<p>https://cwe.mitre.org/data/definitions/758.html <a class="footnote-backref" href="#fnref-cwe" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0074">不正确地使用va_list</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">意料之外的结果</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>VA_LIST的用法：  </p>
+<ol>
+<li>首先在函数里定义一具VA_LIST型的变量，这个变量是指向参数的指针；</li>
+<li>然后用VA_START宏初始化变量刚定义的VA_LIST变量；</li>
+<li>然后用VA_ARG返回可变的参数，VA_ARG的第二个参数是你要返回的参数的类型（如果函数有多个可变参数的，依次调用VA_ARG获取各个参数）；</li>
+<li>最后用VA_END宏结束可变参数的获取。</li>
+</ol>
+<p>错误的使用VA_LIST，可能会导致产生错误的结果。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">意料之外的结果</h4>
+<p>错误的使用VA_LIST，可能会导致产生错误的结果。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_5">缓解与预防</h1>
+<p>正确地使用VA_LIST。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad1</span><span class="p">(</span><span class="kt">int</span> <span class="n">fst</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">va</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{va_arg() is called on an uninitialized va_list}} </span>
+  <span class="c1">// expected-note{{va_arg() is called on an uninitialized va_list}}</span>
+  <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">va_arg</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>  
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，使用了一个未初始化的va_list变量va。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad2</span><span class="p">(</span><span class="kt">int</span> <span class="n">fst</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">va</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{va_list 'va' is copied onto itself}} </span>
+  <span class="c1">// expected-note{{va_list 'va' is copied onto itself}} </span>
+  <span class="n">va_copy</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="n">va</span><span class="p">);</span> 
+<span class="p">}</span> 
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，对变量va进行自我拷贝，没有实际意义。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="kt">int</span> <span class="n">fst</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+  <span class="kt">va_list</span> <span class="n">va</span><span class="p">;</span>
+  <span class="n">va_start</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="n">fst</span><span class="p">);</span> <span class="c1">// Initialized va_list</span>
+  <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">va_arg</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，对va_list变量va进行了初始化，然后再使用该变量。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1054">参数不一致</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">缓解与预防</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>调用pipe()/pipe2()函数时参数不一致</p>
+<h1 id="_2">缓解与预防</h1>
+<p>在调用pipe()/pipe2()函数时使用相同的参数</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>高</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0070">内存分配时对指针进行sizeof操作</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">缓冲区溢出</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>使用malloc、calloc或者realloc函数来分配内存的大小会与期望获取的大小不符。这种情况通常发生在sizeof关键字的使用上面。意图使用sizeof计算实际类型的大小，结果却计算了指针的大小。<br/>
+这种情况会导致分配内存少于期望分配的大小，最后导致未定义行为，比如缓冲区溢出。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">缓冲区溢出</h4>
+<p>内存分配时对指针进行sizeof操作，这种情况会导致分配内存少于期望分配的大小，最后导致未定义行为，比如缓冲区溢出。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_5">缓解与预防</h1>
+<p>申请内存时正确地计算内存的大小。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap1</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">A</span><span class="p">));</span>
+  <span class="c1">// expected-warning {{Result of 'calloc' is converted to a pointer of type </span>
+  <span class="c1">// 'struct A', which is incompatible with sizeof operand type</span>
+  <span class="c1">// 'struct A *'}} </span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap2</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ap1</span><span class="p">));</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，内存分配时对指针进行sizeof操作，导致分配内存少于期望分配的大小。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap1</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">A</span><span class="p">));</span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">ap2</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ap1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，申请内存时正确地计算内存的大小。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0059">不正确地使用chroot函数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">权限提升</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>程序通过调用chroot()函数创建了一个jail，却并未进一步更换工作路径。该行为并不能够确保程序访问的文件不会超过该限制。
+对chroot()的使用不当，会使得攻击者可以跳出chroot所设定的限制。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">权限提升</h4>
+<p>攻击者可以跳出chroot所设定的限制，对系统敏感数据进行操作，如删除文件、涂改主页等。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>中</p>
+<h1 id="_5">缓解与预防</h1>
+<p>在调用chroot()之后，紧接着调用chdir("/")更换工作路径。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// root changed.</span>
+  <span class="n">chroot</span><span class="p">(</span><span class="s">"/usr/local"</span><span class="p">);</span> 
+  <span class="c1">// expected-warning {{No call of chdir("/") immediately after chroot}} </span>
+  <span class="n">foo</span><span class="p">();</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，在调用chroot()之后，却并未进一步调用chdir("/")更换工作路径。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">chroot</span><span class="p">(</span><span class="s">"/usr/local"</span><span class="p">);</span> <span class="c1">// root changed.</span>
+    <span class="n">chdir</span><span class="p">(</span><span class="s">"/"</span><span class="p">);</span>
+  <span class="n">foo</span><span class="p">();</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，在调用chroot()之后，紧接着调用chdir("/")更换工作路径。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1000">在字符串拷贝函数中存在内存重叠</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">缓解与预防</a></li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">演示示例</a><ul>
+<li><a href="#_6">漏洞缺陷示例</a></li>
+<li><a href="#_7">漏洞缺陷修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>一般而言，memcpy以简单（但快速）的方式实现。简单来说，它只是循环遍历数据（按顺序），从一个位置复制到另一个位置。这可能会导致源在读取时被覆盖。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>一般而言，memcpy以简单（但快速）的方式实现。简单来说，它只是循环遍历数据（按顺序），从一个位置复制到另一个位置。这可能会导致源在读取时被覆盖。</p>
+<h1 id="_3">缓解与预防</h1>
+<p>使用memmove()代替memcpy()执行字符串拷贝。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_5">演示示例</h1>
+<h3 id="_6">漏洞缺陷示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+  <span class="kt">char</span> <span class="n">a</span><span class="p">[]</span><span class="o">=</span><span class="s">"hare rama hare rama"</span><span class="p">;</span>
+  <span class="n">memcpy</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">puts</span><span class="p">(</span><span class="n">a</span><span class="p">);</span> <span class="c1">// "hare hare hare hare hare hare rama hare rama"</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="_7">漏洞缺陷修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(){</span>
+  <span class="kt">char</span> <span class="n">a</span><span class="p">[]</span><span class="o">=</span><span class="s">"hare rama hare rama"</span><span class="p">;</span>
+  <span class="n">memmove</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+  <span class="n">puts</span><span class="p">(</span><span class="n">a</span><span class="p">);</span> <span class="c1">// "hare hare rama hare rama"</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0073">自我赋值</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">意料之外的结果</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>自我赋值通常是一个打字错误，可能会导致程序出错或程序功能实现不正确。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">意料之外的结果</h4>
+<p>自我赋值通常是一个打字错误，可能会导致程序出错或程序功能实现不正确。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_5">缓解与预防</h1>
+<p>检查代码逻辑，删除无效的自赋值代码。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，第4行是无效的自赋值代码。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，移除无效的自赋值代码。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1006">函数调用时参数个数与函数声明参数个数不一致</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">缓解与预防</a></li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">演示示例</a><ul>
+<li><a href="#_6">漏洞缺陷示例</a></li>
+<li><a href="#_7">漏洞缺陷修复示例</a></li>
+</ul>
+</li>
+<li><a href="#_8">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>函数调用时如果提供了错误的参数个数，那么正确声明的函数通常会生成编译器诊断消息。 但是，在某些情况下，向函数提供不正确的参数最多只会产生编译器警告。 尽管应该解决这些警告，但它们并不妨碍程序编译。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>调用具有不正确参数的函数可能会导致意外或意外的程序行为。</p>
+<h1 id="_3">缓解与预防</h1>
+<p>函数调用时参数个数与函数声明参数个数保持一致。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_5">演示示例</h1>
+<h3 id="_6">漏洞缺陷示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
+  <span class="n">func</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="_7">漏洞缺陷修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
+  <span class="n">func</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="_8">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-CERT">
+<p>https://wiki.sei.cmu.edu/confluence/display/c/EXP37-C.+Call+functions+with+the+correct+number+and+type+of+arguments.html <a class="footnote-backref" href="#fnref-CERT" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/c.html">C++</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0095">释放空指针</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">缓解与预防</a></li>
+<li><a href="#_5">演示实例</a><ul>
+<li><a href="#_6">漏洞代码示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span>void free (void* ptr); // Deallocate memory block
+</pre></div>
+</td></tr></table>
+<p>调用free函数用来释放之前通过调用malloc，calloc或realloc分配的内存块，使其可以再次用于进一步的分配。<br/>
+如果ptr没有指向使用上述函数分配的内存块，则会导致未定义的行为。<br/>
+如果ptr是一个空指针，该函数什么也不做。  </p>
+<h1 id="_2">漏洞与风险</h1>
+<p>释放空指针是一个无效的操作。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_4">缓解与预防</h1>
+<p>不应该释放一个空指针。</p>
+<h1 id="_5">演示实例</h1>
+<h3 id="_6">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">test</span><span class="p">(){</span>
+  <span class="n">free</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，通过free()函数释放了nullptr。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0069">不正确地使用UNIX/Posix库函数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">意料之外的结果</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>在使用以下UNIX/Posix库函数时，需要遵循指定的规则：<br/>
+<code>open, openat, pthread_once, calloc, malloc, realloc, reallocf, alloca, __builtin_alloca, __builtin_alloca_with_align, valloc</code>。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">意料之外的结果</h4>
+<p>不正确地使用UNIX/Posix库函数，可能会造成意料之外的结果。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_5">缓解与预防</h1>
+<p>正确地使用UNIX/Posix库函数。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">mode</span> <span class="o">=</span> <span class="mh">0x0</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{Call to 'open' with more than 3 arguments}}</span>
+  <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span> 
+  <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，不正确地使用open函数，因为调用open函数时，传递了4个参数，超出open函数参数个数限制。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+  <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">);</span> <span class="c1">// no-warning</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，正确地使用open函数。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0015">使用不安全的库函数创建临时文件</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">外部攻击</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>很多程序在共享目录(例如/tmp)下面创建临时文件，但是很多C语言库函数mktemp，tmpnam，tempnam，tmpfile创建出来的临时文件并不是安全的。如果一个临时文件的名字很容易被猜测到，攻击者就可以通过这个临时文件获取程序的权限，做一些非法操作。</p>
+<p>避免使用这些不安全的库函数，可以使用安全的mkstemp函数来创建临时文件。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">外部攻击</h4>
+<p>如果一个临时文件的名字很容易被猜测到，攻击者就可以通过这个临时文件获取程序的权限，做一些非法操作。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>中</p>
+<h1 id="_5">缓解与预防</h1>
+<p>使用安全的mkstemp函数来创建临时文件。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="n">mktemp</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，使用不安全的库函数mktemp创建临时文件。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"a.txt"</span><span class="p">;</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="n">mkstemp</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，使用安全的库函数mkstemp创建临时文件。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/api abuse.html">API误用</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0028">错误的使用sleep函数</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/api-abuse.html">API误用</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">不可预知的行为</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>在对锁进行释放动作前，调用了sleep()等阻塞函数。由于在程序运行中，可能会有其他的线程对该锁控制的资源进行等待，锁释放前的对sleep()等阻塞函数的调用，会造成全系统的阻塞。在对锁进行释放动作前调用阻塞函数可能会造成不可预知的行为，应避免在对锁进行释放动作前调用阻塞函数。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">不可预知的行为</h4>
+<p>在对锁进行释放动作前，调用了sleep()等阻塞函数。由于在程序运行中，可能会有其他的线程对该锁控制的资源进行等待，锁释放前的对sleep()等阻塞函数的调用，会造成全系统的阻塞。在对锁进行释放动作前调用阻塞函数可能会造成不可预知的行为。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>中</p>
+<h1 id="_5">缓解与预防</h1>
+<p>避免在对锁进行释放动作前调用阻塞函数。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="n">pthread_mutex_t</span> <span class="o">*</span><span class="n">mutex</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">30000</span><span class="p">);</span>       <span class="c1">// detect</span>
+    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，在第5行对锁进行释放动作前，调用了sleep()阻塞函数。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="n">pthread_mutex_t</span> <span class="o">*</span><span class="n">mutex</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+    <span class="c1">//...</span>
+    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，在对锁进行释放动作前，移除sleep函数。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : "../../..",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0029">PE0029: Error Stack Use</h2>
+    <h3>A single stack usage that exceed a configurable maximum (default 1024 bytes). </h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0029</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The maximum number of bytes allowed for a single stack allocation. For example, one local declaration. Any specified value is promoted to a multiple of the alignment boundary. Default is 1024.</p>
+<p>Specialized application domains with strict stack limitations, such as kernels and device drivers. In these domains, exceeding the stack's maximum can cause serious issues, from errant results to software or system crashes.</p>
+<h4>Vulnerability and risk</h4>
+<h5>software or system crash</h5>
+<p>Specialized application domains with strict stack limitations, such as kernels and device drivers. In these domains, exceeding the stack's maximum can cause serious issues, from errant results to software or system crashes.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Alloc a single stack memory within 1024 bytes.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">16384</span><span class="p">];</span> <span class="c1">// Exceeds max single base use of 1024 bytes</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, 16384 bytes of stack usage, exceeds max single base use of 1024 bytes at line 2.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example, 128 bytes of stack usage at line 2.</p>
+
+    </section>
+</article>

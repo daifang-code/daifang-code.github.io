@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='../theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="../theme/stylesheet/normalize.min.css">
+    <script src="../theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="../tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="../theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="../theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="../theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="../theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">      <meta name="author" content="Pinpoint Team"/>
+    <meta name="description" content="Manual and documents for Sourcebrella Pinpoint"/> <meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Pinpoint Document"/>
+<meta property="og:description" content="Manual and documents for Sourcebrella Pinpoint"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content=".."/>
+ 
+    <title>Pinpoint Document &ndash; Code style and efficiency 分类</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href="..">
+                <img src="../theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href="..">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="../standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="../standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="../standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="../standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="../standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="../standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="../standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="../standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="../standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="../standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  
+
+<article>
+  <header>
+    <h2><a href="../BE30040.html#BE30040">Using this implementation of</a></h2>
+    <p>
+      在 2024-九月-28 发布于 <a href="../category/code-style-and-efficiency.html">代码风格和效率</a> 分类
+
+
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      
+<h1 id="_1">缺陷描述</h1>
+<p>Using this implementation of '.withUnsafeBytes' can lead to the compiler's decision to use unsafe APIs. such as _malloc and _strcpy. as the method calls closing with an UnsafeRawBufferPointer.</p>
+<h1 id="_2">漏洞利用威胁</h1>
+<p>一般</p>
+      <br>
+      <a class="btn" href="../BE30040.html#BE30040">阅读全文</a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="../BE30041.html#BE30041">The application allows self-signed or invalid SSL certificates</a></h2>
+    <p>
+      在 2024-九月-28 发布于 <a href="../category/code-style-and-efficiency.html">代码风格和效率</a> 分类
+
+
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      
+<h1 id="_1">缺陷描述</h1>
+<p>The application allows self-signed or invalid SSL certificates. The application is vulnerable to MITM (Man-In-The-Middle) attacks.</p>
+<h1 id="_2">漏洞利用威胁</h1>
+<p>严重</p>
+      <br>
+      <a class="btn" href="../BE30041.html#BE30041">阅读全文</a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="../BE30031.html#BE30031">The requestValidationMode that provides additional protection against XSS is enabled only for pages</a></h2>
+    <p>
+      在 2024-九月-28 发布于 <a href="../category/code-style-and-efficiency.html">代码风格和效率</a> 分类
+
+
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      
+<h1 id="_1">缺陷描述</h1>
+<p>The requestValidationMode that provides additional protection against XSS is enabled only for pages. not for all HTTP requests in the configuration file. The recommended value is '4.0'. https://docs.microsoft.com/en-us/dotnet/api/system.web.configuration.httpruntimesection.requestvalidationmode?view=netframework-4.8</p>
+<h1 id="_2">漏洞利用威胁</h1>
+<p>建议改进</p>
+      <br>
+      <a class="btn" href="../BE30031.html#BE30031">阅读全文</a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="../BE30032.html#BE30032">The password setting for this API appears to be encrypted</a></h2>
+    <p>
+      在 2024-九月-28 发布于 <a href="../category/code-style-and-efficiency.html">代码风格和效率</a> 分类
+
+
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      
+<h1 id="_1">缺陷描述</h1>
+<p>The password setting for this API appears to be encrypted. https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password</p>
+<h1 id="_2">漏洞利用威胁</h1>
+<p>一般</p>
+      <br>
+      <a class="btn" href="../BE30032.html#BE30032">阅读全文</a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="../BE30033.html#BE30033">The RequiredLength property is missing</a></h2>
+    <p>
+      在 2024-九月-28 发布于 <a href="../category/code-style-and-efficiency.html">代码风格和效率</a> 分类
+
+
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      
+<h1 id="_1">缺陷描述</h1>
+<p>The 'RequiredLength' property is missing. 'RequiredLength' must be set to a minimum value of 8.</p>
+<h1 id="_2">漏洞利用威胁</h1>
+<p>建议改进</p>
+      <br>
+      <a class="btn" href="../BE30033.html#BE30033">阅读全文</a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="../BE30034.html#BE30034">The RequiredLength property must be set to a minimum value of 8</a></h2>
+    <p>
+      在 2024-九月-28 发布于 <a href="../category/code-style-and-efficiency.html">代码风格和效率</a> 分类
+
+
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      
+<h1 id="_1">缺陷描述</h1>
+<p>The 'RequiredLength' property must be set to a minimum value of 8.</p>
+<h1 id="_2">漏洞利用威胁</h1>
+<p>建议改进</p>
+      <br>
+      <a class="btn" href="../BE30034.html#BE30034">阅读全文</a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="../BE30035.html#BE30035">The application uses Base64 encoding</a></h2>
+    <p>
+      在 2024-九月-28 发布于 <a href="../category/code-style-and-efficiency.html">代码风格和效率</a> 分类
+
+
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      
+<h1 id="_1">缺陷描述</h1>
+<p>The application uses Base64 encoding. The application stores confidential information in clear text in a resource that may be accessible to another sphere of control. Even if the information is encoded in a way that is not readable by humans. certain techniques can determine which encoding is being used …</p>
+      <br>
+      <a class="btn" href="../BE30035.html#BE30035">阅读全文</a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="../BE30036.html#BE30036">The application uses the not secure directive</a></h2>
+    <p>
+      在 2024-九月-28 发布于 <a href="../category/code-style-and-efficiency.html">代码风格和效率</a> 分类
+
+
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      
+<h1 id="_1">缺陷描述</h1>
+<p>The application uses the 'not secure' directive. which allows the use of C-style pointers in the code. This code has a high risk of unexpected behavior. including buffer overflows. memory leaks and failures. https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/unsafe-code-pointers/</p>
+<h1 id="_2">漏洞利用威胁</h1>
+<p>建议改进</p>
+      <br>
+      <a class="btn" href="../BE30036.html#BE30036">阅读全文</a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="../BE30026.html#BE30026">Secure Flag is a policy for the browser to ensure that the cookie is sent over an encrypted channel</a></h2>
+    <p>
+      在 2024-九月-28 发布于 <a href="../category/code-style-and-efficiency.html">代码风格和效率</a> 分类
+
+
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      
+<h1 id="_1">缺陷描述</h1>
+<p>Secure Flag is a policy for the browser to ensure that the cookie is sent over an encrypted channel. using the SSL protocol. that is. only via HTTPS. To set the transmission of cookies using SSL for an entire application. enable it in the application's configuration file. Web.config …</p>
+      <br>
+      <a class="btn" href="../BE30026.html#BE30026">阅读全文</a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="../BE30027.html#BE30027">Cookies that do not have the HttpOnly flag set are available for JavaScript running on the same domain</a></h2>
+    <p>
+      在 2024-九月-28 发布于 <a href="../category/code-style-and-efficiency.html">代码风格和效率</a> 分类
+
+
+        &#8226; 1 min read
+    </p>
+  </header>
+  <div>
+      
+<h1 id="_1">缺陷描述</h1>
+<p>Cookies that do not have the HttpOnly flag set are available for JavaScript running on the same domain. The assigned value must be 'true' to enable the HttpOnly attribute and cannot be accessed through a client-side script; otherwise. 'false'. The default is 'false'. When a user is the target …</p>
+      <br>
+      <a class="btn" href="../BE30027.html#BE30027">阅读全文</a>
+  </div>
+</article>
+
+  <div class="pagination">
+    <a class="btn float-left" href="../category/code-style-and-efficiency10.html">
+      <i class="fa fa-angle-left"></i> 更旧的文章
+    </a>
+    <a class="btn float-right" href="../category/code-style-and-efficiency8.html">
+      更新的文章 <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+
+
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : "..",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

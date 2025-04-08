@@ -1,0 +1,58 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0021">PE0021: Integer Overflow</h2>
+    <h3>Many instances of integer overflows and truncations resulting from arithmetic operations.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0021</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>When the result of an expression exceeds the range of the data type, the result shall be different from the arithmetic result, which might lead to unexpected results if arithmetic sementic is assumed, for example, the addition of two positive numbers might be smaller than either of the two numbers, or the sum of two non-zero unsigned numbers can be zero.</p>
+<h4>Vulnerability and risk</h4>
+<h5>Unexpected execution result</h5>
+<h4>Likelihood of Exploit</h4>
+<p>Critical (If arithmetic result is expected, such as computing resource consumption or financial statistics)
+Safe (If logical result is expected, such as computing hash or encryption)</p>
+<h4>Potential Mitigations</h4>
+<p>Verify the value range before use it.
+Use a data type with larger range.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">4000000000</span><span class="p">;</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">4000000000</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">);</span> <span class="c1">// Return false</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, x+y exceeds the upper bound of unsigned int which is 4294967295 and thus, the higher bits are lost and the result is unexpectedly smaller than either x or y.</p>
+<h5>Fixed Code Example 1</h5>
+<div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">4000000000</span><span class="p">;</span>
+<span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">4000000000</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">);</span> <span class="c1">// Return true</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, use 64 bit long long instead of int can resolver the integer overflow issue.</p>
+<h5>Fixed Code Example 2</h5>
+<div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">4000000000</span><span class="p">;</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">4000000000</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">2000000000</span> <span class="o">||</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">2000000000</span><span class="p">)</span> <span class="p">{</span>
+    	<span class="c1">// Error handling</span>
+    	<span class="p">...</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    	<span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">);</span> <span class="c1">// Return true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, apply range check can also resolve the integer overflow issue.</p>
+
+    </section>
+</article>

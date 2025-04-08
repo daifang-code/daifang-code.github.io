@@ -1,0 +1,65 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7497">BE7497: TrustManager that accept any certificates</h2>
+    <h3>TrustManager that accept any certificates</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7497</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>TrustManager that accept any certificates</p>
+<h4>Vulnerability and risk</h4>
+<p>Empty TrustManager implementations are often used to connect easily to a host that is not signed by a root
+<a href="http://en.wikipedia.org/wiki/Certificate_authority">certificate authority</a>. As a consequence, this is vulnerable to
+<a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack">Man-in-the-middle attacks</a>
+since the client will trust any certificate.
+</p>
+<p>
+A TrustManager allowing specific certificates (based on a truststore for example) should be built.
+Detailed information for a proper implementation is available at:
+<a href="http://stackoverflow.com/a/6378872/89769">[1]</a>
+<a href="http://stackoverflow.com/a/5493452/89769">[2]</a>
+</p>
+<br/>
+<p>
+    <b>Vulnerable Code:</b><br/>
+<pre>class TrustAllManager implements X509TrustManager {
+    @Override
+    public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+        //Trust any client connecting (no certificate validation)
+    }
+    @Override
+    public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+        //Trust any remote server (no certificate validation)
+    }
+    @Override
+    public X509Certificate[] getAcceptedIssuers() {
+        return null;
+    }
+}</pre>
+</p>
+<br/>
+<p>
+    <b>Solution (TrustMangager based on a keystore):</b><br/>
+<pre>KeyStore ks = //Load keystore containing the certificates trusted
+SSLContext sc = SSLContext.getInstance("TLS");
+TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+tmf.init(ks);
+sc.init(kmf.getKeyManagers(), tmf.getTrustManagers(),null);
+</pre>
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+<h4>References</h4>
+<p>&lt;a href=&quot;http://projects.webappsec.org/w/page/13246945/Insufficient%20Transport%20Layer%20Protection&quot;&gt;WASC-04: Insufficient Transport Layer Protection&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/295.html&quot;&gt;CWE-295: Improper Certificate Validation&lt;/a&gt;</p>
+
+    </section>
+</article>

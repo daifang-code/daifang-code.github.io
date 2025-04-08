@@ -1,0 +1,56 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2110">PE2110: no-func-assign</h2>
+    <h3>disallow reassigning `function` declarations (no-func-assign)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2110</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow reassigning <code>function</code> declarations (no-func-assign)</h4>
+<p>JavaScript functions can be written as a FunctionDeclaration <code>function foo() { ... }</code> or as a FunctionExpression <code>var foo = function() { ... };</code>. While a JavaScript interpreter might tolerate it, overwriting/reassigning a function written as a FunctionDeclaration is often indicative of a mistake or issue.</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule disallows reassigning <code>function</code> declarations.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-func-assign: &quot;error&quot;*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule, unlike the corresponding rule in JSHint:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-func-assign: &quot;error&quot;*/</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-func-assign: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{}</span>
+<span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// `foo` is shadowed.</span>
+    <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>  <span class="c1">// `foo` is shadowed.</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

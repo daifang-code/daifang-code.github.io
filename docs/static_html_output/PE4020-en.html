@@ -1,0 +1,71 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4020">PE4020: No effect code</h2>
+    <h3>No effect code</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE4020</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Code that does not have any effect on the behavior of the program usually indicates a mistake by the programmer, such as
+typos, oversight on the code, misunderstandings of the programming language.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Demonstrative Examples</h4>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">incomplete_delete</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="o">*</span><span class="n">z</span><span class="p">,</span> <span class="o">*</span><span class="n">e</span><span class="p">;</span>
+    <span class="n">delete</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">;</span>   <span class="c1">// The pointer p is not deleted.</span>
+    <span class="n">delete</span> <span class="n">x</span><span class="p">,</span> <span class="n">delete</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">e</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">no_effect_deref</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">p</span><span class="o">++</span><span class="p">;</span>        <span class="c1">// *p is useless</span>
+    <span class="o">*</span><span class="n">p</span><span class="o">++</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">no_effect_test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">;</span>         <span class="c1">// Test has no effect, and the itention is likely to be an assignment a = b</span>
+    <span class="n">a</span> <span class="o">|</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">foo</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">self_assign</span><span class="p">(</span><span class="k">struct</span> <span class="n">foo</span> <span class="o">*</span><span class="n">ptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>           <span class="c1">// assignment to self, global</span>
+    <span class="n">ptr</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">=</span> <span class="n">ptr</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">;</span> <span class="c1">// assignment to self, field</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">self_assign_local</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span> <span class="c1">// assignment to self, local</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">C</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="p">)</span> <span class="p">{};</span>
+    <span class="k">static</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">static_through_instance</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">ptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">;</span>
+    <span class="n">c</span><span class="o">-&gt;</span><span class="n">foo</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>         <span class="c1">// Becomes &quot;c, C::foo();&quot;. c is unnecessary.</span>
+    <span class="n">c</span><span class="o">-&gt;</span><span class="n">y</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">C</span> <span class="n">stackc</span><span class="p">;</span>
+    <span class="n">stackc</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

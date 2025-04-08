@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="ddj" />
+<meta name="description" content="The software uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the software does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory." />
+<meta name="keywords" content="C, C++, Java, FIND-SEC-BUGS">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="Path Traversal Vulnerability"/>
+<meta property="og:description" content="The software uses external input to construct a pathname that is intended to identify a file or directory that is located underneath a restricted parent directory, but the software does not properly neutralize special elements within the pathname that can cause the pathname to resolve to a location that is outside of the restricted directory."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE0086.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:06.088829+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/ddj.html">
+<meta property="article:section" content="Checkers/JAVA"/>
+<meta property="article:tag" content="C"/>
+<meta property="article:tag" content="C++"/>
+<meta property="article:tag" content="Java"/>
+<meta property="article:tag" content="FIND-SEC-BUGS"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; Path Traversal Vulnerability</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/c.html">c</a>
+              <a href="./standard/java.html">java</a>
+        </li>
+        <li>
+            <a href="./standard/security-issues.html">Security issues</a>
+        </li>
+        <li>
+            <a href="./category/input-validation-and-representation.html">Input validation and representation</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE0086">Path Traversal Vulnerability</h1>
+    <p>
+        Posted on September 28, 2024 in <a href="./category/input-validation-and-representation.html">Input validation and representation</a>
+
+        &#8226; 4 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example-1">Vulnerable code Example 1</a></li>
+<li><a href="#fixed-example-1">Fixed Example 1</a></li>
+<li><a href="#vulnerable-code-example-2">Vulnerable code Example 2</a></li>
+<li><a href="#fixed-code-example-2">Fixed Code Example 2</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+  <div>
+    
+<h1 id="description">Description</h1>
+<p>Many file operations are intended to take place within a restricted directory. By using special elements such as ".." and "/" separators, attackers can escape outside of the restricted location to access files or directories that are elsewhere on the system. One of the most common special elements is the "../" sequence, which in most modern operating systems is interpreted as the parent directory of the current location. This is referred to as relative path traversal. Path traversal also covers the use of absolute pathnames such as "/usr/local/bin", which may also be useful in accessing unexpected files. This is referred to as absolute path traversal.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>In many programming languages, the injection of a null byte (the 0 or NUL) may allow an attacker to truncate a generated filename to widen the scope of attack. For example, the software may add ".txt" to any pathname, thus limiting the attacker to text files, but a null injection may effectively remove this restriction. </p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Assume all input is malicious. Use an "accept known good" input validation strategy, i.e., use a whitelist of acceptable inputs that strictly conform to specifications. Reject any input that does not strictly conform to specifications, or transform it into something that does.</p>
+<p>When performing input validation, consider all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. As an example of business rule logic, "boat" may be syntactically valid because it only contains alphanumeric characters, but it is not valid if the input is only expected to contain colors such as "red" or "blue."</p>
+<p>Do not rely exclusively on looking for malicious or malformed inputs (i.e., do not rely on a blacklist). A blacklist is likely to miss at least one undesirable input, especially if the code's environment changes. This can give attackers enough room to bypass the intended validation. However, blacklists can be useful for detecting potential attacks or determining which inputs are so malformed that they should be rejected outright.</p>
+<p>When validating filenames, use stringent whitelists that limit the character set to be used. If feasible, only allow a single "." character in the filename to avoid weaknesses such as CWE-23, and exclude directory separators such as "/" to avoid CWE-36. Use a whitelist of allowable file extensions, which will help to avoid CWE-434.</p>
+<p>Do not rely exclusively on a filtering mechanism that removes potentially dangerous characters. This is equivalent to a blacklist, which may be incomplete (CWE-184). For example, filtering "/" is insufficient protection if the filesystem also supports the use of "\" as a directory separator. Another possible error could occur when the filtering is applied in a way that still produces dangerous data (CWE-182). For example, if "../" sequences are removed from the ".../...//" string in a sequential fashion, two instances of "../" would be removed from the original string, but the remaining characters would still form the "../" string. </p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Critical</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example-1">Vulnerable code Example 1</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">path_traversal</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="n">file_path</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">file_path</span><span class="p">);</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span> <span class="c1">// @@bad@@</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>The vulnerable code example does not validate the file_path of the external input and may trigger a path traversal vulnerability.</p>
+<h3 id="fixed-example-1">Fixed Example 1</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+
+<span class="kt">bool</span> <span class="nf">verify_file_path</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file_path</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">path_traversal</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="n">file_path</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">file_path</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">verify_file_path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)){</span> <span class="c1">// @@good@@</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerability code repair example, by calling the verify_file_path () function, the path is effectively verified, and the path traversal vulnerability can be prevented.</p>
+<h3 id="vulnerable-code-example-2">Vulnerable code Example 2</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>  
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">testbad</span><span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">InputStream</span> <span class="n">is1</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">InputStream</span> <span class="n">is2</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">file_path</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">128</span><span class="o">];</span>
+            <span class="n">is1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"filepath"</span><span class="o">);</span>
+      <span class="n">is1</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">file_path</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">128</span><span class="o">);</span>
+      <span class="n">is2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">file_path</span><span class="o">));</span>  <span class="c1">// @@bad@@</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">E</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="n">is1</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+      <span class="n">is2</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table>
+<p>The vulnerable code example does not validate the file_path of the external input and may trigger a path traversal vulnerability.</p>
+<h3 id="fixed-code-example-2">Fixed Code Example 2</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>  
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">testgood</span><span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">verify_file_path</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">file_path</span><span class="o">){</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">file_path</span><span class="o">).</span><span class="na">contains</span><span class="o">(</span><span class="s">".."</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">InputStream</span> <span class="n">is1</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">InputStream</span> <span class="n">is2</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">file_path</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">128</span><span class="o">];</span>
+            <span class="n">is1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"filepath"</span><span class="o">);</span>
+      <span class="n">is1</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">file_path</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">128</span><span class="o">);</span>
+      <span class="k">if</span><span class="o">(!</span><span class="n">verify_file_path</span><span class="o">(</span><span class="n">file_path</span><span class="o">)){</span>  <span class="c1">// @@good@@</span>
+        <span class="k">return</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="n">is2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">file_path</span><span class="o">));</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">E</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="n">is1</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+      <span class="n">is2</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerability code repair example, by calling the verify_file_path () function, the path is effectively verified, and the path traversal vulnerability can be prevented.</p>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-CWE23">
+<p>http://cwe.mitre.org/data/definitions/23.html <a class="footnote-backref" href="#fnref-CWE23" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn-CERT-FIO16-J">
+<p>https://wiki.sei.cmu.edu/confluence/display/java/FIO16-J.+Canonicalize+path+names+before+validating+them <a class="footnote-backref" href="#fnref-CERT-FIO16-J" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn-CERT-FIO02-C">
+<p>https://wiki.sei.cmu.edu/confluence/display/c/FIO02-C.+Canonicalize+path+names+originating+from+tainted+sources <a class="footnote-backref" href="#fnref-CERT-FIO02-C" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/c.html">C</a>
+      <a href="./tag/c.html">C++</a>
+      <a href="./tag/java.html">Java</a>
+      <a href="./tag/find-sec-bugs.html">FIND-SEC-BUGS</a>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

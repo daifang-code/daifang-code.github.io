@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2073">PE2073: constructor </h2>
+    <h3>disallow use of the Buffer() constructor (no-buffer-constructor)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2073</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow use of the Buffer() constructor (no-buffer-constructor)</h4>
+<p>In Node.js, the behavior of the <code>Buffer</code> constructor is different depending on the type of its argument. Passing an argument from user input to <code>Buffer()</code> without validating its type can lead to security vulnerabilities such as remote memory disclosure and denial of service. As a result, the <code>Buffer</code> constructor has been deprecated and should not be used. Use the producer methods <code>Buffer.from</code>, <code>Buffer.alloc</code>, and <code>Buffer.allocUnsafe</code> instead.</p>
+<h2>Rule Details</h2>
+<p>This rule disallows calling and constructing the <code>Buffer()</code> constructor.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="k">new</span> <span class="nx">Buffer</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">new</span> <span class="nx">Buffer</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+
+<span class="nx">Buffer</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="nx">Buffer</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+
+<span class="k">new</span> <span class="nx">Buffer</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">amount</span><span class="p">);</span>
+<span class="k">new</span> <span class="nx">Buffer</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">values</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="nx">Buffer</span><span class="p">.</span><span class="nx">alloc</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="nx">Buffer</span><span class="p">.</span><span class="nx">allocUnsafe</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+
+<span class="nx">Buffer</span><span class="p">.</span><span class="nx">alloc</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">amount</span><span class="p">);</span>
+<span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">values</span><span class="p">);</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't use Node.js, or you still need to support versions of Node.js that lack methods like <code>Buffer.from</code>, then you should not enable this rule.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://nodejs.org/api/buffer.html">Buffer API documentation</a></li>
+<li><a href="https://github.com/ChALkeR/notes/blob/master/Lets-fix-Buffer-API.md">Let's fix Node.js Buffer API</a></li>
+<li><a href="https://github.com/nodejs/node/issues/4660">Buffer(number) is unsafe</a></li>
+</ul>
+
+    </section>
+</article>

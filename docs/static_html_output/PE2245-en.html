@@ -1,0 +1,58 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2245">PE2245: symbol-description</h2>
+    <h3>require symbol description (symbol-description)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2245</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>require symbol description (symbol-description)</h4>
+<p>The <code>Symbol</code> function may have optional description:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="s2">&quot;some description&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">someString</span> <span class="o">=</span> <span class="s2">&quot;some description&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="nx">someString</span><span class="p">);</span>
+</pre></div>
+<p>Using <code>description</code> promotes easier debugging: when a symbol is logged the description is used:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="s2">&quot;some description&quot;</span><span class="p">);</span>
+
+<span class="o">&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="c1">// Symbol(some description)</span>
+</pre></div>
+<p>It may facilitate identifying symbols when one is observed during debugging.</p>
+<h2>Rule Details</h2>
+<p>This rules requires a description when creating symbols.</p>
+<h2>Examples</h2>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint symbol-description: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">();</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint symbol-description: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="s2">&quot;some description&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">someString</span> <span class="o">=</span> <span class="s2">&quot;some description&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="nx">Symbol</span><span class="p">(</span><span class="nx">someString</span><span class="p">);</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>This rule should not be used in ES3/5 environments.
+In addition, this rule can be safely turned off if you don't want to enforce presence of <code>description</code> when creating Symbols.</p>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-symbol-description">Symbol Objects specification: Symbol description</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,157 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1001">PE1001: 缓冲区溢出</h2>
+    <h3>缓冲区溢出错误的特点是覆盖进程的内存碎片，而这些内存碎片应该从未有意或无意地被修改过。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1001</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP, Java</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>当程序尝试将超过缓冲区容量大小的数据放入缓冲区时，或者程序尝试将数据放入缓冲区边界之外的存储区时，存在缓冲区溢出情况。 最简单的错误类型和缓冲区溢出的最常见原因是程序复制缓冲区而不限制复制数量的情况。其他变体也存在，但此类最简单的溢出强烈表明程序员并未考虑最基本的安全保护。</p>
+<h4>漏洞与风险</h4>
+<p>缓冲区溢出一般导致程序崩溃，或是让程序进入不可用的状态，比如无限循环。缓冲区溢出常常可以被利用来执行程序的安全策略之外的任意代码，从而导致程序的所有安全保证都失效。</p>
+<h4>漏洞利用威胁</h4>
+<p>高危</p>
+<h4>缓解与预防</h4>
+<p>在代码中保持对缓冲区管理的高度正确性。避免使用不进行边界检查的库函数。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例 1</h5>
+<p>在这个漏洞代码示例中，不正确的元素计数用于调用<code>wmemcpy()</code>。<code>sizeof</code>运算符返回以字节表示的大小，但<code>wmemcpy()</code>使用基于<code>wchar_t</code>的元素计数。</p>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;wchar.h&gt;</span><span class="cp"></span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">str</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;Hello world&quot;</span><span class="p">;</span>
+<span class="k">static</span> <span class="k">const</span> <span class="kt">wchar_t</span> <span class="n">w_str</span><span class="p">[]</span> <span class="o">=</span> <span class="sa">L</span><span class="s">&quot;Hello world&quot;</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+  <span class="kt">wchar_t</span> <span class="n">w_buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+  <span class="n">memcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">str</span><span class="p">));</span> <span class="cm">/* Compliant */</span>
+  <span class="n">wmemcpy</span><span class="p">(</span><span class="n">w_buffer</span><span class="p">,</span> <span class="n">w_str</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">w_str</span><span class="p">));</span> <span class="cm">/* Noncompliant */</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞代码修复示例 1</h5>
+<p>当使用对指向区域进行操作的函数时，程序员必须始终用函数期望的元素数来表示整数大小。例如，<code>memcpy()</code>需要用字节表示的元素数，但<code>wmemcpy()</code>需要用<code>wchar_t</code>的个数表示的元素数。调用返回字符串中元素数量的函数，而不是<code>sizeof</code>运算符，该函数会调用与复制函数的预期元素数量相匹配的函数。 在这个漏洞代码修复示例中，对于元素是类型<code>T</code>的数组<code>A</code>，也可以使用表达式<code>sizeof(A)/ sizeof(T)</code>或等效<code>sizeof(A)/ sizeof(*A)</code>来计算数组中的元素数量。</p>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;wchar.h&gt;</span><span class="cp"></span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">str</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;Hello world&quot;</span><span class="p">;</span>
+<span class="k">static</span> <span class="k">const</span> <span class="kt">wchar_t</span> <span class="n">w_str</span><span class="p">[]</span> <span class="o">=</span> <span class="sa">L</span><span class="s">&quot;Hello world&quot;</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+  <span class="kt">wchar_t</span> <span class="n">w_buffer</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+  <span class="n">memcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">wmemcpy</span><span class="p">(</span><span class="n">w_buffer</span><span class="p">,</span> <span class="n">w_str</span><span class="p">,</span> <span class="n">wcslen</span><span class="p">(</span><span class="n">w_str</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞代码示例 2</h5>
+<p>这个漏洞代码示例将大于可用内存字节数的值赋给<code>n</code>，然后将其传递给<code>memset()</code>：</p>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">nchars</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">nchars</span><span class="p">);</span>
+  <span class="cm">/* ... */</span>
+  <span class="k">const</span> <span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nchars</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="cm">/* ... */</span>
+  <span class="n">memset</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞代码修复示例 2</h5>
+<p>该漏洞代码修复示例中确保<code>n</code>的值不大于指针<code>p</code>指向的动态内存的字节数：</p>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">nchars</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">nchars</span><span class="p">);</span>
+  <span class="cm">/* ...  */</span>
+  <span class="k">const</span> <span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nchars</span><span class="p">;</span>
+  <span class="cm">/* ...  */</span>
+  <span class="n">memset</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞代码示例 3</h5>
+<p>在这个漏洞代码示例中，数组<code>a</code>的元素数是<code>ARR_SIZE</code>元素。 由于<code>memset()</code>需要一个字节数，因此<code>sizeof(int)</code>而不是<code>sizeof(long)</code>会错误地缩放数组的大小，这可能会在<code>sizeof(int) != sizeof(long)</code>的体系结构上导致某部分内存被不正确地写为0。</p>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">f2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="kt">size_t</span> <span class="n">ARR_SIZE</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="kt">long</span> <span class="n">a</span><span class="p">[</span><span class="n">ARR_SIZE</span><span class="p">];</span>
+  <span class="k">const</span> <span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">*</span> <span class="n">ARR_SIZE</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+
+  <span class="n">memset</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞代码修复示例 3</h5>
+<p>在这个漏洞代码修复示例中，<code>memset()</code>所需的元素数量可以正确计算而不需要进行缩放：</p>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">f2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="kt">size_t</span> <span class="n">ARR_SIZE</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="kt">long</span> <span class="n">a</span><span class="p">[</span><span class="n">ARR_SIZE</span><span class="p">];</span>
+  <span class="k">const</span> <span class="kt">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+  <span class="kt">void</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+
+  <span class="n">memset</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞代码示例 4</h5>
+<p>在这个漏洞代码示例中，数组arr的长度是20，index的值为40，当使用arr[index]获取数组元素时，index超出了数组的长度，导致缓冲区溢出。</p>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">testbad</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">20</span><span class="o">];</span>
+  <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">40</span><span class="o">;</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">index</span><span class="o">]);</span>  <span class="c1">// @@bad@@</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h5>漏洞代码修复示例 4</h5>
+<p>在这个漏洞代码修复示例中，在通过index获取数组元素arr[index]之前，对index进行边界检查，不会导致缓冲区溢出。</p>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">testgood</span><span class="o">{</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">20</span><span class="o">];</span>
+  <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">40</span><span class="o">;</span>
+  <span class="k">if</span><span class="o">(</span><span class="n">index</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="o">){</span>
+    <span class="k">return</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">index</span><span class="o">]);</span>  <span class="c1">// @@good@@</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h5>漏洞代码示例 5</h5>
+<p>在这个漏洞代码示例中，库函数fcntl在运行失败的时候会返回-1，导致后边访问mapping数组时访问了负数索引，导致溢出行为</p>
+<div class="highlight"><pre><span></span><span class="n">Info</span><span class="o">*</span> <span class="nf">test</span><span class="p">(</span><span class="n">Info</span><span class="o">**</span> <span class="n">mapping</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">fd</span><span class="o">=</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;myfile&quot;</span><span class="p">,</span><span class="n">O_RDWR</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">ty</span> <span class="o">=</span> <span class="n">fcntl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">F_GETFL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// ty can be -1 given fcntl fails</span>
+  <span class="k">return</span> <span class="n">mapping</span><span class="p">[</span><span class="n">ty</span><span class="p">];</span> <span class="c1">// @@bad@@</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞代码修复示例 5</h5>
+<p>在这个漏洞代码修复示例中，在访问数组前先检查索引是否有效即可</p>
+<div class="highlight"><pre><span></span><span class="n">Info</span><span class="o">*</span> <span class="nf">test</span><span class="p">(</span><span class="n">Info</span><span class="o">**</span> <span class="n">mapping</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">fd</span><span class="o">=</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;myfile&quot;</span><span class="p">,</span><span class="n">O_RDWR</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">ty</span> <span class="o">=</span> <span class="n">fcntl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">F_GETFL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">ty</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">?</span> <span class="n">mapping</span><span class="p">[</span><span class="n">ty</span><span class="p">]</span> <span class="o">:</span> <span class="nb">NULL</span><span class="p">;</span> <span class="c1">// @@good@@</span>
+<span class="p">}</span>
+</pre></div>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://wiki.sei.cmu.edu/confluence/display/c/ARR38-C.+Guarantee+that+library+functions+do+not+form+invalid+pointers<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://cwe.mitre.org/data/definitions/131.html<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+<li id="fn-3"><p>https://cwe.mitre.org/data/definitions/120.html<a href="#fnref-3" class="footnote">&#8617;</a></p></li>
+<li id="fn-4"><p>https://cwe.mitre.org/data/definitions/121.html<a href="#fnref-4" class="footnote">&#8617;</a></p></li>
+<li id="fn-5"><p>https://cwe.mitre.org/data/definitions/122.html<a href="#fnref-5" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7083">BE7083: 三元运算符对基础类型（primitive）值进行拆箱和强制类型转换</h2>
+    <h3>三元运算符对基础类型（primitive）值进行拆箱和强制类型转换</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7083</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>三元运算符对基础类型（primitive）值进行拆箱和强制类型转换</p>
+<h4>漏洞与风险</h4>
+<p>
+在三元运算符操作时对值进行拆箱并转换为另一种基础类型。例如：<code> b ? e1 : e2</code>。Java的语义要求如果<code>e1</code>和<code>e2</code>是包装的数值，则将值取消装箱并转换/强制转换为它们的公共类型（例如，如果<code>e1</code>的类型为<code>Integer</code>，而<code>e2</code>的类型为<code>Float</code>，则<code>e1</code>将被取消装箱，转换为一个浮点值，并装箱。参见JLS第15.25节。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

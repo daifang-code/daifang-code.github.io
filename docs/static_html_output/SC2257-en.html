@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2257">SC2257: Ineffective arithmetic modifications</h2>
+    <h3>Arithmetic modifications in command redirections may be discarded. Do them separately.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2257</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Arithmetic modifications in command redirections may be discarded. Do them separately.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>curl <span class="s2">&quot;</span><span class="nv">$URL</span><span class="s2">&quot;</span> &gt; <span class="s2">&quot;image</span><span class="k">$((</span>i++<span class="k">))</span><span class="s2">.jpg&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">i</span><span class="o">=</span><span class="k">$((</span>i+1<span class="k">))</span>
+curl <span class="s2">&quot;</span><span class="nv">$URL</span><span class="s2">&quot;</span> &gt; <span class="s2">&quot;image</span><span class="nv">$i</span><span class="s2">.jpg&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>You are using an arithmetic expression that modifies a variable, e.g. <code>$((x+=1))</code> or <code>$((x++))</code>, in the name of a file to redirect from/to, in a here document, or in a here string.</p>
+<p>The scope of these modifications depends on whether the command itself will fork:</p>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> foo &gt; <span class="k">$((</span>var++<span class="k">))</span>.txt  <span class="c1"># Updates in BusyBox and Bash</span>
+cat  foo &gt; <span class="k">$((</span>var++<span class="k">))</span>.txt  <span class="c1"># Updates in Busybox, not in Bash</span>
+gcc  foo &gt; <span class="k">$((</span>var++<span class="k">))</span>.txt  <span class="c1"># Does not update in either</span>
+
+gcc<span class="o">()</span> <span class="o">{</span> /opt/usr/bin/gcc <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span><span class="p">;</span> <span class="o">}</span>
+gcc  foo &gt; <span class="k">$((</span>var++<span class="k">))</span>.txt  <span class="c1"># Now suddenly updates in both</span>
+</pre></div>
+<p>Rather than rely on knowing which commands do and don't fork, or are and aren't overridden, simply do the updates in a separate command as in the correct code.</p>
+<h5>Exceptions:</h5>
+<p>If you know your variable is scoped the way you want it, you can ignore this warning.</p>
+<h5>Related resources:</h5>
+<ul>
+<li>Help by adding links to BashFAQ, StackOverflow, man pages, POSIX, etc!</li>
+</ul>
+
+    </section>
+</article>

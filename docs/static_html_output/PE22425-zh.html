@@ -1,0 +1,39 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22425">PE22425: E731</h2>
+    <h3>Do not assign a lambda expression, use a def</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22425</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Lambdas不分给量.相关，它们该被义函数</p>
+<p>主要原因是调试。Lambdas显示为<code>&lt;lambda&gt;</code>in tracebacks，其中函数将显示函数的名称。</p>
+<h5>示例错误片段</h5>
+
+<pre><code>root = lambda folder_name: os.path.join(BASE_DIR, folder_name)
+
+</code></pre>
+<h5>最佳修复</h5>
+
+<pre><code>def root(folder_name):
+    return os.path.join(BASE_DIR, folder_name)
+
+
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#programming-recommendations<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

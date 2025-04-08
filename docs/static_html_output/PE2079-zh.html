@@ -1,0 +1,133 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2079">PE2079: no-cond-assign</h2>
+    <h3>禁止在条件语句中出现赋值操作符（no-cond-assign）</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2079</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止在条件语句中出现赋值操作符（no-cond-assign）</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>在条件语句中，很容易将一个比较运算符（像 <code>==</code>）错写成赋值运算符（如 <code>=</code>）。例如：</p>
+<div class="highlight"><pre><span></span><span class="c1">// Check the user&#39;s job title</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">jobTitle</span> <span class="o">=</span> <span class="s2">&quot;manager&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// user.jobTitle is now incorrect</span>
+<span class="p">}</span>
+</pre></div>
+<p>在条件语句中使用赋值操作符是有效的。然而，很难判断某个特定的赋值是否是有意为之。</p>
+<h2>缺陷详因</h2>
+<p>该规则禁止在 <code>if</code>、<code>for</code>、<code>while</code> 和 <code>do...while</code> 语句中出现模棱两可的赋值操作符。</p>
+<h2>修改方案</h2>
+<p>该规则有一个字符串选项：</p>
+<ul>
+<li><code>&quot;except-parens&quot;</code> (默认) 允许条件语句中出现赋值操作符，前提是它们被圆括号括起来 (例如，在 <code>while</code> 或 <code>do...while</code> 循环条件中，允许赋值给一个变量)</li>
+<li><code>&quot;always&quot;</code> 禁止条件语句中出现赋值语句</li>
+</ul>
+<h5>except-parens</h5>
+<p>默认选项 <code>&quot;except-parens&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-cond-assign: &quot;error&quot;*/</span>
+
+<span class="c1">// Unintentional assignment</span>
+<span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Practical example that is similar to an error</span>
+<span class="kd">function</span> <span class="nx">setHeight</span><span class="p">(</span><span class="nx">someNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="nx">someNode</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;100px&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nx">someNode</span> <span class="o">=</span> <span class="nx">someNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>默认选项 <code>&quot;except-parens&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-cond-assign: &quot;error&quot;*/</span>
+
+<span class="c1">// Assignment replaced by comparison</span>
+<span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Practical example that wraps the assignment in parentheses</span>
+<span class="kd">function</span> <span class="nx">setHeight</span><span class="p">(</span><span class="nx">someNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="nx">someNode</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;100px&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">((</span><span class="nx">someNode</span> <span class="o">=</span> <span class="nx">someNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">// Practical example that wraps the assignment and tests for &#39;null&#39;</span>
+<span class="kd">function</span> <span class="nx">setHeight</span><span class="p">(</span><span class="nx">someNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="nx">someNode</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;100px&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">((</span><span class="nx">someNode</span> <span class="o">=</span> <span class="nx">someNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>always</h5>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-cond-assign: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="c1">// Unintentional assignment</span>
+<span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Practical example that is similar to an error</span>
+<span class="kd">function</span> <span class="nx">setHeight</span><span class="p">(</span><span class="nx">someNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="nx">someNode</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;100px&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nx">someNode</span> <span class="o">=</span> <span class="nx">someNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Practical example that wraps the assignment in parentheses</span>
+<span class="kd">function</span> <span class="nx">setHeight</span><span class="p">(</span><span class="nx">someNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="nx">someNode</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;100px&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">((</span><span class="nx">someNode</span> <span class="o">=</span> <span class="nx">someNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">// Practical example that wraps the assignment and tests for &#39;null&#39;</span>
+<span class="kd">function</span> <span class="nx">setHeight</span><span class="p">(</span><span class="nx">someNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="nx">someNode</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;100px&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">((</span><span class="nx">someNode</span> <span class="o">=</span> <span class="nx">someNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-cond-assign: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="c1">// Assignment replaced by comparison</span>
+<span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-extra-parens">no-extra-parens</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-cond-assign.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-cond-assign.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,35 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7484">BE7484: Untrusted query string</h2>
+    <h3>Untrusted query string</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7484</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Untrusted query string</p>
+<h4>Vulnerability and risk</h4>
+<p>The query string is the concatenation of the GET parameter names and values. Parameters other than those intended can
+be passed in.</p>
+<p>For the URL request <code>/app/servlet.htm?a=1&b=2</code>, the query string extract will be <code>a=1&b=2</code></p>
+<p>Just as is true for individual parameter values retrieved via methods like <code>HttpServletRequest.getParameter()</code>, 
+the value obtained from <code>HttpServletRequest.getQueryString()</code> should be considered unsafe.
+You may need to validate or sanitize anything pulled from the query string before passing it to sensitive APIs. 
+</p>
+<br/>
+<p>
+<b>Reference</b><br/>
+<a href="http://cwe.mitre.org/data/definitions/20.html">CWE-20: Improper Input Validation</a>
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

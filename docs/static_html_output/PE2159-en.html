@@ -1,0 +1,113 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2159">PE2159: no-restricted-properties</h2>
+    <h3>disallow certain object properties (no-restricted-properties)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2159</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow certain object properties (no-restricted-properties)</h4>
+<p>Certain properties on objects may be disallowed in a codebase. This is useful for deprecating an API or restricting usage of a module's methods. For example, you may want to disallow using <code>describe.only</code> when using Mocha or telling people to use <code>Object.assign</code> instead of <code>_.extend</code>.</p>
+<h2>Rule Details</h2>
+<p>This rule looks for accessing a given property key on a given object name, either when reading the property's value or invoking it as a function. You may specify an optional message to indicate an alternative API or a reason for the restriction.</p>
+<h5>Options</h5>
+<p>This rule takes a list of objects, where the object name and property names are specified:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;no-restricted-properties&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nt">&quot;object&quot;</span><span class="p">:</span> <span class="s2">&quot;disallowedObjectName&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;property&quot;</span><span class="p">:</span> <span class="s2">&quot;disallowedPropertyName&quot;</span>
+        <span class="p">}]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Multiple object/property values can be disallowed, and you can specify an optional message:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;no-restricted-properties&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nt">&quot;object&quot;</span><span class="p">:</span> <span class="s2">&quot;disallowedObjectName&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;property&quot;</span><span class="p">:</span> <span class="s2">&quot;disallowedPropertyName&quot;</span>
+        <span class="p">},</span> <span class="p">{</span>
+            <span class="nt">&quot;object&quot;</span><span class="p">:</span> <span class="s2">&quot;disallowedObjectName&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;property&quot;</span><span class="p">:</span> <span class="s2">&quot;anotherDisallowedPropertyName&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Please use allowedObjectName.allowedPropertyName.&quot;</span>
+        <span class="p">}]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>If the object name is omitted, the property is disallowed for all objects:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;no-restricted-properties&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nt">&quot;property&quot;</span><span class="p">:</span> <span class="s2">&quot;__defineGetter__&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Please use Object.defineProperty instead.&quot;</span>
+        <span class="p">}]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>If the property name is omitted, accessing any property of the given object is disallowed:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;no-restricted-properties&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nt">&quot;object&quot;</span><span class="p">:</span> <span class="s2">&quot;require&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Please call require() directly.&quot;</span>
+        <span class="p">}]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint no-restricted-properties: [2, {</span>
+<span class="cm">    &quot;object&quot;: &quot;disallowedObjectName&quot;,</span>
+<span class="cm">    &quot;property&quot;: &quot;disallowedPropertyName&quot;</span>
+<span class="cm">}] */</span>
+
+<span class="kd">var</span> <span class="nx">example</span> <span class="o">=</span> <span class="nx">disallowedObjectName</span><span class="p">.</span><span class="nx">disallowedPropertyName</span><span class="p">;</span> <span class="cm">/*error Disallowed object property: disallowedObjectName.disallowedPropertyName.*/</span>
+
+<span class="nx">disallowedObjectName</span><span class="p">.</span><span class="nx">disallowedPropertyName</span><span class="p">();</span> <span class="cm">/*error Disallowed object property: disallowedObjectName.disallowedPropertyName.*/</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint no-restricted-properties: [2, {</span>
+<span class="cm">    &quot;property&quot;: &quot;__defineGetter__&quot;</span>
+<span class="cm">}] */</span>
+
+<span class="nx">foo</span><span class="p">.</span><span class="nx">__defineGetter__</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">);</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint no-restricted-properties: [2, {</span>
+<span class="cm">    &quot;object&quot;: &quot;require&quot;</span>
+<span class="cm">}] */</span>
+
+<span class="nx">require</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint no-restricted-properties: [2, {</span>
+<span class="cm">    &quot;object&quot;: &quot;disallowedObjectName&quot;,</span>
+<span class="cm">    &quot;property&quot;: &quot;disallowedPropertyName&quot;</span>
+<span class="cm">}] */</span>
+
+<span class="kd">var</span> <span class="nx">example</span> <span class="o">=</span> <span class="nx">disallowedObjectName</span><span class="p">.</span><span class="nx">somePropertyName</span><span class="p">;</span>
+
+<span class="nx">allowedObjectName</span><span class="p">.</span><span class="nx">disallowedPropertyName</span><span class="p">();</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint no-restricted-properties: [2, {</span>
+<span class="cm">    &quot;object&quot;: &quot;require&quot;</span>
+<span class="cm">}] */</span>
+
+<span class="nx">require</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't have any object/property combinations to restrict, you should not use this rule.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-restricted-globals.md">no-restricted-globals</a></li>
+<li><a href="no-restricted-syntax.md">no-restricted-syntax</a></li>
+</ul>
+
+    </section>
+</article>

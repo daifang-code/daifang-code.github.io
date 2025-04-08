@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2087">PE2087: no-delete-var</h2>
+    <h3>disallow deleting variables (no-delete-var)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2087</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow deleting variables (no-delete-var)</h4>
+<p>The purpose of the <code>delete</code> operator is to remove a property from an object. Using the <code>delete</code> operator on a variable might lead to unexpected behavior.</p>
+<h2>Rule Details</h2>
+<p>This rule disallows the use of the <code>delete</code> operator on variables.</p>
+<p>If ESLint parses code in strict mode, the parser (instead of this rule) reports the error.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-delete-var: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+<span class="k">delete</span> <span class="nx">x</span><span class="p">;</span>
+</pre></div>
+
+    </section>
+</article>

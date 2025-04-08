@@ -1,0 +1,71 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7504">BE7504: SHA-1是一个弱散列函数</h2>
+    <h3>SHA-1是一个弱散列函数</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7504</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>SHA-1是一个弱散列函数</p>
+<h4>漏洞与风险</h4>
+<p>算法SHA-1并不是用于哈希密码、签名验证和其它用途的推荐算法。
+例如，应该使用<b>PBKDF2</b> 来对密码进行散列。</p>
+<blockquote>
+    “<b>数字签名生成的SHA-1：</b><br/>SHA-1只能用于NIST协议特定指导的数字签名生成。对于所有其它应用程序，<u>SHA-1不能用于数字签名生成</u>。<br/>
+    <b>用于数字签名验证的SHA-1：</b><br/>对于数字签名验证，<u>SHA-1是允许使用的</u>。<br/>
+    [...]<br/>
+    <b>SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, 和SHA-512/256</b>:<br/>所有哈希函数应用程序都可以使用这些哈希函数。”<br/>
+    - 
+<a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">NIST: Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths p.15</a>
+</blockquote>
+<blockquote>
+“PBKDF的主要思想是通过增加测试每个密码所需的时间来减慢字典或对密码的暴力破解。一个带有可能密码列表的攻击者可以使用已知的迭代计数器和salt来评估PBKDF。由于攻击者每次尝试都要花费大量的计算时间，所以应用字典或蛮力攻击变得更加困难。”<br/>
+- 
+<a href="http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf">NIST: Recommendation for Password-Based Key Derivation  p.12</a>
+</blockquote>
+<br/>
+<p>
+    <b>易受攻击的代码：</b><br/>
+    <pre>MessageDigest sha1Digest = MessageDigest.getInstance("SHA1");
+    sha1Digest.update(password.getBytes());
+    byte[] hashValue = sha1Digest.digest();</pre>
+
+<pre><code>&lt;pre&gt;byte[] hashValue = DigestUtils.getSha1Digest().digest(password.getBytes());&lt;/pre&gt;
+</code></pre>
+</p>
+<p>
+    <b>
+解决方案（使用bouncy castle）：</b><br/>
+    <pre>public static byte[] getEncryptedPassword(String password, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    PKCS5S2ParametersGenerator gen = new PKCS5S2ParametersGenerator(new SHA256Digest());
+    gen.init(password.getBytes("UTF-8"), salt.getBytes(), 4096);
+    return ((KeyParameter) gen.generateDerivedParameters(256)).getKey();
+}</pre>
+    <b>解决方案（java 8或以上版本）：</b><br/>
+    <pre>public static byte[] getEncryptedPassword(String password, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 4096, 256 * 8);
+    SecretKeyFactory f = SecretKeyFactory.getInstance(""PBKDF2WithHmacSHA256"");
+    return f.generateSecret(spec).getEncoded();
+}</pre>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;https://community.qualys.com/blogs/securitylabs/2014/09/09/sha1-deprecation-what-you-need-to-know&quot;&gt;Qualys blog: SHA1 Deprecation: What You Need to Know&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://googleonlinesecurity.blogspot.ca/2014/09/gradually-sunsetting-sha-1.html&quot;&gt;Google Online Security Blog: Gradually sunsetting SHA-1&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf&quot;&gt;NIST: Transitions: Recommendation for Transitioning the Use of Cryptographic Algorithms and Key Lengths&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf&quot;&gt;NIST: Recommendation for Password-Based Key Derivation&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://stackoverflow.com/questions/22580853/reliable-implementation-of-pbkdf2-hmac-sha256-for-java&quot;&gt;Stackoverflow: Reliable implementation of PBKDF2-HMAC-SHA256 for Java&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/327.html&quot;&gt;CWE-327: Use of a Broken or Risky Cryptographic Algorithm&lt;/a&gt;</p>
+</p>
+
+    </section>
+</article>

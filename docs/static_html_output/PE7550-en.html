@@ -1,0 +1,42 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7550">BE7550: Blowfish usage with short key</h2>
+    <h3>Blowfish usage with short key</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7550</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Blowfish usage with short key</p>
+<h4>Vulnerability and risk</h4>
+<p>
+The Blowfish cipher supports keysizes from 32 bits to 448 bits. A small key size makes the ciphertext vulnerable to brute force attacks.
+At least 128 bits of entropy should be used when generating the key if use of Blowfish is required.
+</p>
+<p>
+If the algorithm can be changed, the AES block cipher should be used instead.
+</p>
+<p><b>Vulnerable Code:</b><br/>
+<pre>KeyGenerator keyGen = KeyGenerator.getInstance("Blowfish");
+keyGen.init(64);</pre>
+</p>
+<p><b>Solution:</b><br/>
+<pre>KeyGenerator keyGen = KeyGenerator.getInstance("Blowfish");
+keyGen.init(128);</pre>
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>critical</p>
+<h4>References</h4>
+<p>&lt;a href=&quot;http://en.wikipedia.org/wiki/Blowfish_(cipher)&quot;&gt;Blowfish (cipher)&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/326.html&quot;&gt;CWE-326: Inadequate Encryption Strength&lt;/a&gt;</p>
+</p>
+
+    </section>
+</article>

@@ -1,0 +1,60 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2109">PE2109: no-floating-decimal</h2>
+    <h3>禁止浮点小数 (no-floating-decimal)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2109</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止浮点小数 (no-floating-decimal)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>在 JavaScript 中，浮点值会包含一个小数点，没有要求小数点之前或之后必须有一个数字。例如，以下例子都是有效的 JavaScript 数字：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mf">2.</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="o">-</span><span class="mf">.7</span><span class="p">;</span>
+</pre></div>
+<p>虽然不是一个语法错误，这种格式的数字使真正的小数和点操作符变的难以区分。由于这个原因，有些人建议应该总是在小数点前面和后面有一个数字，以明确表明是要创建一个小数。</p>
+<h2>缺陷详因</h2>
+<p>此规则目的在于消除浮动小数点，并且，当数值的小数点之前或之后缺少数字时，该规则将发出警告。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-floating-decimal: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mf">2.</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="o">-</span><span class="mf">.7</span><span class="p">;</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-floating-decimal: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.7</span><span class="p">;</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你并不担心误解浮点小数，你可以安全的关闭此规则。</p>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSHint</strong>: W008</li>
+</ul>
+<h2>更多解释</h2>
+<ul>
+<li><a href="http://jslinterrors.com/a-leading-decimal-point-can-be-confused-with-a-dot-a/">A leading decimal point can be confused with a dot</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.6 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-floating-decimal.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-floating-decimal.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

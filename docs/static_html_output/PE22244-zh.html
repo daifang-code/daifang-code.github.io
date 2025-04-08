@@ -1,0 +1,37 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22244">PE22244: DUO134</h2>
+    <h3>DUO134</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22244</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO134</h4>
+<p>此linter搜索<code>cryptography</code>模块的不安全属性使用。</p>
+<p>Python<code>cryptography</code>库已经成为晶体手术。众所周知，加密操作非常困难为了得到正确的答案，经常会遇到很多麻烦。这个林特在寻找<code>cryptography</code>库中不安全的加密原语和操作。</p>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">hashes</span><span class="o">.</span><span class="n">MD5</span>
+<span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">hashes</span><span class="o">.</span><span class="n">SHA1</span>
+<span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">ciphers</span><span class="o">.</span><span class="n">modes</span><span class="o">.</span><span class="n">ECB</span>
+<span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">ciphers</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">Blowfish</span>
+<span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">ciphers</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">ARC4</span>
+<span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">ciphers</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">IDEA</span>
+</pre></div>
+<p>Dlint also looks for PKCS1 v1.5 usage via the following attribute:</p>
+<div class="highlight"><pre><span></span><span class="n">cryptography</span><span class="o">.</span><span class="n">hazmat</span><span class="o">.</span><span class="n">primitives</span><span class="o">.</span><span class="n">asymmetric</span><span class="o">.</span><span class="n">padding</span><span class="o">.</span><span class="n">PKCS1v15</span>
+</pre></div>
+<h2>正确代码</h2>
+<p><em>对于签名操作：<a href="https://cryptography.io/en/latest/hazmat/primitives/asmmetric/rsa/#cryptography.hazmat.primitives.asmmetric.padding.PSS"><code>密码学.危险品.原语.不对称.padding.PSS</code></a></em>对于加密操作：<a href="https://cryptography.io/en/latest/hazmat/primitives/asmmetric/rsa/#cryptography.hazmat.primitives.asymmetric.padding.OAEP"><code>密码学.危险品.原语.非对称.padding.OAEP</code></a></p>
+<h2>来源</h2>
+<h2>特别提及</h2>
+<p>*<code>PKCS1v15</code>可用于旧版应用程序，但不应考虑对于新的应用程序。仍然建议您远离<code>PKCS1v15</code>尽快使用。</p>
+
+    </section>
+</article>

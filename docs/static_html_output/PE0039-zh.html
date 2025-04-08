@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0039">PE0039: 死循环</h2>
+    <h3>在循环体中不改变循环变量导致无法退出循环。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0039</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在循环体中，如果循环变量不改变，则永远无法退出循环，导致程序死循环。</p>
+<h4>漏洞与风险</h4>
+<h5>拒绝服务攻击</h5>
+<p>死循环会导致程序挂起或者崩溃，过多的使用CPU或内存资源，可能会导致拒绝服务攻击。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>在循环体中修改循环变量的值，避免死循环。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">global_var</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">global_var</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+      <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，循环变量global_var的值在while循环中不会被改变，永远为10，导致死循环。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">global_var</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">global_var</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+      <span class="k">return</span><span class="p">;</span>
+    	<span class="n">global_var</span><span class="o">--</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在while循环中修改了global_var的值，从而可以使程序退出while循环。</p>
+
+    </section>
+</article>

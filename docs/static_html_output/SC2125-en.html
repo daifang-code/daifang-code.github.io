@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2125">SC2125: Improper variable update</h2>
+    <h3>Brace expansions and globs are literal in assignments. Quote it or use an array.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2125</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Brace expansions and globs are literal in assignments. Quote it or use an array.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">foo</span><span class="o">={</span><span class="m">1</span>..9<span class="o">}</span>
+<span class="nb">echo</span> <span class="nv">$foo</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">foo</span><span class="o">=(</span> <span class="o">{</span><span class="m">1</span>..9<span class="o">}</span> <span class="o">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">foo</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p><code>echo *.png {1..9}</code> expands to all png files and numbers from 1 to 9, but <code>var=*.png</code> or <code>var={1..9}</code> will just assign the literal strings <code>'*.png'</code> and <code>'{1..9}'</code>.</p>
+<p>To make the variable contain all png files or 1 through 9, use an array as demonstrated.</p>
+<p>If you intended to assign these values as literals, quote them (e.g. <code>var=&quot;*.png&quot;</code>).</p>
+<h5>Exceptions</h5>
+<p>None.</p>
+
+    </section>
+</article>

@@ -1,0 +1,188 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2212">PE2212: operator-linebreak</h2>
+    <h3>enforce consistent linebreak style for operators (operator-linebreak)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2212</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>enforce consistent linebreak style for operators (operator-linebreak)</h4>
+<p>When a statement is too long to fit on a single line, line breaks are generally inserted next to the operators separating expressions. The first style coming to mind would be to place the operator at the end of the line, following the English punctuation rules.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">fullHeight</span> <span class="o">=</span> <span class="nx">borderTop</span> <span class="o">+</span>
+                 <span class="nx">innerHeight</span> <span class="o">+</span>
+                 <span class="nx">borderBottom</span><span class="p">;</span>
+</pre></div>
+<p>Some developers find that placing operators at the beginning of the line makes the code more readable.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">fullHeight</span> <span class="o">=</span> <span class="nx">borderTop</span>
+               <span class="o">+</span> <span class="nx">innerHeight</span>
+               <span class="o">+</span> <span class="nx">borderBottom</span><span class="p">;</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule enforces a consistent linebreak style for operators.</p>
+<h2>Options</h2>
+<p>This rule has one option, which can be a string option or an object option.</p>
+<p>String option:</p>
+<ul>
+<li><code>&quot;after&quot;</code> requires linebreaks to be placed after the operator</li>
+<li><code>&quot;before&quot;</code> requires linebreaks to be placed before the operator</li>
+<li><code>&quot;none&quot;</code> disallows linebreaks on either side of the operator</li>
+</ul>
+<p>Object option:</p>
+<ul>
+<li><code>&quot;overrides&quot;</code> overrides the global setting for specified operators</li>
+</ul>
+<p>The default configuration is <code>&quot;after&quot;, { &quot;overrides&quot;: { &quot;?&quot;: &quot;before&quot;, &quot;:&quot;: &quot;before&quot; } }</code></p>
+<h5>after</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;after&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint operator-linebreak: [&quot;error&quot;, &quot;after&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="o">+</span>
+<span class="mi">2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="nx">foo</span>
+    <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">someCondition</span>
+    <span class="o">||</span> <span class="nx">otherCondition</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">answer</span> <span class="o">=</span> <span class="nx">everything</span>
+  <span class="o">?</span> <span class="mi">42</span>
+  <span class="o">:</span> <span class="nx">foo</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;after&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint operator-linebreak: [&quot;error&quot;, &quot;after&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span>
+      <span class="mi">2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">=</span>
+    <span class="mi">5</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">someCondition</span> <span class="o">||</span>
+    <span class="nx">otherCondition</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">answer</span> <span class="o">=</span> <span class="nx">everything</span> <span class="o">?</span>
+  <span class="mi">42</span> <span class="o">:</span>
+  <span class="nx">foo</span><span class="p">;</span>
+</pre></div>
+<h5>before</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;before&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint operator-linebreak: [&quot;error&quot;, &quot;before&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span>
+      <span class="mi">2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">=</span>
+    <span class="mi">5</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">someCondition</span> <span class="o">||</span>
+    <span class="nx">otherCondition</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">answer</span> <span class="o">=</span> <span class="nx">everything</span> <span class="o">?</span>
+  <span class="mi">42</span> <span class="o">:</span>
+  <span class="nx">foo</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;before&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint operator-linebreak: [&quot;error&quot;, &quot;before&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="nx">foo</span>
+    <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">someCondition</span>
+    <span class="o">||</span> <span class="nx">otherCondition</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">answer</span> <span class="o">=</span> <span class="nx">everything</span>
+  <span class="o">?</span> <span class="mi">42</span>
+  <span class="o">:</span> <span class="nx">foo</span><span class="p">;</span>
+</pre></div>
+<h5>none</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;none&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint operator-linebreak: [&quot;error&quot;, &quot;none&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span>
+      <span class="mi">2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">someCondition</span> <span class="o">||</span>
+    <span class="nx">otherCondition</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">someCondition</span>
+    <span class="o">||</span> <span class="nx">otherCondition</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">answer</span> <span class="o">=</span> <span class="nx">everything</span>
+  <span class="o">?</span> <span class="mi">42</span>
+  <span class="o">:</span> <span class="nx">foo</span><span class="p">;</span>
+
+<span class="nx">answer</span> <span class="o">=</span> <span class="nx">everything</span> <span class="o">?</span>
+  <span class="mi">42</span> <span class="o">:</span>
+  <span class="nx">foo</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;none&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint operator-linebreak: [&quot;error&quot;, &quot;none&quot;]*/</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="nx">foo</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">someCondition</span> <span class="o">||</span> <span class="nx">otherCondition</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">answer</span> <span class="o">=</span> <span class="nx">everything</span> <span class="o">?</span> <span class="mi">42</span> <span class="o">:</span> <span class="nx">foo</span><span class="p">;</span>
+</pre></div>
+<h5>overrides</h5>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>{ &quot;overrides&quot;: { &quot;+=&quot;: &quot;before&quot; } }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint operator-linebreak: [&quot;error&quot;, &quot;after&quot;, { &quot;overrides&quot;: { &quot;+=&quot;: &quot;before&quot; } }]*/</span>
+
+<span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="s1">&#39;thing&#39;</span><span class="p">;</span>
+<span class="nx">thing</span>
+  <span class="o">+=</span> <span class="s1">&#39;s&#39;</span><span class="p">;</span>
+</pre></div>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>{ &quot;overrides&quot;: { &quot;?&quot;: &quot;ignore&quot;, &quot;:&quot;: &quot;ignore&quot; } }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint operator-linebreak: [&quot;error&quot;, &quot;after&quot;, { &quot;overrides&quot;: { &quot;?&quot;: &quot;ignore&quot;, &quot;:&quot;: &quot;ignore&quot; } }]*/</span>
+
+<span class="nx">answer</span> <span class="o">=</span> <span class="nx">everything</span> <span class="o">?</span>
+  <span class="mi">42</span>
+  <span class="o">:</span> <span class="nx">foo</span><span class="p">;</span>
+
+<span class="nx">answer</span> <span class="o">=</span> <span class="nx">everything</span>
+  <span class="o">?</span>
+  <span class="mi">42</span>
+  <span class="o">:</span>
+  <span class="nx">foo</span><span class="p">;</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If your project will not be using a common operator line break style, turn this rule off.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="comma-style.md">comma-style</a></li>
+</ul>
+
+    </section>
+</article>

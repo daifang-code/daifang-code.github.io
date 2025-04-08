@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1108">PE1108: Spring Bean注入</h2>
+    <h3>如果没有合理地对不受信的用户输入进行验证，那么攻击者就能过通过控制Bean资源的内容来实现任意代码执行攻击</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1108</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>开发者能通过文件、URL等资源来加载Spring Bean的定义。</p>
+<h4>漏洞与风险</h4>
+<p>如果没有合理地对不受信的用户输入进行验证，那么攻击者就能过通过控制Bean资源的内容来实现任意代码执行攻击。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>视所有的输入为危险的数据，通过使用白名单等的受信输入验证策略来严格清洗输入数据。</p>
+
+    </section>
+</article>

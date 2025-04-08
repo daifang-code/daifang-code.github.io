@@ -1,0 +1,763 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='../../../theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="../../../theme/stylesheet/normalize.min.css">
+    <script src="../../../theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="../../../theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../../../theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="../../../theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">      <meta name="author" content="Pinpoint Team"/>
+    <meta name="description" content="Manual and documents for Sourcebrella Pinpoint"/> <meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Pinpoint Document"/>
+<meta property="og:description" content="Manual and documents for Sourcebrella Pinpoint"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="../../.."/>
+ 
+    <title>Pinpoint Document &ndash; Category</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href="../../..">
+                <img src="../../../theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href="../../..">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="../../../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="../../../standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="../../../standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="../../../standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="../../../standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="../../../standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="../../../standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="../../../standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="../../../standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+          <article>
+            <h1>
+            数值计算错误 (6)
+            </h1>
+        </article>
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/numeric errors.html">数值计算错误</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0106">主机字节顺序与网络字节顺序的错误转换</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/numeric-errors.html">数值计算错误</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">缓解与预防</a></li>
+<li><a href="#_5">演示实例</a><ul>
+<li><a href="#_6">漏洞代码示例</a></li>
+<li><a href="#_7">漏洞修复代码示例</a></li>
+</ul>
+</li>
+<li><a href="#_8">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>来源于主机边界的多字节的值在发送或者写入到环境之前，未将主机字节顺序转换为网路字节顺序或从外界获取或者读取一个多字节到主机边界时，没有把网络字节顺序转换为主机字节顺序。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>程序在系统下运行伴随不同的字节顺序方法，这些方法需相互之间连通。错误地转换字节顺序可能导致程序功能实现不正确。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_4">缓解与预防</h1>
+<p>应使用htons函数把unsigned short类型从主机序转换到网络序；应使用htonl 函数把unsigned long类型从主机序转换到网络序；应使用ntohs 函数把unsigned short类型从网络序转换到主机序；应使用ntohl 函数把unsigned long类型从网络序转换到主机序。</p>
+<h1 id="_5">演示实例</h1>
+<h3 id="_6">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">long</span> <span class="n">b</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="k">sizeof</span> <span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>   <span class="c1">// b传递时没有被转换为网络字节顺序</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="_7">漏洞修复代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">long</span> <span class="n">b</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">htonl</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="k">sizeof</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> 
+<span class="p">}</span> 
+</pre></div>
+</td></tr></table>
+<h1 id="_8">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.3.16 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/numeric errors.html">数值计算错误</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0019">不正确的移位运算</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/numeric-errors.html">数值计算错误</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">未定义的行为</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>移位操作包含"移位表达式&lt;&lt;加减表达式"形式的左移位操作和"移位表达式&gt;&gt;加减表达式"形式的右移位操作。每个整型的操作数都是执行整型提升。结果的类型是经过提升的左操作数的类型。如果右操作数是负值或大于等于提升后左操作数的位数，其行为是未定义的。</p>
+<p>移位的数量不能是负数或大于等于提升后左操作数的位数。一个整型的精度是它表示数值的位数，包含符号位和填充位。对于无符号整型来说，它的宽度和精度是一样的。然而对于有符号整数来说，它的宽度大于它的精度。这条规则使用精度代替宽度来表示，因为几乎在每一种情况下，在移位操作中移位的数量大于或等于操作数的精度时会导致一个错误（逻辑错误）。不同于溢出，逻辑错误是一种表示形式方面的缺陷。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">未定义的行为</h4>
+<p>移位操作包含"移位表达式&lt;&lt;加减表达式"形式的左移位操作和"移位表达式&gt;&gt;加减表达式"形式的右移位操作。每个整型的操作数都是执行整型提升。结果的类型是经过提升的左操作数的类型。如果右操作数是负值或大于等于提升后左操作数的位数，其行为是未定义的。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>中</p>
+<h1 id="_5">缓解与预防</h1>
+<p>保证移位操作的右操作数为正数并且小于左操作数的位数。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">long</span> <span class="kt">long</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">value</span><span class="p">,</span> <span class="kt">int</span> <span class="n">shift_size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">shift_size</span> <span class="o">&lt;</span> <span class="mi">64</span><span class="p">)</span> 
+      <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="n">shift_size</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，移位操作 <code>value &lt;&lt; shift_size</code> 的右操作数大于等于64，而左操作数的位数为64，导致函数返回一个未定义的结果。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">long</span> <span class="kt">long</span>  <span class="nf">good</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">value</span><span class="p">,</span> <span class="kt">int</span> <span class="n">shift_size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">shift_size</span> <span class="o">&lt;</span> <span class="mi">64</span><span class="p">)</span> 
+      <span class="k">return</span> <span class="n">val</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="mi">32</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，移位操作 <code>value &lt;&lt; 32</code> 的右操作数为32，小于左操作数的位数64，是一个合法的操作。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/numeric errors.html">数值计算错误</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0026">类型提升前整数溢出</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/numeric-errors.html">数值计算错误</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a><ul>
+<li><a href="#_3">整数溢出</a></li>
+</ul>
+</li>
+<li><a href="#_4">漏洞利用威胁</a></li>
+<li><a href="#_5">缓解与预防</a></li>
+<li><a href="#_6">演示实例</a><ul>
+<li><a href="#_7">漏洞代码示例</a></li>
+<li><a href="#_8">漏洞代码修复示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>两个整数在进行算术运算时，字节数小的类型会提升到字节数大的类型，然后进行运算。如果计算的结果超出了字节数大的类型的范围，会导致溢出。
+例如，在两个整数的乘法运算中，结果可能会超出整数的表示范围。</p>
+<h1 id="_2">漏洞与风险</h1>
+<h4 id="_3">整数溢出</h4>
+<p>整数溢出导致结果超出开发人员的预期，导致未知行为的发生。</p>
+<h1 id="_4">漏洞利用威胁</h1>
+<p>中</p>
+<h1 id="_5">缓解与预防</h1>
+<p>为了避免整数溢出，在算术运算之前将任意操作数提升为字节数大的类型。</p>
+<h1 id="_6">演示实例</h1>
+<h3 id="_7">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2147483648</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">z</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">z</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// detect</span>
+    <span class="c1">// Do something.</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，x * y 的结果超出了unsigned int的最大范围(2^32 − 1 即 4,294,967,295)。</p>
+<h3 id="_8">漏洞代码修复示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2147483648</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">z</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(((</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">z</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="c1">// Do something.</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>在上面的代码中，为了避免 x * y 导致的整数溢出，将x提前转换成 unsigned long long 类型。</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/numeric errors.html">数值计算错误</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0108">char数据类型未指定是否有符号</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/numeric-errors.html">数值计算错误</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">缓解与预防</a></li>
+<li><a href="#_5">演示实例</a><ul>
+<li><a href="#_6">漏洞代码示例</a></li>
+<li><a href="#_7">漏洞修复代码示例</a></li>
+</ul>
+</li>
+<li><a href="#_8">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>定义char数据类型的变量时未指定是否有符号。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>在C语言标准中没有明确定义char数据类型是否有符号，一些编译器允许使用编译器开关切换char类型是否有符号，可能导致代码难以移植。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_4">缓解与预防</h1>
+<p>注明char数据类型是否有符号，或使用typedef或#define定义的数据类型。</p>
+<h1 id="_5">演示实例</h1>
+<h3 id="_6">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="s">"Hello, welcome!</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>  <span class="c1">//char数据类型未指定是否有符号</span>
+</pre></div>
+</td></tr></table>
+<h3 id="_7">漏洞修复代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">UCHAR</span><span class="p">;</span>
+<span class="k">static</span> <span class="n">UCHAR</span> <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="s">"Hello, welcome!</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+<h1 id="_8">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.2.8 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/numeric errors.html">数值计算错误</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0107">在用于控制程序流程的条件表达式中使用位运算符'&'或'|'</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/numeric-errors.html">数值计算错误</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">缓解与预防</a></li>
+<li><a href="#_5">演示实例</a><ul>
+<li><a href="#_6">漏洞代码示例</a></li>
+<li><a href="#_7">漏洞修复代码示例</a></li>
+</ul>
+</li>
+<li><a href="#_8">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>在用于控制程序流程的条件表达式中使用位运算符'&amp;'或'|'。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>当用于控制程序流程的条件表达式使用位运算符'&amp;'或'|'时，程序的本意可能为使用运算符"&amp;&amp;"或"||"，可能会改变原本的判断逻辑，导致程序执行不同的分支路径。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_4">缓解与预防</h1>
+<p>使用运算符'&amp;&amp;'或'||'。</p>
+<h1 id="_5">演示实例</h1>
+<h3 id="_6">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="c1">//在用于控制程序流程的条件表达式中使用位运算符“&amp;”</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span><span class="mi">0</span>  <span class="o">&amp;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span> 
+  <span class="p">{</span>  
+    <span class="p">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="_7">漏洞修复代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span><span class="mi">0</span>  <span class="o">&amp;&amp;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span> 
+  <span class="p">{</span>  
+    <span class="p">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="_8">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.5.26 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">质量问题</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/numeric errors.html">数值计算错误</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0112">浮点数的相等或不等比较</h1>
+                <p>
+                    在 2024-九月-28 发布于 <a href="../../../category/numeric-errors.html">数值计算错误</a> 分类
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">缓解与预防</a></li>
+<li><a href="#_5">演示实例</a><ul>
+<li><a href="#_6">漏洞代码示例</a></li>
+<li><a href="#_7">漏洞修复代码示例</a></li>
+</ul>
+</li>
+<li><a href="#_8">引用</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="_1">缺陷描述</h1>
+<p>两个浮点型或双精度浮点型的值使用"=="或"!="运算符进行比较。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>浮点数在计算机中的存储和计算是不精确的，因此对浮点数采用"=="或"!="运算符进行比较可能得到与期望结果相反的结果。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>低</p>
+<h1 id="_4">缓解与预防</h1>
+<p>通过计算两个浮点数之间的差的绝对值是否小于一个允许的误差值判断浮点数之间是否相等或不等。</p>
+<h1 id="_5">演示实例</h1>
+<h3 id="_6">漏洞代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span>  <span class="c1">//浮点数的相等比较</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="_7">漏洞修复代码示例</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.000001</span><span class="p">)</span>  <span class="c1">//浮点数的相等比较</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="_8">引用</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.5.25 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : "../../..",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7497">BE7497: 接受任何证书的TrustManager</h2>
+    <h3>接受任何证书的TrustManager</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7497</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>接受任何证书的TrustManager</p>
+<h4>漏洞与风险</h4>
+<p>空的TrustManager实现通常被用来轻松地连接到一个没有root的主机<a href="http://en.wikipedia.org/wiki/Certificate_authority">certificate authority</a>. 因此，这很容易受到<a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack">Man-in-the-middle attacks</a>的影响，因为客户端会信任任何证书。
+</p>
+<p>
+应该建立一个允许特定证书（例如基于truststore）的TrustManager。关于适当执行的详细信息可参考：
+<a href="http://stackoverflow.com/a/6378872/89769">[1]</a>
+<a href="http://stackoverflow.com/a/5493452/89769">[2]</a>
+</p>
+<br/>
+<p>
+    <b>易受攻击的代码：</b><br/>
+<pre>class TrustAllManager implements X509TrustManager {
+    @Override
+    public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+        //Trust any client connecting (no certificate validation)
+    }
+    @Override
+    public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+        //Trust any remote server (no certificate validation)
+    }
+    @Override
+    public X509Certificate[] getAcceptedIssuers() {
+        return null;
+    }
+}</pre>
+</p>
+<br/>
+<p>
+    <b>解决方案(基于密钥库的TrustMangager)：</b><br/>
+<pre>KeyStore ks = //Load keystore containing the certificates trusted
+SSLContext sc = SSLContext.getInstance("TLS");
+TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+tmf.init(ks);
+sc.init(kmf.getKeyManagers(), tmf.getTrustManagers(),null);
+</pre>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://projects.webappsec.org/w/page/13246945/Insufficient%20Transport%20Layer%20Protection&quot;&gt;WASC-04: Insufficient Transport Layer Protection&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/295.html&quot;&gt;CWE-295: Improper Certificate Validation&lt;/a&gt;</p>
+
+    </section>
+</article>

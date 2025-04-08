@@ -1,0 +1,41 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22375">PE22375: E117</h2>
+    <h3>Over-indented</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22375</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>代码应该有一致的缩进，通常以两到四个增量隔开。</p>
+<h5>示例错误片段</h5>
+<p>下一行的<code>print</code>函数缩进为5空格而不是四个。</p>
+
+<pre><code>if True:
+     print('Hi there')
+
+</code></pre>
+<h5>最佳修复</h5>
+<p>代码现在的间隔是四个空格而不是五个空格。</p>
+
+<pre><code>if True:
+    print('Hi there')
+
+
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#indentation<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

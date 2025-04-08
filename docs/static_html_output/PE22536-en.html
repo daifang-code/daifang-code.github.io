@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22536">PE22536: E0202</h2>
+    <h3>E0202</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22536</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Message</h2>
+<p>An attribute affected in %s line %s hide this method</p>
+<h2>Description</h2>
+<p>Used when a class defines a method which is hidden by an instance attribute with the same name.</p>
+<p>This message belongs to the classes checker.</p>
+<h2>Explanation</h2>
+<p>Examples are:</p>
+<p>a class defines a method and a superclass has set an instance attribute with the same name.
+a class defines a method and a client sets an instance attribute with the same name.</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,35 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22435">PE22435: W391</h2>
+    <h3>Blank line at end of file</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22435</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>每个文件的末尾应该只有一个空行。当有零行、两行或两行以上的空行时，将出现此警告。</p>
+<h5>示例错误片段</h5>
+<p>假设下面的例子是一个完整的文件。</p>
+
+<pre><code>class MyClass(object):
+    pass
+
+</code></pre>
+<h5>最佳修复</h5>
+
+<pre><code>class MyClass(object):
+    pass
+
+
+
+</code></pre>
+<h4>References</h4>
+
+    </section>
+</article>

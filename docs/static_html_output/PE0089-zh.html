@@ -1,0 +1,93 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0089">PE0089: 执行未经授权的代码或命令</h2>
+    <h3>执行命令或从不受信任的源或不受信任的环境加载库可能导致应用程序代表攻击者执行恶意命令。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0089</dd>
+                    <dt>标签</dt>
+                    <dd>C, C++, JAVA, CWE-114</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>执行未经授权的代码或命令有两种形式：</p>
+<ol>
+<li>攻击者可以更改程序执行的命令：攻击者明确控制该命令是什么。</li>
+<li>攻击者可以改变命令执行的环境：攻击者隐式地控制命令的含义。</li>
+</ol>
+<p>第一种类型在数据从不可信源进入应用程序，并且数据用作表示由应用程序执行的命令的字符串的一部分时发生。 通过执行该命令，应用程序会给攻击者一个攻击者不会拥有的特权或能力。</p>
+<h4>漏洞与风险</h4>
+<p>执行未经授权的代码或命令</p>
+<h4>缓解与预防</h4>
+<p>加载的动态库应该来自可信来源。应用程序可以执行本地库中包含的代码，这些代码通常包含易受其他安全问题影响的调用，例如缓冲区溢出或命令注入。 应验证所有本机库以确定应用程序是否需要使用该库。确定这些本地库实际执行的内容非常困难，并且存在恶意代码的概率很高。 另外，这些本地库中的存在意想不到的错误的可能性也很高，因为许多错误都是用C或C++编写的，并且可能容易受到缓冲区溢出或竞争条件问题的影响。 为了帮助防止缓冲区溢出攻击，请将所有输入验证为本地调用的内容和长度。如果本机库不是来自可信来源，请查看库的源代码。 在使用它之前，应该使用经过审查的来源构建库。</p>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+<h4>演示示例</h4>
+<h5>漏洞代码示例 1</h5>
+<p>以下代码使用System.loadLibrary()从本地库library.dll中加载代码，该库通常位于标准系统目录中。</p>
+<div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;library.dll&quot;</span><span class="o">);</span>
+<span class="o">...</span>
+</pre></div>
+<p>这里的问题是System.loadLibrary()接受一个库名称，而不是一个路径，用于加载库。从Java 1.4.2 API文档中，该函数的行为如下：包含本机代码的文件是从本地文件系统从传统获取库文件的位置加载的。这个过程的细节是依赖于实现的。 从库名到特定文件名的映射是以系统特定的方式完成的。 如果攻击者能够在搜索顺序中将library.dll的恶意副本放在应用程序想要加载的文件中，则应用程序将加载恶意副本而不是预期文件。 由于应用程序的性质，它使用提升的权限运行，这意味着攻击者的library.dll的内容现在将以提升的权限运行，可能会让他们完全控制系统。</p>
+<h5>修复代码示例 1</h5>
+<div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="c1">// 用全路径</span>
+<span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">&quot;C:\\path_to_real_lib\\library.dll&quot;</span><span class="o">);</span>
+<span class="o">...</span>
+</pre></div>
+<h5>漏洞代码示例 2</h5>
+<p>以下特权应用程序中的代码使用注册表项来确定安装它的目录，并根据指定目录中的相对路径加载库文件。</p>
+
+<pre><code>...
+RegQueryValueEx(hkey, &quot;APPHOME&quot;, 0, 0, (BYTE*)home, &amp;size);
+char* lib=(char*)malloc(strlen(home)+strlen(INITLIB));
+if (lib) {
+  strcpy(lib,home);
+  strcat(lib,INITCMD);
+  LoadLibrary(lib);
+}
+...
+</code></pre>
+<p>本示例中的代码允许攻击者通过修改注册表项来指定包含恶意版本的INITLIB的不同路径，从而加载任意库，从该库中将应用程序的提升特权执行代码。 由于程序不验证从环境读取的值，如果攻击者可以控制APPHOME的值，他们可以欺骗应用程序运行恶意代码。</p>
+<h5>修复代码示例 2</h5>
+<div class="highlight"><pre><span></span><span class="o">...</span>
+
+<span class="c1">// 修改注册表前确保修改数据的安全</span>
+<span class="k">if</span> <span class="o">(!</span><span class="n">is_safe_key</span><span class="o">(</span><span class="n">hkey</span><span class="o">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">is_safe</span><span class="o">(</span><span class="n">home</span><span class="o">))</span> <span class="o">{</span>
+ <span class="n">error_handle</span><span class="o">(</span><span class="s">&quot;Unsafe Reg editing&quot;</span><span class="o">);</span>
+    <span class="k">return</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="n">RegQueryValueEx</span><span class="o">(</span><span class="n">hkey</span><span class="o">,</span> <span class="s">&quot;APPHOME&quot;</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="o">(</span><span class="n">BYTE</span><span class="o">*)</span><span class="n">home</span><span class="o">,</span> <span class="o">&amp;</span><span class="n">size</span><span class="o">);</span>
+<span class="kt">char</span><span class="o">*</span> <span class="n">lib</span><span class="o">=(</span><span class="kt">char</span><span class="o">*)</span><span class="n">malloc</span><span class="o">(</span><span class="n">strlen</span><span class="o">(</span><span class="n">home</span><span class="o">)+</span><span class="n">strlen</span><span class="o">(</span><span class="n">INITLIB</span><span class="o">));</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">lib</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">strcpy</span><span class="o">(</span><span class="n">lib</span><span class="o">,</span><span class="n">home</span><span class="o">);</span>
+  <span class="n">strcat</span><span class="o">(</span><span class="n">lib</span><span class="o">,</span><span class="n">INITCMD</span><span class="o">);</span>
+  <span class="n">LoadLibrary</span><span class="o">(</span><span class="n">lib</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="o">...</span>
+</pre></div>
+<h5>漏洞代码示例 3</h5>
+<p>以下代码来自基于Web的管理实用程序，该实用程序允许用户访问可通过其更新系统配置文件的界面。 该实用程序使用名为liberty.dll的库，该库通常位于标准系统目录中。</p>
+
+<pre><code>LoadLibrary(&quot;liberty.dll&quot;);
+</code></pre>
+<p>问题是程序没有指定liberty.dll的绝对路径。如果攻击者能够将一个名为liberty.dll的恶意库放在搜索顺序中而不是应用程序打算加载的文件中，那么应用程序将加载恶意副本而不是预期文件。由于应用程序的性质，它使用提升的特权运行，这意味着攻击者的liberty.dll的内容现在将以提升的特权运行，可能会使攻击者完全控制系统。在没有指定绝对路径时，由于LoadLibrary()使用的搜索顺序，在此示例中看到的攻击类型成为可能。如果在系统目录之前搜索当前目录，就像直到最新版本的Windows一样，那么如果攻击者可以在本地执行程序，这种类型的攻击就变得微不足道了。搜索顺序依赖于操作系统版本，并且通过注册表项的值在较新的操作系统上进行控制：HKLM\System\CurrentControlSet\Control\Session Manager\SafeDllSearchMode</p>
+<h5>修复代码示例3</h5>
+<div class="highlight"><pre><span></span><span class="c1">// 使用全路径</span>
+<span class="n">LoadLibrary</span><span class="o">(</span><span class="s">&quot;C:\\path_to_real_lib\\liberty.dll&quot;</span><span class="o">);</span>
+</pre></div>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/114.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

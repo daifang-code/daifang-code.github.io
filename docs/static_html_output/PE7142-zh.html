@@ -1,0 +1,34 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7142">BE7142: 在装箱的基本类型上同步</h2>
+    <h3>在装箱的基本类型上同步</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7142</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在装箱的基本类型上同步</p>
+<h4>漏洞与风险</h4>
+<p>代码同步使用了一个装箱基本类型常量，例如一个整数。</p>
+<pre><code>private static Integer count = 0;
+...
+synchronized(count) {
+    count++;
+}
+...
+</code></pre>
+<p>由于整数对象可以被缓存和共享，因此这段代码可以与其它不相关的代码同步使用相同的对象，从而导致不响应和死锁。</p>
+<p>如果需要查看更多信息，请看参考<a href="https://www.securecoding.cert.org/confluence/display/java/CON08-J.+Do+not+synchronize+on+objects+that+may+be+reused">CON08-J. Do not synchronize on objects that may be reused</a>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

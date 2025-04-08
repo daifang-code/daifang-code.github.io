@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4022">PE4022: 未初始化构造函数</h2>
+    <h3>未初始化构造函数</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE4022</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>此检查器查找用类或结构声明的类或结构的非静态数据成员的实例，而不是在父类中并且不在构造函数的路径中初始化。</p>
+<h4>漏洞与风险</h4>
+<p>通常要求类的构造函数遵守初始化类的所有成员的约定。这是非常常见的编码标准。未初始化的数据成员是不安全的，因为调用成员函数可以直接访问它们（如果它是公共的），也可以通过成员函数访问它们。这些缺陷可能会导致访问未初始化变量的常见问题，例如破坏程序地址空间内的任意数据。</p>
+<h4>缺陷利用威胁</h4>
+<p>严重</p>
+<h4>演示实例</h4>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">Base</span><span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+  <span class="n">Base</span><span class="p">()</span><span class="o">:</span> <span class="n">m_b</span><span class="p">(</span><span class="mi">7</span><span class="p">),</span> <span class="n">m_a</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 安全的构造函数</span>
+
+  <span class="p">}</span>
+
+  <span class="n">Base</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span><span class="o">:</span> <span class="n">m_a</span><span class="p">(</span><span class="n">a</span><span class="p">){</span> <span class="c1">// 不安全的构造函数，m_b 没有被初始化</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">GetmB</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">m_b</span><span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="nl">private</span><span class="p">:</span>
+  <span class="kt">int</span> <span class="n">m_a</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">m_b</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+    </section>
+</article>

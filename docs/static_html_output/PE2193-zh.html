@@ -1,0 +1,58 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2193">PE2193: no-useless-computed-key</h2>
+    <h3>禁止在对象中使用不必要的计算属性 (no-useless-computed-key)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2193</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止在对象中使用不必要的计算属性 (no-useless-computed-key)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>使用不必要的计算属性是不必要的，例如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span><span class="o">:</span> <span class="s2">&quot;b&quot;</span><span class="p">};</span>
+</pre></div>
+<p>应被重写为：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="o">:</span> <span class="s2">&quot;b&quot;</span><span class="p">};</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>这条规则禁止使用不必要的计算属性。</p>
+<h2>Examples</h2>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-useless-computed-key: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="s1">&#39;0+1,234&#39;</span><span class="p">]</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]()</span> <span class="p">{}</span> <span class="p">};</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-useless-computed-key: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;a&#39;</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="p">()</span> <span class="p">{}</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;0+1,234&#39;</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想被提示使用了不必要的计算属性，你可以禁用此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 2.9.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-useless-computed-key.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-useless-computed-key.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

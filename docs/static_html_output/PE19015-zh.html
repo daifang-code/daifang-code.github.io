@@ -1,0 +1,58 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE19015">PE19015: 文件包含漏洞</h2>
+    <h3>文件包含漏洞</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE19015</dd>
+                    <dt>标签</dt>
+                    <dd>cobra</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>安全风险</h2>
+
+<pre><code>    LFI/FRI(本地文件包含/远程文件包含)
+
+</code></pre>
+<h5>形成</h5>
+
+<pre><code>    在引入文件时，引用的文件名用户可控，若传入的参数没有限制过滤或者校验被绕过，从而导致意外的文件泄露甚至恶意代码注入。
+
+</code></pre>
+<h5>影响范围</h5>
+
+<pre><code>    当攻击者通过该漏洞包含特定文件时，该文件将为相应的代码执行。
+
+</code></pre>
+<h2>修复方案</h2>
+
+<pre><code>    1. 应尽量避免包含动态的变量，尤其是用户可以控制的变量。
+    2. 设置白名单(使用枚举)
+    ```
+        &lt;?php
+        $file = $_GET['file'];
+        //Whitelisting possible values
+        switch ($file) {
+            case 'main':
+            case 'foo':
+            case 'bar':
+                include '/home/wwwroot/include/'.$file.'.php';
+                break;
+            default:
+                include '/home/wwwroot/include/main.php';
+        }
+        ?&gt;
+    ```
+
+</code></pre>
+<h2>匹配规则</h2>
+<p>include|include_once|require|require_once|parsekit_compile_file|php_check_syntax|runkit_import|virtual</p>
+<h4>References</h4>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+
+    </section>
+</article>

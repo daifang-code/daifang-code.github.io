@@ -1,0 +1,44 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2059">SC2059: Using variables in printf</h2>
+    <h3>Don't use variables in the printf format string. Use printf "..%s.." "$foo".</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2059</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Don't use variables in the printf format string. Use printf &quot;..%s..&quot; &quot;$foo&quot;.</h4>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">printf</span> <span class="s2">&quot;Hello, </span><span class="nv">$NAME</span><span class="s2">\n&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">printf</span> <span class="s2">&quot;Hello, %s\n&quot;</span> <span class="s2">&quot;</span><span class="nv">$NAME</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p><code>printf</code> interprets escape sequences and format specifiers in the format string. If variables are included, any escape sequences or format specifiers in the data will be interpreted too, when you most likely wanted to treat it as data. Example:</p>
+<div class="highlight"><pre><span></span><span class="nv">coverage</span><span class="o">=</span><span class="s1">&#39;96%&#39;</span>
+<span class="nb">printf</span> <span class="s2">&quot;Unit test coverage: %s\n&quot;</span> <span class="s2">&quot;</span><span class="nv">$coverage</span><span class="s2">&quot;</span>
+<span class="nb">printf</span> <span class="s2">&quot;Unit test coverage: </span><span class="nv">$coverage</span><span class="s2">\n&quot;</span>
+</pre></div>
+<p>The first printf writes <code>Unit test coverage: 96%</code>.</p>
+<p>The second writes <code>bash: printf: `\': invalid format character</code></p>
+<h5>Exceptions</h5>
+<p>Sometimes you may actually want to interpret data as a format string, like in:</p>
+<div class="highlight"><pre><span></span>octToAscii<span class="o">()</span> <span class="o">{</span> <span class="nb">printf</span> <span class="s2">&quot;\\</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="p">;</span> <span class="o">}</span>
+octToAscii <span class="m">130</span>
+</pre></div>
+<p>In Bash, Ksh and BusyBox, there's a <code>%b</code> format specifier that expands escape sequences without interpreting other format specifiers: <code>printf '%b' &quot;\\$1&quot;</code>. In POSIX, you can instead [[ignore]] this warning.</p>
+<p>Other times, you might have a pattern in a variable:</p>
+<div class="highlight"><pre><span></span><span class="nv">filepattern</span><span class="o">=</span><span class="s2">&quot;file-%d.jpg&quot;</span>
+<span class="nb">printf</span> -v filename <span class="s2">&quot;</span><span class="nv">$filepattern</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$number</span><span class="s2">&quot;</span>
+</pre></div>
+<p>This has no good rewrite. Please [[ignore]] the warning with a [[directive]].</p>
+
+    </section>
+</article>

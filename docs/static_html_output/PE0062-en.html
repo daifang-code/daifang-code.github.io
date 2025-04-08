@@ -1,0 +1,81 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0062">PE0062: Divide By Zero</h2>
+    <h3>Divide a value by zero.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0062</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP, Java, CSHARP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Division and remainder operations performed on integers are susceptible to divide-by-zero errors. Consequently, the divisor in a division or remainder operation on integer types must be checked for zero prior to the operation. Division and remainder operations performed on floating-point numbers are not subject to this rule.</p>
+<h4>Vulnerability and risk</h4>
+<p>If the divisor is zero, the program will crash during execution.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Critical</p>
+<h4>Potential Mitigations</h4>
+<p>Check whether the divisor is zero or not before running any division, especially it is divided by other uncerntain value, i.e., some calculation result.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Code example 1</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the above program, b is zero, when it executes &quot;a/b&quot;, the divisor is zero, program crashes.</p>
+<h5>Fixed code example 1</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">good</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the above program, b is checked before running &quot;a/b&quot;, which guarantees no divisor is zero.</p>
+<h5>Code example 2</h5>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">test_bad</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">ret</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">){</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ret</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">);</span>  <span class="c1">// @@bad@@</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p>In the above program, b is zero, when it executes &quot;a/b&quot;, the divisor is zero, program crashes.</p>
+<h5>Fixed code example 2</h5>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">test_good</span><span class="o">{</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">ret</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">){</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ret</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span>
+    	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">);</span>  <span class="c1">// @@good@@</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p>In the above program, b is checked before running &quot;a/b&quot;, which guarantees no divisor is zero.</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://wiki.sei.cmu.edu/confluence/display/c/INT33-C.+Ensure+that+division+and+remainder+operations+do+not+result+in+divide-by-zero+errors<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://wiki.sei.cmu.edu/confluence/display/java/NUM02-J.+Ensure+that+division+and+remainder+operations+do+not+result+in+divide-by-zero+errors<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+<li id="fn-3"><p>cwe.mitre.org/data/definitions/369.html<a href="#fnref-3" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

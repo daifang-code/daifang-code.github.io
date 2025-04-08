@@ -1,0 +1,54 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1090">PE1090: 权限管理</h2>
+    <h3>该软件没有合理地分配、修改、跟踪或检查用户的权限，给该用户制造了意料之外的控制空间</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1090</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>因为应用没有合理地分配权限或者根据未知来源的信息分配权限，导致给用户赋予了危险的权限。</p>
+<h4>漏洞与风险</h4>
+<p>不合理的权限管理可能会导致不受信的、权限不足的代码拥有某些需要额外权限的操作的执行权。然而，把权限管理精细地做到位会增加很多复杂性。因此，安全方面提升带来的收益必须要盖过额外的复杂度以及相应降低可维护性带来的问题。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<ul>
+<li>小心地处理好配置、管理以及权限相关的问题，明确管理软件中的可信区域。</li>
+<li>用可完成相应任务的最低权限来运行你的代码。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>以下程序为使接收方程序以备份意图来读取数据文件，在发送的内容中增加了一个标志：</p>
+<div class="highlight"><pre><span></span><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">();</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">setAction</span><span class="o">(</span><span class="s">&quot;com.example.BackupUserData&quot;</span><span class="o">);</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">file_uri</span><span class="o">);</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">addFlags</span><span class="o">(</span><span class="n">FLAG_GRANT_READ_URI_PERMISSION</span><span class="o">);</span>
+<span class="n">sendBroadcast</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+</pre></div>
+<p>任何恶意程序都能通过预先注册，从而接收到有关备份意图的数据。因为确实附着了<code>FLAG_GRANT_READ_URI_PERMISSION</code>标签，因而恶意的接收者都能读取用户的数据：</p>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CallReceiver</span> <span class="kd">extends</span> <span class="n">BroadcastReceiver</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Uri</span> <span class="n">userData</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getData</span><span class="o">();</span>
+    <span class="n">stealUserData</span><span class="o">(</span><span class="n">userData</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/264.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://www.owasp.org/index.php/Top_10-2017_A6-Security_Misconfiguration<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

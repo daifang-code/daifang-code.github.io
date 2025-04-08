@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7193">BE7193: 构造方法定义混乱，保证一个标准的构造函数</h2>
+    <h3>构造方法定义混乱，保证一个标准的构造函数</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7193</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>构造方法定义混乱，保证一个标准的构造函数</p>
+<h4>漏洞与风险</h4>
+<p>这个常规方法的名称与它所定义的类同名，这很可能是一个构造函数。
+如果想要将它定义为一个构造函数，那么就删除一个void返回值的声明。
+如果您不小心定义了这个方法，并已经意识到这个错误且定义一个合适的构造函数
+但是却由于向后兼容问题不能解除这个方法，那么不应该使用这种方法。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

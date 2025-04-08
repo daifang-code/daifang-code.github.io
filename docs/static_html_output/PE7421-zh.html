@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7421">BE7421: 在数组上调用hashCode</h2>
+    <h3>在数组上调用hashCode</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7421</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在数组上调用hashCode</p>
+<h4>漏洞与风险</h4>
+<p>代码调用数组上的hashCode。在数组上调用hashCode会返回与System.identityHashCode相同的值，并忽略数组的内容和长度。如果您需要一个取决于数组<code>a</code>内容的hashCode，请使用<code>java.util.Arrays.hashCode(a)</code>。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

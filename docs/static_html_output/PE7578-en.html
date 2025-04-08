@@ -1,0 +1,57 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7578">BE7578: WebView with geolocation activated (Android)</h2>
+    <h3>WebView with geolocation activated (Android)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7578</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>WebView with geolocation activated (Android)</p>
+<h4>Vulnerability and risk</h4>
+<p>
+    It is suggested to ask the user for a confirmation about obtaining its geolocation.
+</p>
+<p>
+    <b>Code at risk:</b><br/>
+<pre>
+webView.setWebChromeClient(new WebChromeClient() {
+    @Override
+    public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+        callback.invoke(origin, true, false);
+    }
+});
+</pre>
+</p>
+<p>
+    <b>Suggested code:</b><br/>
+
+<pre><code>Limit the sampling of geolocation and ask the user for confirmation.
+</code></pre>
+<pre>
+webView.setWebChromeClient(new WebChromeClient() {
+    @Override
+    public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+        callback.invoke(origin, true, false);
+
+        //Ask the user for confirmation
+    }
+});
+</pre>
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+<h4>References</h4>
+<p>&lt;a href=&quot;https://www.securecoding.cert.org/confluence/display/java/DRD15-J.+Consider+privacy+concerns+when+using+Geolocation+API&quot;&gt;CERT: DRD15-J. Consider privacy concerns when using Geolocation API&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://en.wikipedia.org/wiki/W3C_Geolocation_API&quot;&gt;Wikipedia: W3C Geolocation API&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://dev.w3.org/geo/api/spec-source.html&quot;&gt;W3C: Geolocation Specification&lt;/a&gt;&lt;br/&gt;</p>
+
+    </section>
+</article>

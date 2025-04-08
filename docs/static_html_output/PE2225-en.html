@@ -1,0 +1,122 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2225">PE2225: quotes</h2>
+    <h3>enforce the consistent use of either backticks, double, or single quotes (quotes)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2225</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>enforce the consistent use of either backticks, double, or single quotes (quotes)</h4>
+<p>JavaScript allows you to define strings in one of three ways: double quotes, single quotes, and backticks (as of ECMAScript 6). For example:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="kr">double</span> <span class="o">=</span> <span class="s2">&quot;double&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">single</span> <span class="o">=</span> <span class="s1">&#39;single&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">backtick</span> <span class="o">=</span> <span class="sb">`backtick`</span><span class="p">;</span>    <span class="c1">// ES6 only</span>
+</pre></div>
+<p>Each of these lines creates a string and, in some cases, can be used interchangeably. The choice of how to define strings in a codebase is a stylistic one outside of template literals (which allow embedded of expressions to be interpreted).</p>
+<p>Many codebases require strings to be defined in a consistent manner.</p>
+<h2>Rule Details</h2>
+<p>This rule enforces the consistent use of either backticks, double, or single quotes.</p>
+<h2>Options</h2>
+<p>This rule has two options, a string option and an object option.</p>
+<p>String option:</p>
+<ul>
+<li><code>&quot;double&quot;</code> (default) requires the use of double quotes wherever possible</li>
+<li><code>&quot;single&quot;</code> requires the use of single quotes wherever possible</li>
+<li><code>&quot;backtick&quot;</code> requires the use of backticks wherever possible</li>
+</ul>
+<p>Object option:</p>
+<ul>
+<li><code>&quot;avoidEscape&quot;: true</code> allows strings to use single-quotes or double-quotes so long as the string contains a quote that would have to be escaped otherwise</li>
+<li><code>&quot;allowTemplateLiterals&quot;: true</code> allows strings to use backticks</li>
+</ul>
+<p><strong>Deprecated</strong>: The object property <code>avoid-escape</code> is deprecated; please use the object property <code>avoidEscape</code> instead.</p>
+<h5>double</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;double&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint quotes: [&quot;error&quot;, &quot;double&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">single</span> <span class="o">=</span> <span class="s1">&#39;single&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">unescaped</span> <span class="o">=</span> <span class="s1">&#39;a string containing &quot;double&quot; quotes&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">backtick</span> <span class="o">=</span> <span class="sb">`back</span><span class="err">\</span><span class="sb">ntick`</span><span class="p">;</span> <span class="c1">// you can use \n in single or double quoted strings</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;double&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint quotes: [&quot;error&quot;, &quot;double&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="kr">double</span> <span class="o">=</span> <span class="s2">&quot;double&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">backtick</span> <span class="o">=</span> <span class="sb">`back</span>
+<span class="sb">tick`</span><span class="p">;</span>  <span class="c1">// backticks are allowed due to newline</span>
+<span class="kd">var</span> <span class="nx">backtick</span> <span class="o">=</span> <span class="nx">tag</span><span class="sb">`backtick`</span><span class="p">;</span> <span class="c1">// backticks are allowed due to tag</span>
+</pre></div>
+<h5>single</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;single&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint quotes: [&quot;error&quot;, &quot;single&quot;]*/</span>
+
+<span class="kd">var</span> <span class="kr">double</span> <span class="o">=</span> <span class="s2">&quot;double&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">unescaped</span> <span class="o">=</span> <span class="s2">&quot;a string containing &#39;single&#39; quotes&quot;</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;single&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint quotes: [&quot;error&quot;, &quot;single&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">single</span> <span class="o">=</span> <span class="s1">&#39;single&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">backtick</span> <span class="o">=</span> <span class="sb">`back</span><span class="si">${</span><span class="nx">x</span><span class="si">}</span><span class="sb">tick`</span><span class="p">;</span> <span class="c1">// backticks are allowed due to substitution</span>
+</pre></div>
+<h5>backticks</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;backtick&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint quotes: [&quot;error&quot;, &quot;backtick&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">single</span> <span class="o">=</span> <span class="s1">&#39;single&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="kr">double</span> <span class="o">=</span> <span class="s2">&quot;double&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">unescaped</span> <span class="o">=</span> <span class="s1">&#39;a string containing `backticks`&#39;</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;backtick&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint quotes: [&quot;error&quot;, &quot;backtick&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">backtick</span> <span class="o">=</span> <span class="sb">`backtick`</span><span class="p">;</span>
+</pre></div>
+<h5>avoidEscape</h5>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>&quot;double&quot;, { &quot;avoidEscape&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint quotes: [&quot;error&quot;, &quot;double&quot;, { &quot;avoidEscape&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">single</span> <span class="o">=</span> <span class="s1">&#39;a string containing &quot;double&quot; quotes&#39;</span><span class="p">;</span>
+</pre></div>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>&quot;single&quot;, { &quot;avoidEscape&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint quotes: [&quot;error&quot;, &quot;single&quot;, { &quot;avoidEscape&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="kr">double</span> <span class="o">=</span> <span class="s2">&quot;a string containing &#39;single&#39; quotes&quot;</span><span class="p">;</span>
+</pre></div>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>&quot;backtick&quot;, { &quot;avoidEscape&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint quotes: [&quot;error&quot;, &quot;backtick&quot;, { &quot;avoidEscape&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="kr">double</span> <span class="o">=</span> <span class="s2">&quot;a string containing `backtick` quotes&quot;</span>
+</pre></div>
+<h5>allowTemplateLiterals</h5>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>&quot;double&quot;, { &quot;allowTemplateLiterals&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint quotes: [&quot;error&quot;, &quot;double&quot;, { &quot;allowTemplateLiterals&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="kr">double</span> <span class="o">=</span> <span class="s2">&quot;double&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="kr">double</span> <span class="o">=</span> <span class="sb">`double`</span><span class="p">;</span>
+</pre></div>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>&quot;single&quot;, { &quot;allowTemplateLiterals&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint quotes: [&quot;error&quot;, &quot;single&quot;, { &quot;allowTemplateLiterals&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">single</span> <span class="o">=</span> <span class="s1">&#39;single&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">single</span> <span class="o">=</span> <span class="sb">`single`</span><span class="p">;</span>
+</pre></div>
+<p><code>{ &quot;allowTemplateLiterals&quot;: false }</code> will not disallow the usage of all template literals. If you want to forbid any instance of template literals, use <a href="https://eslint.org/docs/rules/no-restricted-syntax">no-restricted-syntax</a> and target the <code>TemplateLiteral</code> selector.</p>
+<h2>When Not To Use It</h2>
+<p>If you do not need consistency in your string styles, you can safely disable this rule.</p>
+
+    </section>
+</article>

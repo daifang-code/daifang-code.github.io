@@ -1,0 +1,36 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0118">PE0118: Inline variable declaration</h2>
+    <h3>Inline variable declaration.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0118</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Inline variable declaration.</p>
+<h4>Vulnerability and risk</h4>
+<p>The &quot;inline&quot; keyword is used to define inline functions, and defining variables is meaningless.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>The &quot;inline&quot; keyword should not be used in non-functions or methods.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kr">inline</span> <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>  <span class="c1">// The &quot;inline&quot; keyword is used in defining variables</span>
+</pre></div>
+<h4>Reference</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>SJ/T 11682-2017 6.5.31<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

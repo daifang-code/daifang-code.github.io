@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7182">BE7182: 公共枚举方法无条件地设置其字段</h2>
+    <h3>公共枚举方法无条件地设置其字段</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7182</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>公共枚举方法无条件地设置其字段</p>
+<h4>漏洞与风险</h4>
+<p>在public enum中声明的这个公共方法无条件地设置枚举字段，因此该字段可以被另一个包中的恶意代码或其它意外改变。尽管可变的枚举字段可用于延迟初始化，但将它们暴露给外部是一种不好的做法。
+请考虑删除此方法或将其声明为package-private。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

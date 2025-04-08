@@ -1,0 +1,51 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE19024">PE19024: 变量覆盖漏洞</h2>
+    <h3>变量覆盖漏洞</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE19024</dd>
+                    <dt>标签</dt>
+                    <dd>cobra</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>安全风险</h2>
+
+<pre><code>    变量覆盖漏洞
+
+</code></pre>
+<h2>修复方案</h2>
+
+<pre><code>    1、使用原始变量,不进行变量注册，直接使用原生的$_GET、$_POST等数组变量进行操作；
+    2、注册变量前判断变量是否存在。自行申明的变量一定要初始化，不然即使注册变量代码在执行流程最前面也能覆盖掉这些未初始化的变量。
+
+</code></pre>
+<h5>错误代码样例</h5>
+
+<pre><code>    ```php
+    &lt;?php
+        $a = '0';
+        import_request_variables('G');
+        if($a == 1){
+          echo &quot;true!&quot;;
+        }else{
+          echo &quot;false!&quot;;
+        }
+    ?&gt;
+
+    ```
+    构造 http://www.test.com/test.php?a=1时，会打印出true
+
+
+</code></pre>
+<h2>匹配规则</h2>
+<p>import_request_variables|parse_str|mb_parse_str</p>
+<h4>References</h4>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+
+    </section>
+</article>

@@ -1,0 +1,113 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4012">PE4012: Weak password</h2>
+    <h3>The software does not require the user to use a password with sufficient complexity.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE4012</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The software does not require the user to use a password with sufficient complexity.</p>
+<h4>Vulnerability and risk</h4>
+<p>An attacker can easily guess a user's password or implement a brute force attack.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>The user is required to use a password with sufficient complexity. The password strength policy should contain the following attributes:</p>
+<ul>
+<li>minimum and maximum length;</li>
+<li>contains letters, numbers and special characters;</li>
+<li>does not include a username;</li>
+<li>Change your password regularly;</li>
+<li>Do not use used passwords.</li>
+<li>The user is locked after a certain number of failed authentication attempts.</li>
+</ul>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">set_password</span><span class="p">(</span><span class="n">string</span><span class="p">);</span>  <span class="c1">//Store the password entered by the user</span>
+<span class="kt">void</span> <span class="nf">init_user</span><span class="p">(</span><span class="n">string</span> <span class="n">username</span><span class="p">,</span> <span class="n">string</span> <span class="n">password</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+    <span class="n">set_password</span><span class="p">(</span><span class="n">password</span><span class="p">);</span>  <span class="c1">//Password strength may be insufficient</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed code example</h5>
+<div class="highlight"><pre><span></span><span class="n">string</span> <span class="n">username</span><span class="p">;</span>  <span class="c1">//username</span>
+<span class="n">string</span><span class="p">[]</span> <span class="n">passwordlist</span><span class="p">;</span>  <span class="c1">//passwordlist</span>
+<span class="n">string</span> <span class="n">create_password_date</span><span class="p">;</span>  <span class="c1">//create password date</span>
+<span class="kt">int</span> <span class="n">password_outdate_days</span><span class="p">;</span>  <span class="c1">//password outdate days</span>
+<span class="n">boolean</span> <span class="nf">user_exists</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="p">);</span>  <span class="c1">//Determine if the username password is correct</span>
+<span class="kt">void</span> <span class="nf">set_password</span><span class="p">(</span><span class="n">string</span><span class="p">);</span>  <span class="c1">//Store the password entered by the user</span>
+<span class="kt">int</span> <span class="nf">check_length</span><span class="p">(</span><span class="n">string</span><span class="p">);</span>  <span class="c1">//Password length detection, return 1 if it meets the requirements, otherwise return 0</span>
+<span class="kt">int</span> <span class="nf">check_mode</span><span class="p">(</span><span class="n">string</span><span class="p">);</span>  <span class="c1">//Whether the password contains letters, numbers and special characters. The lack of one or more indicates weak password strength.</span>
+                         <span class="c1">//All contains return 1 otherwise returns 0</span>
+<span class="kt">int</span> <span class="nf">check_exclude_name</span><span class="p">(</span><span class="n">string</span><span class="p">);</span>  <span class="c1">//Whether the password does not contain the username, does not contain a return of 1, otherwise returns 0</span>
+<span class="kt">int</span> <span class="nf">check_time</span><span class="p">(</span><span class="n">string</span><span class="p">);</span>  <span class="c1">//Determine whether the password expires by comparing the current time and password creation time</span>
+                         <span class="c1">//Return 1 without expiration, otherwise return 0</span>
+<span class="kt">int</span> <span class="nf">check_is_used</span><span class="p">(</span><span class="n">string</span><span class="p">);</span>  <span class="c1">//Check whether the password has been used by querying the password table. Return 1 if not used, otherwise return 0.</span>
+<span class="p">...</span>
+<span class="kt">int</span> <span class="n">check_password_level</span><span class="p">(</span><span class="n">string</span> <span class="n">password</span><span class="p">)</span>  <span class="c1">//Password strength detection</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">check_length</span><span class="p">(</span><span class="n">password</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;The password length does not meet the requirements!&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">check_mode</span><span class="p">(</span><span class="n">password</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;The password combination level is weak!&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">check_exclude_name</span><span class="p">(</span><span class="n">password</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;The password contains the username!&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">check_is_used</span><span class="p">(</span><span class="n">password</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;The password has been used!&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">init_user</span><span class="p">(</span><span class="n">string</span> <span class="n">username</span><span class="p">,</span><span class="n">string</span> <span class="n">password</span><span class="p">){</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">check_password_level</span><span class="p">(</span><span class="n">password</span><span class="p">))</span>  <span class="c1">//Check password password strength</span>
+    <span class="p">{</span>
+        <span class="n">set_password</span><span class="p">(</span><span class="n">password</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">//When the user logs in, the password is automatically determined and the user is prompted to update the password.</span>
+<span class="kt">void</span> <span class="n">check_user</span><span class="p">(</span><span class="n">string</span> <span class="n">username</span><span class="p">,</span> <span class="n">string</span> <span class="n">password</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">user_exists</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">))</span>  <span class="c1">//Identification</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">check_time</span><span class="p">(</span><span class="n">password</span><span class="p">))</span>  <span class="c1">//Check if the password expires</span>
+        <span class="p">{</span>
+            <span class="c1">//Prompt the user password has expired, it is recommended to change the password</span>
+            <span class="p">...</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="p">...</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

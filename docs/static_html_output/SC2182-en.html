@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2182">SC2182: Unmatched arguments for printf</h2>
+    <h3>This printf format string has no variables. Other arguments are ignored.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2182</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This printf format string has no variables. Other arguments are ignored.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">place</span><span class="o">=</span><span class="s2">&quot;world&quot;</span>
+<span class="nb">printf</span> hello <span class="nv">$place</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">place</span><span class="o">=</span><span class="s2">&quot;world&quot;</span>
+<span class="nb">printf</span> <span class="s2">&quot;hello %s\n&quot;</span> <span class="s2">&quot;</span><span class="nv">$place</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck has noticed that you're using a <code>printf</code> with multiple arguments, but where the first argument has no <code>%s</code> or equivalent variable placeholders.</p>
+<p><code>echo</code> accepts zero or more strings to write, e.g. <code>echo hello world</code>.</p>
+<p><code>printf</code> instead accepts one pattern/template with zero or more <code>%s</code>-style placeholders, and one argument for each placeholder.</p>
+<p>Rewrite your command using the right semantics, otherwise all arguments after the first one will be ignored:</p>
+
+<pre><code>$ printf hello world\\n
+hello
+
+$ printf &quot;hello world\n&quot;
+hello world
+
+$ printf &quot;hello %s\n&quot; &quot;world&quot;
+hello world
+
+</code></pre>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

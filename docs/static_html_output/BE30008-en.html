@@ -1,0 +1,22 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE30008">BE30008: The code allows objects to be deserialized</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE30008</dd>
+                    <dt>Tags</dt>
+                    <dd>csharp</dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The code allows objects to be deserialized. This can allow potentially hostile objects to be instantiated directly from the data held in the file system. Insecure deserializers are vulnerable when deserializing untrusted data. An attacker could modify the serialized data to include unexpected types to inject objects with malicious side effects. An attack against an insecure deserializer can. for example. execute commands on the underlying operating system. communicate over the network. or delete files. https://docs.microsoft.com/en-us/visualstudio/code-quality/ca2300?view=vs-2019.</p>
+<h4>Likelihood of exploit</h4>
+<p>Medium</p>
+
+    </section>
+</article>

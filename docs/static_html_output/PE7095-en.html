@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7095">BE7095: Remainder of 32-bit signed random integer</h2>
+    <h3>Remainder of 32-bit signed random integer</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7095</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Remainder of 32-bit signed random integer</p>
+<h4>Vulnerability and risk</h4>
+<p> This code generates a random signed integer and then computes
+the remainder of that value modulo another value. Since the random
+number can be negative, the result of the remainder operation
+can also be negative. Be sure this is intended, and strongly
+consider using the Random.nextInt(int) method instead.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0122">PE0122: 不确定的存储结果</h2>
+    <h3>结构体中成员的字节位置取决于编译器的#pragma align和#pragma pack预处理指令。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0122</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>结构体中成员的字节位置取决于编译器的<code>#pragma align</code>和<code>#pragma pack</code>预处理指令。</p>
+<h4>漏洞与风险</h4>
+<p>结构体中成员的字节位置取决于编译器的<code>#pragma align</code>和<code>#pragma pack</code>预处理指令可能导致代码移植时发生问题。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>重新调整结构体中成员的顺序，使成员的起始位置和大小不受编译器的<code>#pragma align</code>和<code>#pragma pack</code>预处理指令影响。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">ST</span> 
+<span class="p">{</span>
+    <span class="n">UINT16_t</span> <span class="n">a</span><span class="p">;</span>
+    <span class="n">UINT32_t</span> <span class="n">b</span><span class="p">;</span>  <span class="c1">//b成员可能从结构体的第3个字节开始，也可能从第5个字节开始</span>
+    <span class="n">UINT16_t</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">ST</span> 
+<span class="p">{</span>
+     <span class="n">UINT16_t</span> <span class="n">a</span><span class="p">;</span>
+     <span class="n">UINT16_t</span> <span class="n">b</span><span class="p">;</span>
+     <span class="n">UINT32_t</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>SJ/T 11682-2017 6.3.20<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

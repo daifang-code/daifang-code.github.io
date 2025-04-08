@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4002">PE4002: Untrusted Path</h2>
+    <h3>When a program uses a critical resource, it does not specify a path to the resource, but instead relies on the operating system to search for resources.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE4002</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>When a program uses a critical resource, it does not specify a path to the resource, but instead relies on the operating system to search for resources.</p>
+<h4>Vulnerability and risk</h4>
+<p>An attacker can put resources of the same name in a folder with a higher search priority, and the program will uses resources controlled by the attacker.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Specify the path where the resource is when using a critical resource.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//An attacker can put a malicious program with the same name as dir in a folder with a higher search priority, causing the contents of the command to execute uncorrectly.</span>
+    <span class="n">system</span><span class="p">(</span><span class="n">command</span><span class="p">);</span>  <span class="c1">//command = &quot;dir.exe E:\\data&quot;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<h5>Fixed code example</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//PATH is a constant that holds the full path of the dir command in the operating system, in this case PATH=&quot;C:\\WINDOWS\\system32\\&quot;</span>
+    <span class="kt">char</span> <span class="n">cmd</span><span class="p">[</span><span class="n">MAX_SIZE</span><span class="p">]</span> <span class="o">=</span> <span class="n">PATH</span><span class="p">;</span>  <span class="c1">//Use the full path to ensure that the contents of the command are executed correctly</span>
+    <span class="n">strcat</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">command</span><span class="p">);</span>  <span class="c1">//command = &quot;dir.exe E:\\data&quot;</span>
+    <span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

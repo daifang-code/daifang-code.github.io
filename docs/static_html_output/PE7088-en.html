@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7088">BE7088: Monitor wait() called on Condition</h2>
+    <h3>Monitor wait() called on Condition</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7088</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Monitor wait() called on Condition</p>
+<h4>Vulnerability and risk</h4>
+<p>
+      This method calls <code>wait()</code> on a
+      <code>java.util.concurrent.locks.Condition</code> object.&nbsp;
+      Waiting for a <code>Condition</code> should be done using one of the <code>await()</code>
+      methods defined by the <code>Condition</code> interface.
+      </p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

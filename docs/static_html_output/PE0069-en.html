@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0069">PE0069: Invalid Use of UNIX/Posix Function</h2>
+    <h3>Invalid Use of UNIX/Posix Function.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0069</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>When using the following UNIX/Posix library functions, you need to follow the specified rules:
+<code>open, openat, pthread_once, calloc, malloc, realloc, reallocf, alloca, __builtin_alloca, __builtin_alloca_with_align, valloc</code>。</p>
+<h4>Vulnerability and risk</h4>
+<h5>unexpecpted result</h5>
+<p>Incorrectly use of UNIX/Posix function may cause unexpected result.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Correctly use UNIX/Posix Function.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">mode</span> <span class="o">=</span> <span class="mh">0x0</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{Call to &#39;open&#39; with more than 3 arguments}}</span>
+  <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span> 
+  <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>The above code incorrectly used open() function. When open function() is called, 4 parameters are passed, which exceeds the limit of the number of parameters of open() function.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+  <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">);</span> <span class="c1">// no-warning</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>The above code correctly used open() function.</p>
+
+    </section>
+</article>

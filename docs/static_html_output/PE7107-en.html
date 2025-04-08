@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7107">BE7107: Finalizer nullifies superclass finalizer</h2>
+    <h3>Finalizer nullifies superclass finalizer</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7107</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Finalizer nullifies superclass finalizer</p>
+<h4>Vulnerability and risk</h4>
+<p> This empty <code>finalize()</code> method explicitly negates the
+  effect of any finalizer defined by its superclass.&nbsp; Any finalizer
+  actions defined for the superclass will not be performed.&nbsp;
+  Unless this is intended, delete this method.</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+
+    </section>
+</article>

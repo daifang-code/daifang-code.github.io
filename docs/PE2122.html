@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="luobin" />
+<meta name="description" content="Disallow Labeled Statements (no-labels)" />
+<meta name="keywords" content="">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="no-labels"/>
+<meta property="og:description" content="Disallow Labeled Statements (no-labels)"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE2122.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:06.160829+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/luobin.html">
+<meta property="article:section" content="misc"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; no-labels</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/javascript.html">javascript</a>
+        </li>
+        <li>
+            <a href="./standard/style-issues.html">Style issues</a>
+        </li>
+        <li>
+            <a href="./category/code-style-and-efficiency.html">Code style and efficiency</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE2122">no-labels</h1>
+    <p>
+        Posted on September 28, 2024 in <a href="./category/code-style-and-efficiency.html">Code style and efficiency</a>
+
+        &#8226; 2 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#disallow-labeled-statements-no-labels">Disallow Labeled Statements (no-labels)</a><ul>
+<li><a href="#rule-details">Rule Details</a></li>
+<li><a href="#options">Options</a><ul>
+<li><a href="#allowloop">allowLoop</a></li>
+<li><a href="#allowswitch">allowSwitch</a></li>
+</ul>
+</li>
+<li><a href="#when-not-to-use-it">When Not To Use It</a></li>
+<li><a href="#related-rules">Related Rules</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+  <div>
+    
+<p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h1 id="disallow-labeled-statements-no-labels">Disallow Labeled Statements (no-labels)</h1>
+<p>Labeled statements in JavaScript are used in conjunction with <code>break</code> and <code>continue</code> to control flow around multiple loops. For example:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nx">outer</span><span class="o">:</span>
+    <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">break</span> <span class="nx">outer</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>The <code>break outer</code> statement ensures that this code will not result in an infinite loop because control is returned to the next statement after the <code>outer</code> label was applied. If this statement was changed to be just <code>break</code>, control would flow back to the outer <code>while</code> statement and an infinite loop would result.</p>
+<p>While convenient in some cases, labels tend to be used only rarely and are frowned upon by some as a remedial form of flow control that is more error prone and harder to understand.</p>
+<h2 id="rule-details">Rule Details</h2>
+<p>This rule aims to eliminate the use of labeled statements in JavaScript. It will warn whenever a labeled statement is encountered and whenever <code>break</code> or <code>continue</code> are used with a label.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint no-labels: "error"*/</span>
+
+<span class="nx">label</span><span class="o">:</span>
+    <span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+
+<span class="nx">label</span><span class="o">:</span>
+    <span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">break</span> <span class="nx">label</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="nx">label</span><span class="o">:</span>
+    <span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">continue</span> <span class="nx">label</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="nx">label</span><span class="o">:</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+        <span class="k">break</span> <span class="nx">label</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="nx">label</span><span class="o">:</span>
+    <span class="p">{</span>
+        <span class="k">break</span> <span class="nx">label</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="nx">label</span><span class="o">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">break</span> <span class="nx">label</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint no-labels: "error"*/</span>
+
+<span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">label</span><span class="o">:</span> <span class="s2">"foo"</span>
+<span class="p">};</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">continue</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h2 id="options">Options</h2>
+<p>The options allow labels with loop or switch statements:</p>
+<ul>
+<li><code>"allowLoop"</code> (<code>boolean</code>, default is <code>false</code>) - If this option was set <code>true</code>, this rule ignores labels which are sticking to loop statements.</li>
+<li><code>"allowSwitch"</code> (<code>boolean</code>, default is <code>false</code>) - If this option was set <code>true</code>, this rule ignores labels which are sticking to switch statements.</li>
+</ul>
+<p>Actually labeled statements in JavaScript can be used with other than loop and switch statements.
+However, this way is ultra rare, not well-known, so this would be confusing developers.</p>
+<h3 id="allowloop">allowLoop</h3>
+<p>Examples of <strong>correct</strong> code for the <code>{ "allowLoop": true }</code> option:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint no-labels: ["error", { "allowLoop": true }]*/</span>
+
+<span class="nx">label</span><span class="o">:</span>
+    <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">break</span> <span class="nx">label</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="allowswitch">allowSwitch</h3>
+<p>Examples of <strong>correct</strong> code for the <code>{ "allowSwitch": true }</code> option:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint no-labels: ["error", { "allowSwitch": true }]*/</span>
+
+<span class="nx">label</span><span class="o">:</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+            <span class="k">break</span> <span class="nx">label</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h2 id="when-not-to-use-it">When Not To Use It</h2>
+<p>If you need to use labeled statements everywhere, then you can safely disable this rule.</p>
+<h2 id="related-rules">Related Rules</h2>
+<ul>
+<li><a href="./no-extra-label.md">no-extra-label</a></li>
+<li><a href="./no-label-var.md">no-label-var</a></li>
+<li><a href="./no-unused-labels.md">no-unused-labels</a></li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

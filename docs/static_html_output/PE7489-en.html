@@ -1,0 +1,63 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7489">BE7489: Cookie without the secure flag</h2>
+    <h3>Cookie without the secure flag</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7489</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Cookie without the secure flag</p>
+<h4>Vulnerability and risk</h4>
+<p>
+A new cookie is created without the <code>Secure</code> flag set.
+The <code>Secure</code> flag is a directive to the browser to make sure that the cookie is not sent for insecure
+communication (<code>http://</code>).
+</p>
+<p>
+<b>Code at risk:</b><br/>
+<pre>
+Cookie cookie = new Cookie("userName",userName);
+response.addCookie(cookie);
+</pre>
+</p>
+<p>
+<b>Solution (Specific configuration):</b><br/>
+<pre>
+Cookie cookie = new Cookie("userName",userName);
+cookie.setSecure(true); // Secure flag
+cookie.setHttpOnly(true);
+</pre>
+</p>
+<p>
+<b>Solution (Servlet 3.0 configuration):</b><br/>
+<pre>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="3.0"<
+[...]
+<session-config<
+ <cookie-config<
+  <http-only<true</http-only<
+  <secure<true</secure<
+ </cookie-config<
+</session-config<
+</web-app<
+</pre>
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+<h4>Reference</h4>
+<p>&lt;a href=&quot;https://cwe.mitre.org/data/definitions/614.html&quot;&gt;CWE-614: Sensitive Cookie in HTTPS Session Without 'Secure' Attribute&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://cwe.mitre.org/data/definitions/315.html&quot;&gt;CWE-315: Cleartext Storage of Sensitive Information in a Cookie&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://cwe.mitre.org/data/definitions/311.html&quot;&gt;CWE-311: Missing Encryption of Sensitive Data&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://www.owasp.org/index.php/SecureFlag&quot;&gt;OWASP: Secure Flag&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://www.rapid7.com/db/vulnerabilities/http-cookie-secure-flag&quot;&gt;Rapid7: Missing Secure Flag From SSL Cookie&lt;/a&gt;</p>
+
+    </section>
+</article>

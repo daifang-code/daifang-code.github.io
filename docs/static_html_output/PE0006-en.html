@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0006">PE0006: Incorrect operation with BSTR values</h2>
+    <h3>Incorrect operation with BSTR values.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0006</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Comparison operations cannot be used for BSTR values because they are meaningless in the BSTR context, and if they are not corrected, they can result in incorrect memory usage.
+Because of the two different styles of construction, the COM style BSTR strings and C style strings need to be pampered. In some cases, the conversion between the two is well-compiled, but it still produces unexpected results.</p>
+<p>Comparisons of BSTR expressions using relational operators &gt;, &lt;, &gt;=, and &lt;= are reported as defects.
+The reason for considering this comparison as a defect is that although the BSTR variable is technically a pointer, it should normally be considered as an opaque type. Only valid comparisons are == and! =.</p>
+<h4>Vulnerability and risk</h4>
+<h5>incorrect memory usage</h5>
+<p>Comparison operations cannot be used for BSTR values because they are meaningless in the BSTR context, and if they are not corrected, they can result in incorrect memory usage.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>It is best not to use BSTRs in new designs.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="n">BSTR</span> <span class="n">b1</span><span class="p">,</span> <span class="n">BSTR</span> <span class="n">b2</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">b1</span> <span class="o">&gt;</span> <span class="n">b2</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, using '&gt;' to compare two BSTR values at line 2.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="n">BSTR</span> <span class="n">b1</span><span class="p">,</span> <span class="n">BSTR</span> <span class="n">b2</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">b1</span> <span class="o">==</span> <span class="n">b2</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example, using '==' to compare two BSTR values at line 2.</p>
+
+    </section>
+</article>

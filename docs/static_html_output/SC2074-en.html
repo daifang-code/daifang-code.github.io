@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2074">SC2074: Suspicious condition</h2>
+    <h3>Can't use `=~` in `[ ]`. Use `[[..]]` instead.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2074</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Can't use <code>=~</code> in <code>[ ]</code>. Use <code>[[..]]</code> instead.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$input</span><span class="s2">&quot;</span> <span class="o">=</span>~ DOC<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*<span class="se">\.</span>txt <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;match&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="o">[[</span> <span class="s2">&quot;</span><span class="nv">$input</span><span class="s2">&quot;</span> <span class="o">=</span>~ DOC<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*<span class="se">\.</span>txt <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;match&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p><code>=~</code> only works in <code>[[ .. ]]</code> tests. It does not work with <code>test</code> or <code>[</code> in any shell.</p>
+<p>If you're targeting POSIX <code>sh</code>, rewrite in terms of <code>case</code> or <code>grep</code> instead.</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

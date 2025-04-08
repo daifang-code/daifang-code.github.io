@@ -1,0 +1,41 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1102">PE1102: 操纵Hadoop作业</h2>
+    <h3>该软件可能会使得攻击者能够操纵客户端应用所在的Hadoop集群中的核心组件</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1102</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>该软件可能会使得攻击者能够操纵客户端应用所在的Hadoop集群中的核心组件。</p>
+<h4>漏洞与风险</h4>
+<p>在一个存在缺陷的环境中，提交到Hadoop集群中的作业可能会被攻击者恶意篡改。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>视所有的输入为危险的数据，通过使用白名单等的受信输入验证策略来严格清洗输入数据。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>以下的缺陷代码展示了非受信用户输入是如何在Hadoop作业提交过程中操作作业的：</p>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">JobConf</span> <span class="nf">bad</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="kt">int</span> <span class="n">reducers</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+    <span class="o">...</span>
+    <span class="n">JobConf</span> <span class="n">job</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JobConf</span><span class="o">(</span><span class="k">new</span> <span class="n">COnfiguration</span><span class="o">(),</span> 
+                              <span class="n">OptimizedDataJoinJob</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">...</span>
+    <span class="c1">// reducers may exceed the acceptable range.</span>
+    <span class="n">job</span><span class="o">.</span><span class="na">setNumReduceTasks</span><span class="o">(</span><span class="n">reducers</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">job</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+    </section>
+</article>

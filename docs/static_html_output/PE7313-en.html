@@ -1,0 +1,37 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7313">BE7313: Call to equals() comparing unrelated class and interface</h2>
+    <h3>Call to equals() comparing unrelated class and interface</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7313</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Call to equals() comparing unrelated class and interface</p>
+<h4>Vulnerability and risk</h4>
+<p>
+This method calls equals(Object) on two references,  one of which is a class
+and the other an interface, where neither the class nor any of its
+non-abstract subclasses implement the interface.
+Therefore, the objects being compared
+are unlikely to be members of the same class at runtime
+(unless some application classes were not analyzed, or dynamic class
+loading can occur at runtime).
+According to the contract of equals(),
+objects of different
+classes should always compare as unequal; therefore, according to the
+contract defined by java.lang.Object.equals(Object),
+the result of this comparison will always be false at runtime.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

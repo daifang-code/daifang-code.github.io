@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE19050">PE19050: webshell28</h2>
+    <h3>webshell28</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE19050</dd>
+                    <dt>标签</dt>
+                    <dd>cobra</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>安全风险</h2>
+
+<pre><code>    代码中存在webshell
+
+</code></pre>
+<h2>修复方案</h2>
+
+<pre><code>    将该标记片段代码删除
+
+</code></pre>
+<h2>匹配规则</h2>
+<p>eval(&quot;?&gt;&quot;.|gzinflate(base64_decode(|eval(base64_decode(|cat\s<em>/etc/passwd|Safe_Mode\s</em>Bypass</p>
+<h4>References</h4>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+
+    </section>
+</article>

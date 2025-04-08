@@ -1,0 +1,30 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7484">BE7484: 不可信的查询字符串</h2>
+    <h3>不可信的查询字符串</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7484</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>不可信的查询字符串</p>
+<h4>漏洞与风险</h4>
+<p>查询字符串是GET参数名称和值的连接。
+除了那些预期之外的参数可以被传递进来。</p>
+ <p>对于URL请求<code>/app/servlet.htm?a=1&b=2</code>，查询字符串提取将是<code>a=1&b=2</code></p>
+ <p>正如类似于<code>HttpServletRequest.getParameter()</code>方法所检索到的单个参数值一样，
+从<code>HttpServletRequest.getQueryString()</code>获得的值应该被认为是不安全的。在将查询字符串传递给敏感api之前，您可能需要对从查询字符串中提取的任何东西进行验证或净化。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://cwe.mitre.org/data/definitions/20.html&quot;&gt;CWE-20: Improper Input Validation&lt;/a&gt;</p>
+
+    </section>
+</article>

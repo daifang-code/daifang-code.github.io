@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE19042">PE19042: webshell17</h2>
+    <h3>webshell17</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE19042</dd>
+                    <dt>标签</dt>
+                    <dd>cobra</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>安全风险</h2>
+
+<pre><code>    代码中存在webshell
+
+</code></pre>
+<h2>修复方案</h2>
+
+<pre><code>    将该标记片段代码删除
+
+</code></pre>
+<h2>匹配规则</h2>
+<p>$\s<em>(\w+)\s</em>=\s<em>(($_(GET|POST|REQUEST|COOKIE|SERVER).{0,25})|.</em>['&quot;]\s<em>(eval|assert|ass\x65rt|system|exec|shell_exec|passthru|popen|proc_open|pcntl_exec)\s</em>['&quot;]|(base64_decode|gzinflate|gzuncompress|gzdecode|str_rot13)\s<em>()[\s\S]{0,200}\b(filter_var|filter_var_array)\s</em>(.<em>FILTER_CALLBACK[^;]</em>$\1</p>
+<h4>References</h4>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+
+    </section>
+</article>

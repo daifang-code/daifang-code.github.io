@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7539">BE7539: 未加密的套接字</h2>
+    <h3>未加密的套接字</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7539</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>未加密的套接字</p>
+<h4>漏洞与风险</h4>
+<p>
+使用的通信信道未加密。拦截网络流量的攻击者可以读取流量。
+</p>
+<p>
+<b>易受攻击的代码：</b><br/>
+普通套接字（Cleartext通信）：
+<pre>Socket soc = new Socket("www.google.com",80);</pre>
+</p>
+<p>
+<b>解决方案：</b><br/>
+SSL套接字（安全通信）：
+<pre>Socket soc = SSLSocketFactory.getDefault().createSocket("www.google.com", 443);</pre>
+</p>
+<p>除了使用SSL套接字之外，您还需要确保使用SSLSocketFactory执行所有相应的证书验证检查，以确保您不会受到中间人攻击。请阅读OWASP传输层保护cheat sheet，了解有关如何正确执行此操作的详细信息。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;https://www.owasp.org/index.php/Top_10_2010-A9&quot;&gt;OWASP: Top 10 2010-A9-Insufficient Transport Layer Protection&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://www.owasp.org/index.php/Top_10_2013-A6-Sensitive_Data_Exposure&quot;&gt;OWASP: Top 10 2013-A6-Sensitive Data Exposure&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://www.owasp.org/index.php/Transport_Layer_Protection_Cheat_Sheet&quot;&gt;OWASP: Transport Layer Protection Cheat Sheet&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://projects.webappsec.org/w/page/13246945/Insufficient%20Transport%20Layer%20Protection&quot;&gt;WASC-04: Insufficient Transport Layer Protection&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/319.html&quot;&gt;CWE-319: Cleartext Transmission of Sensitive Information&lt;/a&gt;</p>
+</p>
+
+    </section>
+</article>

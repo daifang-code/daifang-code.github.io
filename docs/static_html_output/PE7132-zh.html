@@ -1,0 +1,31 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7132">BE7132: 类定义了compareTo(...)但还是使用Object.equals()</h2>
+    <h3>类定义了compareTo(...)但还是使用Object.equals()</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7132</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>类定义了compareTo(...)但还是使用Object.equals()</p>
+<h4>漏洞与风险</h4>
+<p>此类定义<code>compareTo(...)</code>方法，但从<code>java.lang.Object</code>继承其<code>equals()</code>方法。
+通常，当且仅当equals返回true时，compareTo的值才应返回零。如果违反此规定，则会在如PriorityQueue之类的类中发生不可预测的故障。
+    在Java 5中，PriorityQueue.remove方法使用compareTo方法，而在Java 6中，它使用equals方法。</p>
+<p>从Comparable接口中的compareTo方法的JavaDoc：
+<blockquote>
+强烈建议，但并非严格要求<code>(x.compareTo(y)==0) == (x.equals(y))</code>。
+一般来说，任何实现Comparable接口并且违反此条件的类都应该清楚地表明这一事实。注意：此类具有与equals不一致的自然顺序。
+ </blockquote></p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

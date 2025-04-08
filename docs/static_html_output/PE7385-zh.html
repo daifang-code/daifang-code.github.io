@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7385">BE7385: 测试与NaN是否相等</h2>
+    <h3>测试与NaN是否相等</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7385</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>测试与NaN是否相等</p>
+<h4>漏洞与风险</h4>
+<p>
+   此代码检查浮点值是否等于特殊的NaN（例如，if (x == Double.NaN)）。但是，由于<code>NaN</code>的特殊语义，没有值等于<code>NaN</code>，包括<code>NaN</code>本身。因此，<code>x == Double.NaN</code> 总是false的。
+要检查<code>x</code>
+ 中包含的值是否为特殊的NaN，请使用<code>Double.isNaN(x)</code> （如果<code>x</code> 是浮点精度，则使用<code>Float.isNaN(x)</code>）。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

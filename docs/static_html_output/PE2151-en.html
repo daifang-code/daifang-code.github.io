@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2151">PE2151: no-process-exit</h2>
+    <h3>Disallow process.exit() (no-process-exit)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2151</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow process.exit() (no-process-exit)</h4>
+<p>The <code>process.exit()</code> method in Node.js is used to immediately stop the Node.js process and exit. This is a dangerous operation because it can occur in any method at any point in time, potentially stopping a Node.js application completely when an error occurs. For example:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">somethingBadHappened</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;Something bad happened!&quot;</span><span class="p">);</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>This code could appear in any module and will stop the entire application when <code>somethingBadHappened</code> is truthy. This doesn't give the application any chance to respond to the error. It's usually better to throw an error and allow the application to handle it appropriately:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">somethingBadHappened</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Something bad happened!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>By throwing an error in this way, other parts of the application have an opportunity to handle the error rather than stopping the application altogether. If the error bubbles all the way up to the process without being handled, then the process will exit and a non-zero exit code will returned, so the end result is the same.</p>
+<p>If you are using <code>process.exit()</code> only for specifying the exit code, you can set <a href="https://nodejs.org/api/process.html#process_process_exitcode"><code>process.exitCode</code></a> (introduced in Node.js 0.11.8) instead.</p>
+<h2>Rule Details</h2>
+<p>This rule aims to prevent the use of <code>process.exit()</code> in Node.js JavaScript. As such, it warns whenever <code>process.exit()</code> is found in code.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-process-exit: &quot;error&quot;*/</span>
+
+<span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-process-exit: &quot;error&quot;*/</span>
+
+<span class="nx">Process</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">exit</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">;</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>There may be a part of a Node.js application that is responsible for determining the correct exit code to return upon exiting. In that case, you should turn this rule off to allow proper handling of the exit code.</p>
+
+    </section>
+</article>

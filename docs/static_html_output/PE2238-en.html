@@ -1,0 +1,340 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2238">PE2238: space-before-function-paren</h2>
+    <h3>Require or disallow a space before function parenthesis (space-before-function-paren)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2238</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Require or disallow a space before function parenthesis (space-before-function-paren)</h4>
+<p>When formatting a function, whitespace is allowed between the function name or <code>function</code> keyword and the opening paren. Named functions also require a space between the <code>function</code> keyword and the function name, but anonymous functions require no whitespace. For example:</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">withoutSpace</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">withSpace</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">anonymousWithoutSpace</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">anonymousWithSpace</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{};</span>
+</pre></div>
+<p>Style guides may require a space after the <code>function</code> keyword for anonymous functions, while others specify no whitespace. Similarly, the space after a function name may or may not be required.</p>
+<h2>Rule Details</h2>
+<p>This rule aims to enforce consistent spacing before function parentheses and as such, will warn whenever whitespace doesn't match the preferences specified.</p>
+<h2>Options</h2>
+<p>This rule has a string option or an object option:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;space-before-function-paren&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;always&quot;</span><span class="p">],</span>
+    <span class="c1">// or</span>
+    <span class="s2">&quot;space-before-function-paren&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s2">&quot;anonymous&quot;</span><span class="o">:</span> <span class="s2">&quot;always&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;named&quot;</span><span class="o">:</span> <span class="s2">&quot;always&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;asyncArrow&quot;</span><span class="o">:</span> <span class="s2">&quot;always&quot;</span>
+    <span class="p">}],</span>
+<span class="p">}</span>
+</pre></div>
+<ul>
+<li><code>always</code> (default) requires a space followed by the <code>(</code> of arguments.</li>
+<li><code>never</code> disallows any space followed by the <code>(</code> of arguments.</li>
+</ul>
+<p>The string option does not check async arrow function expressions for backward compatibility.</p>
+<p>You can also use a separate option for each type of function.
+Each of the following options can be set to <code>&quot;always&quot;</code>, <code>&quot;never&quot;</code>, or <code>&quot;ignore&quot;</code>. The default is <code>&quot;always&quot;</code>.</p>
+<ul>
+<li><code>anonymous</code> is for anonymous function expressions (e.g. <code>function () {}</code>).</li>
+<li><code>named</code> is for named function expressions (e.g. <code>function foo () {}</code>).</li>
+<li><code>asyncArrow</code> is for async arrow function expressions (e.g. <code>async () =&gt; {}</code>).</li>
+</ul>
+<h5>&quot;always&quot;</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-function-paren: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">async</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="mi">1</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-function-paren: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">constructor</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="mi">1</span>
+</pre></div>
+<h5>&quot;never&quot;</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-function-paren: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">constructor</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="mi">1</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-function-paren: [&quot;error&quot;, &quot;never&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">async</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="mi">1</span>
+</pre></div>
+<h5><code>{&quot;anonymous&quot;: &quot;always&quot;, &quot;named&quot;: &quot;never&quot;, &quot;asyncArrow&quot;: &quot;always&quot;}</code></h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{&quot;anonymous&quot;: &quot;always&quot;, &quot;named&quot;: &quot;never&quot;, &quot;asyncArrow&quot;: &quot;always&quot;}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-function-paren: [&quot;error&quot;, {&quot;anonymous&quot;: &quot;always&quot;, &quot;named&quot;: &quot;never&quot;, &quot;asyncArrow&quot;: &quot;always&quot;}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">constructor</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">async</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">await</span> <span class="nx">a</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{&quot;anonymous&quot;: &quot;always&quot;, &quot;named&quot;: &quot;never&quot;, &quot;asyncArrow&quot;: &quot;always&quot;}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-function-paren: [&quot;error&quot;, {&quot;anonymous&quot;: &quot;always&quot;, &quot;named&quot;: &quot;never&quot;, &quot;asyncArrow&quot;: &quot;always&quot;}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">await</span> <span class="nx">a</span>
+</pre></div>
+<h5><code>{&quot;anonymous&quot;: &quot;never&quot;, &quot;named&quot;: &quot;always&quot;}</code></h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{&quot;anonymous&quot;: &quot;never&quot;, &quot;named&quot;: &quot;always&quot;}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-function-paren: [&quot;error&quot;, { &quot;anonymous&quot;: &quot;never&quot;, &quot;named&quot;: &quot;always&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{&quot;anonymous&quot;: &quot;never&quot;, &quot;named&quot;: &quot;always&quot;}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-function-paren: [&quot;error&quot;, { &quot;anonymous&quot;: &quot;never&quot;, &quot;named&quot;: &quot;always&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">constructor</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<h5><code>{&quot;anonymous&quot;: &quot;ignore&quot;, &quot;named&quot;: &quot;always&quot;}</code></h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{&quot;anonymous&quot;: &quot;ignore&quot;, &quot;named&quot;: &quot;always&quot;}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-function-paren: [&quot;error&quot;, { &quot;anonymous&quot;: &quot;ignore&quot;, &quot;named&quot;: &quot;always&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{&quot;anonymous&quot;: &quot;ignore&quot;, &quot;named&quot;: &quot;always&quot;}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint space-before-function-paren: [&quot;error&quot;, { &quot;anonymous&quot;: &quot;ignore&quot;, &quot;named&quot;: &quot;always&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">foo</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+    <span class="nx">constructor</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>You can turn this rule off if you are not concerned with the consistency of spacing before function parenthesis.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="space-after-keywords.md">space-after-keywords</a></li>
+<li><a href="space-return-throw-case.md">space-return-throw-case</a></li>
+</ul>
+
+    </section>
+</article>

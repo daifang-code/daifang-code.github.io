@@ -1,0 +1,50 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1041">PE1041: Redundant operation in switch</h2>
+    <h3>Suspicious case label in switch(), Redundant bitwise operation in switch.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1041</dd>
+                    <dt>Tags</dt>
+                    <dd>CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Suspicious case label in switch(), Redundant bitwise operation in switch.</p>
+<h4>Likelihood of Exploit</h4>
+<p>中</p>
+<h4>Demonstrative Examples</h4>
+<h5>bad Example</h5>
+<div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
+     <span class="p">{</span>
+         <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+          <span class="n">y</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>        <span class="c1">// &lt;- this assignment is redundant</span>
+         <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+          <span class="n">y</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>        <span class="c1">// &lt;- case 2 falls through and sets y twice</span>
+     <span class="p">}</span>
+</pre></div>
+<p>In this case，case 2 set value y twice.</p>
+<h5>good Example</h5>
+<div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+       <span class="n">y</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span><span class="k">break</span><span class="p">;</span>        
+      <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+       <span class="n">y</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span><span class="k">break</span><span class="p">;</span>        
+  <span class="p">}</span>
+</pre></div>
+<p>In this case，case 2 set y value 2 then jump out of the switch。</p>
+<h4>References</h4>
+<p>http://cppcheck.sourceforge.net/devinfo/doxyoutput/checkother_8cpp_source.html#l00732</p>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p><a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

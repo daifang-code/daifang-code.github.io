@@ -1,0 +1,59 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2038">PE2038: guard-for-in</h2>
+    <h3>Require Guarding for-in (guard-for-in)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2038</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Require Guarding for-in (guard-for-in)</h4>
+<p>Looping over objects with a <code>for in</code> loop will include properties that are inherited through the prototype chain. This behavior can lead to unexpected items in your for loop.</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>Note that simply checking <code>foo.hasOwnProperty(key)</code> is likely to cause an error in some cases; see <a href="no-prototype-builtins.md">no-prototype-builtins</a>.</p>
+<h2>Rule Details</h2>
+<p>This rule is aimed at preventing unexpected behavior that could arise from using a <code>for in</code> loop without filtering the results in the loop. As such, it will warn when <code>for in</code> loops do not filter their results with an <code>if</code> statement.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint guard-for-in: &quot;error&quot;*/</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint guard-for-in: &quot;error&quot;*/</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">foo</span><span class="p">,</span> <span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">doSomething</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">({}.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">foo</span><span class="p">,</span> <span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">doSomething</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-prototype-builtins.md">no-prototype-builtins</a></li>
+</ul>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://javascriptweblog.wordpress.com/2011/01/04/exploring-javascript-for-in-loops/">Exploring JavaScript for-in loops</a></li>
+<li><a href="http://2ality.com/2012/01/objects-as-maps.html">The pitfalls of using objects as maps in JavaScript</a></li>
+</ul>
+
+    </section>
+</article>

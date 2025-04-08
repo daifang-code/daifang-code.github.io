@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7164">BE7164: Superclass uses subclass during initialization</h2>
+    <h3>Superclass uses subclass during initialization</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7164</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Superclass uses subclass during initialization</p>
+<h4>Vulnerability and risk</h4>
+<p> During the initialization of a class, the class makes an active use of a subclass.
+That subclass will not yet be initialized at the time of this use.
+For example, in the following code, <code>foo</code> will be null.</p>
+<pre><code>public class CircularClassInitialization {
+    static class InnerClassSingleton extends CircularClassInitialization {
+        static InnerClassSingleton singleton = new InnerClassSingleton();
+    }
+    static CircularClassInitialization foo = InnerClassSingleton.singleton;
+}
+</code></pre>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+
+    </section>
+</article>

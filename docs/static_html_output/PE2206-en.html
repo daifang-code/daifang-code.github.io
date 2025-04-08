@@ -1,0 +1,138 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2206">PE2206: object-curly-spacing</h2>
+    <h3>enforce consistent spacing inside braces (object-curly-spacing)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2206</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>enforce consistent spacing inside braces (object-curly-spacing)</h4>
+<p>While formatting preferences are very personal, a number of style guides require
+or disallow spaces between curly braces in the following situations:</p>
+<div class="highlight"><pre><span></span><span class="c1">// simple object literals</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span> <span class="p">};</span>
+
+<span class="c1">// nested object literals</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="p">{</span> <span class="nx">zoo</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span> <span class="p">}</span> <span class="p">};</span>
+
+<span class="c1">// destructuring assignment (EcmaScript 6)</span>
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+
+<span class="c1">// import/export declarations (EcmaScript 6)</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;bar&quot;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">};</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule enforce consistent spacing inside braces of object literals, destructuring assignments, and import/export specifiers.</p>
+<h2>Options</h2>
+<p>This rule has two options, a string option and an object option.</p>
+<p>String option:</p>
+<ul>
+<li><code>&quot;never&quot;</code> (default) disallows spacing inside of braces</li>
+<li><code>&quot;always&quot;</code> requires spacing inside of braces (except <code>{}</code>)</li>
+</ul>
+<p>Object option:</p>
+<ul>
+<li><code>&quot;arraysInObjects&quot;: true</code> requires spacing inside of braces of objects beginning and/or ending with an array element (applies when the first option is set to <code>never</code>)</li>
+<li><code>&quot;arraysInObjects&quot;: false</code> disallows spacing inside of braces of objects beginning and/or ending with an array element (applies when the first option is set to <code>always</code>)</li>
+<li><code>&quot;objectsInObjects&quot;: true</code> requires spacing inside of braces of objects beginning and/or ending with an object element (applies when the first option is set to <code>never</code>)</li>
+<li><code>&quot;objectsInObjects&quot;: false</code> disallows spacing inside of braces of objects beginning and/or ending with an object element (applies when the first option is set to <code>always</code>)</li>
+</ul>
+<h5>never</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">baz</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;qux&#39;</span><span class="p">},</span> <span class="nx">bar</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">baz</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;qux&#39;</span><span class="p">},</span> <span class="nx">bar</span><span class="p">};</span>
+<span class="kd">var</span> <span class="p">{</span><span class="nx">x</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;bar&#39;</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">},</span> <span class="s1">&#39;qux&#39;</span><span class="o">:</span> <span class="s1">&#39;quxx&#39;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;foo&#39;</span><span class="o">:</span><span class="s1">&#39;bar&#39;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="p">{</span><span class="nx">x</span><span class="p">}</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">foo</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span>
+</pre></div>
+<h5>always</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">baz</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;qux&#39;</span><span class="p">},</span> <span class="nx">bar</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">baz</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;qux&#39;</span> <span class="p">},</span> <span class="nx">bar</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;foo&#39;</span><span class="o">:</span><span class="s1">&#39;bar&#39;</span><span class="p">};</span>
+<span class="kd">var</span> <span class="p">{</span><span class="nx">x</span><span class="p">}</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span><span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;bar&#39;</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span> <span class="p">},</span> <span class="s1">&#39;qux&#39;</span><span class="o">:</span> <span class="s1">&#39;quxx&#39;</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">x</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span>
+</pre></div>
+<h5>arraysInObjects</h5>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>&quot;never&quot;, { &quot;arraysInObjects&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;never&quot;, { &quot;arraysInObjects&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">]</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span> <span class="p">]</span> <span class="p">};</span>
+</pre></div>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>&quot;always&quot;, { &quot;arraysInObjects&quot;: false }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;always&quot;, { &quot;arraysInObjects&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">]};</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span> <span class="p">]};</span>
+</pre></div>
+<h5>objectsInObjects</h5>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>&quot;never&quot;, { &quot;objectsInObjects&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;never&quot;, { &quot;objectsInObjects&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;baz&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">}</span> <span class="p">};</span>
+</pre></div>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>&quot;always&quot;, { &quot;objectsInObjects&quot;: false }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint object-curly-spacing: [&quot;error&quot;, &quot;always&quot;, { &quot;objectsInObjects&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;baz&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="o">:</span> <span class="mi">2</span> <span class="p">}};</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>You can turn this rule off if you are not concerned with the consistency of spacing between curly braces.</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="array-bracket-spacing.md">array-bracket-spacing</a></li>
+<li><a href="comma-spacing.md">comma-spacing</a></li>
+<li><a href="computed-property-spacing.md">computed-property-spacing</a></li>
+<li><a href="space-in-parens.md">space-in-parens</a></li>
+</ul>
+
+    </section>
+</article>

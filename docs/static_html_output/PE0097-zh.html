@@ -1,0 +1,63 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0097">PE0097: 可疑的数组到指针的转换</h2>
+    <h3>可疑的数组到指针的转换。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0097</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>使用数组名去访问数组中的元素，数组名转化为指针，通常由缺少索引数据引起错误。</p>
+<h4>漏洞与风险</h4>
+<p>访问不希望的数据，可能导致执行结果错误。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>应使用索引号来访问数组元素。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">S</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span> 
+<span class="p">};</span>
+<span class="kt">void</span> <span class="nf">example_fun</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="n">S</span> <span class="n">a</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">a</span><span class="o">-&gt;</span><span class="n">c</span> <span class="o">=</span> <span class="sc">&#39;a&#39;</span><span class="p">;</span> <span class="c1">//数组名转化为指针，始终访问的是第一个元素</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，数组名转化为指针，始终访问的是第一个元素。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">S</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span> 
+<span class="p">};</span>
+<span class="kt">void</span> <span class="nf">example_fun</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="n">S</span> <span class="n">a</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">c</span> <span class="o">=</span> <span class="sc">&#39;a&#39;</span><span class="p">;</span> 
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，使用索引号来访问数组元素。</p>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>SJ/T 11682-2017 6.2.14<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

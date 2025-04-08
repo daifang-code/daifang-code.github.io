@@ -1,0 +1,35 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC1099">SC1099: Missing space</h2>
+    <h3>You need a space before the #.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC1099</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>You need a space before the #.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="k">while</span> sleep <span class="m">1</span>
+<span class="k">do</span><span class="c1"># show time</span>
+  date
+<span class="k">done</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="k">while</span> sleep <span class="m">1</span>
+<span class="k">do</span> <span class="c1"># show time</span>
+  date
+<span class="k">done</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>ShellCheck has noticed that you have a keyword immediately followed by a <code>#</code>. In order for the <code>#</code> to start a comment, it needs to come after a word boundary such as a space.</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

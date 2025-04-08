@@ -1,0 +1,89 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1067">PE1067: 错误的使用输入/输出API</h2>
+    <h3>错误的使用输入/输出API。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1067</dd>
+                    <dt>标签</dt>
+                    <dd>CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>错误的使用输入/输出API问题包括：</p>
+<ol>
+<li><p>输出流的无效，例如在fclose(); fread()中使用了已经关闭的文件。</p>
+</li>
+<li><p>在输入流上调用fflush()可能会在非linux系统上导致未定义的行为。</p>
+</li>
+<li><p>读写文件操作之间没有重置读取指针(fseek, fsetpos or rewind fflush)会导致不确定的程序行为。</p>
+</li>
+<li><p>对只能写入的文件进行读取操作。对只读文件进行写操作。使用的文件未打开。</p>
+</li>
+<li><p>在以追加模式打开的文件上执行的重新定位操作不起作用。</p>
+</li>
+<li><p>没有字段宽度限制可能会导致大量输入数据崩溃。添加一个字段宽度说明符来解决这个问题。</p>
+</li>
+<li><p>错误的输入输出参数数量错误或错误的输入输出参数位置错误。</p>
+</li>
+</ol>
+<h4>漏洞与风险</h4>
+<h5>在资源使用周期内的不当控制（问题1、2、3、4、5）</h5>
+<p>在创建，使用和发布的整个生命周期中，软件没有维护或不正确地维护对资源的控制权。</p>
+<p>资源往往有明确的说明如何创建，使用和销毁。当软件不遵循这些说明时，它可能会导致意外行为和潜在的可利用状态。</p>
+<p>即使没有明确的指示，也应遵守各种原则，例如“在创建完成之前不要使用对象”，或者“在对象被销毁后不要使用它”。</p>
+<h5>使用过期的文件描述符（问题1）</h5>
+<p>该软件在关闭后使用或访问文件描述符。</p>
+<p>在特定文件或设备的文件描述符被释放后，它可以被重新使用。该代码可能不会写入原始文件，因为重用的文件描述符可能会引用不同的文件或设备。</p>
+<h5>在存储器缓冲区范围内操作的不当限制（问题6）</h5>
+<p>该软件在内存缓冲区上执行操作，但它可以读取或写入缓冲区预期边界之外的内存位置。</p>
+<p>某些语言允许直接寻址内存位置，并且不会自动确保这些位置对于正在引用的内存缓冲区有效。这可能导致对可能与其他变量，数据结构或内部程序数据相关联的内存位置执行读取或写入操作。</p>
+<p>因此，攻击者可能能够执行任意代码，改变预期的控制流程，读取敏感信息或导致系统崩溃。</p>
+<h5>函数调用的参数数量不正确（问题7）</h5>
+<p>该软件调用一个函数，过程或例程，但调用者指定的参数过多或参数太少，这可能会导致未定义的行为和最终的缺陷。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>缓解与预防</h4>
+<h5>阶段: 测试</h5>
+<p>使用静态分析工具来检查未发布的代码。</p>
+<h5>阶段: 测试</h5>
+<p>由于此函数调用通常会产生不正确的行为，因此通常会在测试或软件正常运行期间检测到该行为。在测试过程中，所有可能的控制路径通常都会暴露这种弱点，除非在极少数情况下，错误的函数调用会意外产生正确的结果，或者提供的参数类型与预期的参数类型非常相似。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例（输入缺少字段宽度限制）</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>输入5或者更大长度的字符可能导致程序崩溃。</p>
+<h5>漏洞代码修复示例（输入缺少字段宽度限制）</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%4s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>这里正确的用法是使用'scanf(&quot;%4s\n&quot;, c);'，因为最大字段宽度不包括终止空字节。</p>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/664.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://cwe.mitre.org/data/definitions/910.html<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+<li id="fn-3"><p>https://cwe.mitre.org/data/definitions/119.html<a href="#fnref-3" class="footnote">&#8617;</a></p></li>
+<li id="fn-4"><p>https://cwe.mitre.org/data/definitions/685.html<a href="#fnref-4" class="footnote">&#8617;</a></p></li>
+<li id="fn-5"><p>http://linux.die.net/man/3/scanf<a href="#fnref-5" class="footnote">&#8617;</a></p></li>
+<li id="fn-6"><p>http://www.opensource.apple.com/source/xnu/xnu-1456.1.26/libkern/stdio/scanf.c<a href="#fnref-6" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

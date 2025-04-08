@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7149">BE7149: 公共静态方法可能由于返回数组来暴露内部表示</h2>
+    <h3>公共静态方法可能由于返回数组来暴露内部表示</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7149</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>公共静态方法可能由于返回数组来暴露内部表示</p>
+<h4>漏洞与风险</h4>
+<p>公共静态方法返回对数组的引用，该数组是类的静态状态的一部分。
+<p>调用此方法的任何代码都可以自由地修改基础数组。</p>
+<p>一种解决方法是返回数组的副本。&lt;/p&gt;</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

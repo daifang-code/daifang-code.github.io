@@ -1,0 +1,132 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2100">PE2100: no-eval</h2>
+    <h3>Disallow eval() (no-eval)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2100</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow eval() (no-eval)</h4>
+<p>JavaScript's <code>eval()</code> function is potentially dangerous and is often misused. Using <code>eval()</code> on untrusted code can open a program up to several different injection attacks. The use of <code>eval()</code> in most contexts can be substituted for a better, alternative approach to a problem.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span> <span class="p">},</span>
+    <span class="nx">key</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+    <span class="nx">value</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;obj.&quot;</span> <span class="o">+</span> <span class="nx">key</span><span class="p">);</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule is aimed at preventing potentially dangerous, unnecessary, and slow code by disallowing the use of the <code>eval()</code> function. As such, it will warn whenever the <code>eval()</code> function is used.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span> <span class="p">},</span>
+    <span class="nx">key</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+    <span class="nx">value</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;obj.&quot;</span> <span class="o">+</span> <span class="nx">key</span><span class="p">);</span>
+
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">eval</span><span class="p">)(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">;</span>
+<span class="nx">foo</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+
+<span class="c1">// This `this` is the global object.</span>
+<span class="k">this</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+<p>Example of additional <strong>incorrect</strong> code for this rule when <code>browser</code> environment is set to <code>true</code>:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env browser*/</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+<p>Example of additional <strong>incorrect</strong> code for this rule when <code>node</code> environment is set to <code>true</code>:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env node*/</span>
+
+<span class="nx">global</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span> <span class="p">},</span>
+    <span class="nx">key</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+    <span class="nx">value</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// This is a user-defined method.</span>
+        <span class="k">this</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nb">eval</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Options</h2>
+<p>This rule has an option to allow indirect calls to <code>eval</code>.
+Indirect calls to <code>eval</code> are less dangerous than direct calls to <code>eval</code> because they cannot dynamically change the scope. Because of this, they also will not negatively impact performance to the degree of direct <code>eval</code>.</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;no-eval&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;allowIndirect&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">}]</span> <span class="c1">// default is false</span>
+<span class="p">}</span>
+</pre></div>
+<p>Example of <strong>incorrect</strong> code for this rule with the <code>{&quot;allowIndirect&quot;: true}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span> <span class="p">},</span>
+    <span class="nx">key</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+    <span class="nx">value</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;obj.&quot;</span> <span class="o">+</span> <span class="nx">key</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{&quot;allowIndirect&quot;: true}</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">eval</span><span class="p">)(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">;</span>
+<span class="nx">foo</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+
+<span class="k">this</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env browser*/</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env node*/</span>
+
+<span class="nx">global</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+<h2>Known Limitations</h2>
+<ul>
+<li><p>This rule is warning every <code>eval()</code> even if the <code>eval</code> is not global's.
+This behavior is in order to detect calls of direct <code>eval</code>. Such as:</p>
+<div class="highlight"><pre><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nb">eval</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// If the value of this `eval` is built-in `eval` function, this is a</span>
+    <span class="c1">// call of direct `eval`.</span>
+    <span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</li>
+<li><p>This rule cannot catch renaming the global object. Such as:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nb">window</span><span class="p">;</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+</li>
+</ul>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://blogs.msdn.com/b/ericlippert/archive/2003/11/01/53329.aspx">Eval is Evil, Part One</a></li>
+<li><a href="https://javascriptweblog.wordpress.com/2010/04/19/how-evil-is-eval/">How evil is eval</a></li>
+</ul>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-implied-eval.md">no-implied-eval</a></li>
+</ul>
+
+    </section>
+</article>

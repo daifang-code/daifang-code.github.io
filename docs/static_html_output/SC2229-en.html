@@ -1,0 +1,47 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2229">SC2229: Misuse of '$/${}'</h2>
+    <h3>This does not read 'foo'. Remove $/${} for that, or use ${var?} to quiet.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2229</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>This does not read 'foo'. Remove $/${} for that, or use ${var?} to quiet.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">read</span> <span class="nv">$foo</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">read</span> foo
+</pre></div>
+<h5>Rationale:</h5>
+<p><code>read</code> takes a variable name, but shellcheck has noticed that you give it an expanded variable instead. This will populate whatever the variable expans to instead of the variable itself. For example:</p>
+
+<pre><code>foo=bar
+read $foo   # Reads data into 'bar', not into 'foo'
+read foo    # Reads data into 'foo'
+
+</code></pre>
+<h5>Exceptions:</h5>
+<p>If this is intentional and you do want to read a variable through an indirect reference, you can silence this warning with a directive:</p>
+<div class="highlight"><pre><span></span><span class="c1"># shellcheck disable=SC2229</span>
+<span class="nb">read</span> <span class="s2">&quot;</span><span class="nv">$foo</span><span class="s2">&quot;</span>
+</pre></div>
+<p>Or take advantage of the fact that ShellCheck only warns when no parameter expansion modifiers are applied:</p>
+<div class="highlight"><pre><span></span><span class="nb">read</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">foo</span><span class="si">}</span><span class="s2">&quot;</span>    <span class="c1"># ShellCheck warns</span>
+<span class="nb">read</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">foo</span><span class="p">?</span><span class="si">}</span><span class="s2">&quot;</span>   <span class="c1"># No warning</span>
+</pre></div>
+<p><code>${foo?}</code> fails when <code>foo</code> is unset, which is fine since <code>read</code> would have failed too. The main side effect is an improved runtime error message in that case.</p>
+<h5>Related resources:</h5>
+<ul>
+<li><a href="https://mywiki.wooledge.org/BashPitfalls#pf12">Bash Pitfalls #12</a>: <code>read $foo</code></li>
+</ul>
+
+    </section>
+</article>

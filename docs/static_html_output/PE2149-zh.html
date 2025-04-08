@@ -1,0 +1,88 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2149">PE2149: no-plusplus</h2>
+    <h3>禁止使用一元操作符 `++` 和 `--` (no-plusplus)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2149</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止使用一元操作符 <code>++</code> 和 <code>--</code> (no-plusplus)</h4>
+<p>因为一元操作符 <code>++</code> 和 <code>--</code> 会自动添加分号，不同的空白可能会改变源代码的语义。</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="nx">i</span> <span class="o">++</span>
+<span class="nx">j</span>
+<span class="c1">// i = 11, j = 20</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="nx">i</span>
+<span class="o">++</span>
+<span class="nx">j</span>
+<span class="c1">// i = 10, j = 21</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则禁止使用一元操作符 <code>++</code> 和 <code>--</code>。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-plusplus: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">foo</span><span class="o">++</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+<span class="nx">bar</span><span class="o">--</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-plusplus: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">foo</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+<span class="nx">bar</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则有一个对象选项。</p>
+<ul>
+<li><code>&quot;allowForLoopAfterthoughts&quot;: true</code> 允许在 <code>for</code> 循环的最后一个表达式中使用 <code>++</code> 和 <code>--</code> 。</li>
+</ul>
+<h5>allowForLoopAfterthoughts</h5>
+<p>选项 <code>{ &quot;allowForLoopAfterthoughts&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-plusplus: [&quot;error&quot;, { &quot;allowForLoopAfterthoughts&quot;: true }]*/</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.9 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-plusplus.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-plusplus.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

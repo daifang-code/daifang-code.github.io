@@ -1,0 +1,71 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2202">PE2202: no-whitespace-before-property</h2>
+    <h3>disallow whitespace before properties (no-whitespace-before-property)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2202</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow whitespace before properties (no-whitespace-before-property)</h4>
+<p>JavaScript allows whitespace between objects and their properties. However, inconsistent spacing can make code harder to read and can lead to errors.</p>
+<div class="highlight"><pre><span></span><span class="nx">foo</span><span class="p">.</span> <span class="nx">bar</span> <span class="p">.</span><span class="nx">baz</span> <span class="p">.</span> <span class="nx">quz</span>
+</pre></div>
+<h2>Rule Details</h2>
+<p>This rule disallows whitespace around the dot or before the opening bracket before properties of objects if they are on the same line. This rule allows whitespace when the object and property are on separate lines, as it is common to add newlines to longer chains of properties:</p>
+<div class="highlight"><pre><span></span><span class="nx">foo</span>
+  <span class="p">.</span><span class="nx">bar</span><span class="p">()</span>
+  <span class="p">.</span><span class="nx">baz</span><span class="p">()</span>
+  <span class="p">.</span><span class="nx">qux</span><span class="p">()</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-whitespace-before-property: &quot;error&quot;*/</span>
+
+<span class="nx">foo</span> <span class="p">[</span><span class="nx">bar</span><span class="p">]</span>
+
+<span class="nx">foo</span><span class="p">.</span> <span class="nx">bar</span>
+
+<span class="nx">foo</span> <span class="p">.</span><span class="nx">bar</span>
+
+<span class="nx">foo</span><span class="p">.</span> <span class="nx">bar</span><span class="p">.</span> <span class="nx">baz</span>
+
+<span class="nx">foo</span><span class="p">.</span> <span class="nx">bar</span><span class="p">()</span>
+  <span class="p">.</span><span class="nx">baz</span><span class="p">()</span>
+
+<span class="nx">foo</span>
+  <span class="p">.</span><span class="nx">bar</span><span class="p">().</span> <span class="nx">baz</span><span class="p">()</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-whitespace-before-property: &quot;error&quot;*/</span>
+
+<span class="nx">foo</span><span class="p">.</span><span class="nx">bar</span>
+
+<span class="nx">foo</span><span class="p">[</span><span class="nx">bar</span><span class="p">]</span>
+
+<span class="nx">foo</span><span class="p">[</span> <span class="nx">bar</span> <span class="p">]</span>
+
+<span class="nx">foo</span><span class="p">.</span><span class="nx">bar</span><span class="p">.</span><span class="nx">baz</span>
+
+<span class="nx">foo</span>
+  <span class="p">.</span><span class="nx">bar</span><span class="p">().</span><span class="nx">baz</span><span class="p">()</span>
+
+<span class="nx">foo</span>
+  <span class="p">.</span><span class="nx">bar</span><span class="p">()</span>
+  <span class="p">.</span><span class="nx">baz</span><span class="p">()</span>
+
+<span class="nx">foo</span><span class="p">.</span>
+  <span class="nx">bar</span><span class="p">().</span>
+  <span class="nx">baz</span><span class="p">()</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>Turn this rule off if you do not care about allowing whitespace around the dot or before the opening bracket before properties of objects if they are on the same line.</p>
+
+    </section>
+</article>

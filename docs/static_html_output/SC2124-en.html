@@ -1,0 +1,59 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2124">SC2124: Improper variable update</h2>
+    <h3>Assigning an array to a string! Assign as array, or use * instead of @ to concatenate.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2124</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Assigning an array to a string! Assign as array, or use * instead of @ to concatenate.</h2>
+<h5>Danger!</h5>
+<blockquote>
+<p>Changing this parameter can be dangerous. Its behavior is influenced by the value of <code>IFS</code>. In certain situations (like feeding strings into commands) this can result in unexpected results from a seemingly aesthetic-only change.</p>
+</blockquote>
+<p><a href="https://wiki.bash-hackers.org/syntax/shellvars#special_parameters_and_shell_variables">[More info]</a></p>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">var</span><span class="o">=</span><span class="nv">$@</span>
+<span class="k">for</span> i in <span class="nv">$var</span><span class="p">;</span> <span class="k">do</span> ..<span class="p">;</span> <span class="k">done</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><span class="nb">set</span> -- Hello World
+<span class="nv">msg</span><span class="o">=</span><span class="nv">$@</span>
+<span class="nb">echo</span> <span class="s2">&quot;You said </span><span class="nv">$msg</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">var</span><span class="o">=(</span> <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> <span class="o">)</span>
+<span class="k">for</span> i in <span class="s2">&quot;</span><span class="si">${</span><span class="nv">var</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="k">do</span> ..<span class="p">;</span> <span class="k">done</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><span class="nb">set</span> -- Hello World
+<span class="nv">msg</span><span class="o">=</span><span class="nv">$*</span>
+<span class="nb">echo</span> <span class="s2">&quot;You said </span><span class="nv">$msg</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>Arrays and <code>$@</code> can contain multiple elements. Simple variables contain only one. When assigning multiple elements to one element, the default behavior depends on the shell (bash concatenates with spaces, zsh concatenates with first char of <code>IFS</code>).</p>
+<p>Since doing this usually indicates a bug, ShellCheck warns and asks you to be explicit about what you want.</p>
+<p>If you want to assign N elements as N elements, use an array, e.g. <code>myArray=( &quot;$@&quot; )</code>.</p>
+<p>If you want to assign N elements as 1 element by concatenating them, use <code>*</code> instead of <code>@</code>, e.g. <code>myVar=${myArray[*]}</code> (this separates elements with the first character of <code>IFS</code>, usually space).</p>
+<p>The same is true for <code>${@: -1}</code>, which results in 0 or 1 elements: <code>var=${*: -1}</code> assigns the last element or an empty string.</p>
+<h5>Exceptions</h5>
+<p>None.</p>
+<h5>Adding an element to an array may trigger this warning when you forget the parenthesis.</h5>
+
+<pre><code>filelist=&quot;${filelist[@]}&quot; &quot;$filename&quot;
+</code></pre>
+<p>What was meant is:</p>
+
+<pre><code>filelist=(&quot;${filelist[@]}&quot; &quot;$filename&quot;)
+</code></pre>
+<p>Note: this syntax is compatible with older shells, in later shells (bash 3.1+ and zsh 4.2+) you can do: <code>filelist+=(&quot;$filename&quot;)</code></p>
+
+    </section>
+</article>

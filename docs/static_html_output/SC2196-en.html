@@ -1,0 +1,36 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2196">SC2196: Portability issue</h2>
+    <h3>egrep is non-standard and deprecated. Use grep -E instead.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2196</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>egrep is non-standard and deprecated. Use grep -E instead.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>egrep <span class="s1">&#39;foo|bar&#39;</span> file
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>grep -E <span class="s1">&#39;foo|bar&#39;</span> file
+</pre></div>
+<h5>Rationale:</h5>
+<p><code>egrep</code> is a non-standard command. Its functionality is provided in POSIX by <code>grep -E</code>. <a href="http://pubs.opengroup.org/onlinepubs/9699919799/utilities/grep.html">POSIX grep</a> says:</p>
+<blockquote>
+<p>This grep has been enhanced in an upwards-compatible way to provide the exact functionality of the historical egrep and fgrep commands as well. It was the clear intention of the standard developers to consolidate the three greps into a single command.</p>
+</blockquote>
+<p>man grep for GNU says:</p>
+<blockquote>
+<p>Direct invocation as either egrep or fgrep is deprecated</p>
+</blockquote>
+<h5>Exceptions:</h5>
+<p>ShellCheck will fail to recognize when functions override <code>egrep</code>. Consider giving it a different name or [[ignore]] this error.</p>
+
+    </section>
+</article>

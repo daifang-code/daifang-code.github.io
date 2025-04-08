@@ -1,0 +1,41 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE9067">PE9067: 多余的头文件引用</h2>
+    <h3>在C和C++源码中寻找多余的头文件引用。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE9067</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>这个检查器通过分析C和C++代码文件来决定是否可以有一些头文件可以被移除而不影响源码的编译。 这个可以带来编译时间的提升，特别是在一些大的C++项目中。移除头文件有时也会暴露开发者都没有意识到的依赖问题。</p>
+<h4>漏洞与风险</h4>
+<p>出现多余的头文件可以导致：</p>
+<ul>
+<li>降低编译构建速度</li>
+<li>导致冗余的重编译</li>
+<li>导致无效的Refactoring</li>
+<li>使项目的文档不再自包含（即由于多余头文件的存在，你不在能依赖头文件包含关系来推断项目文件依赖）。</li>
+</ul>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>从源码中删除对头文件的引用。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;  // Redundant Header Includes</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，头文件 &lt;iostream&gt; 的任何符号都没有被用到，所有改头文件是多余的且应该被移除掉。</p>
+
+    </section>
+</article>

@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7242">BE7242: Condition.await()不在循环中</h2>
+    <h3>Condition.await()不在循环中</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7242</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>Condition.await()不在循环中</p>
+<h4>漏洞与风险</h4>
+<p>此方法包含对<code>java.util.concurrent.await()</code>
+（或variants）的调用，该调用不在循环中。&nbsp; 如果对象用于多个条件，则调用者要等待的条件可能不是实际发生的条件。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

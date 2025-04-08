@@ -1,0 +1,46 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0121">PE0121: 在typedef中使用packed属性</h2>
+    <h3>在typedef中使用packed属性。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0121</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在用typedef定义structure或union的别名时使用packed属性。</p>
+<h4>漏洞与风险</h4>
+<p>packed属性只能用于structure或union的类型定义。packed属性用于typedef中会被忽略。<br />
+&quot;packed&quot;的作用是使字节对齐，一些平台对某些特定类型的数据只能从某些特定地址开始存取，如一个变量没有进行字节对齐，有些架构的CPU在访问时可能会发生错误；如果不按照适合其平台要求对数据存放进行对齐，会降低存取的效率。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>不在用typedef定义structure或union的别名时使用packed属性。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span>    
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span> <span class="n">__attribute__</span><span class="p">((</span><span class="n">packed</span><span class="p">))</span> <span class="n">S</span><span class="p">;</span>  <span class="c1">// packed属性将会忽略</span>
+</pre></div>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span>    
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span> <span class="n">S</span><span class="p">;</span>
+</pre></div>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>SJ/T 11682-2017 6.5.32<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

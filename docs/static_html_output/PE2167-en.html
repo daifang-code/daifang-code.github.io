@@ -1,0 +1,150 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2167">PE2167: no-shadow</h2>
+    <h3>disallow variable declarations from shadowing variables declared in the outer scope (no-shadow)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2167</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>disallow variable declarations from shadowing variables declared in the outer scope (no-shadow)</h4>
+<p>Shadowing is the process by which a local variable shares the same name as a variable in its containing scope. For example:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">b</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In this case, the variable <code>a</code> inside of <code>b()</code> is shadowing the variable <code>a</code> in the global scope. This can cause confusion while reading the code and it's impossible to access the global variable.</p>
+<h2>Rule Details</h2>
+<p>This rule aims to eliminate shadowed variable declarations.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-shadow: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">b</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">b</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">b</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Options</h2>
+<p>This rule takes one option, an object, with properties <code>&quot;builtinGlobals&quot;</code>, <code>&quot;hoist&quot;</code> and <code>&quot;allow&quot;</code>.</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;no-shadow&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;builtinGlobals&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nt">&quot;hoist&quot;</span><span class="p">:</span> <span class="s2">&quot;functions&quot;</span><span class="p">,</span> <span class="nt">&quot;allow&quot;</span><span class="p">:</span> <span class="p">[]</span> <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+<h5>builtinGlobals</h5>
+<p>The <code>builtinGlobals</code> option is <code>false</code> by default.
+If it is <code>true</code>, the rule prevents shadowing of built-in global variables: <code>Object</code>, <code>Array</code>, <code>Number</code>, and so on.</p>
+<p>Examples of <strong>incorrect</strong> code for the <code>{ &quot;builtinGlobals&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-shadow: [&quot;error&quot;, { &quot;builtinGlobals&quot;: true }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nb">Object</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h5>hoist</h5>
+<p>The <code>hoist</code> option has three settings:</p>
+<ul>
+<li><code>functions</code> (by default) - reports shadowing before the outer functions are defined.</li>
+<li><code>all</code> - reports all shadowing before the outer variables/functions are defined.</li>
+<li><code>never</code> - never report shadowing before the outer variables/functions are defined.</li>
+</ul>
+<h5>hoist: functions</h5>
+<p>Examples of <strong>incorrect</strong> code for the default <code>{ &quot;hoist&quot;: &quot;functions&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-shadow: [&quot;error&quot;, { &quot;hoist&quot;: &quot;functions&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">b</span><span class="p">()</span> <span class="p">{}</span>
+</pre></div>
+<p>Although <code>let b</code> in the <code>if</code> statement is before the <em>function</em> declaration in the outer scope, it is incorrect.</p>
+<p>Examples of <strong>correct</strong> code for the default <code>{ &quot;hoist&quot;: &quot;functions&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-shadow: [&quot;error&quot;, { &quot;hoist&quot;: &quot;functions&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</pre></div>
+<p>Because <code>let a</code> in the <code>if</code> statement is before the <em>variable</em> declaration in the outer scope, it is correct.</p>
+<h5>hoist: all</h5>
+<p>Examples of <strong>incorrect</strong> code for the <code>{ &quot;hoist&quot;: &quot;all&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-shadow: [&quot;error&quot;, { &quot;hoist&quot;: &quot;all&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">b</span><span class="p">()</span> <span class="p">{}</span>
+</pre></div>
+<h5>hoist: never</h5>
+<p>Examples of <strong>correct</strong> code for the <code>{ &quot;hoist&quot;: &quot;never&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-shadow: [&quot;error&quot;, { &quot;hoist&quot;: &quot;never&quot; }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">b</span><span class="p">()</span> <span class="p">{}</span>
+</pre></div>
+<p>Because <code>let a</code> and <code>let b</code> in the <code>if</code> statement are before the declarations in the outer scope, they are correct.</p>
+<h5>allow</h5>
+<p>The <code>allow</code> option is an array of identifier names for which shadowing is allowed. For example, <code>&quot;resolve&quot;</code>, <code>&quot;reject&quot;</code>, <code>&quot;done&quot;</code>, <code>&quot;cb&quot;</code>.</p>
+<p>Examples of <strong>correct</strong> code for the <code>{ &quot;allow&quot;: [&quot;done&quot;] }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-shadow: [&quot;error&quot;, { &quot;allow&quot;: [&quot;done&quot;] }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kr">import</span> <span class="nx">async</span> <span class="nx">from</span> <span class="s1">&#39;async&#39;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">done</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">e</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">},</span> <span class="nx">done</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">({</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span> <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<h2>Further Reading</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Variable_shadowing">Variable Shadowing</a></li>
+</ul>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-shadow-restricted-names.md">no-shadow-restricted-names</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,52 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0107">PE0107: 在用于控制程序流程的条件表达式中使用位运算符'&'或'|'</h2>
+    <h3>在用于控制程序流程的条件表达式中使用位运算符'&'或'|'。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0107</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在用于控制程序流程的条件表达式中使用位运算符'&amp;'或'|'。</p>
+<h4>漏洞与风险</h4>
+<p>当用于控制程序流程的条件表达式使用位运算符'&amp;'或'|'时，程序的本意可能为使用运算符&quot;&amp;&amp;&quot;或&quot;||&quot;，可能会改变原本的判断逻辑，导致程序执行不同的分支路径。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>使用运算符'&amp;&amp;'或'||'。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="c1">//在用于控制程序流程的条件表达式中使用位运算符“&amp;”</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span><span class="mi">0</span>  <span class="o">&amp;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span> 
+  <span class="p">{</span>  
+    <span class="p">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞修复代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span><span class="mi">0</span>  <span class="o">&amp;&amp;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span> 
+  <span class="p">{</span>  
+    <span class="p">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>SJ/T 11682-2017 6.5.26<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

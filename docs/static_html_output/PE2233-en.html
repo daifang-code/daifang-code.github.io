@@ -1,0 +1,96 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2233">PE2233: semi-style</h2>
+    <h3>Enforce location of semicolons (semi-style)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2233</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Enforce location of semicolons (semi-style)</h4>
+<p>Generally, semicolons are at the end of lines. However, in semicolon-less style, semicolons are at the beginning of lines. This rule enforces that semicolons are at the configured location.</p>
+<h2>Rule Details</h2>
+<p>This rule reports line terminators around semicolons.</p>
+<p>This rule has an option.</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;semi-style&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;last&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+<ul>
+<li><code>&quot;last&quot;</code> (Default) ... enforces that semicolons are at the end of statements.</li>
+<li><code>&quot;first&quot;</code> ... enforces that semicolons are at the beginning of statements. Semicolons of <code>for</code> loop heads (<code>for(a;b;c){}</code>) should be at the end of lines even if you use this option.</li>
+</ul>
+<p>Examples of <strong>incorrect</strong> code for this rule with <code>&quot;last&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint semi-style: [&quot;error&quot;, &quot;last&quot;]*/</span>
+
+<span class="nx">foo</span><span class="p">()</span>
+<span class="p">;[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="p">(</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span>
+    <span class="p">;</span> <span class="o">++</span><span class="nx">i</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with <code>&quot;last&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint semi-style: [&quot;error&quot;, &quot;last&quot;]*/</span>
+
+<span class="nx">foo</span><span class="p">();</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="p">(</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="o">++</span><span class="nx">i</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with <code>&quot;first&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint semi-style: [&quot;error&quot;, &quot;first&quot;]*/</span>
+
+<span class="nx">foo</span><span class="p">();</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="p">(</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span>
+    <span class="p">;</span> <span class="o">++</span><span class="nx">i</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with <code>&quot;first&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint semi-style: [&quot;error&quot;, &quot;first&quot;]*/</span>
+
+<span class="nx">foo</span><span class="p">()</span>
+<span class="p">;[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="p">(</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="o">++</span><span class="nx">i</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to notify the location of semicolons, then it's safe to disable this rule.</p>
+<h2>Related rules</h2>
+<ul>
+<li><a href="./no-extra-semi.md">no-extra-semi</a></li>
+<li><a href="./semi.md">semi</a></li>
+<li><a href="./semi-spacing.md">semi-spacing</a></li>
+</ul>
+
+    </section>
+</article>

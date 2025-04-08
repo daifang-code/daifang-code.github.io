@@ -1,0 +1,105 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2036">PE2036: getter-return</h2>
+    <h3>强制在 getter 属性中出现一个 return 语句 (getter-return)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2036</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制在 getter 属性中出现一个 return 语句 (getter-return)</h4>
+<p>get 语法将对象属性绑定到一个函数，该函数在查找该属性时将被调用。这是首次在 ECMAScript 5 中引入：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">get</span> <span class="nx">name</span><span class="p">(){</span>
+            <span class="k">return</span> <span class="s2">&quot;nicholas&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(){</span>
+            <span class="k">return</span> <span class="mi">17</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+</pre></div>
+<p>注意，每个 <code>getter</code> 都期望有返回值。</p>
+<h2>缺陷详因</h2>
+<p>该规则前置在属性 getter 中出现 return 语句。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint getter-return: &quot;error&quot;*/</span>
+
+<span class="nx">p</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">get</span> <span class="nx">name</span><span class="p">(){</span>
+        <span class="c1">// no returns.</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(){</span>
+        <span class="c1">// no returns.</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kr">class</span> <span class="nx">P</span><span class="p">{</span>
+    <span class="nx">get</span> <span class="nx">name</span><span class="p">(){</span>
+        <span class="c1">// no returns.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint getter-return: &quot;error&quot;*/</span>
+
+<span class="nx">p</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">get</span> <span class="nx">name</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="s2">&quot;nicholas&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(){</span>
+        <span class="k">return</span> <span class="mi">18</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kr">class</span> <span class="nx">P</span><span class="p">{</span>
+    <span class="nx">get</span> <span class="nx">name</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="s2">&quot;nicholas&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则有一个对象选项：</p>
+<ul>
+<li><code>&quot;allowImplicit&quot;: false</code> (默认) 禁止在 return 语句中隐式地返回未定义。</li>
+</ul>
+<p>选项 <code>{ &quot;allowImplicit&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint getter-return: [&quot;error&quot;, { allowImplicit: true }]*/</span>
+<span class="nx">p</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">get</span> <span class="nx">name</span><span class="p">(){</span>
+        <span class="k">return</span><span class="p">;</span> <span class="c1">// return undefined implicitly.</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你的项目不使用 ES5 属性 getter，你不需要使用此规则。</p>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get">MDN: Functions getter</a></li>
+<li><a href="https://leanpub.com/understandinges6/read/#leanpub-auto-accessor-properties">Understanding ES6: Accessor Properties</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 4.2.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/getter-return.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/getter-return.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

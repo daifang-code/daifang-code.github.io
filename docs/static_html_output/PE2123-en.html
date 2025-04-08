@@ -1,0 +1,98 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2123">PE2123: no-lone-blocks</h2>
+    <h3>Disallow Unnecessary Nested Blocks (no-lone-blocks)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2123</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow Unnecessary Nested Blocks (no-lone-blocks)</h4>
+<p>In JavaScript, prior to ES6, standalone code blocks delimited by curly braces do not create a new scope and have no use. For example, these curly braces do nothing to <code>foo</code>:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>In ES6, code blocks may create a new scope if a block-level binding (<code>let</code> and <code>const</code>), a class declaration or a function declaration (in strict mode) are present. A block is not considered redundant in these cases.</p>
+<h2>Rule Details</h2>
+<p>This rule aims to eliminate unnecessary and potentially confusing blocks at the top level of a script or within other blocks.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-lone-blocks: &quot;error&quot;*/</span>
+
+<span class="p">{}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">();</span>
+    <span class="p">{</span>
+        <span class="nx">baz</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">{</span>
+        <span class="nx">baz</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+    <span class="nx">aLabel</span><span class="o">:</span> <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with ES6 environment:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-lone-blocks: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">bar</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">baz</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">baz</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+    <span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="nx">aLabel</span><span class="o">:</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with ES6 environment and strict mode via <code>&quot;parserOptions&quot;: { &quot;sourceType&quot;: &quot;module&quot; }</code> in the ESLint configuration or <code>&quot;use strict&quot;</code> directive in the code:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-lone-blocks: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

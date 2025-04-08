@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="luobin" />
+<meta name="description" content="该软件可能会使得攻击者能够操纵客户端应用所在的Hadoop集群中的核心组件" />
+<meta name="keywords" content="JAVA">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="操纵Hadoop作业"/>
+<meta property="og:description" content="该软件可能会使得攻击者能够操纵客户端应用所在的Hadoop集群中的核心组件"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE1102.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:06.205829+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/luobin.html">
+<meta property="article:section" content="Checkers/JAVA"/>
+<meta property="article:tag" content="JAVA"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; 操纵Hadoop作业</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/java.html">java</a>
+        </li>
+        <li>
+            <a href="./standard/security-issues.html">安全问题</a>
+        </li>
+        <li>
+            <a href="./category/input-validation-and-representation.html">输入验证与表示</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE1102">操纵Hadoop作业</h1>
+    <p>
+        在 2024-九月-28 发布于 <a href="./category/input-validation-and-representation.html">输入验证与表示</a> 分类
+
+        &#8226; 1 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#_1">缺陷描述</a></li>
+<li><a href="#_2">漏洞与风险</a></li>
+<li><a href="#_3">漏洞利用威胁</a></li>
+<li><a href="#_4">缓解与预防</a></li>
+<li><a href="#_5">演示实例</a><ul>
+<li><a href="#_6">漏洞代码示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+  <div>
+    
+<h1 id="_1">缺陷描述</h1>
+<p>该软件可能会使得攻击者能够操纵客户端应用所在的Hadoop集群中的核心组件。</p>
+<h1 id="_2">漏洞与风险</h1>
+<p>在一个存在缺陷的环境中，提交到Hadoop集群中的作业可能会被攻击者恶意篡改。</p>
+<h1 id="_3">漏洞利用威胁</h1>
+<p>中</p>
+<h1 id="_4">缓解与预防</h1>
+<p>视所有的输入为危险的数据，通过使用白名单等的受信输入验证策略来严格清洗输入数据。</p>
+<h1 id="_5">演示实例</h1>
+<h3 id="_6">漏洞代码示例</h3>
+<p>以下的缺陷代码展示了非受信用户输入是如何在Hadoop作业提交过程中操作作业的：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">JobConf</span> <span class="nf">bad</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="kt">int</span> <span class="n">reducers</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+    <span class="o">...</span>
+    <span class="n">JobConf</span> <span class="n">job</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JobConf</span><span class="o">(</span><span class="k">new</span> <span class="n">COnfiguration</span><span class="o">(),</span> 
+                              <span class="n">OptimizedDataJoinJob</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">...</span>
+    <span class="c1">// reducers may exceed the acceptable range.</span>
+    <span class="n">job</span><span class="o">.</span><span class="na">setNumReduceTasks</span><span class="o">(</span><span class="n">reducers</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">job</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/java.html">JAVA</a>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7414">BE7414: 用于正则表达式的File.separator</h2>
+    <h3>用于正则表达式的File.separator</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7414</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>用于正则表达式的File.separator</p>
+<h4>漏洞与风险</h4>
+<p>这里的代码使用<code>File.separator</code>，其中需要正则表达式。这将在Windows平台上失败，其中<code>File.separator</code>是反斜杠，在正则表达式中将其解释为转义字符。在其它选项中，您可以使用<code>File.separatorChar=='\\' ? "\\\\" : File.separator</code>而不是<code>File.separator</code></p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

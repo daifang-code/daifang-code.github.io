@@ -1,0 +1,50 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0031">PE0031: 在构造函数中未初始化所有非静态的成员变量</h2>
+    <h3>在构造函数中未初始化所有非静态的成员变量。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0031</dd>
+                    <dt>标签</dt>
+                    <dd>CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>一个类的构造函数通常需要初始化类中所有的非静态成员变量。这是一种常见的代码标准。未初始化成员变量是一种不安全的行为，因为使用未初始化的变量会导致意料之外的情况发生。</p>
+<h4>漏洞与风险</h4>
+<h5>意料之外的行为</h5>
+<p>由于分配给变量的内存可能在之前某个程序或函数使用过，因此使用未初始化的变量可能产生意想不到的异常行为和错误结果。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>在构造函数中初始化所有非静态的成员变量。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Bad</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">f</span><span class="p">;</span>
+  <span class="k">static</span> <span class="n">d</span><span class="p">;</span>
+  <span class="n">Bad</span><span class="p">()</span><span class="o">:</span><span class="n">f</span><span class="p">(</span><span class="mf">1.0</span><span class="p">){}</span>	<span class="c1">// &#39;i&#39; and &#39;c&#39; are uninitialized!</span>
+<span class="p">};</span>
+</pre></div>
+<p>在上面的代码中，在Bad的构造函数中，'i'和'c'未被初始化。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Good</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">f</span><span class="p">;</span>
+  <span class="k">static</span> <span class="n">d</span><span class="p">;</span>
+  <span class="n">Good</span><span class="p">()</span><span class="o">:</span><span class="n">i</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">c</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="mf">1.0</span><span class="p">){}</span>	<span class="c1">// all of the members are initialized!</span>
+<span class="p">};</span>
+</pre></div>
+<p>在上面的代码中，在Good的构造函数中初始化所有的非静态成员变量。</p>
+
+    </section>
+</article>

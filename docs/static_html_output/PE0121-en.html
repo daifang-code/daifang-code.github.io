@@ -1,0 +1,46 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0121">PE0121: Attribute Packed in typedef</h2>
+    <h3>Attribute Packed in typedef.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0121</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Use the packed attribute when defining an alias for a structure or union with a typedef.</p>
+<h4>Vulnerability and risk</h4>
+<p>The packed attribute can only be used for type definitions of structure or union. The packed attribute is ignored in the typedef.
+The role of &quot;packed&quot; is to align bytes. Some platforms can only access certain types of data from certain addresses. For example, a variable is not byte aligned. Some architecture CPUs may occur error during access. If you do not align the data storage according to the requirements of its platform, it will reduce the efficiency of access.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Use the packed attribute when you don't use an typedef to define an alias for a structure or union.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span>    
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span> <span class="n">__attribute__</span><span class="p">((</span><span class="n">packed</span><span class="p">))</span> <span class="n">S</span><span class="p">;</span>  <span class="c1">// The packed property will be ignored</span>
+</pre></div>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span>    
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span> <span class="n">S</span><span class="p">;</span>
+</pre></div>
+<h4>Reference</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>SJ/T 11682-2017 6.5.32<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,52 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2141">PE2141: no-new-require</h2>
+    <h3>不允许 new require (no-new-require)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2141</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>不允许 new require (no-new-require)</h4>
+<p><code>require</code> 方法被用来引入不同文件中模块，例如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">appHeader</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;app-header&#39;</span><span class="p">);</span>
+</pre></div>
+<p>某些模块返回一个构造函数，可能导致代码如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">appHeader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;app-header&#39;</span><span class="p">);</span>
+</pre></div>
+<p>不幸的是，这引入了潜在的混乱，因为作者可能要这样：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">appHeader</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;app-header&#39;</span><span class="p">));</span>
+</pre></div>
+<p>处于这个原因，最好禁止使用这种特殊的表达式。</p>
+<h2>缺陷详因</h2>
+<p>此规则旨在消除使用 <code>new require</code> 的表达方式。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-new-require: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">appHeader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;app-header&#39;</span><span class="p">);</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-new-require: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">AppHeader</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;app-header&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">appHeader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppHeader</span><span class="p">();</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你使用一个自定义的 <code>require</code> 方法，而且代码永远不会在项目中使用标准 <code>require</code>  (CommonJS、Node.js、AMD)，你可以关闭此规则。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.6.0 被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-new-require.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-new-require.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

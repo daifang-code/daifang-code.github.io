@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7485">BE7485: HTTP头不可信</h2>
+    <h3>HTTP头不可信</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7485</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>HTTP头不可信</p>
+<h4>漏洞与风险</h4>
+<p>请求头可以很容易地由请求用户修改。一般来说，不应该假设请求来自于没有被攻击者修改过的常规浏览器。因此，建议您不要在任何关于请求的安全决策中相信这个值。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://cwe.mitre.org/data/definitions/807.html&quot;&gt;CWE-807: Untrusted Inputs in a Security Decision&lt;/a&gt;</p>
+
+    </section>
+</article>

@@ -1,0 +1,77 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2051">PE2051: linebreak-style</h2>
+    <h3>enforce consistent linebreak style (linebreak-style)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2051</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>enforce consistent linebreak style (linebreak-style)</h4>
+<p>When developing with a lot of people all having different editors, VCS applications and operating systems it may occur that
+different line endings are written by either of the mentioned (might especially happen when using the windows and mac versions of SourceTree together).</p>
+<p>The linebreaks (new lines) used in windows operating system are usually <em>carriage returns</em> (CR) followed by a <em>line feed</em> (LF) making it a <em>carriage return line feed</em> (CRLF)
+whereas Linux and Unix use a simple <em>line feed</em> (LF). The corresponding <em>control sequences</em> are <code>&quot;\n&quot;</code> (for LF) and <code>&quot;\r\n&quot;</code> for (CRLF).</p>
+<p>Many versioning systems (like git and subversion) can automatically ensure the correct ending. However to cover all contingencies, you can activate this rule.</p>
+<h2>Rule Details</h2>
+<p>This rule enforces consistent line endings independent of operating system, VCS, or editor used across your codebase.</p>
+<h5>Options</h5>
+<p>This rule has a string option:</p>
+<ul>
+<li><code>&quot;unix&quot;</code> (default) enforces the usage of Unix line endings: <code>\n</code> for LF.</li>
+<li><code>&quot;windows&quot;</code> enforces the usage of Windows line endings: <code>\r\n</code> for CRLF.</li>
+</ul>
+<h5>unix</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;unix&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint linebreak-style: [&quot;error&quot;, &quot;unix&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">;</span> <span class="c1">// \r\n</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;unix&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint linebreak-style: [&quot;error&quot;, &quot;unix&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="c1">// \n</span>
+    <span class="nx">b</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">;</span> <span class="c1">// \n</span>
+<span class="c1">// \n</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// \n</span>
+    <span class="c1">// do stuff \n</span>
+<span class="p">}</span><span class="c1">// \n</span>
+</pre></div>
+<h5>windows</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;windows&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint linebreak-style: [&quot;error&quot;, &quot;windows&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">;</span> <span class="c1">// \n</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;windows&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint linebreak-style: [&quot;error&quot;, &quot;windows&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="c1">// \r\n</span>
+    <span class="nx">b</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">;</span> <span class="c1">// \r\n</span>
+<span class="c1">// \r\n</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// \r\n</span>
+    <span class="c1">// do stuff \r\n</span>
+<span class="p">}</span> <span class="c1">// \r\n</span>
+</pre></div>
+<h2>Using this rule with version control systems</h2>
+<p>Version control systems sometimes have special behavior for linebreaks. To make it easy for developers to contribute to your codebase from different platforms, you may want to configure your VCS to handle linebreaks appropriately.</p>
+<p>For example, the default behavior of <a href="https://git-scm.com/">git</a> on Windows systems is to convert LF linebreaks to CRLF when checking out files, but to store the linebreaks as LF when committing a change. This will cause the <code>linebreak-style</code> rule to report errors if configured with the <code>&quot;unix&quot;</code> setting, because the files that ESLint sees will have CRLF linebreaks. If you use git, you may want to add a line to your <a href="https://git-scm.com/docs/gitattributes"><code>.gitattributes</code> file</a> to prevent git from converting linebreaks in <code>.js</code> files:</p>
+
+<pre><code>*.js text eol=lf
+</code></pre>
+<h2>When Not To Use It</h2>
+<p>If you aren't concerned about having different line endings within your code, then you can safely turn this rule off.</p>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS</strong>: <a href="https://jscs-dev.github.io/rule/validateLineBreaks">validateLineBreaks</a></li>
+</ul>
+
+    </section>
+</article>

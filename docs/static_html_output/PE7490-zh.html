@@ -1,0 +1,61 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7490">BE7490: 没有HttpOnly标志的Cookie</h2>
+    <h3>没有HttpOnly标志的Cookie</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7490</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>没有HttpOnly标志的Cookie</p>
+<h4>漏洞与风险</h4>
+<p>
+一个新的cookie是在没有<code>HttpOnly</code>标记集的情况下创建的。
+<code>HttpOnly</code>标志是对浏览器的一个指令，以确保cookie不能被恶意脚本所使用。
+当用户是“跨站点脚本”的目标时，攻击者将从获得会话id方面获得很大的好处。
+ </p>
+ <p>
+<p>&lt;b&gt;有风险的代码：&lt;/b&gt;&lt;br/&gt;</p>
+ <pre>
+ Cookie cookie = new Cookie("email",userName);
+ response.addCookie(cookie);
+ </pre>
+ </p>
+ <p>
+<p>&lt;b&gt;解决方案(特定的配置)：&lt;/b&gt;&lt;br/&gt;</p>
+ <pre>
+ Cookie cookie = new Cookie("email",userName);
+ cookie.setSecure(true);
+ cookie.setHttpOnly(true); //HttpOnly flag
+ </pre>
+ </p>
+ <p>
+<p>&lt;b&gt;解决方案(Servlet 3.0 配置):&lt;/b&gt;&lt;br/&gt;</p>
+ <pre>
+ <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="3.0"<
+ [...]
+ <session-config<
+  <cookie-config<
+  <http-only<true</http-only<
+  <secure<true</secure<
+  </cookie-config<
+ </session-config<
+ </web-app<
+ </pre>
+ </p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://blog.codinghorror.com/protecting-your-cookies-httponly/&quot;&gt;Coding Horror blog: Protecting Your Cookies: HttpOnly&lt;/a&gt;&lt;br/&gt;
+ &lt;a href=&quot;https://www.owasp.org/index.php/HttpOnly&quot;&gt;OWASP: HttpOnly&lt;/a&gt;&lt;br/&gt;
+ &lt;a href=&quot;https://www.rapid7.com/db/vulnerabilities/http-cookie-http-only-flag&quot;&gt;Rapid7: Missing HttpOnly Flag From Cookie&lt;/a&gt;</p>
+
+    </section>
+</article>

@@ -1,0 +1,88 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2182">PE2182: no-unexpected-multiline</h2>
+    <h3>禁止使用令人困惑的多行表达式 (no-unexpected-multiline)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2182</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止使用令人困惑的多行表达式 (no-unexpected-multiline)</h4>
+<p>(recommended) 配置文件中的 <code>&quot;extends&quot;: &quot;eslint:recommended&quot;</code> 属性启用了此规则。</p>
+<p>在 JavaScript 中，分号通常是可选的，因为会自动插入分号（ASI)。你可以使用 <a href="./semi">semi</a> 规则要求或禁止分号。</p>
+<p>ASI 的规则是相对简单的：正如 Isaac Schlueter 曾经描述的那样，一个 <code>\n</code> 字符总是一个语句的结尾(像分号一样)，除非下面之一为真：</p>
+<ul>
+<li>该语句有一个没有闭合的括号，数组字面量或对象字面量或其他某种方式，不是有效结束一个语句的方式。（比如，以 <code>.</code> 或 <code>,</code> 结尾）</li>
+<li>该行是 <code>--</code> 或 <code>++</code>（在这种情况下它将减量/增量的下一个标记）</li>
+<li>它是个 <code>for()</code>、<code>while()</code>、<code>do</code>、<code>if()</code> 或 <code>else</code>，并且没有 <code>{</code></li>
+<li>下一行以 <code>[</code>、<code>(</code>、<code>+</code>、<code>*</code>、<code>/</code>、<code>-</code>、<code>,</code>、<code>.</code> 或一些其它在单个表达式中两个标记之间的二元操作符。</li>
+</ul>
+<p>换行不结束语句，书写错误遗漏了分号，这些异常会导致两个不相干的连续的行被解释为一个表达式。特别是对于一个没有分号的代码风格，读者可能会忽略这些错误。尽管语法上是正确的，代码执行时可能会抛出异常。</p>
+<h2>缺陷详因</h2>
+<p>该规则禁止使用令人困惑的多行表达式。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unexpected-multiline: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span>
+<span class="p">(</span><span class="mi">1</span> <span class="o">||</span> <span class="mi">2</span><span class="p">).</span><span class="nx">baz</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">hello</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">addNumber</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>
+<span class="sb">`hello`</span>
+
+<span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>
+<span class="nx">x</span>
+<span class="sb">`hello`</span>
+
+<span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">foo</span>
+<span class="sr">/regex/g</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">bar</span><span class="p">)</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-unexpected-multiline: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="p">(</span><span class="mi">1</span> <span class="o">||</span> <span class="mi">2</span><span class="p">).</span><span class="nx">baz</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span>
+<span class="p">;(</span><span class="mi">1</span> <span class="o">||</span> <span class="mi">2</span><span class="p">).</span><span class="nx">baz</span><span class="p">()</span>
+
+<span class="kd">var</span> <span class="nx">hello</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span><span class="p">;</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">addNumber</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">hello</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>
+<span class="k">void</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">addNumber</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+<span class="sb">`hello`</span>
+
+<span class="kd">let</span> <span class="nx">tag</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>
+<span class="nx">tag</span> <span class="sb">`hello`</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你有信心你不会意外地引入这样的代码，你可以关闭此规则。</p>
+<p>注意，被认为有问题的模式 <strong>不</strong>被 <a href="semi">semi</a> 规则标记。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="func-call-spacing">func-call-spacing</a></li>
+<li><a href="semi">semi</a></li>
+<li><a href="space-unary-ops">space-unary-ops</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.24.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-unexpected-multiline.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-unexpected-multiline.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

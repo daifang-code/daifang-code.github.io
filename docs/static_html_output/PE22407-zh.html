@@ -1,0 +1,46 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22407">PE22407: E301</h2>
+    <h3>Expected 1 blank line, found 0</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22407</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>类的方法之间应有一个空行。</p>
+<h5>示例错误片段</h5>
+
+<pre><code>class MyClass(object):
+    def func1():
+        pass
+    def func2():
+        pass
+
+</code></pre>
+<h5>最佳修复</h5>
+
+<pre><code>class MyClass(object):
+    def func1():
+        pass
+
+    def func2():
+        pass
+
+
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#blank-lines<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

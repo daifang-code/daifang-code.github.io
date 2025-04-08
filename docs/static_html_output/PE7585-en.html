@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7585">BE7585: Potential information leakage in Scala Play</h2>
+    <h3>Potential information leakage in Scala Play</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7585</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Potential information leakage in Scala Play</p>
+<h4>Vulnerability and risk</h4>
+<p>
+    Applications can unintentionally leak information about their configuration, internal workings, or violate privacy through a
+    variety of application problems. <sup>[1]</sup> Pages that provide different responses based on the validity of the data can
+    lead to Information Leakage; specifically when data deemed confidential is being revealed as a result of the web application's
+    design. <sup>[2]</sup>
+</p>
+<p>
+    Examples of sensitive data includes (but is not limited to): API keys, passwords, product versions or environment configurations.
+</p>
+<p>
+<b>Code at risk:</b><br/>
+<pre>def doGet(value:String) = Action {
+  val configElement = configuration.underlying.getString(value)
+<p>Ok(&quot;Hello &quot;+ configElement +&quot; !&quot;)
+}&lt;/pre&gt;</p>
+</p>
+<p>
+    Application configuration elements should not be sent in the response content and users should not be allowed to control which
+    configuration elements will be used by the code.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+<h4>References</h4>
+<p>&lt;a href=&quot;https://www.owasp.org/index.php/Top_10_2013-A6-Sensitive_Data_Exposure&quot;&gt;OWASP: Top 10 2013-A6-Sensitive Data Exposure&lt;/a&gt;&lt;br/&gt;
+[1] &lt;a href=&quot;https://www.owasp.org/index.php/Top_10_2007-Information_Leakage_and_Improper_Error_Handling&quot;&gt;OWASP: Top 10 2007-Information Leakage and Improper Error Handling&lt;/a&gt;&lt;br/&gt;
+[2] &lt;a href=&quot;http://projects.webappsec.org/w/page/13246936/Information%20Leakage&quot;&gt;WASC-13: Information Leakage&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://cwe.mitre.org/data/definitions/200.html&quot;&gt;CWE-200: Information Exposure&lt;/a&gt;&lt;br/&gt;</p>
+</p>
+
+    </section>
+</article>

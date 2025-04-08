@@ -1,0 +1,52 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7163">BE7163: 初始化循环</h2>
+    <h3>初始化循环</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7163</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>初始化循环</p>
+<h4>漏洞与风险</h4>
+<p>在bug实例引用的两个类的静态初始化中检测到循环。这种循环可能会产生多种意外行为。</p>
+<p>错误的写法：</p>
+<p><pre><code>
+public class Cycle {
+  private final int balance;
+  private static final Cycle c = new Cycle();
+  private static final int deposit = (int) (Math.random() * 100); // Random deposit
+  public Cycle() {
+    balance = deposit - 10; // Subtract processing fee
+  }
+  public static void main(String[] args) {
+    System.out.println("The account balance is: " + c.balance);
+  }
+}
+</code></pre></p>
+<p>类加载时初始化指向Cycle类的静态变量c，而类Cycle的无参构造方法又依赖静态变量deposit，导致无法预期的结果。 正确的写法：</p>
+<p><pre><code>
+public class Cycle {
+  private final int balance;
+  private static final int deposit = (int) (Math.random() * 100); // Random deposit
+  private static final Cycle c = new Cycle();  // Inserted after initialization of required fields
+  public Cycle() {
+    balance = deposit - 10; // Subtract processing fee
+  }
+  public static void main(String[] args) {
+    System.out.println("The account balance is: " + c.balance);
+  }
+}
+</code></pre></p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7404">BE7404: Unchecked/unconfirmed cast of return value from method</h2>
+    <h3>Unchecked/unconfirmed cast of return value from method</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7404</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Unchecked/unconfirmed cast of return value from method</p>
+<h4>Vulnerability and risk</h4>
+<p>
+This code performs an unchecked cast of the return value of a method.
+The code might be calling the method in such a way that the cast is guaranteed to be
+safe, but Pinpoint is unable to verify that the cast is safe. Check that your program logic ensures that this
+cast will not fail.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

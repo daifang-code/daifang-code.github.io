@@ -1,0 +1,70 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1007">PE1007: 不正确的whence值</h2>
+    <h3>不正确的whence值. </h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1007</dd>
+                    <dt>标签</dt>
+                    <dd>C, C++</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">fseek</span> <span class="p">(</span> <span class="kt">FILE</span> <span class="o">*</span> <span class="n">stream</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">int</span> <span class="n">origin</span> <span class="p">);</span>
+</pre></div>
+<p>第三个参数(origin)：用作偏移参考的位置。它由<code>&lt;cstdio&gt;</code>中定义的以下其中一个常量专门用作此函数的参数</p>
+<p>|常量|	参考位置|
+--- | --- |
+|SEEK_SET|	文件开头|
+|SEEK_CUR|	当前文件指针|
+|SEEK_END|	文件末尾|</p>
+<h4>漏洞与风险</h4>
+<p>如果第三个参数不是SEEK_SET, SEEK_END 或 SEEK_CUR，会导致未定义的行为。</p>
+<h4>缓解与预防</h4>
+<p>fseek()的第三个参数应该是SEEK_SET，SEEK_END或SEEK_CUR。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>演示示例</h4>
+<h5>漏洞缺陷示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#define N 5</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">student</span><span class="p">{</span>
+  <span class="kt">long</span> <span class="n">sno</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+  <span class="kt">float</span> <span class="n">score</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="p">}</span><span class="n">STU</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="n">filename</span><span class="p">,</span><span class="n">STU</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span><span class="p">;</span>
+  <span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">&quot;rb+&quot;</span><span class="p">);</span>
+  <span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="o">-</span><span class="mi">1L</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="mi">4</span><span class="p">);</span> <span class="c1">// 4 is not a valid whence argument</span>
+  <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="n">fp</span><span class="p">);</span>
+  <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>漏洞缺陷修复示例</h5>
+<div class="highlight"><pre><span></span><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#define N 5</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">student</span><span class="p">{</span>
+  <span class="kt">long</span> <span class="n">sno</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+  <span class="kt">float</span> <span class="n">score</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="p">}</span><span class="n">STU</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="n">filename</span><span class="p">,</span><span class="n">STU</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span><span class="p">;</span>
+  <span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">&quot;rb+&quot;</span><span class="p">);</span>
+  <span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="o">-</span><span class="mi">1L</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="n">SEEK_END</span><span class="p">);</span>
+  <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STU</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="n">fp</span><span class="p">);</span>
+  <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

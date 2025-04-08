@@ -1,0 +1,54 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0011">PE0011: 枚举值用作布尔值</h2>
+    <h3>枚举值被误用作布尔值。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0011</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在某些情况下，程序员将枚举值误用作布尔值作为条件判断，使得条件恒为真或恒为假，结果可能与程序员的意愿不符，导致未定义的行为。</p>
+<h4>漏洞与风险</h4>
+<h5>未定义的行为</h5>
+<p>将枚举值误用作布尔值作为条件判断，可能会导致未定义的行为发生。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>不要将枚举值用作布尔值进行条件判断。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="k">enum</span> <span class="n">color</span> <span class="p">{</span> <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span> <span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">color</span> <span class="n">c</span> <span class="o">=</span> <span class="n">green</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="c1">// detect</span>
+  <span class="p">{</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">red</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在第6行中使用枚举值c作为if的条件判断，结果恒为真。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="k">enum</span> <span class="n">color</span> <span class="p">{</span> <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span> <span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">color</span> <span class="n">c</span> <span class="o">=</span> <span class="n">green</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">green</span><span class="p">)</span> 
+  <span class="p">{</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">red</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在第6行中使用布尔表达式作为if的条件判断。</p>
+
+    </section>
+</article>

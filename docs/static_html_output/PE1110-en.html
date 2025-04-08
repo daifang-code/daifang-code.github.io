@@ -1,0 +1,44 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1110">PE1110: Intent Manipulation</h2>
+    <h3>Attackers can exploit the vulnerabilities in Intent parameters so as to control the subsequent activities</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1110</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The software receives input from an upstream component, but it does not restrict or incorrectly restricts the input before it is used as an identifier for a resource that may be outside the intended sphere of control.</p>
+<h4>Vulnerability and risk</h4>
+<p>Attackers can exploit the vulnerabilities in Intent parameters so as to control the subsequent activities.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>Assume all input is malicious. Use an &quot;accept known good&quot; input validation strategy, i.e., use a whitelist of acceptable inputs that strictly conform to specifications.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code Example</h5>
+<p>The vulnerable code below uses user input directly from an HTTP request without first verifying it:</p>
+<div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">String</span> <span class="n">cName</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&quot;className&quot;</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">();</span>
+<span class="o">...</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">setClassName</span><span class="o">(</span><span class="n">cName</span><span class="o">);</span>
+<span class="n">someContext</span><span class="o">.</span><span class="na">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+<span class="o">...</span>
+</pre></div>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/99.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

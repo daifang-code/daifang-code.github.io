@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7159">BE7159: Unconditional wait</h2>
+    <h3>Unconditional wait</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7159</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Unconditional wait</p>
+<h4>Vulnerability and risk</h4>
+<p> This method contains a call to <code>java.lang.Object.wait()</code> which
+  is not guarded by conditional control flow.&nbsp; The code should
+    verify that condition it intends to wait for is not already satisfied
+    before calling wait; any previous notifications will be ignored.
+  </p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

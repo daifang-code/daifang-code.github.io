@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7247">BE7247: 无用的对象创建</h2>
+    <h3>无用的对象创建</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7247</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>无用的对象创建</p>
+<h4>漏洞与风险</h4>
+<p>我们的分析表明这个对象没用。
+它被创建和修改，但它的值永远不会在方法以外起作用或产生任何附作用。
+要么是有错误，要么是有意为之，要么可以将其删除。
+</p>
+<p>
+这种分析很少产生误报。常见的误报例子包括：</p>
+<p> - 这个对象用于隐式抛出一些模糊的异常。</p>
+<p> - 此对象用作stub来生成一些代码。</p>
+<p>- 此对象用于保存对弱/软引用对象的强引用。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

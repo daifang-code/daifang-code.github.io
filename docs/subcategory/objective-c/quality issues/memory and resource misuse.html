@@ -1,0 +1,1733 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='../../../theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="../../../theme/stylesheet/normalize.min.css">
+    <script src="../../../theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="../../../theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../../../theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="../../../theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">      <meta name="author" content="Pinpoint Team"/>
+    <meta name="description" content="Manual and documents for Sourcebrella Pinpoint"/> <meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Pinpoint Document"/>
+<meta property="og:description" content="Manual and documents for Sourcebrella Pinpoint"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="../../.."/>
+ 
+    <title>Pinpoint Document &ndash; Category</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href="../../..">
+                <img src="../../../theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href="../../..">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="../../../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="../../../standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="../../../standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="../../../standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="../../../standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="../../../standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="../../../standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="../../../standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="../../../standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+          <article>
+            <h1>
+            Memory and resource misuse (17)
+            </h1>
+        </article>
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1011">Beware of zero-length allocations</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable code Example</a></li>
+<li><a href="#vulnerable-code-fixed-example">Vulnerable code fixed Example</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>When the requested size is 0, the behavior of the memory allocation functions malloc(), calloc(), and realloc() is implementation-defined.Subclause 7.22.3 of the C Standard [ISO/IEC 9899:2011] states:  </p>
+<ul>
+<li>If the size of the space requested is zero, the behavior is implementation-defined: either a null pointer is returned, or the behavior is as if the size were some nonzero value, except that the returned pointer shall not be used to access an object.</li>
+</ul>
+<p>In addition, the amount of storage allocated by a successful call to the allocation function when 0 bytes was requested is unspecified.</p>
+<p>In cases where the memory allocation functions return a non-null pointer, reading from or writing to the allocated memory area results in undefined behavior. Typically, the pointer refers to a zero-length block of memory consisting entirely of control structures. Overwriting these control structures damages the data structures used by the memory manager.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>Allocating 0 bytes can lead to abnormal program termination.</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Beware of zero-length allocations</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>High</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// expected-warning {{Use of zero-allocated memory}}</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="vulnerable-code-fixed-example">Vulnerable code fixed Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+  <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> 
+  <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cert">
+<p>https://wiki.sei.cmu.edu/confluence/display/c/MEM04-C.+Beware+of+zero-length+allocations.html <a class="footnote-backref" href="#fnref-cert" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0064">Variable Length Array Size</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#unexpected-result">unexpected result</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>When declaring a variable-length array, the array length must meet the following requirements:</p>
+<ol>
+<li>The length of the array cannot be negative or 0.</li>
+<li>The array length must be an initialized value.</li>
+<li>The length of the array cannot be a taint data.</li>
+</ol>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="unexpected-result">unexpected result</h4>
+<p>If the above requirements are not met while declaring a variable-length array, the array that may be applied does not match the expected, resulting in unexpected results.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>When declaring a variable-length array, the array length must meet the following requirements:</p>
+<ol>
+<li>The length of the array cannot be negative or 0.</li>
+<li>The array length must be an initialized value.</li>
+<li>The length of the array cannot be a taint data.</li>
+</ol>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{Declared variable-length array (VLA) has zero size}</span>
+  <span class="p">}</span> 
+  <span class="kt">int</span> <span class="n">vla</span><span class="p">[</span><span class="n">x</span><span class="p">];</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, when the variable length array vla is declared, the array length x is 0.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">vla</span><span class="p">[</span><span class="n">x</span><span class="p">];</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, when the variable length array vla is declared, the array length x is not 0.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0055">Pointer Subtraction</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#_1">意料之外的结果</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>If two pointers point to the same array, they can be subtracted, resulting in the number of elements between the two pointers.
+If the two pointers do not point to the same array, they are meaningless and even produce erroneous results.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="_1">意料之外的结果</h4>
+<p>If the two pointers do not point to the same array, they are meaningless and even produce erroneous results.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Only do this calculation if the pointers exist in the same memory chunk.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{Subtraction of two pointers that do not point to </span>
+  <span class="c1">// the same memory chunk may cause incorrect result}} </span>
+  <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">y</span> <span class="o">-</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, &amp;y and &amp;x point to different memory chunk, cannot be subtracted.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">q</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="n">q</span><span class="o">-</span><span class="n">p</span><span class="p">;</span> <span class="c1">// no-warning</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, both q and p point to the same array a, which can be subtracted.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0056">Out Of ArrayBound</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#crash">crash</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>When a program reads data past the end, it will access memory outside the array.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="crash">crash</h4>
+<p>An out of bounds array can cause crash.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>High</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Checks if the index value exceeds the length of the array before accessing the element.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+  <span class="n">a</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the third line, the index value 4 exceeds the length of the array, causing the array to be out of bounds.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+  <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, the index value in the range of the array length is used.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0007">Bad Alloc Arithmetic</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#memory-corruption">memory corruption</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Sometimes the user write codes like <code>malloc(a)+b</code> or <code>malloc(a)-b</code>, where it appears that the user intended to call <code>malloc(a+b)</code> or <code>malloc(a-b)</code>. These errors cause under- or over-allocation and unintended pointer arithmetic, resulting in memory corruption or a potential security vulnerability when attempting to copy data into the resultant buffer.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="memory-corruption">memory corruption</h4>
+<p>These errors cause under- or over-allocation and unintended pointer arithmetic, resulting in memory corruption or a potential security vulnerability when attempting to copy data into the resultant buffer.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Using malloc allocation routine in a correct way.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>  
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="n">b</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, char *p1 and char *p2 both contain allocation errors.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">);</span> 
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the fixed code example, using correct way to alloc memory.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0057">Malloc Size Overflow</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#unexpected-results">unexpected results</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>The computation of the size of the memory allocation may overflow.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="unexpected-results">unexpected results</h4>
+<p>A length overflow during memory allocation causes the actual allocated memory length to be different than expected., which could results in unexpected results.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Detect the length of the allocation before memory allocation.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="o">*</span><span class="nf">bad</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// expected-warning {{the computation of the size of the memory </span>
+  <span class="c1">// allocation  may overflow}} </span>
+  <span class="k">return</span> <span class="n">malloc</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="mi">4</span><span class="p">);</span>  
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, the value of n is passed from outside the function. The result of <code>n * 4</code> may exceed the maximum value of <code>unsigned int</code>, causing an overflow. The actual allocated memory size does not match the expected value.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="o">*</span><span class="nf">good</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">10000</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="n">malloc</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="mi">4</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, the value of n is detected before n is used, thereby preventing the malloc size overflow during memory allocation.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0050">Bad Pointer Arithmetic</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#out-of-bound-access">Out of bound access</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>The type systems in C/C++ do not distinguish between "pointer to one object" and "pointer to array of objects". Consequently, it is easy to accidentally apply pointer arithmetic to a pointer that only points to a singleton object. </p>
+<p>Typically, when pointer arithmetic is applied to a singleton pointer, the result is either reading garbage/unintended value from memory, or writing to unintended memory and corrupting it.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="out-of-bound-access">Out of bound access</h4>
+<p>Typically, when pointer arithmetic is applied to a singleton pointer, the result is either reading garbage/unintended value from memory, or writing to unintended memory and corrupting it.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Apply pointer arithmetic to a pointer that only points to array of objects. </p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+  <span class="n">p</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, <code>p</code> is a pointer that only points to a singleton object. Apply pointer arithmetic at line 4 will result a garbage value.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+  <span class="n">p</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the invulnerable code example, <code>p</code> is a pointer that only points to array of objects.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0123">Pointer align</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>The position pointed by the pointer is not the starting position of the element in the array.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>Incorrect pointer align can result in program function errors or buffer overflows.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Use pointer align correctly.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">};</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">a</span><span class="p">;</span>
+  <span class="c1">//The position pointed by the pointer "p+3" is not the starting </span>
+  <span class="c1">//position of the element of the integer array a</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">3</span><span class="p">));</span>  
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">};</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">a</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">4</span><span class="p">));</span>  
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="reference">Reference</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.7.2 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1005">Attempt to Access Child of a Non-structure Pointer</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable code Example</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Casting a non-structure type to a structure type and accessing a field can lead to memory access errors or data corruption. </p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>Adjacent variables in memory may be corrupted by assignments performed on fields after the cast. </p>
+<p>Execution may end due to a memory access error. </p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Review of type casting operations can identify locations where incompatible types are cast. </p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">foo</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="o">*</span><span class="n">foo</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">foo</span> <span class="o">*</span><span class="p">)</span><span class="n">main</span><span class="p">;</span>
+  <span class="n">foo</span><span class="o">-&gt;</span><span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">foo</span><span class="o">-&gt;</span><span class="n">i</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cwe">
+<p>http://cwe.mitre.org/data/definitions/588.html <a class="footnote-backref" href="#fnref-cwe" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/c.html">C++</a>
+                <a href="../../../tag/cwe-588.html">CWE-588</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0010">Delete Void Pointer</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#undefined-behavior">undefined behavior</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>In many implementations, deleting a pointer to void is treated like calling free() in that the memory is deallocated but destructors do not run. However, even if that is the intended behavior, it is dangerous to rely on it for the following reasons:</p>
+<ul>
+<li>The behavior is undefined by the language standard. The implementation can technically do anything, and some compilers have optimizers that aggressively transform code that relies on undefined behavior.</li>
+<li>If the allocation site is changed, for example, to allocate an array of objects, the deallocation site will silently do the wrong thing.</li>
+</ul>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="undefined-behavior">undefined behavior</h4>
+<p>According to the C++ standard, deleting a pointer with type void* is an undefined behavior.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Do not delete void pointer.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="n">delete</span> <span class="n">p</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, delete is used on a pointer of type void at line 2.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="n">delete</span> <span class="n">p</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the fixed code example, delete is used on a pointer of type int at line 2. </p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0054">Assignment of a Fixed Address to a Pointer</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#portability-error">portability error</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>The software sets a pointer to a specific address other than NULL or 0. </p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="portability-error">portability error</h4>
+<p>Using a fixed address is not portable because that address will probably not be valid in all environments or platforms.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Never set a pointer to a fixed address.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{Using a fixed address is not portable because that address </span>
+  <span class="c1">// will probably not be valid in all environments or platforms}}  </span>
+  <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span> <span class="mh">0x10000</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, using a fixed address is not portable because that address will probably not be valid in all environments or platforms at line 3.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the invulnerable code example, assign <code>&amp;a</code> to pointer <code>p</code>.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0072">Iterator Past End</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#undefined-behavior">undefined behavior</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>When dereferencing a container's iterator, the iterator points to the container's end() or rend() will produce undefined behavior.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="undefined-behavior">undefined behavior</h4>
+<p>When dereferencing a container's iterator, the iterator points to the container's end() or rend() will produce undefined behavior.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>When the dereferenced iterator is guaranteed, the iterator points to the legal interval.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+  <span class="o">*</span><span class="n">i</span><span class="p">;</span> <span class="c1">// expected-warning{{Iterator accessed past its end}}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, the reference to the iterator i point to the container end() is dereferenced.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+    <span class="o">*</span><span class="n">i</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, when it is guaranteed to dereference the iterator, the iterator points to the legal interval.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0029">Error Stack Use</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#software-or-system-crash">software or system crash</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>The maximum number of bytes allowed for a single stack allocation. For example, one local declaration. Any specified value is promoted to a multiple of the alignment boundary. Default is 1024.</p>
+<p>Specialized application domains with strict stack limitations, such as kernels and device drivers. In these domains, exceeding the stack's maximum can cause serious issues, from errant results to software or system crashes.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="software-or-system-crash">software or system crash</h4>
+<p>Specialized application domains with strict stack limitations, such as kernels and device drivers. In these domains, exceeding the stack's maximum can cause serious issues, from errant results to software or system crashes.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Alloc a single stack memory within 1024 bytes.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">16384</span><span class="p">];</span> <span class="c1">// Exceeds max single base use of 1024 bytes</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, 16384 bytes of stack usage, exceeds max single base use of 1024 bytes at line 2.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the fixed code example, 128 bytes of stack usage at line 2.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0030">Stream Format State Error</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 2 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#unexpected-behaviour">unexpected behaviour</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>The standard C++ iostream library provides input and output functionality using streams. It includes a formatted output capability, so that data of various types can be converted to a string for output purposes.</p>
+<p>For example:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+<p>by default, converts the i integer to a string of decimal digits and writes those digits to cout.</p>
+<p>A common mistake when using the iostream library is to alter the formatting state but forget to restore it. When altering the formatting state of a global stream, such as cout, or a stream passed as a parameter, later users of that stream unexpectedly have their formatting operations affected by the latent state changes. This is a violation of the expected modularity of stream users.</p>
+<p>You can change the formatting state of an ostream object by using methods or manipulators. STREAM_FORMAT_STATE handles the flags, setf, unsetf, precision, and fill methods, as well as all of the standard manipulators, such as std::hex.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="unexpected-behaviour">unexpected behaviour</h4>
+<p>Using the iostream library to alter the formatting state but forget to restore it, will lead to an unexpected behaviour.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Using the iostream library to alter the formatting state and remember to restore it.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">hex</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, use std::hex to alter the formatting state but do not restore it at line 3.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">hex</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">dec</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the fixed code example, use std::hex to alter the formatting state and std::use dec to restore it at line 3.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1010">Free stack memory allocated by alloca()</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable code Example</a></li>
+<li><a href="#fixed-code-example">Fixed code example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>alloca() allocates size bytes from the program stack. The allocated space is automatically freed when the calling function exits (not when the allocation merely passes out of scope). Therefore, do not pass the pointer value returned by <code>_alloca</code> as an argument to free.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>Free stack memory allocated by alloca() will cause the program to crash.</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Do not free stack memory allocated by alloca().</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>High</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">bad</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">alloca</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="p">);</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>  <span class="c1">//error</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed code example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">good</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">alloca</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0053">Cast Size Error</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#buffer-overruns">buffer overruns</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>The size of allocated buffer is not a multiple of the size of the containing data type. It could lead to buffer overruns.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="buffer-overruns">buffer overruns</h4>
+<p>The size of allocated buffer is not a multiple of the size of the containing data type. It could lead to buffer overruns.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Allocate buffer with size that is a multiple of the size of its containing data type.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// expected-warning{{Cast a region whose size is not a multiple of the </span>
+  <span class="c1">// destination type size}} </span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> 
+  <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>The size of allocated buffer is not a multiple of the size of the containing data type.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span> 
+  <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p><code>malloc</code> allocates buffer with size that is a multiple of the size of <code>int</code>.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/objective-c/quality issues/memory and resource misuse.html">Memory and resource misuse</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0006">Incorrect operation with BSTR values</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/memory-and-resource-misuse.html">Memory and resource misuse</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#incorrect-memory-usage">incorrect memory usage</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Comparison operations cannot be used for BSTR values because they are meaningless in the BSTR context, and if they are not corrected, they can result in incorrect memory usage.
+Because of the two different styles of construction, the COM style BSTR strings and C style strings need to be pampered. In some cases, the conversion between the two is well-compiled, but it still produces unexpected results.</p>
+<p>Comparisons of BSTR expressions using relational operators &gt;, &lt;, &gt;=, and &lt;= are reported as defects.
+The reason for considering this comparison as a defect is that although the BSTR variable is technically a pointer, it should normally be considered as an opaque type. Only valid comparisons are == and! =.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="incorrect-memory-usage">incorrect memory usage</h4>
+<p>Comparison operations cannot be used for BSTR values because they are meaningless in the BSTR context, and if they are not corrected, they can result in incorrect memory usage.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>It is best not to use BSTRs in new designs.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="n">BSTR</span> <span class="n">b1</span><span class="p">,</span> <span class="n">BSTR</span> <span class="n">b2</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">b1</span> <span class="o">&gt;</span> <span class="n">b2</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, using '&gt;' to compare two BSTR values at line 2.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="n">BSTR</span> <span class="n">b1</span><span class="p">,</span> <span class="n">BSTR</span> <span class="n">b2</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">b1</span> <span class="o">==</span> <span class="n">b2</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the fixed code example, using '==' to compare two BSTR values at line 2.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : "../../..",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

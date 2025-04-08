@@ -1,0 +1,34 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7480">BE7480: Untrusted servlet parameter</h2>
+    <h3>Untrusted servlet parameter</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7480</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Untrusted servlet parameter</p>
+<h4>Vulnerability and risk</h4>
+<p>The Servlet can read GET and POST parameters from various methods. The value obtained should be considered unsafe.
+You may need to validate or sanitize those values before passing them to sensitive APIs such as:</p>
+<ul>
+<li>SQL query (May lead to SQL injection)</li>
+<li>File opening (May lead to path traversal)</li>
+<li>Command execution (Potential Command injection)</li>
+<li>HTML construction (Potential XSS)</li>
+<li>etc...</li>
+</ul>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+<h4>Reference</h4>
+<p>&lt;a href=&quot;http://cwe.mitre.org/data/definitions/20.html&quot;&gt;CWE-20: Improper Input Validation&lt;/a&gt;</p>
+
+    </section>
+</article>

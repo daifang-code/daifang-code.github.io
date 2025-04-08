@@ -1,0 +1,120 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2012">PE2012: camelcase</h2>
+    <h3>要求使用骆驼拼写法 (camelcase)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2012</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求使用骆驼拼写法 (camelcase)</h4>
+<p>当命名变量时，风格指南一般会分为骆驼拼写法 (<code>variableName</code>) 和下划线拼写法 (<code>variable_name</code>) 两大阵营。该规则主要关注骆驼拼写法的用法。如果你的风格指南要求变量名称以驼峰的形式书写，此规则正适合于你。</p>
+<h2>缺陷详因</h2>
+<p>此规则在源码中查找下划线 (<code>_</code>)。它忽略前导和尾部的下划线，只检查在变量名称中间的下划线。如果 ESLint 判断定某个变量是个常量（全部大写），将不会发出警告。否则会发出警告。该规则仅仅标记定义和赋值，不适用于方法调用。在 ES6 <code>import</code> 语句中，该规则只针对将引入到本地模块作用域的变量名。</p>
+<h2>修改方案</h2>
+<p>该规则有一个对象选项：</p>
+<ul>
+<li><code>&quot;properties&quot;: &quot;always&quot;</code> (默认) 强制属性名称为驼峰风格</li>
+<li><code>&quot;properties&quot;: &quot;never&quot;</code> 不检查属性名称</li>
+</ul>
+<h5>always</h5>
+<p>默认选项 <code>{ &quot;properties&quot;: &quot;always&quot; }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint camelcase: &quot;error&quot;*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">no_camelcased</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;external-module&quot;</span>
+
+<span class="kd">var</span> <span class="nx">my_favorite_color</span> <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">do_something</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="nx">obj</span><span class="p">.</span><span class="nx">do_something</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">no_camelcased</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">isCamelcased</span><span class="o">:</span> <span class="nx">no_camelcased</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">no_camelcased</span> <span class="o">=</span> <span class="s1">&#39;default value&#39;</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">my_pref</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">no_camelcased</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">bar_baz</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">quz</span><span class="p">;</span>
+</pre></div>
+<p>默认选项 <code>{ &quot;properties&quot;: &quot;always&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint camelcase: &quot;error&quot;*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">no_camelcased</span> <span class="nx">as</span> <span class="nx">camelCased</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;external-module&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">myFavoriteColor</span>   <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">_myFavoriteColor</span>  <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">myFavoriteColor_</span>  <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">MY_FAVORITE_COLOR</span> <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">.</span><span class="nx">baz_boom</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">qux</span><span class="o">:</span> <span class="nx">bar</span><span class="p">.</span><span class="nx">baz_boom</span> <span class="p">};</span>
+
+<span class="nx">obj</span><span class="p">.</span><span class="nx">do_something</span><span class="p">();</span>
+<span class="nx">do_something</span><span class="p">();</span>
+<span class="k">new</span> <span class="nx">do_something</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="o">:</span> <span class="nx">category</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">isCamelCased</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">isCamelCased</span><span class="o">:</span> <span class="nx">isAlsoCamelCased</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">({</span> <span class="nx">isCamelCased</span> <span class="o">=</span> <span class="s1">&#39;default value&#39;</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">categoryId</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">isCamelCased</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">isCamelCased</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">quz</span><span class="p">;</span>
+</pre></div>
+<h5>never</h5>
+<p>选项 <code>{ &quot;properties&quot;: &quot;never&quot; }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint camelcase: [&quot;error&quot;, {properties: &quot;never&quot;}]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">my_pref</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">};</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你已经建立了编码标准，使用了不同的命名约定(用下划线分隔单词)，关闭此规则即可。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.2 被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/camelcase.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/camelcase.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

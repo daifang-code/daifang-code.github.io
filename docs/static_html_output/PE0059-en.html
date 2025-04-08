@@ -1,0 +1,46 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0059">PE0059: Bad Use Chroot</h2>
+    <h3>The program creates a jail by calling the chroot() function, but does not call chdir("/") to change the working path.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0059</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The program created a jail by calling the chroot() function, but did not change the working path. This behavior doesn't ensure the files accessed by the program do not exceed this limit.
+Improper use of chroot() will allow an attacker to jump out of the limits set by chroot.</p>
+<h4>Vulnerability and risk</h4>
+<h5>Privilege escalation</h5>
+<p>The attacker can jump out of the restrictions set by the chroot and perform operations on sensitive data, such as deleting files and modifying the home page.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>After calling chroot(), call chdir(&quot;/&quot;) to change the working path.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// root changed.</span>
+  <span class="n">chroot</span><span class="p">(</span><span class="s">&quot;/usr/local&quot;</span><span class="p">);</span> 
+  <span class="c1">// expected-warning {{No call of chdir(&quot;/&quot;) immediately after chroot}} </span>
+  <span class="n">foo</span><span class="p">();</span> 
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, after calling chroot(), there is no further call to chdir(&quot;/&quot;) to change the working path.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">chroot</span><span class="p">(</span><span class="s">&quot;/usr/local&quot;</span><span class="p">);</span> <span class="c1">// root changed.</span>
+  <span class="n">chdir</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">);</span>
+  <span class="n">foo</span><span class="p">();</span> 
+<span class="p">}</span>
+</pre></div>
+<p>In the above code，after calling chroot(), call chdir(&quot;/&quot;) to change the working path.</p>
+
+    </section>
+</article>

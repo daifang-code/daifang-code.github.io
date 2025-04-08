@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22216">PE22216: DUO106</h2>
+    <h3>DUO106</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22216</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO106</h4>
+<p>此linter搜索<code>os</code>模块的不安全使用。</p>
+<p>使用<code>system</code>、<code>popen</code>、<code>popen2</code>、<code>popen3</code>或<code>popen4</code>通常允许与用户输入相结合时会出现任意代码执行错误。</p>
+<p>使用<code>tempnam</code>或<code>tmpnam</code>易受符号链接攻击。考虑使用<code>tmpfile</code>代替。</p>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="n">malicious_input</span> <span class="o">=</span> <span class="s1">&#39;cat /etc/passwd&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">malicious_input</span><span class="p">)</span>
+</pre></div>
+<h2>正确方式</h2>
+<p>与其使用<code>os</code>模块执行命令，不如使用<code>子进程</code>module<code>，同时确保</code>shell=False`。</p>
+<p>请参见[用<code>subprocess</code>模块替换旧函数](https://docs.python.org/3/library/subprocess.html\subprocess子流程-替换件）。</p>
+<p>首选<code>tmpfile</code>而不是<code>tempnam</code>或<code>tmpnam</code>。</p>
+<h2>来源</h2>
+<h2>特别提及</h2>
+<p><em>如果数据传递给<code>操作系统</code>不包含用户输入</em>如果数据传递给<code>操作系统</code>是一个常量字符串</p>
+
+    </section>
+</article>

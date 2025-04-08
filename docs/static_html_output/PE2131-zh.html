@@ -1,0 +1,148 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2131">PE2131: no-multi-spaces</h2>
+    <h3>禁止出现多个空格 (no-multi-spaces)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2131</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止出现多个空格 (no-multi-spaces)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>在某行中，出现多个空格而且不是用来作缩进的，通常是个错误。例如：</p>
+<div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="nx">foo</span>  <span class="o">===</span> <span class="s2">&quot;bar&quot;</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+<p>很难说，但是在 <code>foo</code> 和 <code>===</code> 之间有两个空格。支持使用单一空格的，是不赞成使用像这样的多个空格的。</p>
+<div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="nx">foo</span> <span class="o">===</span> <span class="s2">&quot;bar&quot;</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>此规则目的在于禁止在逻辑表达式、条件表达式、声明、数组元素、对象属性、序列和函数参数周围使用多个空格。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-multi-spaces: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">;</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nx">foo</span>   <span class="o">===</span> <span class="s2">&quot;bar&quot;</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="nx">a</span> <span class="o">&lt;&lt;</span>  <span class="nx">b</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">];</span>
+
+<span class="nx">a</span> <span class="o">?</span>  <span class="nx">b</span><span class="o">:</span> <span class="nx">c</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-multi-spaces: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nx">foo</span> <span class="o">===</span> <span class="s2">&quot;bar&quot;</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="nx">a</span> <span class="o">&lt;&lt;</span> <span class="nx">b</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+
+<span class="nx">a</span> <span class="o">?</span> <span class="nx">b</span><span class="o">:</span> <span class="nx">c</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则的配置是个对象，包含以下属性：</p>
+<ul>
+<li><code>&quot;ignoreEOLComments&quot;: true</code> (默认 <code>false</code>) 忽略行尾注释前的多个空格</li>
+<li><code>&quot;exceptions&quot;: { &quot;Property&quot;: true }</code> (<code>&quot;Property&quot;</code> 是为一个默认指定的节点) 指定要忽略的节点</li>
+</ul>
+<h5>ignoreEOLComments</h5>
+<p>默认选项 <code>{ &quot;ignoreEOLComments&quot;: false }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-multi-spaces: [&quot;error&quot;, { ignoreEOLComments: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>      <span class="c1">// comment</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>      <span class="cm">/* multiline</span>
+<span class="cm"> * comment</span>
+<span class="cm"> */</span>
+</pre></div>
+<p>选项 <code>{ &quot;ignoreEOLComments&quot;: false }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-multi-spaces: [&quot;error&quot;, { ignoreEOLComments: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// comment</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="cm">/* multiline</span>
+<span class="cm"> * comment</span>
+<span class="cm"> */</span>
+</pre></div>
+<p>选项 <code>{ &quot;ignoreEOLComments&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-multi-spaces: [&quot;error&quot;, { ignoreEOLComments: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// comment</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>      <span class="c1">// comment</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="cm">/* multiline</span>
+<span class="cm"> * comment</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>      <span class="cm">/* multiline</span>
+<span class="cm"> * comment</span>
+<span class="cm"> */</span>
+</pre></div>
+<h5>exceptions</h5>
+<p>为了避免与其他需要多个空格的规则发生冲突，该规则有一个 <code>exceptions</code> 选项可以忽略特定的节点。</p>
+<p>该选项是个对象，属性名是 AST 节点类型，这些类型被定义在 <a href="https://github.com/estree/estree">ESTree</a>。确定节点类型的最简单的方法是使用 <a href="https://eslint.org/parser">online demo</a>。</p>
+<p>默认情况下，只忽略 <code>Property</code> 节点类型，因为 <a href="key-spacing">key-spacing</a> 规则的对其选项要求对象中的属性有多个空格。</p>
+<p>默认选项 <code>&quot;exceptions&quot;: { &quot;Property&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-multi-spaces: &quot;error&quot;*/</span>
+<span class="cm">/*eslint key-spacing: [&quot;error&quot;, { align: &quot;value&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">first</span><span class="o">:</span>  <span class="s2">&quot;first&quot;</span><span class="p">,</span>
+    <span class="nx">second</span><span class="o">:</span> <span class="s2">&quot;second&quot;</span>
+<span class="p">};</span>
+</pre></div>
+<p>选项 <code>&quot;exceptions&quot;: { &quot;Property&quot;: false }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-multi-spaces: [&quot;error&quot;, { exceptions: { &quot;Property&quot;: false } }]*/</span>
+<span class="cm">/*eslint key-spacing: [&quot;error&quot;, { align: &quot;value&quot; }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">first</span><span class="o">:</span>  <span class="s2">&quot;first&quot;</span><span class="p">,</span>
+    <span class="nx">second</span><span class="o">:</span> <span class="s2">&quot;second&quot;</span>
+<span class="p">};</span>
+</pre></div>
+<p>选项 <code>&quot;exceptions&quot;: { &quot;BinaryExpression&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-multi-spaces: [&quot;error&quot;, { exceptions: { &quot;BinaryExpression&quot;: true } }]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span>  <span class="o">*</span>  <span class="mi">2</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>&quot;exceptions&quot;: { &quot;VariableDeclarator&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-multi-spaces: [&quot;error&quot;, { exceptions: { &quot;VariableDeclarator&quot;: true } }]*/</span>
+
+<span class="kd">var</span> <span class="nx">someVar</span>      <span class="o">=</span> <span class="s1">&#39;foo&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">someOtherVar</span> <span class="o">=</span> <span class="s1">&#39;barBaz&#39;</span><span class="p">;</span>
+</pre></div>
+<p>选项 <code>&quot;exceptions&quot;: { &quot;ImportDeclaration&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-multi-spaces: [&quot;error&quot;, { exceptions: { &quot;ImportDeclaration&quot;: true } }]*/</span>
+
+<span class="kr">import</span> <span class="nx">mod</span>          <span class="nx">from</span> <span class="s1">&#39;mod&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">someOtherMod</span> <span class="nx">from</span> <span class="s1">&#39;some-other-mod&#39;</span><span class="p">;</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想检查或禁止出现多个空格，你可以关闭此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="key-spacing">key-spacing</a></li>
+<li><a href="space-infix-ops">space-infix-ops</a></li>
+<li><a href="space-in-brackets">space-in-brackets</a> (deprecated)</li>
+<li><a href="space-in-parens">space-in-parens</a></li>
+<li><a href="space-after-keywords">space-after-keywords</a></li>
+<li><a href="space-unary-ops">space-unary-ops</a></li>
+<li><a href="space-return-throw-case">space-return-throw-case</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.9.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-multi-spaces.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-multi-spaces.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

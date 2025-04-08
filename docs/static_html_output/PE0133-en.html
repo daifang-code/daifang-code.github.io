@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0133">PE0133: Session Fixation</h2>
+    <h3>Authenticating a user, or otherwise establishing a new user session, without invalidating any existing session identifier gives an attacker the opportunity to steal authenticated sessions. </h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0133</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA, CWE-384</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The product downloads source code or an executable from a remote location and executes the code without sufficiently verifying the origin and integrity of the code.</p>
+<p>Such a scenario is commonly observed when:</p>
+<ol>
+<li>A web application authenticates a user without first invalidating the existing session, thereby continuing to use the session already associated with the user.</li>
+<li>An attacker is able to force a known session identifier on a user so that, once the user authenticates, the attacker has access to the authenticated session.</li>
+<li>The application or container uses predictable session identifiers. In the generic exploit of session fixation vulnerabilities, an attacker creates a new session on a web application and records the associated session identifier. The attacker then causes the victim to associate, and possibly authenticate, against the server using that session identifier, giving the attacker access to the user's account through the active session.</li>
+</ol>
+<h4>Vulnerability and risk</h4>
+<p>An attacker is able to force a known session identifier on a user so that, once the user authenticates, the attacker has access to the authenticated session.</p>
+<h4>Potential Mitigations</h4>
+<p>Invalidate any existing session identifiers prior to authorizing a new user session.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Critical</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable code Example</h5>
+<div class="highlight"><pre><span></span><span class="n">HttpSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getSession</span><span class="o">();</span>  
+<span class="n">session</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&quot;data&quot;</span><span class="o">,</span> <span class="s">&quot;DD&quot;</span><span class="o">);</span>
+</pre></div>
+<h5>Fixed code Example</h5>
+<div class="highlight"><pre><span></span><span class="n">HttpSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getSession</span><span class="o">();</span>  
+<span class="n">session</span><span class="o">.</span><span class="na">invalidate</span><span class="o">();</span>  
+<span class="n">session</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&quot;data&quot;</span><span class="o">,</span> <span class="s">&quot;DD&quot;</span><span class="o">);</span>
+</pre></div>
+<p>Use invalidate() to invalidate current session identifier.</p>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>http://cwe.mitre.org/data/definitions/384.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

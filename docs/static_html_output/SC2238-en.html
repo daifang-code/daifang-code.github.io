@@ -1,0 +1,44 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2238">SC2238: Improper file redirection</h2>
+    <h3>Redirecting to/from command name instead of file. Did you want pipes/xargs (or quote to ignore)?</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2238</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Redirecting to/from command name instead of file. Did you want pipes/xargs (or quote to ignore)?</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span>cat file &gt; tr -d <span class="s1">&#39;\r&#39;</span>
+cat file &gt; rm
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span>cat file <span class="p">|</span> tr -d <span class="s1">&#39;\r&#39;</span>         <span class="c1"># tr reads stdin</span>
+cat file <span class="p">|</span> xargs -d <span class="s1">&#39;\n&#39;</span> rm   <span class="c1"># rm reads arguments</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>You are using file redirection, but the filename is an unquoted command name. Instead of running the command and feeding data to it, this just writes to a file with the same name.</p>
+<p>To run the command and feed data to it, determine how it gets its data:</p>
+<ul>
+<li>If the command reads from STDIN, simply use a pipe as in the first example.</li>
+<li>If the command reads multiple arguments, use a pipe to <code>xargs</code> as in the second example</li>
+</ul>
+<p>Note that <code>xargs</code> has many pitfalls when it comes to spaces and quotes. <code>cat file | xargs rm</code>  will appear to work during testing, but fails for filenames like <code>My File.txt</code> or <code>Can't_Fight_This_Feeling.mp3</code>. The example uses the GNU extension <code>-d '\n'</code> to more safely handle these names.</p>
+<h5>Exceptions:</h5>
+<p>If you actually did want to write a file named after a command, simply quote the filename to let ShellCheck know you meant it literally and not as a command name. This does not change anything about how the script works:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Write to a file literally named &#39;rm&#39;, does not try to delete anything</span>
+<span class="nb">echo</span> <span class="s2">&quot;A potentially dangerous command&quot;</span> &gt; <span class="s2">&quot;rm&quot;</span>
+</pre></div>
+<h5>Related resources:</h5>
+<ul>
+<li>Help by adding links to BashFAQ, StackOverflow, man pages, POSIX, etc!</li>
+</ul>
+
+    </section>
+</article>

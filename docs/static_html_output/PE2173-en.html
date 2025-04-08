@@ -1,0 +1,39 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2173">PE2173: no-template-curly-in-string</h2>
+    <h3>Disallow template literal placeholder syntax in regular strings (no-template-curly-in-string)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2173</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow template literal placeholder syntax in regular strings (no-template-curly-in-string)</h4>
+<p>ECMAScript 6 allows programmers to create strings containing variable or expressions using template literals, instead of string concatenation, by writing expressions like <code>${variable}</code> between two backtick quotes (`). It can be easy to use the wrong quotes when wanting to use template literals, by writing <code>&quot;${variable}&quot;</code>, and end up with the literal value <code>&quot;${variable}&quot;</code> instead of a string containing the value of the injected expressions.</p>
+<h2>Rule Details</h2>
+<p>This rule aims to warn when a regular string contains what looks like a template literal placeholder. It will warn when it finds a string containing the template literal place holder (<code>${something}</code>) that uses either <code>&quot;</code> or <code>'</code> for the quotes.</p>
+<h2>Examples</h2>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-template-curly-in-string: &quot;error&quot;*/</span>
+<span class="s2">&quot;Hello ${name}!&quot;</span><span class="p">;</span>
+<span class="s1">&#39;Hello ${name}!&#39;</span><span class="p">;</span>
+<span class="s2">&quot;Time: ${12 * 60 * 60 * 1000}&quot;</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-template-curly-in-string: &quot;error&quot;*/</span>
+<span class="sb">`Hello </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+<span class="sb">`Time: </span><span class="si">${</span><span class="mi">12</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+
+<span class="nx">templateFunction</span><span class="sb">`Hello </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>This rule should not be used in ES3/5 environments.</p>
+
+    </section>
+</article>

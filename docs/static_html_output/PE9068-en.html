@@ -1,0 +1,50 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE9068">PE9068: Inappropriate Header Includes</h2>
+    <h3>Find includes that can be replaced in C or C++ source files.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE9068</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>This checker analyzes C and C++ files to determine which header inclusions can be replaced while still allowing them to compile. This may result in substantial improvements in compilation time, especially on large C++ projects; it also sometimes exposes dependencies and cohesions of which developers were unaware.</p>
+<h4>Vulnerability and risk</h4>
+<p>The appearances of inappropriate headers cause:</p>
+<ul>
+<li>Compilation slowdown</li>
+<li>Redundant Recompilations</li>
+<li>Disallow refactoring</li>
+<li>Make a project not self-documented</li>
+</ul>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Use the suggested header file includes instead.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="c1">// a.h</span>
+
+<span class="cp">#ifdef _A_H_</span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">func</span><span class="p">();</span>
+<span class="cp">#endif</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;a.h&quot; // Inappropriate Header Includes</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Hello World!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, #include &quot;a.h&quot; does not bring in any symbols other than those of #include &lt;iostream&gt;. So we suggest use #include &lt;iostream&gt; instead.</p>
+
+    </section>
+</article>

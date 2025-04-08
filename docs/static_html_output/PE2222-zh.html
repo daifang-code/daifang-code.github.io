@@ -1,0 +1,83 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2222">PE2222: prefer-spread</h2>
+    <h3>建议使用扩展运算符而非`.apply()` (prefer-spread)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2222</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>建议使用扩展运算符而非<code>.apply()</code> (prefer-spread)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>在 ES2015 之前，必须使用 <code>Function.prototype.apply()</code> 调用可变参数函数。</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">];</span>
+<span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nb">Math</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+</pre></div>
+<p>在 ES2015 中，可以使用扩展运算符调用可变参数函数。</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">];</span>
+<span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>This rule is aimed to flag usage of <code>Function.prototype.apply()</code> in situations where the spread operator could be used instead.</p>
+<h2>Examples</h2>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-spread: &quot;error&quot;*/</span>
+
+<span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-spread: &quot;error&quot;*/</span>
+
+<span class="c1">// Using the spread operator</span>
+<span class="nx">foo</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
+
+<span class="c1">// The `this` binding is different.</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">otherObj</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+
+<span class="c1">// The argument list is not variadic.</span>
+<span class="c1">// Those are warned by the `no-useless-call` rule.</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+</pre></div>
+<p>已知的限制：</p>
+<p>该规则通过静态分析代码的方式检查<code>this</code>参数是否有改变。因此，如果在动态表达式中有 <code>this</code> 参数，该规则不会检查这种情况。</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint prefer-spread: &quot;error&quot;*/</span>
+
+<span class="c1">// This warns.</span>
+<span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">].</span><span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">],</span> <span class="nx">args</span><span class="p">);</span>
+
+<span class="c1">// This does not warn.</span>
+<span class="nx">a</span><span class="p">[</span><span class="o">++</span><span class="nx">i</span><span class="p">].</span><span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">args</span><span class="p">);</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>此规则不应在 ES3/5 环境中使用。</p>
+<p>在 ES2015 (ES6) 或以后的版本，如果你不希望收到关于 <code>Function.prototype.apply()</code> 调用的通知，关闭此规则即可。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-useless-call">no-useless-call</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 1.0.0-rc-1 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/prefer-spread.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/prefer-spread.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,87 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2156">PE2156: no-restricted-globals</h2>
+    <h3>Disallow specific global variables (no-restricted-globals)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2156</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow specific global variables (no-restricted-globals)</h4>
+<p>Disallowing usage of specific global variables can be useful if you want to allow a set of global
+variables by enabling an environment, but still want to disallow some of those.</p>
+<p>For instance, early Internet Explorer versions exposed the current DOM event as a global variable
+<code>event</code>, but using this variable has been considered as a bad practice for a long time. Restricting
+this will make sure this variable isn't used in browser code.</p>
+<h2>Rule Details</h2>
+<p>This rule allows you to specify global variable names that you don't want to use in your application.</p>
+<h2>Options</h2>
+<p>This rule takes a list of strings, where each string is a global to be restricted:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;no-restricted-globals&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;event&quot;</span><span class="p">,</span> <span class="s2">&quot;fdescribe&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Alternatively, the rule also accepts objects, where the global name and an optional custom message are specified:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;no-restricted-globals&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;error&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;event&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Use local parameter instead.&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;fdescribe&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Do not commit fdescribe. Use describe instead.&quot;</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for sample <code>&quot;event&quot;, &quot;fdescribe&quot;</code> global variable names:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*global event, fdescribe*/</span>
+<span class="cm">/*eslint no-restricted-globals: [&quot;error&quot;, &quot;event&quot;, &quot;fdescribe&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">onClick</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">fdescribe</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">});</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for a sample <code>&quot;event&quot;</code> global variable name:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*global event*/</span>
+<span class="cm">/*eslint no-restricted-globals: [&quot;error&quot;, &quot;event&quot;]*/</span>
+
+<span class="kr">import</span> <span class="nx">event</span> <span class="nx">from</span> <span class="s2">&quot;event-module&quot;</span><span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*global event*/</span>
+<span class="cm">/*eslint no-restricted-globals: [&quot;error&quot;, &quot;event&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">event</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for a sample <code>&quot;event&quot;</code> global variable name, along with a custom error message:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*global event*/</span>
+<span class="cm">/* eslint no-restricted-globals: [&quot;error&quot;, { name: &quot;error&quot;, message: &quot;Use local parameter instead.&quot; }] */</span>
+
+<span class="kd">function</span> <span class="nx">onClick</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>    <span class="c1">// Unexpected global variable &#39;event&#39;. Use local parameter instead.</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-restricted-properties.md">no-restricted-properties</a></li>
+<li><a href="no-restricted-syntax.md">no-restricted-syntax</a></li>
+</ul>
+
+    </section>
+</article>

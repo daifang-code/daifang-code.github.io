@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7116">BE7116: equals方法总是返回false</h2>
+    <h3>equals方法总是返回false</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7116</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>equals方法总是返回false</p>
+<h4>漏洞与风险</h4>
+<p>这个类定义了一个总是返回false的equals方法。如果一个对象自己不等于自己，则不可能创建有关这个类的有用的映射或集合。更重要的是，这意味着equals不具有自反性--创建equals方法的要求之一。</p><p>可能的语义是对象标识：对象等于自身。这是从类对象中继承的行为。如果需要重写从不同的超类中继承的equals，则可以使用：</p> 
+<pre><code>public boolean equals(Object o) {
+  return this == o;
+ }
+ </code></pre>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

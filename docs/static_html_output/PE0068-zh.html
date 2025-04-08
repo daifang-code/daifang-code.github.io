@@ -1,0 +1,47 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0068">PE0068: 使用浮点变量作为循环计数器</h2>
+    <h3>使用浮点变量作为循环计数器。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0068</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>由于浮点数可以表示实数，因此程序员常常错误地认为它们可以准确地表示任何简单的小数。浮点数也和整数一样受到精度的限制，二进制浮点数无法准确地表示所有的十进制小数，即使后者只用几个十进制数字就可以表示。</p>
+<p>不同的实现具有不同的精度限制，为了使代码保持可移植性，不应该使用浮点数作为循环计数器。</p>
+<h4>漏洞与风险</h4>
+<h5>死循环</h5>
+<p>使用浮点数作为循环计数器，可能会导致循环无法终止，造成死循环。</p>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+<h4>缓解与预防</h4>
+<p>使用整数作为循环计数器。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">float</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(;</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span><span class="n">a</span><span class="o">++</span><span class="p">){</span>
+    <span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，使用浮点数变量a作为循环计数器，可能会造成死循环。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(;</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span><span class="n">a</span><span class="o">++</span><span class="p">){</span>
+    <span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，使用int型变量a作为循环计数器。</p>
+
+    </section>
+</article>

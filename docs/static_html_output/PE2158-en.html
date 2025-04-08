@@ -1,0 +1,89 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2158">PE2158: no-restricted-modules</h2>
+    <h3>Disallow Node.js modules (no-restricted-modules)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2158</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow Node.js modules (no-restricted-modules)</h4>
+<p>A module in Node.js is a simple or complex functionality organized in a JavaScript file which can be reused throughout the Node.js
+application. The keyword <code>require</code> is used in Node.js/CommonJS to import modules into an application. This way you can have dynamic loading where the loaded module name isn't predefined /static, or where you conditionally load a module only if it's &quot;truly required&quot;.</p>
+<p>Why would you want to restrict a module?</p>
+<p>Disallowing usage of specific Node.js modules can be useful if you want to limit the available methods a developer can use. For example, you can block usage of the <code>fs</code> module if you want to disallow file system access.</p>
+<h2>Rule Details</h2>
+<p>This rule allows you to specify modules that you don’t want to use in your application.</p>
+<h2>Options</h2>
+<p>The rule takes one or more strings as options: the names of restricted modules.</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-modules&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;foo-module&quot;</span><span class="p">,</span> <span class="s2">&quot;bar-module&quot;</span><span class="p">]</span>
+</pre></div>
+<p>It can also take an object with lists of <code>paths</code> and gitignore-style <code>patterns</code> strings.</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-modules&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nt">&quot;paths&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;foo-module&quot;</span><span class="p">,</span> <span class="s2">&quot;bar-module&quot;</span><span class="p">]</span> <span class="p">}]</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-modules&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nt">&quot;paths&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;foo-module&quot;</span><span class="p">,</span> <span class="s2">&quot;bar-module&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;patterns&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;foo-module/private/*&quot;</span><span class="p">,</span> <span class="s2">&quot;bar-module/*&quot;</span><span class="p">,</span><span class="s2">&quot;!baz-module/good&quot;</span><span class="p">]</span>
+<span class="p">}]</span>
+</pre></div>
+<p>You may also specify a custom message for any paths you want to restrict as follows:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-modules&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">[{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;foo-module&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Please use bar-module instead.&quot;</span>
+  <span class="p">}]</span>
+<span class="p">]</span>
+</pre></div>
+<p>or like this:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;no-restricted-modules&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,{</span>
+<span class="nt">&quot;paths&quot;</span><span class="p">:[{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;foo-module&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Please use bar-module instead.&quot;</span>
+  <span class="p">}]</span>
+<span class="p">}]</span>
+</pre></div>
+<p>The custom message will be appended to the default error message. Please note that you may not specify custom error messages for restricted patterns as a particular module may match more than one pattern.</p>
+<p>To restrict the use of all Node.js core modules (via https://github.com/nodejs/node/tree/master/lib):</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;no-restricted-modules&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;assert&quot;</span><span class="p">,</span><span class="s2">&quot;buffer&quot;</span><span class="p">,</span><span class="s2">&quot;child_process&quot;</span><span class="p">,</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span><span class="s2">&quot;crypto&quot;</span><span class="p">,</span><span class="s2">&quot;dgram&quot;</span><span class="p">,</span><span class="s2">&quot;dns&quot;</span><span class="p">,</span><span class="s2">&quot;domain&quot;</span><span class="p">,</span><span class="s2">&quot;events&quot;</span><span class="p">,</span><span class="s2">&quot;freelist&quot;</span><span class="p">,</span><span class="s2">&quot;fs&quot;</span><span class="p">,</span><span class="s2">&quot;http&quot;</span><span class="p">,</span><span class="s2">&quot;https&quot;</span><span class="p">,</span><span class="s2">&quot;module&quot;</span><span class="p">,</span><span class="s2">&quot;net&quot;</span><span class="p">,</span><span class="s2">&quot;os&quot;</span><span class="p">,</span><span class="s2">&quot;path&quot;</span><span class="p">,</span><span class="s2">&quot;punycode&quot;</span><span class="p">,</span><span class="s2">&quot;querystring&quot;</span><span class="p">,</span><span class="s2">&quot;readline&quot;</span><span class="p">,</span><span class="s2">&quot;repl&quot;</span><span class="p">,</span><span class="s2">&quot;smalloc&quot;</span><span class="p">,</span><span class="s2">&quot;stream&quot;</span><span class="p">,</span><span class="s2">&quot;string_decoder&quot;</span><span class="p">,</span><span class="s2">&quot;sys&quot;</span><span class="p">,</span><span class="s2">&quot;timers&quot;</span><span class="p">,</span><span class="s2">&quot;tls&quot;</span><span class="p">,</span><span class="s2">&quot;tracing&quot;</span><span class="p">,</span><span class="s2">&quot;tty&quot;</span><span class="p">,</span><span class="s2">&quot;url&quot;</span><span class="p">,</span><span class="s2">&quot;util&quot;</span><span class="p">,</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span><span class="s2">&quot;zlib&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Examples</h2>
+<p>Examples of <strong>incorrect</strong> code for this rule  with sample <code>&quot;fs&quot;, &quot;cluster&quot;, &quot;lodash&quot;</code> restricted modules:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-modules: [&quot;error&quot;, &quot;fs&quot;, &quot;cluster&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">cluster</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">);</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-modules: [&quot;error&quot;, {&quot;paths&quot;: [&quot;cluster&quot;] }]*/</span>
+
+<span class="kd">var</span> <span class="nx">cluster</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">);</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-modules: [&quot;error&quot;, { &quot;patterns&quot;: [&quot;lodash/*&quot;] }]*/</span>
+
+<span class="kd">var</span> <span class="nx">pick</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;lodash/pick&#39;</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with sample <code>&quot;fs&quot;, &quot;cluster&quot;, &quot;lodash&quot;</code> restricted modules:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-modules: [&quot;error&quot;, &quot;fs&quot;, &quot;cluster&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">crypto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;crypto&#39;</span><span class="p">);</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-restricted-modules: [&quot;error&quot;, {</span>
+<span class="cm">    &quot;paths&quot;: [&quot;fs&quot;, &quot;cluster&quot;],</span>
+<span class="cm">    &quot;patterns&quot;: [&quot;lodash/*&quot;, &quot;!lodash/pick&quot;]</span>
+<span class="cm">}]*/</span>
+
+<span class="kd">var</span> <span class="nx">crypto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;crypto&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">pick</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;lodash/pick&#39;</span><span class="p">);</span>
+</pre></div>
+
+    </section>
+</article>

@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7358">BE7358: TestCase定义了不调用super.setUp()的setUp</h2>
+    <h3>TestCase定义了不调用super.setUp()的setUp</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7358</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>TestCase定义了不调用super.setUp()的setUp</p>
+<h4>漏洞与风险</h4>
+<p>Class是一个JUnit TestCase并实现了setUp方法。setUp方法应该调用super.setUp()，但却没有调用。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

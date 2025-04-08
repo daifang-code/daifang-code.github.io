@@ -1,0 +1,51 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0004">PE0004: Sizeof Mismatch</h2>
+    <h3>Pointers and sizeof expressions that appear to be mismatched.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0004</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP, JAVA, CSHARP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>When a pointer and sizeof expression occur together, the sizeof expression is usually the size of memory that the pointer points to. We will report defects in a limited number of cases where a size_t argument is expected but no sizeof expression is provided. This occurs when the semantics of a function are known and the size_t argument is expected to be the size of memory to which a pointer points, as well as in a small number of cases where it appears that the size_t argument is intended to be the size of some pointed to memory.</p>
+<p>The following example contains a common mismatch between a two function arguments: a pointer and a sizeof expression (where sizeof(*ptr) was intended, instead of sizeof(ptr)):</p>
+<div class="highlight"><pre><span></span><span class="n">memcpy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="p">,</span> <span class="n">ptr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ptr</span><span class="p">))</span>
+</pre></div>
+<h4>Vulnerability and risk</h4>
+<h5>undefined behavior</h5>
+<p>Using a sizeof(pointer) instead of a sizeof(value) to get the size of value, this will lead to undefined behavior.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Using a sizeof in a correct way.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BB</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">BB</span> <span class="n">buf</span><span class="p">;</span>
+    <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">));</span> <span class="c1">// bad</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, only 4 or 8 bytes of the 100-byte object buf are cleared at line 6.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BB</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="p">};</span>
+<span class="kt">void</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">BB</span> <span class="n">buf</span><span class="p">;</span>
+    <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span> <span class="c1">// good</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example, all of the 100-byte object buf are cleared at line 6.</p>
+
+    </section>
+</article>

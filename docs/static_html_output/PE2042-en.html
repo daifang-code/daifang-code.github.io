@@ -1,0 +1,116 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2042">PE2042: id-match</h2>
+    <h3>require identifiers to match a specified regular expression (id-match)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2042</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>require identifiers to match a specified regular expression (id-match)</h4>
+<blockquote>
+<p>&quot;There are only two hard things in Computer Science: cache invalidation and naming things.&quot; — Phil Karlton</p>
+</blockquote>
+<p>Naming things consistently in a project is an often underestimated aspect of code creation.
+When done correctly, it can save your team hours of unnecessary head scratching and misdirections.
+This rule allows you to precisely define and enforce the variables and function names on your team should use.
+No more limiting yourself to camelCase, snake_case, PascalCase or oHungarianNotation. Id-match has all your needs covered!</p>
+<h2>Rule Details</h2>
+<p>This rule requires identifiers in assignments and <code>function</code> definitions to match a specified regular expression.</p>
+<h2>Options</h2>
+<p>This rule has a string option for the specified regular expression.</p>
+<p>For example, to enforce a camelcase naming convention:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;id-match&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;^[a-z]+([A-Z][a-z]+)*$&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;^[a-z]+([A-Z][a-z]+)*$&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint id-match: [&quot;error&quot;, &quot;^[a-z]+([A-Z][a-z]+)*$&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">my_favorite_color</span> <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">_myFavoriteColor</span>  <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">myFavoriteColor_</span>  <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">MY_FAVORITE_COLOR</span> <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">do_something</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">do_something</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;^[a-z]+([A-Z][a-z]+)*$&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint id-match: [&quot;error&quot;, &quot;^[a-z]+([A-Z][a-z]+)*$&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">myFavoriteColor</span>   <span class="o">=</span> <span class="s2">&quot;#112C85&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">.</span><span class="nx">baz_boom</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">qux</span><span class="o">:</span> <span class="nx">bar</span><span class="p">.</span><span class="nx">baz_boom</span> <span class="p">};</span>
+<span class="nx">do_something</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">my_pref</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">};</span>
+</pre></div>
+<p>This rule has an object option:</p>
+<ul>
+<li><code>&quot;properties&quot;: true</code> requires object properties to match the specified regular expression</li>
+<li><code>&quot;onlyDeclarations&quot;: true</code> requires only <code>var</code>, <code>function</code>, and <code>class</code> declarations to match the specified regular expression</li>
+<li><code>&quot;onlyDeclarations&quot;: false</code> requires all variable names to match the specified regular expression</li>
+<li><code>&quot;ignoreDestructuring&quot;: false</code> (default) enforces <code>id-match</code> for destructured identifiers</li>
+<li><code>&quot;ignoreDestructuring&quot;: true</code> does not check destructured identifiers</li>
+</ul>
+<h5>properties</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;^[a-z]+([A-Z][a-z]+)*$&quot;, { &quot;properties&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint id-match: [&quot;error&quot;, &quot;^[a-z]+([A-Z][a-z]+)*$&quot;, { &quot;properties&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">my_pref</span><span class="o">:</span> <span class="mi">1</span>
+<span class="p">};</span>
+</pre></div>
+<h5>onlyDeclarations</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;^[a-z]+([A-Z][a-z]+)*$&quot;, { &quot;onlyDeclarations&quot;: true }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint id-match: [2, &quot;^[a-z]+([A-Z][a-z]+)*$&quot;, { &quot;onlyDeclarations&quot;: true }]*/</span>
+
+<span class="nx">do_something</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">);</span>
+</pre></div>
+<h5>ignoreDestructuring: false</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;^[^_]+$&quot;, { &quot;ignoreDestructuring&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint id-match: [2, &quot;^[^_]+$&quot;, { &quot;ignoreDestructuring&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="o">:</span> <span class="nx">category_id</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="o">:</span> <span class="nx">category_alias</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="o">:</span> <span class="nx">categoryId</span><span class="p">,</span> <span class="p">...</span><span class="nx">other_props</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+</pre></div>
+<h5>ignoreDestructuring: true</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;^[^_]+$&quot;, { &quot;ignoreDestructuring&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint id-match: [2, &quot;^[^_]+$&quot;, { &quot;ignoreDestructuring&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="o">:</span> <span class="nx">category_alias</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="p">,</span> <span class="p">...</span><span class="nx">other_props</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;^[^_]+$&quot;, { &quot;ignoreDestructuring&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint id-match: [2, &quot;^[^_]+$&quot;, { &quot;ignoreDestructuring&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="p">{</span> <span class="nx">category_id</span><span class="o">:</span> <span class="nx">category_id</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">query</span><span class="p">;</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to enforce any particular naming convention for all identifiers, or your naming convention is too complex to be enforced by configuring this rule, then you should not enable this rule.</p>
+
+    </section>
+</article>

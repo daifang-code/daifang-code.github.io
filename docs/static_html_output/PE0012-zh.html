@@ -1,0 +1,42 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0012">PE0012: 字符串数组初始化中缺少逗号</h2>
+    <h3>在字符串数组初始化中，各个字符串之间缺少逗号分隔符。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0012</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在字符串数组初始化中，各个字符串之间缺少逗号分隔符。可能会生成一个串联的字符串，而不是分割的字符串元素，导致意料之外的结果。</p>
+<h4>漏洞与风险</h4>
+<h5>意料之外的结果</h5>
+<p>生成一个串联的字符串，而不是分割的字符串元素，导致意料之外的结果。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>在字符串数组初始化中，使用逗号分隔符。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;hello &quot;</span> <span class="c1">// bad</span>
+               <span class="s">&quot;world&quot;</span><span class="p">};</span>	 
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在第2行的字符串数组arr初始化时，缺少逗号分隔符，导致数组arr中只有一个<code>&quot;a string literalanother string literal&quot;</code>元素，而非预期的两个元素。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;hello &quot;</span><span class="p">,</span>
+               <span class="s">&quot;world&quot;</span><span class="p">};</span>	 
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在第2行初始化字符串数组时，使用逗号分隔符。</p>
+
+    </section>
+</article>

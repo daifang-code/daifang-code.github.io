@@ -1,0 +1,100 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2030">PE2030: func-call-spacing</h2>
+    <h3>要求或禁止在函数标识符和其调用之间有空格 (func-call-spacing)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2030</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求或禁止在函数标识符和其调用之间有空格 (func-call-spacing)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>当调用一个函数时，开发者可以在函数名和调用它的括号之间插入空格。以下函数调用效果是一样的：</p>
+<div class="highlight"><pre><span></span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">);</span>
+<span class="nx">alert</span> <span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+
+<span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+<span class="k">new</span> <span class="nb">Date</span> <span class="p">();</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则要求或禁止在函数名和开括号之间有空格。</p>
+<h2>options</h2>
+<p>该规则有一个字符串选项：</p>
+<ul>
+<li><code>&quot;always&quot;</code> 要求在函数名和开括号之间有空格</li>
+</ul>
+<p>未来，在 <code>&quot;always&quot;</code> 模式中，可以有第二个选项，是个对象，包含一个布尔类型的 <code>allowNewlines</code> 属性。</p>
+<h5>never</h5>
+<p>默认选项 <code>&quot;never&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-call-spacing: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="nx">fn</span> <span class="p">();</span>
+
+<span class="nx">fn</span>
+<span class="p">();</span>
+</pre></div>
+<p>默认选项 <code>&quot;never&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-call-spacing: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="nx">fn</span><span class="p">();</span>
+</pre></div>
+<h5>always</h5>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-call-spacing: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="nx">fn</span><span class="p">();</span>
+
+<span class="nx">fn</span>
+<span class="p">();</span>
+</pre></div>
+<p>选项 <code>&quot;always&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-call-spacing: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="nx">fn</span> <span class="p">();</span>
+</pre></div>
+<h5>allowNewlines</h5>
+<p>默认情况下，<code>&quot;always&quot;</code> 不允许换行。在 <code>&quot;always&quot;</code> 模式中，设置 <code>allowNewlines</code> 选项为 <code>true</code> 来允许换行。换行从来就不是必须的。</p>
+<p>选项 <code>{ &quot;allowNewlines&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-call-spacing: [&quot;error&quot;, &quot;always&quot;, { &quot;allowNewlines&quot;: true }]*/</span>
+
+<span class="nx">fn</span><span class="p">();</span>
+</pre></div>
+<p>选项 <code>{ &quot;allowNewlines&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint func-call-spacing: [&quot;error&quot;, &quot;always&quot;, { &quot;allowNewlines&quot;: true }]*/</span>
+
+<span class="nx">fn</span> <span class="p">();</span> <span class="c1">// Newlines are never required.</span>
+
+<span class="nx">fn</span>
+<span class="p">();</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你的项目并不关心在函数调用中强制使用一致的空格风格，你可以关闭此规则。</p>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-spaced-func">no-spaced-func</a> (deprecated)</li>
+</ul>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS</strong>: <a href="http://jscs.info/rule/disallowSpacesInCallExpression">disallowSpacesInCallExpression</a></li>
+<li><strong>JSCS</strong>: <a href="http://jscs.info/rule/requireSpacesInCallExpression">requireSpacesInCallExpression</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 3.3.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/func-call-spacing.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/func-call-spacing.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

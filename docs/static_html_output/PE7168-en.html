@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7168">BE7168: Field not guarded against concurrent access</h2>
+    <h3>Field not guarded against concurrent access</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7168</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Field not guarded against concurrent access</p>
+<h4>Vulnerability and risk</h4>
+<p> This field is annotated with net.jcip.annotations.GuardedBy or javax.annotation.concurrent.GuardedBy,
+but can be accessed in a way that seems to violate those annotations.</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

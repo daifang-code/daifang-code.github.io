@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7562">BE7562: 加密时使用了固定的初始化向量IV</h2>
+    <h3>加密时使用了固定的初始化向量IV</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7562</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>加密时使用了固定的初始化向量IV</p>
+<h4>漏洞与风险</h4>
+<p>
+<p>必须重新生成初始化向量，以便对每条消息进行加密。</p>
+ </p>
+ <p><b>易受攻击的代码：</b></p>
+ <p>
+ <pre>
+ private static byte[] IV = new byte[16] {(byte)0,(byte)1,(byte)2,[...]};
+ public void encrypt(String message) throws Exception {
+  IvParameterSpec ivSpec = new IvParameterSpec(IV);
+ [...]
+ </pre>
+ <p><b>解决方案：</b></p>
+ <p>
+ <pre>
+ public void encrypt(String message) throws Exception {
+  byte[] iv = new byte[16];
+  new SecureRandom().nextBytes(iv);
+  IvParameterSpec ivSpec = new IvParameterSpec(iv);
+ [...]
+ </pre>
+ </p>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://en.wikipedia.org/wiki/Initialization_vector&quot;&gt;Wikipedia: Initialization vector&lt;/a&gt;&lt;br/&gt;
+ &lt;a href=&quot;http://cwe.mitre.org/data/definitions/329.html&quot;&gt;CWE-329: Not Using a Random IV with CBC Mode&lt;/a&gt;&lt;br/&gt;
+ &lt;a href=&quot;https://defuse.ca/cbcmodeiv.htm&quot;&gt;Encryption - CBC Mode IV: Secret or Not?&lt;/a&gt;</p>
+ </p>
+
+    </section>
+</article>

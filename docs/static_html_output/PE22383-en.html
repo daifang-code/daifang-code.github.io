@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22383">PE22383: E133</h2>
+    <h3>Closing bracket is missing indentation</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE22383</dd>
+                    <dt>Tags</dt>
+                    <dd>flake8</dd>
+                    <dt>Category</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>A closing bracket is missing indentation. This error only occurs if the
+<code>--hang-closing</code> flag is used, switching the default behavior of closing
+brackets so that they require hanging indents.</p>
+<h5>Anti-pattern</h5>
+<p><strong>Note:</strong> This is not an anti-pattern by default. This only occurs if
+the <code>--hang-closing</code> flag is used.</p>
+
+<pre><code>my_list = [
+    1, 2, 3,
+    4, 5, 6,
+]
+
+</code></pre>
+<h5>Best practice</h5>
+
+<pre><code>my_list = [
+    1, 2, 3,
+    4, 5, 6,
+    ]
+
+</code></pre>
+<h4>References</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://www.python.org/dev/peps/pep-0008/#indentation<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

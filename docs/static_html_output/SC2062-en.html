@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2062">SC2062: Missing quote</h2>
+    <h3>Quote the grep pattern so the shell won't interpret it.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2062</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Quote the grep pattern so the shell won't interpret it.</h4>
+<h5>Problematic code</h5>
+
+<pre><code>grep foo* file
+
+</code></pre>
+<h5>Correct code</h5>
+
+<pre><code>grep &quot;foo*&quot; file
+
+</code></pre>
+<h5>Rationale</h5>
+<p>The regex passed to grep frequently contains characters that collide with globs. The code above is supposed to match &quot;f followed by 1 or more o's&quot;, but if the directory contains a file called &quot;foo.txt&quot;, an unquoted pattern will cause it to become <code>grep foo.txt file</code>.</p>
+<p>To prevent this, always quote the regex passed to grep, especially when it contains one or more glob character.</p>
+
+    </section>
+</article>

@@ -1,0 +1,42 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0008">PE0008: Function Address Comparison</h2>
+    <h3>Compare function's address with 0 always lead to a fixed result.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0008</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Many cases in which a comparison operator or function is misused. Typically, the behavior of the program is not what the programmer intended because the comparison often produces a fixed result. For example, many cases where a function is implicitly converted to its address and then compared with 0. Because function addresses are never 0, such comparisons always have a fixed result.</p>
+<h4>Vulnerability and risk</h4>
+<h5>logical error</h5>
+<p>Compare function's address with 0 always lead to a fixed result, which is not what the programmer intended.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Medium</p>
+<h4>Potential Mitigations</h4>
+<p>Compare function's return value with 0.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">malloc</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* bad */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, A comparison of a function's address to 0 occurred at line 2.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">malloc</span><span class="p">(</span><span class="n">len</span><span class="p">))</span> <span class="p">{</span> <span class="cm">/* good */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the fixed code example, compare a function's return value to 0 at line 2.</p>
+
+    </section>
+</article>

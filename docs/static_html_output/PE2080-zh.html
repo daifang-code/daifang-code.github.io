@@ -1,0 +1,74 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2080">PE2080: no-confusing-arrow</h2>
+    <h3>禁止在可能与比较操作符相混淆的地方使用箭头函数 (no-confusing-arrow)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2080</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止在可能与比较操作符相混淆的地方使用箭头函数 (no-confusing-arrow)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>箭头函数(<code>=&gt;</code>) 在语法上与一些比较操作符(<code>&gt;</code>，<code>&lt;</code>，<code>&lt;=</code> 和 <code>&gt;=</code>)相似。当与比较操作符混淆的地方使用箭头函数语法，该规则会发出警告。即使箭头函数是用括号括起来的，该规则仍会发出警告，除非 <code>allowParens</code> 被设置为 <code>true</code>。</p>
+<p>下面的例子使用 <code>=&gt;</code> 可能会让人感到困惑：</p>
+<div class="highlight"><pre><span></span><span class="c1">// The intent is not clear</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span> <span class="p">=&gt;</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">;</span>
+<span class="c1">// Did the author mean this</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span> <span class="p">};</span>
+<span class="c1">// Or this</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">;</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-confusing-arrow: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span> <span class="p">=&gt;</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">);</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-confusing-arrow: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">;</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">;</span> <span class="p">};</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则只接收一个选项参数，使用下面的默认值：</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;no-confusing-arrow&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nt">&quot;allowParens&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">}]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p><code>allowParens</code> 是一个布尔类型的设置，可以使 <code>true</code> 或 <code>false</code>：
+2. <code>false</code> 即使表达式括在括号中也发出警告</p>
+<p>选项 <code>{&quot;allowParens&quot;: true}</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-confusing-arrow: [&quot;error&quot;, {&quot;allowParens&quot;: true}]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">a</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">3</span><span class="p">);</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-constant-condition">no-constant-condition</a></li>
+<li><a href="arrow-parens">arrow-parens</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 2.0.0-alpha-2 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-confusing-arrow.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-confusing-arrow.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

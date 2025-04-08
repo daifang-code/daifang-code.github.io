@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7068">BE7068: 使用URL的equals和hashCode方法发生阻塞</h2>
+    <h3>使用URL的equals和hashCode方法发生阻塞</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7068</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>使用URL的equals和hashCode方法发生阻塞</p>
+<h4>漏洞与风险</h4>
+<p>使用equals和hashCode方法来对url进行资源标识符解析时会引起堵塞。
+参照<a href="http://michaelscharf.blogspot.com/2006/11/javaneturlequals-and-hashcode-make.html">http://michaelscharf.blogspot.com/2006/11/javaneturlequals-and-hashcode-make.html</a> 了解更多信息。
+考虑使用<code>java.net.URI</code>来代替。
+   </p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

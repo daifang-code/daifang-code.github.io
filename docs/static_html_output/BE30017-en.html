@@ -1,0 +1,22 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE30017">BE30017: The potentially unsafe HTTP request entry reaches an LDAP instruction</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE30017</dd>
+                    <dt>Tags</dt>
+                    <dd>csharp</dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The potentially unsafe HTTP request entry reaches an LDAP instruction. The dynamic value passed to the LDAP query must be validated. For the user-controlled portion of LDAP instructions. consider one of the following: Allow only a safe list of non-special characters; Do not allow special characters; Escape from special characters. https://docs.microsoft.com/en-us/visualstudio/code-quality/ca3005?view=vs-2019</p>
+<h4>Likelihood of exploit</h4>
+<p>High</p>
+
+    </section>
+</article>

@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0054">PE0054: 将固定地址赋值给指针变量</h2>
+    <h3>将固定地址赋值给指针变量。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0054</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在代码中将一个固定地址(非NULL和0)赋值给一个指针变量。</p>
+<h4>漏洞与风险</h4>
+<h5>移植性问题</h5>
+<p>在代码中将一个固定地址(非NULL和0)赋值给一个指针变量，在不同的平台下同一个地址可能是一个非法地址。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>不要给一个指针变量赋除NULL或0之外的固定地址。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{Using a fixed address is not portable because that address</span>
+  <span class="c1">// will probably not be valid in all environments or platforms}} </span>
+  <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span> <span class="mh">0x10000</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，将固定地址0x10000赋值给指针变量p。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，将变量a的地址赋值给指针变量p。</p>
+
+    </section>
+</article>

@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="ddj" />
+<meta name="description" content="Systems must ensure that data is not transmitted to a component in a different trusted domain if authorized users in that domain are not permitted access to the data." />
+<meta name="keywords" content="C, C++, Java, CWE-319, FIND-BUGS">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="Leaking Sensitive Data"/>
+<meta property="og:description" content="Systems must ensure that data is not transmitted to a component in a different trusted domain if authorized users in that domain are not permitted access to the data."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE0087.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:05.915828+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/ddj.html">
+<meta property="article:section" content="Checkers/JAVA"/>
+<meta property="article:tag" content="C"/>
+<meta property="article:tag" content="C++"/>
+<meta property="article:tag" content="Java"/>
+<meta property="article:tag" content="CWE-319"/>
+<meta property="article:tag" content="FIND-BUGS"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; Leaking Sensitive Data</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/c.html">c</a>
+              <a href="./standard/java.html">java</a>
+        </li>
+        <li>
+            <a href="./standard/security-issues.html">Security issues</a>
+        </li>
+        <li>
+            <a href="./category/privacy-leakage.html">Privacy leakage</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE0087">Leaking Sensitive Data</h1>
+    <p>
+        Posted on September 28, 2024 in <a href="./category/privacy-leakage.html">Privacy leakage</a>
+
+        &#8226; 4 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example-1">Vulnerable code Example 1</a></li>
+<li><a href="#fixed-code-example-1">Fixed Code Example 1</a></li>
+<li><a href="#vulnerable-code-example-2">Vulnerable code Example 2</a></li>
+<li><a href="#fixed-code-example-2">Fixed code Example 2</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+  <div>
+    
+<h1 id="description">Description</h1>
+<p>Logging is essential for debugging, incident response, and collecting forensic evidence. Nevertheless, logging sensitive data raises many concerns, including the privacy of the stakeholders, limitations imposed by the law on the collection of personal information, and the potential for data exposure by insiders. Sensitive information includes, but is not limited to, IP addresses, user names and passwords, email addresses, credit card numbers, and any personally identifiable information such as social security numbers. Many countries prohibit or restrict collection of personal data; others permit retention of personal data only when held in an anonymized form. For example, leaking unencrypted credit card numbers into a log file could be a violation of PCI DSS (Payment Card Industry Data Security Standard) regulations [PCI 2010]. Consequently, logs must not contain sensitive data, particularly when prohibited by law.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>Unfortunately, violations of this rule are common. For example, prior to version 0.8.1, the LineControl Java client logged sensitive information, including the local user's password, as documented by CVE-2005-2990.</p>
+<p>The java.util.logging class provides a basic logging framework for JDK versions 1.4 and higher. Other logging frameworks exist, but the basic principles apply regardless of the particular logging framework chosen.</p>
+<p>Programs typically support varying levels of protection. Some information, such as access times, can be safely logged. Some information can be logged, but the log file must be restricted from everyone but particular administrators. Other information, such as credit card numbers, can be included in logs only in encrypted form. Information such as passwords should not be logged at all.</p>
+<p>For the following code examples, the log lies outside the trust boundary of the information being recorded. Also, normal log messages should include additional parameters such as date, time, source event, and so forth. This information has been omitted from the following code examples for brevity. </p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Encrypt the data with a reliable encryption scheme before transmitting.</p>
+<p>When using web applications with SSL, use SSL for the entire session from login to logout, not just for the initial login page.</p>
+<p>Use tools and techniques that require manual (human) analysis, such as penetration testing, threat modeling, and interactive tools that allow the tester to record and modify an active session. These may be more effective than strictly automated techniques. This is especially the case with weaknesses that are related to design and business rules.</p>
+<p>Configure servers to use encrypted channels for communication, which may include SSL or other secure protocols. </p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Critical</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example-1">Vulnerable code Example 1</h3>
+<p>In this noncompliant code example, a server logs the IP address of the remote client in the event of a security exception. This data can be misused, for example, to build a profile of a user's browsing habits. Such logging may violate legal restrictions in many countries.</p>
+<p>When the log cannot contain IP addresses, it should not contain any information about a SecurityException, because it might leak an IP address. When an exception contains sensitive information, the custom MyExceptionReporter class should extract or cleanse it before returning control to the next statement in the catch block (see ERR00-J. Do not suppress or ignore checked exceptions).</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logRemoteIPAddress</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">"com.organization.Log"</span><span class="o">);</span>
+  <span class="n">InetAddress</span> <span class="n">machine</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="k">try</span> <span class="o">{</span>
+    <span class="n">machine</span> <span class="o">=</span> <span class="n">InetAddress</span><span class="o">.</span><span class="na">getByName</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">UnknownHostException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Exception</span> <span class="n">e</span> <span class="o">=</span> <span class="n">MyExceptionReporter</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SecurityException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Exception</span> <span class="n">e</span> <span class="o">=</span> <span class="n">MyExceptionReporter</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">severe</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">","</span> <span class="o">+</span> <span class="n">machine</span><span class="o">.</span><span class="na">getHostAddress</span><span class="o">()</span> <span class="o">+</span> <span class="s">","</span> <span class="o">+</span>
+                  <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example-1">Fixed Code Example 1</h3>
+<p>This compliant solution does not log security exceptions except for the logging implicitly performed by MyExceptionReporter:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
+<span class="k">catch</span> <span class="o">(</span><span class="n">SecurityException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Exception</span> <span class="n">e</span> <span class="o">=</span> <span class="n">MyExceptionReporter</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="vulnerable-code-example-2">Vulnerable code Example 2</h3>
+<p>Log messages with sensitive information should not be printed to the console display for security reasons (a possible example of sensitive information is passenger age). The java.util.logging.Logger class supports different logging levels that can be used for classifying such information: FINEST, FINER, FINE, CONFIG, INFO, WARNING, and SEVERE. By default, the INFO, WARNING, and SEVERE levels print the message to the console, which is accessible by end users and system administrators.
+If we assume that the passenger age can appear in log files on the current system but not on the console display, this code example is noncompliant.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Age: "</span> <span class="o">+</span> <span class="n">passengerAge</span><span class="o">);</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example-2">Fixed code Example 2</h3>
+<p>This compliant solution logs the passenger age at the FINEST level to prevent this information from displaying on the console. As noted previously, we are assuming the age may appear in system log files but not on the console.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// Make sure that all handlers only print log messages rated INFO or higher</span>
+<span class="n">Handler</span> <span class="n">handlers</span><span class="o">[]</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="na">getHandlers</span><span class="o">();</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">handlers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+  <span class="n">handlers</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">setLevel</span><span class="o">(</span><span class="n">Level</span><span class="o">.</span><span class="na">INFO</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="c1">// ...</span>
+<span class="n">logger</span><span class="o">.</span><span class="na">finest</span><span class="o">(</span><span class="s">"Age: "</span> <span class="o">+</span> <span class="n">passengerAge</span><span class="o">);</span>
+</pre></div>
+</td></tr></table>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cwe">
+<p>http://cwe.mitre.org/data/definitions/319.html <a class="footnote-backref" href="#fnref-cwe" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn-CERT">
+<p>https://wiki.sei.cmu.edu/confluence/display/java/FIO13-J.+Do+not+log+sensitive+information+outside+a+trust+boundary.html <a class="footnote-backref" href="#fnref-CERT" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/c.html">C</a>
+      <a href="./tag/c.html">C++</a>
+      <a href="./tag/java.html">Java</a>
+      <a href="./tag/cwe-319.html">CWE-319</a>
+      <a href="./tag/find-bugs.html">FIND-BUGS</a>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

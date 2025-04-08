@@ -1,0 +1,46 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE19025">PE19025: extract导致变量覆盖漏洞</h2>
+    <h3>extract导致变量覆盖漏洞</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE19025</dd>
+                    <dt>标签</dt>
+                    <dd>cobra</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>安全风险</h2>
+
+<pre><code>    变量覆盖漏洞
+
+</code></pre>
+<h2>修复方案</h2>
+
+<pre><code>    在当前行通过flags修复(eg:调用extract()时使用EXTR_SKIP保证已有变量不会被覆盖)
+
+</code></pre>
+<h2>举例</h2>
+
+<pre><code>    ```php
+    &lt;?php
+        $a = '0';
+        extract($_GET)；
+        if($a==1){echo &quot;true!&quot;;}
+        else{echo &quot;false!&quot;;}
+    ?&gt;
+    ```
+    构造 http://www.test.com/test.php?a=1时，会打印出true
+
+
+</code></pre>
+<h2>匹配规则</h2>
+<p>extract</p>
+<h4>References</h4>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+
+    </section>
+</article>

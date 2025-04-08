@@ -1,0 +1,137 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2100">PE2100: no-eval</h2>
+    <h3>禁用 eval()（no-eval）</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2100</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁用 eval()（no-eval）</h4>
+<p>JavaScript 中的 <code>eval()</code> 函数是有潜在危险的，而且经常被误用。在不可信的代码里使用 <code>eval()</code> 有可能使程序受到不同的注入攻击。<code>eval()</code> 在大多数情况下可以被更好的解决问题的方法代替。</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span> <span class="p">},</span>
+    <span class="nx">key</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+    <span class="nx">value</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;obj.&quot;</span> <span class="o">+</span> <span class="nx">key</span><span class="p">);</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>此规则目的在于通过禁止使用 <code>eval()</code> 函数来避免潜在地危险、不必要的和运行效率低下的代码。因此，当时使用 <code>eval()</code> 函数时，该规则将发出警告。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span> <span class="p">},</span>
+    <span class="nx">key</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+    <span class="nx">value</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;obj.&quot;</span> <span class="o">+</span> <span class="nx">key</span><span class="p">);</span>
+
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">eval</span><span class="p">)(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">;</span>
+<span class="nx">foo</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+
+<span class="c1">// This `this` is the global object.</span>
+<span class="k">this</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+<p>当环境指定为 <code>browser</code> 为  <code>true</code> 时的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env browser*/</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+<p>当环境指定为 <code>node</code> 为  <code>true</code> 时的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env node*/</span>
+
+<span class="nx">global</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span> <span class="p">},</span>
+    <span class="nx">key</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+    <span class="nx">value</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+
+<span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// This is a user-defined method.</span>
+        <span class="k">this</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nb">eval</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h2>修改方案</h2>
+<p>该规则有一个选项，允许间接调用 <code>eval</code>。间接调用 <code>eval</code> 相对于直接调用 <code>eval</code> 危害性较低，因为不会动态改变作用域。正因为如此，相对于直接调用 <code>eval</code> ，它们也不会对性能造成负面影响。</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;no-eval&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;allowIndirect&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">}]</span> <span class="c1">// default is false</span>
+<span class="p">}</span>
+</pre></div>
+<p>选项 <code>{&quot;allowIndirect&quot;: true}</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span> <span class="p">},</span>
+    <span class="nx">key</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+    <span class="nx">value</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;obj.&quot;</span> <span class="o">+</span> <span class="nx">key</span><span class="p">);</span>
+</pre></div>
+<p>选项 <code>{&quot;allowIndirect&quot;: true}</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">eval</span><span class="p">)(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">;</span>
+<span class="nx">foo</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+
+<span class="k">this</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env browser*/</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-eval: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env node*/</span>
+
+<span class="nx">global</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+<h2>Known Limitations</h2>
+<ul>
+<li><p>该规则会对每一个 <code>eval()</code> 发出警告，即使 <code>eval</code> 是非全局的函数。这种行为是为了检测对 <code>eval</code> 的直接调用。比如：</p>
+<div class="highlight"><pre><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nb">eval</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// If the value of this `eval` is built-in `eval` function, this is a</span>
+    <span class="c1">// call of direct `eval`.</span>
+    <span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</li>
+<li><p>该规则无法捕获重命名的全局对象。比如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nb">window</span><span class="p">;</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;var a = 0&quot;</span><span class="p">);</span>
+</pre></div>
+</li>
+</ul>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://blogs.msdn.com/b/ericlippert/archive/2003/11/01/53329.aspx">Eval is Evil, Part One</a></li>
+<li><a href="https://javascriptweblog.wordpress.com/2010/04/19/how-evil-is-eval/">How evil is eval</a></li>
+</ul>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-implied-eval">no-implied-eval</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.2 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-eval.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-eval.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

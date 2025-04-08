@@ -1,0 +1,66 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0018">PE0018: 传参CComBSTR或CComPtr对象的地址导致内存泄漏</h2>
+    <h3>当使用CComBSTR或CComPtr对象的地址作为参数时，通过指针地址可以修改内部指向的字符串对象，可能会导致内存泄漏。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0018</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>局部非静态CComBSTR和CComPtr变量内部包含一个指向非空字符串的指针。当变量的地址作为参数传给一个函数时，内部指针所指向的值可能会被修改，导致内存泄漏。</p>
+<h4>漏洞与风险</h4>
+<h5>内存泄漏</h5>
+<p>局部非静态CComBSTR和CComPtr变量内部包含一个指向非空字符串的指针。当变量的地址作为参数传给一个函数时，内部指针所指向的值可能会被修改，导致内存泄漏。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>缓解与预防</h4>
+<p>在函数调用时，传递CComBSTR和CComPtr变量而非他们的地址。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">Base</span> <span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+  <span class="c1">// \pName is a pointer</span>
+  <span class="kt">void</span> <span class="n">getName</span><span class="p">(</span><span class="n">BSTR</span> <span class="o">*</span><span class="n">pName</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> 
+    <span class="o">*</span><span class="n">pName</span> <span class="o">=</span> <span class="o">::</span><span class="n">SysAllocString</span><span class="p">(</span><span class="n">name_</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">LPCOLESTR</span> <span class="n">name_</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="nf">Release</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="n">CComBSTR</span> <span class="nf">getBaseName</span><span class="p">(</span><span class="k">const</span> <span class="n">Base</span> <span class="o">&amp;</span><span class="n">base</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CComBSTR</span> <span class="n">name</span><span class="p">;</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="sa">L</span><span class="s">&quot;Lucky&quot;</span><span class="p">;</span>
+  <span class="n">base</span><span class="p">.</span><span class="n">getName</span><span class="p">(</span><span class="o">&amp;</span><span class="n">name</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">name</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，重载的取地址操作符(&amp;)返回name对象内部的指针，在被调用的方法Base::getName()中，指针所指向的内存在没有被释放的情况下被重新赋值，导致内存泄漏。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">Base</span> <span class="p">{</span>
+<span class="nl">public</span><span class="p">:</span>
+  <span class="c1">// \pName is a value</span>
+  <span class="kt">void</span> <span class="n">getName</span><span class="p">(</span><span class="n">BSTR</span> <span class="n">pName</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+      <span class="n">pName</span> <span class="o">=</span> <span class="o">::</span><span class="n">SysAllocString</span><span class="p">(</span><span class="n">name_</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">LPCOLESTR</span> <span class="n">name_</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="nf">Release</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="n">CComBSTR</span> <span class="nf">getBaseName</span><span class="p">(</span><span class="k">const</span> <span class="n">Base</span> <span class="o">&amp;</span><span class="n">base</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CComBSTR</span> <span class="n">name</span><span class="p">;</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="sa">L</span><span class="s">&quot;Lucky&quot;</span><span class="p">;</span>
+  <span class="n">base</span><span class="p">.</span><span class="n">getName</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">name</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，在调用方法customer.getName()时传递一个name对象。</p>
+
+    </section>
+</article>

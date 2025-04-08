@@ -1,0 +1,41 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1101">PE1101: 文件揭露</h2>
+    <h3>如果攻击者能够访问到一些包含敏感信息的文件，那么他们可能会一路跟踪下去，以伺机寻找更多的攻击机会</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1101</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>在当前环境下，文件或目录应该处于不可访问状态，但实际上是能够被外界访问到的。</p>
+<h4>漏洞与风险</h4>
+<p>如果攻击者能够访问到一些包含敏感信息的文件，那么他们可能会一路跟踪下去，以伺机寻找更多的攻击机会。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<ul>
+<li>视所有的输入为危险的数据，通过使用白名单等的受信输入验证策略来严格清洗输入数据。</li>
+<li>了解不受信的用户输入会从什么地方侵入到程序中。</li>
+</ul>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>以下的代码没有对不受信的用户输入进行验证，直接将其用来构造转发路径：</p>
+<div class="highlight"><pre><span></span><span class="k">&lt;%</span> <span class="n">String</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&quot;retUrl&quot;</span><span class="o">);</span> <span class="k">%&gt;</span>
+<span class="k">&lt;jsp:include page=&quot;&lt;%ret%&gt;</span>;&quot; /&gt;
+</pre></div>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://cwe.mitre.org/data/definitions/552.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

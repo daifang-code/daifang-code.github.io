@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7071">BE7071: Method invokes dangerous method runFinalizersOnExit</h2>
+    <h3>Method invokes dangerous method runFinalizersOnExit</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7071</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Method invokes dangerous method runFinalizersOnExit</p>
+<h4>Vulnerability and risk</h4>
+<p> <em>Never call System.runFinalizersOnExit
+or Runtime.runFinalizersOnExit for any reason: they are among the most
+dangerous methods in the Java libraries.</em> -- Joshua Bloch</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

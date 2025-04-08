@@ -1,0 +1,228 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2243">PE2243: strict</h2>
+    <h3>require or disallow strict mode directives (strict)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2243</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>require or disallow strict mode directives (strict)</h4>
+<p>A strict mode directive is a <code>&quot;use strict&quot;</code> literal at the beginning of a script or function body. It enables strict mode semantics.</p>
+<p>When a directive occurs in global scope, strict mode applies to the entire script:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="c1">// strict mode</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// strict mode</span>
+<span class="p">}</span>
+</pre></div>
+<p>When a directive occurs at the beginning of a function body, strict mode applies only to that function, including all contained functions:</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="c1">// strict mode</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo2</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// not strict mode</span>
+<span class="p">};</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// strict mode</span>
+    <span class="p">}</span>
+<span class="p">}());</span>
+</pre></div>
+<p>In the <strong>CommonJS</strong> module system, a hidden function wraps each module and limits the scope of a &quot;global&quot; strict mode directive.</p>
+<p>In <strong>ECMAScript</strong> modules, which always have strict mode semantics, the directives are unnecessary.</p>
+<h2>Rule Details</h2>
+<p>This rule requires or disallows strict mode directives.</p>
+<p>This rule disallows strict mode directives, no matter which option is specified, if ESLint configuration specifies either of the following as <a href="/docs/user-guide/configuring.md#specifying-parser-options">parser options</a>:</p>
+<ul>
+<li><code>&quot;sourceType&quot;: &quot;module&quot;</code> that is, files are <strong>ECMAScript</strong> modules</li>
+<li><code>&quot;impliedStrict&quot;: true</code> property in the <code>ecmaFeatures</code> object</li>
+</ul>
+<p>This rule disallows strict mode directives, no matter which option is specified, in functions with non-simple parameter lists (for example, parameter lists with default parameter values) because that is a syntax error in <strong>ECMAScript 2016</strong> and later. See the examples of the <a href="#function">function</a> option.</p>
+<p>The <code>--fix</code> option on the command line does not insert new <code>&quot;use strict&quot;</code> statements, but only removes unneeded statements.</p>
+<h2>Options</h2>
+<p>This rule has a string option:</p>
+<ul>
+<li><code>&quot;safe&quot;</code> (default) corresponds either of the following options:<ul>
+<li><code>&quot;global&quot;</code> if ESLint considers a file to be a <strong>CommonJS</strong> module</li>
+<li><code>&quot;function&quot;</code> otherwise</li>
+</ul>
+</li>
+<li><code>&quot;global&quot;</code> requires one strict mode directive in the global scope (and disallows any other strict mode directives)</li>
+<li><code>&quot;function&quot;</code> requires one strict mode directive in each top-level function declaration or expression (and disallows any other strict mode directives)</li>
+<li><code>&quot;never&quot;</code> disallows strict mode directives</li>
+</ul>
+<h5>safe</h5>
+<p>The <code>&quot;safe&quot;</code> option corresponds to the <code>&quot;global&quot;</code> option if ESLint considers a file to be a <strong>Node.js</strong> or <strong>CommonJS</strong> module because the configuration specifies either of the following:</p>
+<ul>
+<li><code>node</code> or <code>commonjs</code> <a href="/docs/user-guide/configuring.md#specifying-environments">environments</a></li>
+<li><code>&quot;globalReturn&quot;: true</code> property in the <code>ecmaFeatures</code> object of <a href="/docs/user-guide/configuring.md#specifying-parser-options">parser options</a></li>
+</ul>
+<p>Otherwise the <code>&quot;safe&quot;</code> option corresponds to the <code>&quot;function&quot;</code> option. Note that if <code>&quot;globalReturn&quot;: false</code> is explicitly specified in the configuration, the <code>&quot;safe&quot;</code> option will correspond to the <code>&quot;function&quot;</code> option regardless of the specified environment.</p>
+<h5>global</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;global&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;global&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;global&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;global&quot;]*/</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;global&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;global&quot;]*/</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<h5>function</h5>
+<p>This option ensures that all function bodies are strict mode code, while global code is not. Particularly if a build step concatenates multiple scripts, a strict mode directive in global code of one script could unintentionally enable strict mode in another script that was not intended to be strict code.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;function&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;function&quot;]*/</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;function&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}());</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;function&quot;]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="c1">// Illegal &quot;use strict&quot; directive in function with non-simple parameter list.</span>
+<span class="c1">// This is a syntax error since ES2016.</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// We cannot write &quot;use strict&quot; directive in this function.</span>
+<span class="c1">// So we have to wrap this function with a function with &quot;use strict&quot; directive.</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;function&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;function&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">baz</span><span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">}());</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">};</span>
+<span class="p">}());</span>
+</pre></div>
+<h5>never</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint strict: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<h5>earlier default (removed)</h5>
+<p>(removed) The default option (that is, no string option specified) for this rule was <strong>removed</strong> in ESLint v1.0. The <code>&quot;function&quot;</code> option is most similar to the removed option.</p>
+<p>This option ensures that all functions are executed in strict mode. A strict mode directive must be present in global code or in every top-level function declaration or expression. It does not concern itself with unnecessary strict mode directives in nested functions that are already strict, nor with multiple strict mode directives at the same level.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule with the earlier default option which has been removed:</p>
+<div class="highlight"><pre><span></span><span class="c1">// &quot;strict&quot;: &quot;error&quot;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="c1">// &quot;strict&quot;: &quot;error&quot;</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}());</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the earlier default option which has been removed:</p>
+<div class="highlight"><pre><span></span><span class="c1">// &quot;strict&quot;: &quot;error&quot;</span>
+
+<span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="c1">// &quot;strict&quot;: &quot;error&quot;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="c1">// &quot;strict&quot;: &quot;error&quot;</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}());</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>In a codebase that has both strict and non-strict code, either turn this rule off, or <a href="/docs/user-guide/configuring.md">selectively disable it</a> where necessary. For example, functions referencing <code>arguments.callee</code> are invalid in strict mode. A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode/Transitioning_to_strict_mode#Differences_from_non-strict_to_strict">full list of strict mode differences</a> is available on MDN.</p>
+
+    </section>
+</article>

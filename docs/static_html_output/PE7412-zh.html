@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7412">BE7412: “.”或“|”用于正则表达式</h2>
+    <h3>“.”或“|”用于正则表达式</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7412</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>“.”或“|”用于正则表达式</p>
+<h4>漏洞与风险</h4>
+<p>
+正在调用String函数，并将"."或"|"传递给以正则表达式作为参数的参数。这是程序员的真实意图吗？
+例如
+</p>
+<ul>
+<li>s.replaceAll(".", "/")将返回一个字符串，其中<em>每个</em>字符都被'/'字符替换</li>
+<li>s.split(".") <em>总是</em>返回一个零长度的String数组</li>
+<li>"ab|cd".replaceAll("|", "/")将返回"/a/b/|/c/d/"</li>
+<li>"ab|cd".split("|")将返回带有六个元素的数组： [, a, b, |, c, d]</li>
+</ul>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+
+    </section>
+</article>

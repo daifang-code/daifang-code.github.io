@@ -1,0 +1,40 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2170">SC2170: Suspicious condition</h2>
+    <h3>Numerical -eq does not dereference in [..]. Expand or use string operator.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2170</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Numerical -eq does not dereference in [..]. Expand or use string operator.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">read</span> -r n
+<span class="k">if</span> <span class="o">[</span> n -lt <span class="m">0</span> <span class="o">]</span>
+<span class="k">then</span>
+   <span class="nb">echo</span> <span class="s2">&quot;bad input&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">read</span> -r n
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$n</span><span class="s2">&quot;</span> -lt <span class="m">0</span> <span class="o">]</span>
+<span class="k">then</span>
+   <span class="nb">echo</span> <span class="s2">&quot;bad input&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>You are comparing a string value with a numerical operator, such as <code>-eq</code>, <code>-ne</code>, <code>-lt</code> or <code>-gt</code>.</p>
+<p>In <code>[[ .. ]]</code>, this would automatically dereference the string, looking to see if there are variables by that name.</p>
+<p>In <code>[ .. ]</code>, which you are using, the string is just treated as an invalid number.</p>
+<p>If you want to compare numbers, expand yourself (e.g. use <code>$var</code> instead of <code>var</code>). If you are trying to compare strings and not numbers, use <code>=</code>, <code>!=</code> <code>\&lt;</code> or <code>\&gt;</code> instead.</p>
+<h5>Exceptions:</h5>
+<p>None.</p>
+
+    </section>
+</article>

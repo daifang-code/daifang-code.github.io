@@ -1,0 +1,62 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7573">BE7573: log的潜在CRLF注入</h2>
+    <h3>log的潜在CRLF注入</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7573</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>log的潜在CRLF注入</p>
+<h4>漏洞与风险</h4>
+<p>
+来自不可靠源的数据被放入日志中，而且没有失效，导致攻击者可以伪造日志目录。
+插入的虚假条目可用于修改统计数据，分散管理员的注意力，可能暗示了第三方的恶意行为。
+如果自动处理日志文件，则攻击者可以通过破坏文件格式或注入意外字符来使文件无法使用。
+攻击者还可以将代码或其它命令注入日志文件，并利用日志处理实用程序中的漏洞（例如命令注入或XSS）。
+</p>
+<br/>
+<p>
+<b>风险代码：</b><br/>
+<pre>String val = request.getParameter("user");
+String metadata = request.getParameter("metadata");
+[...]
+if(authenticated) {
+    log.info("User " + val + " (" + metadata + ") was authenticated successfully");
+}
+else {
+    log.info("User " + val + " (" + metadata + ") was not authenticated");
+}
+</pre>
+恶意用户可以使用以下值发送元数据参数：<code>"Firefox) was authenticated successfully\r\n[INFO] User bbb (Internet Explorer"</code>.
+</p>
+<b>解决方案：</b><br/>
+<p>
+您可以手动清理每个参数。
+<pre>
+log.info("User " + val.replaceAll("[\r\n]","") + " (" + userAgent.replaceAll("[\r\n]","") + ") was not authenticated");
+</pre>
+</p>
+<p>
+您还可以配置日志系统服务以替换所有消息事件的新行。以下是LogBack <a href="https://logback.qos.ch/manual/layouts.html#replace">使用替换功能</a>的示例配置。
+<pre>
+<pattern>%-5level - %replace(%msg){'[\r\n]', ''}%n</pattern>
+</pre>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;http://cwe.mitre.org/data/definitions/117.html&quot;&gt;CWE-117: Improper Output Neutralization for Logs&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/93.html&quot;&gt;CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection')&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://logback.qos.ch/manual/layouts.html#replace&quot;&gt;CWE-93: Improper Neutralization of CRLF Sequences ('CRLF Injection')&lt;/a&gt;&lt;br/&gt;</p>
+</p>
+
+    </section>
+</article>

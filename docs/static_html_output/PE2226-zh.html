@@ -1,0 +1,91 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2226">PE2226: radix</h2>
+    <h3>要求必须有基数 (radix)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2226</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>要求必须有基数 (radix)</h4>
+<p>默认情况下，<code>parseInt()</code>将自动检测十进制和十六进制(通过<code>0x</code>前缀)。在ECMAScript 5 之前，<code>parseInt()</code>也自动检测八进制文本，这会出现问题，因为许多开发人员认为前导<code>0</code>会被忽略。</p>
+<p>由于这种混乱，所以建议在<code>parseInt()</code>中始终使用基数以消除意想不到的后果。因此，不要这么做:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;071&quot;</span><span class="p">);</span>      <span class="c1">// 57</span>
+</pre></div>
+<p>要这么做：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;071&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>  <span class="c1">// 71</span>
+</pre></div>
+<p>ECMAScript 5 改变了<code>parseInt()</code>的这种行为，它不再自动检测八进制文本，而是把它们当作十进制文本。然而，对第一个参数的十六进制和十进制的解释之间的差异导致很多开发者继续使用基数来确保字符串是按预期的方式解释执行。</p>
+<p>另一方面，如果代码只对兼容 ES5 环境，传递基数<code>10</code>可能是多余的。在这种情况下，你可能想禁止使用这样一个基数。</p>
+<h2>缺陷详因</h2>
+<p>该规则旨在防止出现不确定的字符串对数字的转换或防止在现代环境中出现多余的基数 <code>10</code>。</p>
+<h2>修改方案</h2>
+<p>此规则有两个选项：</p>
+<ul>
+<li><code>&quot;always&quot;</code>强制提供一个基数（默认的）</li>
+<li><code>&quot;as-needed&quot;</code> disallows providing the <code>10</code> radix</li>
+<li><code>&quot;as-needed&quot;</code>禁止提供基数<code>10</code></li>
+</ul>
+<h5>always</h5>
+<p><code>&quot;always&quot;</code>选项的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint radix: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;071&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">someValue</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;071&quot;</span><span class="p">,</span> <span class="s2">&quot;abc&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">();</span>
+</pre></div>
+<p><code>&quot;always&quot;</code>选项的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint radix: &quot;error&quot;*/</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;071&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;071&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">someValue</span><span class="p">);</span>
+</pre></div>
+<h5>as-needed</h5>
+<p><code>&quot;as-needed&quot;</code>选项的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint radix: [&quot;error&quot;, &quot;as-needed&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;071&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;071&quot;</span><span class="p">,</span> <span class="s2">&quot;abc&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">();</span>
+</pre></div>
+<p><code>&quot;as-needed&quot;</code>选项的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint radix: [&quot;error&quot;, &quot;as-needed&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;071&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;071&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">someValue</span><span class="p">);</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不想强制约定是否有<code>10</code>这个基数，你可以关闭此规则。</p>
+<h2>更多解释</h2>
+<ul>
+<li><a href="https://davidwalsh.name/parseint-radix">parseInt and radix</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.7 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/radix.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/radix.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

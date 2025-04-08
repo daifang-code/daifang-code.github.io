@@ -1,0 +1,41 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2093">SC2093: Improper use of "exec "</h2>
+    <h3>Remove "exec " if script should continue after this command.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2093</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Remove &quot;exec &quot; if script should continue after this command.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;Starting compilation&quot;</span>
+<span class="nb">exec</span> ./compile
+<span class="nb">echo</span> <span class="s2">&quot;Starting deployment&quot;</span>
+<span class="nb">exec</span> ./deploy
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;Starting compilation&quot;</span>
+./compile
+<span class="nb">echo</span> <span class="s2">&quot;Starting deployment&quot;</span>
+./deploy
+</pre></div>
+<h5>Rationale:</h5>
+<p>The script contains an <code>exec</code> command followed by other commands in the same block. This is likely an error because the script will not resume after an <code>exec</code> command.</p>
+<p>Instead, &quot;exec&quot; refers to the Unix process model's idea of execution (see <a href="http://man7.org/linux/man-pages/man2/execve.2.html"><code>execve(2)</code></a>), in which the current process stops its current program and replaces it with a new one. This is mainly used in wrapper scripts.</p>
+<p>To execute another script or program and then continue, simply drop the <code>exec</code> as in the example.</p>
+<h5>Exceptions:</h5>
+<p>If the code after the <code>exec</code> is only there to handle a failure in executing the command you can ignore this warning. For this reason, ShellCheck suppresses the warning if <code>exec</code> is only followed by <code>echo</code>/<code>exit</code> commands.</p>
+<h5>Related resources:</h5>
+<ul>
+<li>StackOverflow: <a href="https://stackoverflow.com/questions/3877657/my-shell-script-stops-after-exec">My shell script stops after exec</a></li>
+</ul>
+
+    </section>
+</article>

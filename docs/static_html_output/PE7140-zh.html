@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7140">BE7140: 字符串同步</h2>
+    <h3>字符串同步</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7140</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>字符串同步</p>
+<h4>漏洞与风险</h4>
+<p>代码同步使用了插入的字符串</p>
+<pre><code>private static String LOCK = "LOCK";
+...
+synchronized(LOCK) {
+    ...
+}
+...
+</code></pre>
+在JVM装载的所有其它类中都插入和共享了常量字符串。因此，这段代码可能与其它代码同时对同一个资源进行上锁。这可能会导致奇怪的难以诊断的阻塞和死锁行为。请看<a href="http://www.javalobby.org/java/forums/t96352.html">http://www.javalobby.org/java/forums/t96352.html</a> 和 <a href="http://jira.codehaus.org/browse/JETTY-352">http://jira.codehaus.org/browse/JETTY-352</a>.
+如果需要查看更多信息，请参考<a href="https://www.securecoding.cert.org/confluence/display/java/CON08-J.+Do+not+synchronize+on+objects+that+may+be+reused">CON08-J. Do not synchronize on objects that may be reused</a>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

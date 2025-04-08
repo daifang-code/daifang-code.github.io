@@ -1,0 +1,22 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE30006">BE30006: The code performs entire operations with a deliberate deactivation of defenses against overflow</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE30006</dd>
+                    <dt>标签</dt>
+                    <dd>csharp</dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>The code performs entire operations with a deliberate deactivation of defenses against overflow. As overflowing verification takes time. using unverified code in situations where there is no danger of overflow can improve performance. However. if overflow is a possibility. protection must be enabled or actively monitor the environment. https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/unchecked.</p>
+<h4>漏洞利用威胁</h4>
+<p>一般</p>
+
+    </section>
+</article>

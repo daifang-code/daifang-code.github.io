@@ -1,0 +1,35 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22242">PE22242: DUO132</h2>
+    <h3>DUO132</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22242</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO132</h4>
+<p>此linter搜索<code>urllib3</code>模块中使用的不安全关键字参数。具体来说，它查找可能具有HTTPS认证的对象通过设置<code>无</code>、<code>证书无</code>、<code>证书无</code>或<code>ssl.CERT_无</code>为<code>cert_reqs</code>keyward参数设置。这些值禁用验证，从而允许不安全的HTTPS连接。</p>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib3</span>
+<span class="kn">import</span> <span class="nn">ssl</span>
+<span class="kn">from</span> <span class="nn">ssl</span> <span class="kn">import</span> <span class="n">CERT_NONE</span>
+
+<span class="n">urllib3</span><span class="o">.</span><span class="n">PoolManager</span><span class="p">(</span><span class="n">cert_reqs</span><span class="o">=</span><span class="s2">&quot;CERT_NONE&quot;</span><span class="p">)</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">ProxyManager</span><span class="p">(</span><span class="n">cert_reqs</span><span class="o">=</span><span class="s2">&quot;CERT_NONE&quot;</span><span class="p">)</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">HTTPSConnectionPool</span><span class="p">(</span><span class="n">cert_reqs</span><span class="o">=</span><span class="s2">&quot;NONE&quot;</span><span class="p">)</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">connection_from_url</span><span class="p">(</span><span class="n">cert_reqs</span><span class="o">=</span><span class="n">ssl</span><span class="o">.</span><span class="n">CERT_NONE</span><span class="p">)</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">proxy_from_url</span><span class="p">(</span><span class="n">cert_reqs</span><span class="o">=</span><span class="n">CERT_NONE</span><span class="p">)</span>
+</pre></div>
+<h2>正确方式</h2>
+<p>简单地不指定<code>cert_reqs</code>将默认为安全行为。此外，设置<code>需要ssl.CERT_</code>或者它的变种将确保验证执行。</p>
+<h2>来源</h2>
+<h2>特别提及</h2>
+
+    </section>
+</article>

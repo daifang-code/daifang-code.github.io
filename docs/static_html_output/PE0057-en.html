@@ -1,0 +1,47 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0057">PE0057: Malloc Size Overflow</h2>
+    <h3>The length of memory allocation overflows, causing the actual allocated memory length to be different than expected.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0057</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The computation of the size of the memory allocation may overflow.</p>
+<h4>Vulnerability and risk</h4>
+<h5>unexpected results</h5>
+<p>A length overflow during memory allocation causes the actual allocated memory length to be different than expected., which could results in unexpected results.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Detect the length of the allocation before memory allocation.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="o">*</span><span class="nf">bad</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// expected-warning {{the computation of the size of the memory </span>
+  <span class="c1">// allocation  may overflow}} </span>
+  <span class="k">return</span> <span class="n">malloc</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="mi">4</span><span class="p">);</span>  
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, the value of n is passed from outside the function. The result of <code>n * 4</code> may exceed the maximum value of <code>unsigned int</code>, causing an overflow. The actual allocated memory size does not match the expected value.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="o">*</span><span class="nf">good</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">10000</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">;</span>
+    	
+  <span class="k">return</span> <span class="n">malloc</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="mi">4</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the above code, the value of n is detected before n is used, thereby preventing the malloc size overflow during memory allocation.</p>
+
+    </section>
+</article>

@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7298">BE7298: The type of a supplied argument doesn't match format specifier</h2>
+    <h3>The type of a supplied argument doesn't match format specifier</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7298</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The type of a supplied argument doesn't match format specifier</p>
+<h4>Vulnerability and risk</h4>
+<p>
+One of the arguments is incompatible with the corresponding format string specifier.
+As a result, this will generate a runtime exception when executed.
+For example, <code>String.format("%d", "1")</code> will generate an exception, since
+the String "1" is incompatible with the format specifier %d.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>high</p>
+
+    </section>
+</article>

@@ -1,0 +1,1134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='../../../theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="../../../theme/stylesheet/normalize.min.css">
+    <script src="../../../theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="../../../theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="../../../theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../../../theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="../../../theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">      <meta name="author" content="Pinpoint Team"/>
+    <meta name="description" content="Manual and documents for Sourcebrella Pinpoint"/> <meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Pinpoint Document"/>
+<meta property="og:description" content="Manual and documents for Sourcebrella Pinpoint"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="../../.."/>
+ 
+    <title>Pinpoint Document &ndash; Category</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href="../../..">
+                <img src="../../../theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href="../../..">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="../../../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="../../../standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="../../../standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="../../../standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="../../../standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="../../../standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="../../../standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="../../../standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="../../../standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="../../../standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+          <article>
+            <h1>
+            Numeric errors (9)
+            </h1>
+        </article>
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/numeric errors.html">Numeric errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0106">Byte order</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/numeric-errors.html">Numeric errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>The multibyte value from the host boundary is not converted to the network byte order or obtained from the outside world or read a multibyte to the host boundary before sending or writing to the environment. The network byte order is converted to the host byte order.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>The program runs under the system with different byte order methods, which need to be connected to each other. Incorrectly converting the byte order may result in incorrect program functionality.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>The unsigned short type should be converted from the host sequence to the network sequence by using htons function; </p>
+<p>The unsigned long type should be converted from the host sequence to the network sequence by using htonl function; </p>
+<p>The unsigned short type should be converted from the network sequence to the host sequence by using ntohs function; </p>
+<p>The ntohl function converts the unsigned long type from the network order to the host order.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">long</span> <span class="n">b</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="k">sizeof</span> <span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>  <span class="c1">// b is not converted to network byte order</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">long</span> <span class="n">b</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">htonl</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="k">sizeof</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> 
+<span class="p">}</span> 
+</pre></div>
+</td></tr></table>
+<h1 id="reference">Reference</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.3.16 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/numeric errors.html">Numeric errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0112">Floating point comparison</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/numeric-errors.html">Numeric errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Two floating point or double floating point values ​​are compared using the "==" or "!=" operator.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>The storage and calculation of floating-point numbers in a computer is inaccurate, so comparing a floating-point number with the "==" or "!=" operator may result in the opposite of the expected result.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Whether the floating point numbers are equal or unequal is determined by calculating whether the absolute value of the difference between the two floating point numbers is less than an allowable error value.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span>  <span class="c1">//Equal comparison of floating point numbers</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.000001</span><span class="p">)</span>  <span class="c1">//Equal comparison of floating point numbers</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="reference">Reference</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.5.25 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/numeric errors.html">Numeric errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0062">Divide By Zero</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/numeric-errors.html">Numeric errors</a>
+
+                    &#8226; 2 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#code-example-1">Code example 1</a></li>
+<li><a href="#fixed-code-example-1">Fixed code example 1</a></li>
+<li><a href="#code-example-2">Code example 2</a></li>
+<li><a href="#fixed-code-example-2">Fixed code example 2</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Division and remainder operations performed on integers are susceptible to divide-by-zero errors. Consequently, the divisor in a division or remainder operation on integer types must be checked for zero prior to the operation. Division and remainder operations performed on floating-point numbers are not subject to this rule.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>If the divisor is zero, the program will crash during execution.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Critical</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Check whether the divisor is zero or not before running any division, especially it is divided by other uncerntain value, i.e., some calculation result.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="code-example-1">Code example 1</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above program, b is zero, when it executes "a/b", the divisor is zero, program crashes.</p>
+<h3 id="fixed-code-example-1">Fixed code example 1</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">good</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above program, b is checked before running "a/b", which guarantees no divisor is zero.</p>
+<h3 id="code-example-2">Code example 2</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">test_bad</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">ret</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">){</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ret</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">);</span>  <span class="c1">// @@bad@@</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above program, b is zero, when it executes "a/b", the divisor is zero, program crashes.</p>
+<h3 id="fixed-code-example-2">Fixed code example 2</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">test_good</span><span class="o">{</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">ret</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">){</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ret</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">);</span>  <span class="c1">// @@good@@</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above program, b is checked before running "a/b", which guarantees no divisor is zero.</p>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-CERT-INT33-C">
+<p>https://wiki.sei.cmu.edu/confluence/display/c/INT33-C.+Ensure+that+division+and+remainder+operations+do+not+result+in+divide-by-zero+errors <a class="footnote-backref" href="#fnref-CERT-INT33-C" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn-CERT-NUM02-J">
+<p>https://wiki.sei.cmu.edu/confluence/display/java/NUM02-J.+Ensure+that+division+and+remainder+operations+do+not+result+in+divide-by-zero+errors <a class="footnote-backref" href="#fnref-CERT-NUM02-J" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn-CWE369">
+<p>cwe.mitre.org/data/definitions/369.html <a class="footnote-backref" href="#fnref-CWE369" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                <a href="../../../tag/java.html">Java</a>
+                <a href="../../../tag/csharp.html">CSHARP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/numeric errors.html">Numeric errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0107">Bad condition operation</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/numeric-errors.html">Numeric errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Use the bitwise operator '&amp;' or '|' in conditional expressions used to control program flow.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>When the conditional expression used to control the program flow uses the bitwise operator '&amp;' or '|', the intention of the program may be to use the operator "&amp;&amp;" or "||", which may change the original judgment logic, causing the program Perform different branch paths.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Use the operator '&amp;&amp;' or '||'.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="c1">//Use the bitwise operator "&amp;" in conditional expressions </span>
+  <span class="c1">//used to control program flow</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span><span class="mi">0</span>  <span class="o">&amp;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span> 
+  <span class="p">{</span>  
+    <span class="p">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">example_fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> 
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span><span class="mi">0</span>  <span class="o">&amp;&amp;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span> 
+  <span class="p">{</span>  
+    <span class="p">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="reference">Reference</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.5.26 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/numeric errors.html">Numeric errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0019">Bad Shfit</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/numeric-errors.html">Numeric errors</a>
+
+                    &#8226; 2 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#undefined-behavior">undefined behavior</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>Bit shift operations where the value or the range of possible values for the shift amount (the right operand) is such that the operation might invoke undefined behavior or might not produce the expected result.</p>
+<p>Specifically, the checker finds cases where:  </p>
+<ol>
+<li>For a left bit shift (&lt;&lt;), the shift amount is greater than or equal to the size, in bits, of the type to which the left operand is promoted.</li>
+<li>For a right bit shift (&gt;&gt; and also &gt;&gt;&gt; for Java), the shift amount is greater than or equal to the size, in bits, of the (unpromoted) left operand.</li>
+<li>The shift amount is negative.</li>
+</ol>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="undefined-behavior">undefined behavior</h4>
+<p>Bit shift operations where the value or the range of possible values for the shift amount (the right operand) is negative or greater than or equal to the size, in bits, of the type to which the left operand is promoted might invoke undefined behavior or might not produce the expected result.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Ensure that the shift amount (the right operand) is positive and less than the size, in bits, of the type to which the left operand is promoted.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">long</span> <span class="kt">long</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">value</span><span class="p">,</span> <span class="kt">int</span> <span class="n">shift_size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">shift_size</span> <span class="o">&lt;</span> <span class="mi">64</span><span class="p">)</span> 
+      <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="n">shift_size</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example, a left shift by a number greater than or equal to the size, in bits, of the type to which the left operand is promoted has undefined behavior at line 6.</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">good</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">,</span> <span class="kt">int</span> <span class="n">shift_amount</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">shift_amount</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">)</span> 
+      <span class="k">return</span> <span class="n">val</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">val</span> <span class="o">&lt;&lt;</span> <span class="mi">31</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the fixed code example, a left shift by a number less than the size, in bits, of the type to which the left operand is promoted  at line 6.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/numeric errors.html">Numeric errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE1052">Imprecise math expression</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/numeric-errors.html">Numeric errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#numerical-precision">Numerical Precision</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                <p>Summary：Loss of calculation result's accuracy</p>
+
+<h1 id="description">Description</h1>
+<p>When the type is cast, the number of bytes occupied by each type is different, which results in the loss of the calculated result.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h3 id="numerical-precision">Numerical Precision</h3>
+<p>The conversion of float type to integer type will result in loss of precision.The conversion from base class pointers to derived class pointers is risky.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Previous type conversions used int(a), double(b), and so on. This method does not distinguish the risk of type conversion, and some bugs are caused by type conversions. If we do a type conversion explicitly, we can facilitate bug troubleshooting. For example, the conversion of the base class and derived class is very risky, and it is not appropriate to use B*(A), but using the keyword to perform the forced type conversion, you can find the conversion of different risk levels in the program using the search method.</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>medium</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">float</span> <span class="n">a</span><span class="o">=</span><span class="mf">10.01</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">b</span><span class="o">=</span><span class="n">a</span><span class="p">;</span><span class="c1">//detect</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">float</span> <span class="n">a</span><span class="o">=</span><span class="mf">10.01</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+  <span class="kt">float</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">=</span><span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>Assigning a to b that the type from int to float.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/numeric errors.html">Numeric errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0108">Char less sign</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/numeric-errors.html">Numeric errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>When defining a variable of the char data type, no symbol is specified.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>There is no explicit definition of whether the char data type is symbolic in the C language standard. Some compilers allow the use of compiler switches to switch whether the char type is signed or not, which may make the code difficult to port.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Low</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Indicate whether the char data type has a symbol, or define a data type by typedef or #define.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="s">"Hello, welcome!</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>  <span class="c1">//char data type does not specify</span>
+                                       <span class="c1">//whether there is a symbol</span>
+</pre></div>
+</td></tr></table>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">UCHAR</span><span class="p">;</span>
+<span class="k">static</span> <span class="n">UCHAR</span> <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="s">"Hello, welcome!</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+<h1 id="reference">Reference</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-hangbiao">
+<p>SJ/T 11682-2017 6.2.8 <a class="footnote-backref" href="#fnref-hangbiao" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/numeric errors.html">Numeric errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0021">Integer Overflow</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/numeric-errors.html">Numeric errors</a>
+
+                    &#8226; 2 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#unexpected-execution-result">Unexpected execution result</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example-1">Fixed Code Example 1</a></li>
+<li><a href="#fixed-code-example-2">Fixed Code Example 2</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>When the result of an expression exceeds the range of the data type, the result shall be different from the arithmetic result, which might lead to unexpected results if arithmetic sementic is assumed, for example, the addition of two positive numbers might be smaller than either of the two numbers, or the sum of two non-zero unsigned numbers can be zero.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="unexpected-execution-result">Unexpected execution result</h4>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Critical (If arithmetic result is expected, such as computing resource consumption or financial statistics)
+Safe (If logical result is expected, such as computing hash or encryption)</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Verify the value range before use it.
+Use a data type with larger range.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">4000000000</span><span class="p">;</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">4000000000</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">);</span> <span class="c1">// Return false</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, x+y exceeds the upper bound of unsigned int which is 4294967295 and thus, the higher bits are lost and the result is unexpectedly smaller than either x or y.</p>
+<h3 id="fixed-code-example-1">Fixed Code Example 1</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">4000000000</span><span class="p">;</span>
+<span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">4000000000</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">);</span> <span class="c1">// Return true</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, use 64 bit long long instead of int can resolver the integer overflow issue.</p>
+<h3 id="fixed-code-example-2">Fixed Code Example 2</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">4000000000</span><span class="p">;</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">4000000000</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="nf">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">2000000000</span> <span class="o">||</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">2000000000</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Error handling</span>
+        <span class="p">...</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">);</span> <span class="c1">// Return true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the above code, apply range check can also resolve the integer overflow issue.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                <a href="../../../tag/find-bugs.html">FIND-BUGS</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="single">
+            <header>
+                <div class="breadcrumb">
+                <ol>
+                    <li>
+                        <a href="../../../standard/c.html">c/c++</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues.html">Quality issues</a>
+                    </li>
+                    <li>
+                            <a href="../../../subcategory/c/quality issues/numeric errors.html">Numeric errors</a>
+                    </li>
+                </ol>
+                
+                </div>
+
+                <h1 id="PE0026">Overflow Before Widen</h1>
+                <p>
+                    Posted on September 28, 2024 in <a href="../../../category/numeric-errors.html">Numeric errors</a>
+
+                    &#8226; 1 min read
+                </p>
+            </header>
+
+                <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#overflow">Overflow</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example">Vulnerable Code Example</a></li>
+<li><a href="#fixed-code-example">Fixed Code Example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <div>
+                
+<h1 id="description">Description</h1>
+<p>The value of an arithmetic expression is subject to overflow due to a failure to cast operands to a larger data type before performing arithmetic. The failure to cast can yield an unexpected value.</p>
+<p>For example, an operation that multiplies two integers might yield a value other than a product that results from using arbitrary precision integers (for example, a value other than what a calculator produces when you multiply the two numbers). The checker reports a defect only if it finds some indication that the extra precision is desired.</p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="overflow">Overflow</h4>
+<p>The failure to cast can yield an unexpected value.</p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Medium</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>To obtain the result overflow, a cast on one of the operands is required.</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example">Vulnerable Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2147483648</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">z</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">z</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// detect</span>
+    <span class="c1">// Do something.</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the vulnerable code example,  x * y exceeds the maximum value allowed by the unsigned type for the target platform (2^32 − 1, that is, 4,294,967,295).</p>
+<h3 id="fixed-code-example">Fixed Code Example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2147483648</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">z</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(((</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">z</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="c1">// Do something.</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In the fixed code example, cast x to unsigned long long before multiplication arithmetic expression.</p>
+            </div>
+            <div class="tag-cloud">
+                <p>
+                <a href="../../../tag/c.html">C</a>
+                <a href="../../../tag/cpp.html">CPP</a>
+                </p>
+            </div>
+        </article>
+
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : "../../..",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7430">BE7430: 方法调用Thread.sleep()并持有一个锁</h2>
+    <h3>方法调用Thread.sleep()并持有一个锁</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7430</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>方法调用Thread.sleep()并持有一个锁</p>
+<h4>漏洞与风险</h4>
+<p>此方法调用Thread.sleep()并持有一个锁。这可能导致非常差的性能和可伸缩性或者死锁，因为其它线程可能正在等待获取锁。在锁上调用wait()是一个更好的主意，它会释放锁并允许其它线程运行。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+
+    </section>
+</article>

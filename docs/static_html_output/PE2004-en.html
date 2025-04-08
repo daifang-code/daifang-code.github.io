@@ -1,0 +1,274 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2004">PE2004: array-element-newline</h2>
+    <h3>enforce line breaks between array elements (array-element-newline)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2004</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>enforce line breaks between array elements (array-element-newline)</h4>
+<p>A number of style guides require or disallow line breaks between array elements.</p>
+<h2>Rule Details</h2>
+<p>This rule enforces line breaks between array elements.</p>
+<h2>Options</h2>
+<p>This rule has either a string option:</p>
+<ul>
+<li><code>&quot;always&quot;</code> (default) requires line breaks between array elements</li>
+<li><code>&quot;never&quot;</code> disallows line breaks between array elements</li>
+<li><code>&quot;consistent&quot;</code> requires consistent usage of linebreaks between array elements</li>
+</ul>
+<p>Or an object option (Requires line breaks if any of properties is satisfied. Otherwise, disallows line breaks):</p>
+<ul>
+<li><code>&quot;multiline&quot;: &lt;boolean&gt;</code> requires line breaks if there are line breaks inside elements. If this is false, this condition is disabled.</li>
+<li><code>&quot;minItems&quot;: &lt;number&gt;</code> requires line breaks if the number of elements is at least the given integer. If this is 0, this condition will act the same as the option <code>&quot;always&quot;</code>. If this is <code>null</code> (the default), this condition is disabled.</li>
+</ul>
+<h5>always</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-element-newline: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-element-newline: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+<h5>never</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-element-newline: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span>
+<span class="p">];</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+    <span class="mi">3</span>
+<span class="p">];</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-element-newline: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+<h5>consistent</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;consistent&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-element-newline: [&quot;error&quot;, &quot;consistent&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="mi">3</span>
+<span class="p">];</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="kd">function</span> <span class="nx">baz</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;consistent&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-element-newline: [&quot;error&quot;, &quot;consistent&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span>
+<span class="p">];</span>
+<span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+    <span class="mi">3</span>
+<span class="p">];</span>
+<span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span> <span class="kd">function</span> <span class="nx">baz</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+<span class="kd">var</span> <span class="nx">h</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="kd">function</span> <span class="nx">baz</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+<h5>multiline</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;multiline&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-element-newline: [&quot;error&quot;, { &quot;multiline&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;multiline&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-element-newline: [&quot;error&quot;, { &quot;multiline&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+<h5>minItems</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;minItems&quot;: 3 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-element-newline: [&quot;error&quot;, { &quot;minItems&quot;: 3 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;minItems&quot;: 3 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-element-newline: [&quot;error&quot;, { &quot;minItems&quot;: 3 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+<h5>multiline and minItems</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>{ &quot;multiline&quot;: true, &quot;minItems&quot;: 3 }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-element-newline: [&quot;error&quot;, { &quot;multiline&quot;: true, &quot;minItems&quot;: 3 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>
+<span class="mi">2</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>{ &quot;multiline&quot;: true, &quot;minItems&quot;: 3 }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint array-element-newline: [&quot;error&quot;, { &quot;multiline&quot;: true, &quot;minItems&quot;: 3 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">dosomething</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to enforce linebreaks between array elements, don't enable this rule.</p>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS:</strong> <a href="https://jscs-dev.github.io/rule/validateNewlineAfterArrayElements">validateNewlineAfterArrayElements</a></li>
+</ul>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="array-bracket-spacing.md">array-bracket-spacing</a></li>
+<li><a href="array-bracket-newline.md">array-bracket-newline</a></li>
+<li><a href="object-property-newline.md">object-property-newline</a></li>
+<li><a href="object-curly-spacing.md">object-curly-spacing</a></li>
+<li><a href="object-curly-newline.md">object-curly-newline</a></li>
+<li><a href="max-statements-per-line.md">max-statements-per-line</a></li>
+<li><a href="block-spacing.md">block-spacing</a></li>
+<li><a href="brace-style.md">brace-style</a></li>
+</ul>
+
+    </section>
+</article>

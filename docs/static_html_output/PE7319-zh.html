@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7319">BE7319: 有符号字节的错误比较</h2>
+    <h3>有符号字节的错误比较</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7319</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>有符号字节的错误比较</p>
+<h4>漏洞与风险</h4>
+<p> 有符号的字节只能是-128到127之间的一个值。将一个有符号的字节与该范围之外的值进行比较是无意义的，并且可能是不正确的。使用<code>0xff & b</code>将一个有符号的字节<code>b</code>转换为在0到255范围内的无符号值。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

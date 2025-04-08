@@ -1,0 +1,45 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0015">PE0015: 使用不安全的库函数创建临时文件</h2>
+    <h3>使用不安全的库函数创建临时文件。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0015</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>很多程序在共享目录(例如/tmp)下面创建临时文件，但是很多C语言库函数mktemp，tmpnam，tempnam，tmpfile创建出来的临时文件并不是安全的。如果一个临时文件的名字很容易被猜测到，攻击者就可以通过这个临时文件获取程序的权限，做一些非法操作。</p>
+<p>避免使用这些不安全的库函数，可以使用安全的mkstemp函数来创建临时文件。</p>
+<h4>漏洞与风险</h4>
+<h5>外部攻击</h5>
+<p>如果一个临时文件的名字很容易被猜测到，攻击者就可以通过这个临时文件获取程序的权限，做一些非法操作。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>使用安全的mkstemp函数来创建临时文件。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="n">mktemp</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，使用不安全的库函数mktemp创建临时文件。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;a.txt&quot;</span><span class="p">;</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="n">mkstemp</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，使用安全的库函数mkstemp创建临时文件。</p>
+
+    </section>
+</article>

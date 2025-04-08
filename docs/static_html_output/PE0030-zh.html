@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0030">PE0030: 输出流格式化状态改变后没有恢复</h2>
+    <h3>输出流格式化状态改变后没有恢复原来的状态。 </h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE0030</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>标准C++输入输出库函数提供了stream类来实现输入、输出的功能。它包含一个格式化输出数据的能力，不同的数据类型可以转化为一个输出字符串。
+例如：
+For example:</p>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+</pre></div>
+<p>默认情况下，整数i被转化为一个十进制字符串。
+在使用iostream库时，一个常见的错误就是修改了输出流格式化状态，但是忘记恢复了。导致后面格式化数据也是按照前面修改的状态生成字符串，导致意料之外的情况发生。</p>
+<h4>漏洞与风险</h4>
+<h5>意料之外的行为</h5>
+<p>在使用iostream库时，一个常见的错误就是修改了输出流格式化状态，但是忘记恢复了。导致后面格式化数据也是按照前面修改的状态生成字符串，导致意料之外的情况发生。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>缓解与预防</h4>
+<p>输出流格式化状态改变后恢复原来的状态。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">hex</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，使用std::hex修改了输出格式化状态后并没有恢复原来的状态。</p>
+<h5>漏洞代码修复示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">good</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">hex</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">dec</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在上面的代码中，使用std::hex修改了输出格式化状态后使用std::dec恢复原来的状态。</p>
+
+    </section>
+</article>

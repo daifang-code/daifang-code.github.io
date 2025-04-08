@@ -1,0 +1,228 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2242">PE2242: spaced-comment</h2>
+    <h3>Requires or disallows a whitespace (space or tab) beginning a comment (spaced-comment)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2242</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Requires or disallows a whitespace (space or tab) beginning a comment (spaced-comment)</h4>
+<p>Some style guides require or disallow a whitespace immediately after the initial <code>//</code> or <code>/*</code> of a comment.
+Whitespace after the <code>//</code> or <code>/*</code> makes it easier to read text in comments.
+On the other hand, commenting out code is easier without having to put a whitespace right after the <code>//</code> or <code>/*</code>.</p>
+<h2>Rule Details</h2>
+<p>This rule will enforce consistency of spacing after the start of a comment <code>//</code> or <code>/*</code>. It also provides several
+exceptions for various documentation styles.</p>
+<h2>Options</h2>
+<p>The rule takes two options.</p>
+<ul>
+<li><p>The first is a string which be either <code>&quot;always&quot;</code> or <code>&quot;never&quot;</code>. The default is <code>&quot;always&quot;</code>.</p>
+<ul>
+<li><p>If <code>&quot;always&quot;</code> then the <code>//</code> or <code>/*</code> must be followed by at least one whitespace.</p>
+</li>
+<li><p>If <code>&quot;never&quot;</code> then there should be no whitespace following.</p>
+</li>
+</ul>
+</li>
+<li><p>This rule can also take a 2nd option, an object with any of the following keys: <code>&quot;exceptions&quot;</code> and <code>&quot;markers&quot;</code>.</p>
+<ul>
+<li>The <code>&quot;exceptions&quot;</code> value is an array of string patterns which are considered exceptions to the rule.</li>
+</ul>
+<p>Please note that exceptions are ignored if the first argument is <code>&quot;never&quot;</code>.</p>
+
+<pre><code>  &quot;spaced-comment&quot;: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;-&quot;, &quot;+&quot;] }]
+</code></pre>
+<ul>
+<li>The <code>&quot;markers&quot;</code> value is an array of string patterns which are considered markers for docblock-style comments,</li>
+</ul>
+<p>such as an additional <code>/</code>, used to denote documentation read by doxygen, vsdoc, etc. which must have additional characters.
+  The <code>&quot;markers&quot;</code> array will apply regardless of the value of the first argument, e.g. <code>&quot;always&quot;</code> or <code>&quot;never&quot;</code>.</p>
+
+<pre><code>  &quot;spaced-comment&quot;: [&quot;error&quot;, &quot;always&quot;, { &quot;markers&quot;: [&quot;/&quot;] }]
+</code></pre>
+</li>
+</ul>
+<p>The difference between a marker and an exception is that a marker only appears at the beginning of the comment whereas
+exceptions can occur anywhere in the comment string.</p>
+<p>You can also define separate exceptions and markers for block and line comments. The <code>&quot;block&quot;</code> object can have an additional key <code>&quot;balanced&quot;</code>, a boolean that specifies if inline block comments should have balanced spacing. The default value is <code>false</code>.</p>
+<ul>
+<li><p>If <code>&quot;balanced&quot;: true</code> and <code>&quot;always&quot;</code> then the <code>/*</code> must be followed by at least one whitespace, and the <code>*/</code> must be preceded by at least one whitespace.</p>
+</li>
+<li><p>If <code>&quot;balanced&quot;: true</code> and <code>&quot;never&quot;</code> then there should be no whitespace following <code>/*</code> or preceding <code>*/</code>.</p>
+</li>
+<li><p>If <code>&quot;balanced&quot;: false</code> then balanced whitespace is not enforced.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="s2">&quot;spaced-comment&quot;</span><span class="err">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;always&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nt">&quot;line&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;markers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;/&quot;</span><span class="p">],</span>
+        <span class="nt">&quot;exceptions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;block&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;markers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;!&quot;</span><span class="p">],</span>
+        <span class="nt">&quot;exceptions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">],</span>
+        <span class="nt">&quot;balanced&quot;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">}]</span>
+</pre></div>
+<h5>always</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="c1">//This is a comment with no whitespace at the beginning</span>
+
+<span class="cm">/*This is a comment with no whitespace at the beginning */</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;block&quot;: { &quot;balanced&quot;: true } }] */</span>
+<span class="cm">/* This is a comment with whitespace at the beginning but not the end*/</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;] */</span>
+
+<span class="c1">// This is a comment with a whitespace at the beginning</span>
+
+<span class="cm">/* This is a comment with a whitespace at the beginning */</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * This is a comment with a whitespace at the beginning</span>
+<span class="cm"> */</span>
+
+<span class="cm">/*</span>
+<span class="cm">This comment has a newline</span>
+<span class="cm">*/</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;] */</span>
+
+<span class="cm">/**</span>
+<span class="cm">* I am jsdoc</span>
+<span class="cm">*/</span>
+</pre></div>
+<h5>never</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint spaced-comment: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="c1">// This is a comment with a whitespace at the beginning</span>
+
+<span class="cm">/* This is a comment with a whitespace at the beginning */</span>
+
+<span class="cm">/* \nThis is a comment with a whitespace at the beginning */</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint spaced-comment: [&quot;error&quot;, &quot;never&quot;, { &quot;block&quot;: { &quot;balanced&quot;: true } }]*/</span>
+<span class="cm">/*This is a comment with whitespace at the end */</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;never&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint spaced-comment: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="cm">/*This is a comment with no whitespace at the beginning */</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint spaced-comment: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="cm">/**</span>
+<span class="cm">* I am jsdoc</span>
+<span class="cm">*/</span>
+</pre></div>
+<h5>exceptions</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;</code> option combined with <code>&quot;exceptions&quot;</code>:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;block&quot;: { &quot;exceptions&quot;: [&quot;-&quot;] } }] */</span>
+
+<span class="c1">//--------------</span>
+<span class="c1">// Comment block</span>
+<span class="c1">//--------------</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;-&quot;, &quot;+&quot;] }] */</span>
+
+<span class="c1">//------++++++++</span>
+<span class="c1">// Comment block</span>
+<span class="c1">//------++++++++</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;-&quot;, &quot;+&quot;] }] */</span>
+
+<span class="cm">/*------++++++++*/</span>
+<span class="cm">/* Comment block */</span>
+<span class="cm">/*------++++++++*/</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;line&quot;: { &quot;exceptions&quot;: [&quot;-+&quot;] } }] */</span>
+
+<span class="cm">/*-+-+-+-+-+-+-+*/</span>
+<span class="c1">// Comment block</span>
+<span class="cm">/*-+-+-+-+-+-+-+*/</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;</code> option combined with <code>&quot;exceptions&quot;</code>:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;-&quot;] }] */</span>
+
+<span class="c1">//--------------</span>
+<span class="c1">// Comment block</span>
+<span class="c1">//--------------</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;line&quot;: { &quot;exceptions&quot;: [&quot;-&quot;] } }] */</span>
+
+<span class="c1">//--------------</span>
+<span class="c1">// Comment block</span>
+<span class="c1">//--------------</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;*&quot;] }] */</span>
+
+<span class="cm">/****************</span>
+<span class="cm"> * Comment block</span>
+<span class="cm"> ****************/</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;exceptions&quot;: [&quot;-+&quot;] }] */</span>
+
+<span class="c1">//-+-+-+-+-+-+-+</span>
+<span class="c1">// Comment block</span>
+<span class="c1">//-+-+-+-+-+-+-+</span>
+
+<span class="cm">/*-+-+-+-+-+-+-+*/</span>
+<span class="c1">// Comment block</span>
+<span class="cm">/*-+-+-+-+-+-+-+*/</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;block&quot;: { &quot;exceptions&quot;: [&quot;-+&quot;] } }] */</span>
+
+<span class="cm">/*-+-+-+-+-+-+-+*/</span>
+<span class="c1">// Comment block</span>
+<span class="cm">/*-+-+-+-+-+-+-+*/</span>
+</pre></div>
+<h5>markers</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;always&quot;</code> option combined with <code>&quot;markers&quot;</code>:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;markers&quot;: [&quot;/&quot;] }] */</span>
+
+<span class="c1">///This is a comment with a marker but without whitespace</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;block&quot;: { &quot;markers&quot;: [&quot;!&quot;], &quot;balanced&quot;: true } }]*/</span>
+<span class="cm">/*! This is a comment with a marker but without whitespace at the end*/</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint spaced-comment: [&quot;error&quot;, &quot;never&quot;, { &quot;block&quot;: { &quot;markers&quot;: [&quot;!&quot;], &quot;balanced&quot;: true } }]*/</span>
+<span class="cm">/*!This is a comment with a marker but with whitespace at the end */</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;always&quot;</code> option combined with <code>&quot;markers&quot;</code>:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;markers&quot;: [&quot;/&quot;] }] */</span>
+
+<span class="c1">/// This is a comment with a marker</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint spaced-comment: [&quot;error&quot;, &quot;never&quot;, { &quot;markers&quot;: [&quot;!&lt;&quot;] }]*/</span>
+
+<span class="c1">//!&lt;This is a line comment with a marker</span>
+
+<span class="cm">/*!&lt;this is a block comment with a marker</span>
+<span class="cm">subsequent lines are ignored</span>
+<span class="cm">*/</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="cm">/* eslint spaced-comment: [&quot;error&quot;, &quot;always&quot;, { &quot;markers&quot;: [&quot;global&quot;] }] */</span>
+
+<span class="cm">/*global ABC*/</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="spaced-line-comment.md">spaced-line-comment</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7326">BE7326: 检查按位操作是否合理</h2>
+    <h3>检查按位操作是否合理</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7326</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>检查按位操作是否合理</p>
+<h4>漏洞与风险</h4>
+<p> 这个方法比较了一个表达式，例如<code>((event.detail & SWT.SELECTED) > 0)</code>。使用位运算，然后用大于运算符进行比较，这会导致意想不到的结果（当然，这取决于SWT.SELECTED的值)。如果SWT.SELECTED是一个负数，这将可能是一个bug。即使SWT.SELECTED不是负数的，那么使用'!= 0'代替 '> 0'会是一个比较好的方式。</p>
+<h4>漏洞利用威胁</h4>
+<p>高</p>
+
+    </section>
+</article>

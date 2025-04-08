@@ -1,0 +1,68 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2192">PE2192: no-useless-call</h2>
+    <h3>Disallow unnecessary `.call()` and `.apply()`. (no-useless-call)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2192</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>Disallow unnecessary <code>.call()</code> and <code>.apply()</code>. (no-useless-call)</h4>
+<p>The function invocation can be written by <code>Function.prototype.call()</code> and <code>Function.prototype.apply()</code>.
+But <code>Function.prototype.call()</code> and <code>Function.prototype.apply()</code> are slower than the normal function invocation.</p>
+<h2>Rule Details</h2>
+<p>This rule is aimed to flag usage of <code>Function.prototype.call()</code> and <code>Function.prototype.apply()</code> that can be replaced with the normal function invocation.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-useless-call: &quot;error&quot;*/</span>
+
+<span class="c1">// These are same as `foo(1, 2, 3);`</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+
+<span class="c1">// These are same as `obj.foo(1, 2, 3);`</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-useless-call: &quot;error&quot;*/</span>
+
+<span class="c1">// The `this` binding is different.</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">otherObj</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">otherObj</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+
+<span class="c1">// The argument list is variadic.</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+</pre></div>
+<h2>Known Limitations</h2>
+<p>This rule compares code statically to check whether or not <code>thisArg</code> is changed.
+So if the code about <code>thisArg</code> is a dynamic expression, this rule cannot judge correctly.</p>
+<p>Examples of <strong>incorrect</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-useless-call: &quot;error&quot;*/</span>
+
+<span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">].</span><span class="nx">foo</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="o">++</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-useless-call: &quot;error&quot;*/</span>
+
+<span class="nx">a</span><span class="p">[</span><span class="o">++</span><span class="nx">i</span><span class="p">].</span><span class="nx">foo</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</pre></div>
+<h2>When Not To Use It</h2>
+<p>If you don't want to be notified about unnecessary <code>.call()</code> and <code>.apply()</code>, you can safely disable this rule.</p>
+
+    </section>
+</article>

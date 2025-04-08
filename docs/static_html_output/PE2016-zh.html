@@ -1,0 +1,126 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2016">PE2016: comma-spacing</h2>
+    <h3>强制在逗号周围使用空格 (comma-spacing)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2016</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制在逗号周围使用空格 (comma-spacing)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>逗号前后的空格可以提高列表项的可读性。对于大多数语言的代码风格来说一般是在逗号之后而不是之前添加一个空格，当然你也可以在项目中按照自己的偏好决定在哪里添加空格。</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">,</span><span class="nx">bar</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</pre></div>
+<h2>缺陷详因</h2>
+<p>该规则强制在变量声明、数组字面量、对象字面量、函数参数 和 序列中的逗号左右的空格的一致性。</p>
+<p>该规则在 <code>ArrayExpression</code> 或 <code>ArrayPattern</code> 中以下两种情况下不适用：</p>
+<ul>
+<li>相邻的空元素</li>
+<li>初始化的空元素，以避免与 <a href="array-bracket-spacing"><code>array-bracket-spacing</code></a> 规则冲突</li>
+</ul>
+<h2>修改方案</h2>
+<p>该规则有一个对象选项：</p>
+<ul>
+<li><code>&quot;before&quot;: false</code> (默认) 禁止在逗号前使用空格</li>
+<li><code>&quot;before&quot;: true</code> 要求在逗号前使用一个或多个空格</li>
+<li><code>&quot;after&quot;: true</code> (默认) 要求在逗号后使用一个或多个空格</li>
+<li><code>&quot;after&quot;: false</code> 禁止在逗号后使用空格</li>
+</ul>
+<h5>after</h5>
+<p>默认选项 <code>{ &quot;before&quot;: false, &quot;after&quot;: true }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-spacing: [&quot;error&quot;, { &quot;before&quot;: false, &quot;after&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">,</span><span class="nx">bar</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span> <span class="p">,</span><span class="s2">&quot;baz&quot;</span><span class="o">:</span> <span class="s2">&quot;qur&quot;</span><span class="p">};</span>
+<span class="nx">foo</span><span class="p">(</span><span class="nx">a</span> <span class="p">,</span><span class="nx">b</span><span class="p">);</span>
+<span class="k">new</span> <span class="nx">Foo</span><span class="p">(</span><span class="nx">a</span> <span class="p">,</span><span class="nx">b</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span> <span class="p">,</span><span class="nx">b</span><span class="p">){}</span>
+<span class="nx">a</span> <span class="p">,</span><span class="nx">b</span>
+</pre></div>
+<p>默认选项 <code>{ &quot;before&quot;: false, &quot;after&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-spacing: [&quot;error&quot;, { &quot;before&quot;: false, &quot;after&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="p">,</span> <span class="nx">baz</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="o">:</span> <span class="s2">&quot;qur&quot;</span><span class="p">};</span>
+<span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+<span class="k">new</span> <span class="nx">Foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">){}</span>
+<span class="nx">a</span><span class="p">,</span> <span class="nx">b</span>
+</pre></div>
+<p>当用空元素进行初始化时，默认选项  <code>{ &quot;before&quot;: false, &quot;after&quot;: true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-spacing: [&quot;error&quot;, { &quot;before&quot;: false, &quot;after&quot;: true }]*/</span>
+<span class="cm">/*eslint array-bracket-spacing: [&quot;error&quot;, &quot;always&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span> <span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">]</span>
+</pre></div>
+<h5>before</h5>
+<p>选项 <code>{ &quot;before&quot;: true, &quot;after&quot;: false }</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-spacing: [&quot;error&quot;, { &quot;before&quot;: true, &quot;after&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="o">:</span> <span class="s2">&quot;qur&quot;</span><span class="p">};</span>
+<span class="k">new</span> <span class="nx">Foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">){}</span>
+<span class="nx">a</span><span class="p">,</span> <span class="nx">b</span>
+</pre></div>
+<p>选项 <code>{ &quot;before&quot;: true, &quot;after&quot;: false }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-spacing: [&quot;error&quot;, { &quot;before&quot;: true, &quot;after&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">,</span><span class="nx">bar</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">,</span>
+    <span class="nx">baz</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="p">,</span><span class="mi">2</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="p">,,</span><span class="mi">3</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span> <span class="p">,</span><span class="s2">&quot;baz&quot;</span><span class="o">:</span> <span class="s2">&quot;qur&quot;</span><span class="p">};</span>
+<span class="nx">foo</span><span class="p">(</span><span class="nx">a</span> <span class="p">,</span><span class="nx">b</span><span class="p">);</span>
+<span class="k">new</span> <span class="nx">Foo</span><span class="p">(</span><span class="nx">a</span> <span class="p">,</span><span class="nx">b</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span> <span class="p">,</span><span class="nx">b</span><span class="p">){}</span>
+<span class="nx">a</span> <span class="p">,</span><span class="nx">b</span>
+</pre></div>
+<p>当用空元素进行初始化时，选项 <code>{ &quot;before&quot;: true, &quot;after&quot;: false }</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint comma-spacing: [&quot;error&quot;, { &quot;before&quot;: true, &quot;after&quot;: false }]*/</span>
+<span class="cm">/*eslint array-bracket-spacing: [&quot;error&quot;, &quot;never&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你的项目不追求一致逗号间距，关闭此规则即可。</p>
+<h2>更多解释</h2>
+<ul>
+<li><a href="http://javascript.crockford.com/code.html">Javascript</a></li>
+<li><a href="https://dojotoolkit.org/reference-guide/1.9/developer/styleguide.html">Dojo Style Guide</a></li>
+</ul>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="array-bracket-spacing">array-bracket-spacing</a></li>
+<li><a href="comma-style">comma-style</a></li>
+<li><a href="space-in-brackets">space-in-brackets</a> (deprecated)</li>
+<li><a href="space-in-parens">space-in-parens</a></li>
+<li><a href="space-infix-ops">space-infix-ops</a></li>
+<li><a href="space-after-keywords">space-after-keywords</a></li>
+<li><a href="space-unary-ops">space-unary-ops</a></li>
+<li><a href="space-return-throw-case">space-return-throw-case</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.9.0 被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/comma-spacing.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/comma-spacing.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

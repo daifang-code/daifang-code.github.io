@@ -1,0 +1,43 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2004">SC2004: Unnecessary $/${} on arithmetic variables</h2>
+    <h3>$/${} is unnecessary on arithmetic variables.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2004</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>$/${} is unnecessary on arithmetic variables.</h4>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="k">$((</span><span class="nv">$n</span> <span class="o">+</span> <span class="si">${</span><span class="nv">arr</span><span class="p">[i]</span><span class="si">}</span><span class="k">))</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="k">$((</span>n <span class="o">+</span> arr<span class="o">[</span>i<span class="o">]</span><span class="k">))</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>The <code>$</code> or <code>${..}</code> on regular variables in arithmetic contexts is unnecessary, and can even lead to subtle bugs. This is because the contents of <code>$((..))</code> is first expanded into a string, and then evaluated as an expression:</p>
+<div class="highlight"><pre><span></span>$ <span class="nv">a</span><span class="o">=</span><span class="s1">&#39;1+1&#39;</span>
+$ <span class="nb">echo</span> <span class="k">$((</span><span class="nv">$a</span> <span class="o">*</span> <span class="m">5</span><span class="k">))</span>    <span class="c1"># becomes 1+1*5</span>
+<span class="m">6</span>
+$ <span class="nb">echo</span> <span class="k">$((</span>a <span class="o">*</span> <span class="m">5</span><span class="k">))</span>     <span class="c1"># evaluates as (1+1)*5</span>
+<span class="m">10</span>
+</pre></div>
+<p>The <code>$</code> is unavoidable for special variables like <code>$1</code> vs <code>1</code>, <code>$#</code> vs <code>#</code>. It's also required when adding modifiers to parameters expansions, like <code>${#var}</code> or <code>${var%-}</code>. ShellCheck does not warn about these cases.</p>
+<p>The <code>$</code> is also required (and not warned about) when you need to specify the <em>base</em> for a variable value:</p>
+<div class="highlight"><pre><span></span>$ <span class="nv">a</span><span class="o">=</span><span class="m">09</span>
+$ <span class="nb">echo</span> <span class="k">$((</span>a <span class="o">+</span> <span class="m">1</span><span class="k">))</span>          <span class="c1"># leading zero forces octal interpretation</span>
+bash: <span class="m">09</span>: value too great <span class="k">for</span> base <span class="o">(</span>error token is <span class="s2">&quot;09&quot;</span><span class="o">)</span>
+$ <span class="nb">echo</span> <span class="k">$((</span><span class="m">10#</span>a <span class="o">+</span> <span class="m">1</span><span class="k">))</span>
+bash: <span class="m">10</span><span class="c1">#a: value too great for base (error token is &quot;10#a&quot;)</span>
+$ <span class="nb">echo</span> <span class="k">$((</span><span class="m">10#</span><span class="nv">$a</span> <span class="o">+</span> <span class="m">1</span><span class="k">))</span>
+<span class="m">10</span>
+</pre></div>
+
+    </section>
+</article>

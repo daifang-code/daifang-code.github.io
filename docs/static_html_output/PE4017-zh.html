@@ -1,0 +1,40 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE4017">PE4017: 构造函数指针内存泄露</h2>
+    <h3>构造函数指针内存泄露</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE4017</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>构造函数指针内存泄露</p>
+<h4>漏洞与风险</h4>
+<p>构造函数分配了内存，并将指向它的指针存储在对象字段中，但析构函数没有释放该内存。</p>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+<h4>缓解与预防</h4>
+<p>添加释放该字段的析构函数语句。</p>
+<h4>演示实例</h4>
+<h5>Vulnerable code Example</h5>
+<div class="highlight"><pre><span></span><span class="n">class</span> <span class="n">A</span><span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+
+  <span class="n">A</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">new</span> <span class="kt">char</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+  <span class="p">}</span>
+  <span class="o">~</span><span class="n">A</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="c1">// p指向的內存可能泄漏</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+    </section>
+</article>

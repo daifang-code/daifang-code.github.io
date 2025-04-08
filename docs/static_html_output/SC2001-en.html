@@ -1,0 +1,38 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2001">SC2001: Simplification possibility exists</h2>
+    <h3>SC2001: See if you can use ${variable//search/replace} instead.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2001</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>SC2001: See if you can use ${variable//search/replace} instead.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">string</span><span class="o">=</span><span class="s2">&quot;stirng&quot;</span> <span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$string</span><span class="s2">&quot;</span> <span class="p">|</span> sed -e <span class="s2">&quot;s/ir/ri/&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">string</span><span class="o">=</span><span class="s2">&quot;stirng&quot;</span> <span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">string</span><span class="p">//ir/ri</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>Let's assume somewhere earlier in your code you have put data into a variable (Ex: $string). Now you want to do a search and replace inside the contents of $string and echo the contents out. You could pass this to sed as done in the example above, but for simple substitutions, parameter expansion can do it with less overhead.</p>
+<h5>Exceptions</h5>
+<p>Occasionally a more complex sed substitution is required. For example, getting the last character of a string.</p>
+<div class="highlight"><pre><span></span><span class="nv">string</span><span class="o">=</span><span class="s2">&quot;stirng&quot;</span> <span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$string</span><span class="s2">&quot;</span> <span class="p">|</span> sed -e <span class="s2">&quot;s/^.*\(.\)</span>$<span class="s2">/\1/&quot;</span>
+</pre></div>
+<p>This is a bit simple for the example and there are alternative ways of doing this in the shell, but this SC2001 flags on several of my crazy complex sed commands which are beyond the scope of this example. Utilizing some of the more complex capabilities of sed is required occasionally and it is safe to ignore SC2001.</p>
+<h5>Related resources:</h5>
+<ul>
+<li>Bash Manual: <a href="https://www.gnu.org/software/bash/manual/bashref.html#Shell-Parameter-Expansion">Shell Parameter Expansion</a></li>
+<li>Wooledge BashGuide: <a href="https://mywiki.wooledge.org/BashGuide/Parameters#Parameter_Expansion">Parameter Expansion</a>.</li>
+<li>Bash Hacker Wiki: <a href="http://wiki.bash-hackers.org/syntax/pe">Parameter Expansion</a></li>
+</ul>
+
+    </section>
+</article>

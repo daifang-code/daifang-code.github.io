@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7435">BE7435: Method accesses a private member variable of owning class</h2>
+    <h3>Method accesses a private member variable of owning class</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7435</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Method accesses a private member variable of owning class</p>
+<h4>Vulnerability and risk</h4>
+<p>
+      This method of an inner class reads from or writes to a private member variable of the owning class,
+      or calls a private method of the owning class. The compiler must generate a special method to access this
+      private member, causing this to be less efficient. Relaxing the protection of the member variable or method
+      will allow the compiler to treat this as a normal access.
+      </p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

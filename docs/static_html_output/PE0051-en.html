@@ -1,0 +1,49 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE0051">PE0051: Swapped Arguments</h2>
+    <h3>The arguments to a function are provided in an incorrect order. </h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE0051</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>The software calls a function, procedure, or routine, but the caller specifies the arguments in an incorrect order, leading to resultant weaknesses.
+While this weakness might be caught by the compiler in some languages, it can occur more frequently in cases in which the called function accepts variable numbers or types of arguments, such as format strings in C. It also can occur in languages or environments that do not enforce strong typing.</p>
+<h4>Vulnerability and risk</h4>
+<h5>resultant weaknesses</h5>
+<p>The software calls a function, procedure, or routine, but the caller specifies the arguments in an incorrect order, leading to resultant weaknesses.</p>
+<h4>Likelihood of Exploit</h4>
+<p>Low</p>
+<h4>Potential Mitigations</h4>
+<p>Using arguments in a correct order.</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">authenticate</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">username</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="c1">// validate username and password</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">username</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span><span class="p">){</span>
+  <span class="n">authenticate</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">username</span><span class="p">);</span>  <span class="c1">// inconsistent order</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the vulnerable code example, arguments are swapped when call function authenticate() at line 6.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">authenticate</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">username</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="c1">// validate username and password</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">username</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span><span class="p">){</span>
+  <span class="n">authenticate</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>  <span class="c1">// consistent order</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the invulnerable code example, using arguments in a correct order when call function authenticate() at line 6.</p>
+
+    </section>
+</article>

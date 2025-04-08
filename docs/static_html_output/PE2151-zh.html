@@ -1,0 +1,55 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2151">PE2151: no-process-exit</h2>
+    <h3>禁用 process.exit() (no-process-exit)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2151</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁用 process.exit() (no-process-exit)</h4>
+<p><code>process.exit()</code> 方法在 Node.js 中被用于立即终止 Node.js 进程且退出。这是非常危险的操作，因为他能在任何方法任何时候出现，当发生错误时可能完全停止 Node.js 应用。如：</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">somethingBadHappened</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;Something bad happened!&quot;</span><span class="p">);</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>这段代码能出现在任何模块中，当 <code>somethingBadHappened</code> 为 true 时，将停止整个应用。不给应用任何相应错误的机会。通常较好地做法是抛出一个错误，允许应用妥善处理这个错误。</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">somethingBadHappened</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Something bad happened!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>以这种方式抛出错误，应用程序的其他部分有机会处理错误，而不是全部终止程序。如果这个错误向上回退到进程顶部而未被处理，进程将退出并返回异常退出的错误码，所以最终的结果是一样的。</p>
+<h2>缺陷详因</h2>
+<p>此规则旨在阻止在 Node.js 中使用 <code>process.exit()</code>。当在代码中发现 <code>process.exit()</code>，该规则会发出警告。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-process-exit: &quot;error&quot;*/</span>
+
+<span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-process-exit: &quot;error&quot;*/</span>
+
+<span class="nx">Process</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">exit</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">;</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>Node.js 应用中可以能有一部分是负责正确的退出码返回退出。在这种情况下，你应该关闭规则来允许适当处理退出码。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.4.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-process-exit.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-process-exit.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

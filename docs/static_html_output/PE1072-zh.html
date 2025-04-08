@@ -1,0 +1,109 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1072">PE1072: 不安全的反射</h2>
+    <h3>反射使得程序分析和修改自身成为可能</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1072</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>反射使得程序分析和修改自身成为可能。特别地，一个程序可以了解到自身的成员变量的值，并且可以修改他们<a href="https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Forman05">Forman 2005</a>, <a href="https://wiki.sei.cmu.edu/confluence/display/java/Rule+AA.+References#RuleAA.References-Sun02">Sun 2002</a>。Java的<code>reflection API</code>提供了一种通过反射来访问正常情况下无法访问的字段的方法。</p>
+<h4>漏洞与风险</h4>
+<h5>需要谨慎使用的API</h5>
+<div class="highlight"><pre><span></span><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Class</span><span class="o">.</span><span class="na">newInstance</span><span class="o">()</span>
+<span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">Constructor</span><span class="o">.</span><span class="na">newInstance</span><span class="o">()</span>
+<span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">Field</span><span class="o">.</span><span class="na">get</span><span class="o">*()</span>
+<span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">Field</span><span class="o">.</span><span class="na">set</span><span class="o">*()</span>
+<span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">Method</span><span class="o">.</span><span class="na">invoke</span><span class="o">()</span>
+<span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">concurrent</span><span class="o">.</span><span class="na">atomic</span><span class="o">.</span><span class="na">AtomicIntegerFieldUpdater</span><span class="o">.</span><span class="na">newUpdater</span><span class="o">()</span>
+<span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">concurrent</span><span class="o">.</span><span class="na">atomic</span><span class="o">.</span><span class="na">AtomicLongFieldUpdater</span><span class="o">.</span><span class="na">newUpdater</span><span class="o">()</span>
+<span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">concurrent</span><span class="o">.</span><span class="na">atomic</span><span class="o">.</span><span class="na">AtomicReferenceFieldUpdater</span><span class="o">.</span><span class="na">newUpdater</span><span class="o">()</span>
+</pre></div>
+<p>反射的使用使得程序的安全分析变得复杂，同时还引入了安全漏洞。能够不通过使用来完成任务时，开发者应该尽可能地避免使用反射API。在必须使用反射的情况下，请保持十分地小心。</p>
+<p>特别地，除非类、方法或字段本身是能够被访问的，开发者不能使用反射来访问上述的信息。例如，除非字段本来就是可访问、可修改的，如<code>getter</code>和<code>setter</code>方法，通过使用反射来访问这些不可访问的字段、修改不可修改的字段是不被允许的。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>确保安全管理者（security manager）会阻断那些试图访问类的私有字段的行为，永远给<code>ReflectPermission</code>许可以<code>suppressAccessChecks</code>动作。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>在这个存在漏洞的示例中，一个<code>Filed</code>对象可以通过反射来修改私有字段<code>i</code>和<code>j</code>：</p>
+<div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">FieldExample</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="s">&quot;FieldExample: i=&quot;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">&quot;, j=&quot;</span> <span class="o">+</span> <span class="n">j</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">zeroI</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">zeroField</span><span class="o">(</span><span class="n">String</span> <span class="n">fieldName</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">Field</span> <span class="n">f</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="n">fieldName</span><span class="o">);</span>
+      <span class="c1">// Subsequent access to field f passes language access checks</span>
+      <span class="c1">// because zeroField() could have accessed the field via</span>
+      <span class="c1">// ordinary field references</span>
+      <span class="n">f</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+      <span class="c1">// Log appropriately or throw sanitized exception; see EXC06-J</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchFieldException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// Report to handler</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IllegalAccessException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// Report to handler</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">FieldExample</span> <span class="n">fe</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FieldExample</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">fe</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">arg</span> <span class="o">:</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">fe</span><span class="o">.</span><span class="na">zeroField</span><span class="o">(</span><span class="n">arg</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">fe</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h5>漏洞代码修复示例</h5>
+<p>如在这个合规的解决方案中，请确保通过声明<code>private</code>或<code>final</code>的方式，将直接调用者（或直接调用方法）与恶意代码隔离开：</p>
+<div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">FieldExample</span> <span class="o">{</span>
+  <span class="c1">// ...</span>
+
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">zeroField</span><span class="o">(</span><span class="n">String</span> <span class="n">fieldName</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p>当一个类必须使用反射来向外界提供字段的访问方法时，它必须同时提供可利用非反射接口来访问这些字段的方法：</p>
+<div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">FieldExample</span> <span class="o">{</span>
+  <span class="c1">// ...</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">zeroField</span><span class="o">(</span><span class="n">String</span> <span class="n">fieldName</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">zeroI</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">zeroJ</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://wiki.sei.cmu.edu/confluence/display/java/SEC05-J.+Do+not+use+reflection+to+increase+accessibility+of+classes%2C+methods%2C+or+fields<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

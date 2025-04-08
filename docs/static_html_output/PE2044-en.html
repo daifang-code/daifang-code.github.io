@@ -1,0 +1,527 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2044">PE2044: indent</h2>
+    <h3>enforce consistent indentation (indent)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE2044</dd>
+                    <dt>Tags</dt>
+                    <dd></dd>
+                    <dt>Category</dt>
+                    <dd></dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>enforce consistent indentation (indent)</h4>
+<p>There are several common guidelines which require specific indentation of nested blocks and statements, like:</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">indentSize</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">indentSize</span> <span class="o">===</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="nx">type</span> <span class="o">!==</span> <span class="s1">&#39;tab&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Each next indentation will increase on 4 spaces&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>These are the most common scenarios recommended in different style guides:</p>
+<ul>
+<li>Two spaces, not longer and no tabs: Google, npm, Node.js, Idiomatic, Felix</li>
+<li>Tabs: jQuery</li>
+<li>Four spaces: Crockford</li>
+</ul>
+<h2>Rule Details</h2>
+<p>This rule enforces a consistent indentation style. The default style is <code>4 spaces</code>.</p>
+<h2>Options</h2>
+<p>This rule has a mixed option:</p>
+<p>For example, for 2-space indentation:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;indent&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<p>Or for tabbed indentation:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;indent&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;tab&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: &quot;error&quot;*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">b</span><span class="o">=</span><span class="nx">c</span><span class="p">;</span>
+  <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">e</span><span class="o">=</span><span class="nx">f</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: &quot;error&quot;*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">b</span><span class="o">=</span><span class="nx">c</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">e</span><span class="o">=</span><span class="nx">f</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>This rule has an object option:</p>
+<ul>
+<li><code>&quot;SwitchCase&quot;</code> (default: 0) enforces indentation level for <code>case</code> clauses in <code>switch</code> statements</li>
+<li><code>&quot;VariableDeclarator&quot;</code> (default: 1) enforces indentation level for <code>var</code> declarators; can also take an object to define separate rules for <code>var</code>, <code>let</code> and <code>const</code> declarations.</li>
+<li><code>&quot;outerIIFEBody&quot;</code> (default: 1) enforces indentation level for file-level IIFEs.</li>
+<li><code>&quot;MemberExpression&quot;</code> (default: 1) enforces indentation level for multi-line property chains. This can also be set to <code>&quot;off&quot;</code> to disable checking for MemberExpression indentation.</li>
+<li><code>&quot;FunctionDeclaration&quot;</code> takes an object to define rules for function declarations.<ul>
+<li><code>parameters</code> (default: 1) enforces indentation level for parameters in a function declaration. This can either be a number indicating indentation level, or the string <code>&quot;first&quot;</code> indicating that all parameters of the declaration must be aligned with the first parameter. This can also be set to <code>&quot;off&quot;</code> to disable checking for FunctionDeclaration parameters.</li>
+<li><code>body</code> (default: 1) enforces indentation level for the body of a function declaration.</li>
+</ul>
+</li>
+<li><code>&quot;FunctionExpression&quot;</code> takes an object to define rules for function expressions.<ul>
+<li><code>parameters</code> (default: 1) enforces indentation level for parameters in a function expression. This can either be a number indicating indentation level, or the string <code>&quot;first&quot;</code> indicating that all parameters of the expression must be aligned with the first parameter. This can also be set to <code>&quot;off&quot;</code> to disable checking for FunctionExpression parameters.</li>
+<li><code>body</code> (default: 1) enforces indentation level for the body of a function expression.</li>
+</ul>
+</li>
+<li><code>&quot;CallExpression&quot;</code> takes an object to define rules for function call expressions.<ul>
+<li><code>arguments</code> (default: 1) enforces indentation level for arguments in a call expression. This can either be a number indicating indentation level, or the string <code>&quot;first&quot;</code> indicating that all arguments of the expression must be aligned with the first argument. This can also be set to <code>&quot;off&quot;</code> to disable checking for CallExpression arguments.</li>
+</ul>
+</li>
+<li><code>&quot;ArrayExpression&quot;</code> (default: 1) enforces indentation level for elements in arrays. It can also be set to the string <code>&quot;first&quot;</code>, indicating that all the elements in the array should be aligned with the first element. This can also be set to <code>&quot;off&quot;</code> to disable checking for array elements.</li>
+<li><code>&quot;ObjectExpression&quot;</code> (default: 1) enforces indentation level for properties in objects. It can be set to the string <code>&quot;first&quot;</code>, indicating that all properties in the object should be aligned with the first property. This can also be set to <code>&quot;off&quot;</code> to disable checking for object properties.</li>
+<li><code>&quot;ImportDeclaration&quot;</code> (default: 1) enforces indentation level for import statements. It can be set to the string <code>&quot;first&quot;</code>, indicating that all imported members from a module should be aligned with the first member in the list. This can also be set to <code>&quot;off&quot;</code> to disable checking for imported module members.</li>
+<li><code>&quot;flatTernaryExpressions&quot;: true</code> (<code>false</code> by default) requires no indentation for ternary expressions which are nested in other ternary expressions.</li>
+<li><code>&quot;ignoredNodes&quot;</code> accepts an array of <a href="/docs/developer-guide/selectors.md">selectors</a>. If an AST node is matched by any of the selectors, the indentation of tokens which are direct children of that node will be ignored. This can be used as an escape hatch to relax the rule if you disagree with the indentation that it enforces for a particular syntactic pattern.</li>
+<li><code>&quot;ignoreComments&quot;</code> (default: false) can be used when comments do not need to be aligned with nodes on the previous or next line.</li>
+</ul>
+<p>Level of indentation denotes the multiple of the indent specified. Example:</p>
+<ul>
+<li>Indent of 4 spaces with <code>VariableDeclarator</code> set to <code>2</code> will indent the multi-line variable declarations with 8 spaces.</li>
+<li>Indent of 2 spaces with <code>VariableDeclarator</code> set to <code>2</code> will indent the multi-line variable declarations with 4 spaces.</li>
+<li>Indent of 2 spaces with <code>VariableDeclarator</code> set to <code>{&quot;var&quot;: 2, &quot;let&quot;: 2, &quot;const&quot;: 3}</code> will indent the multi-line variable declarations with 4 spaces for <code>var</code> and <code>let</code>, 6 spaces for <code>const</code> statements.</li>
+<li>Indent of tab with <code>VariableDeclarator</code> set to <code>2</code> will indent the multi-line variable declarations with 2 tabs.</li>
+<li>Indent of 2 spaces with <code>SwitchCase</code> set to <code>0</code> will not indent <code>case</code> clauses with respect to <code>switch</code> statements.</li>
+<li>Indent of 2 spaces with <code>SwitchCase</code> set to <code>1</code> will indent <code>case</code> clauses with 2 spaces with respect to <code>switch</code> statements.</li>
+<li>Indent of 2 spaces with <code>SwitchCase</code> set to <code>2</code> will indent <code>case</code> clauses with 4 spaces with respect to <code>switch</code> statements.</li>
+<li>Indent of tab with <code>SwitchCase</code> set to <code>2</code> will indent <code>case</code> clauses with 2 tabs with respect to <code>switch</code> statements.</li>
+<li>Indent of 2 spaces with <code>MemberExpression</code> set to <code>0</code> will indent the multi-line property chains with 0 spaces.</li>
+<li>Indent of 2 spaces with <code>MemberExpression</code> set to <code>1</code> will indent the multi-line property chains with 2 spaces.</li>
+<li>Indent of 2 spaces with <code>MemberExpression</code> set to <code>2</code> will indent the multi-line property chains with 4 spaces.</li>
+<li>Indent of 4 spaces with <code>MemberExpression</code> set to <code>0</code> will indent the multi-line property chains with 0 spaces.</li>
+<li>Indent of 4 spaces with <code>MemberExpression</code> set to <code>1</code> will indent the multi-line property chains with 4 spaces.</li>
+<li>Indent of 4 spaces with <code>MemberExpression</code> set to <code>2</code> will indent the multi-line property chains with 8 spaces.</li>
+</ul>
+<h5>tab</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>&quot;tab&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, &quot;tab&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+     <span class="nx">b</span><span class="o">=</span><span class="nx">c</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+           <span class="nx">e</span><span class="o">=</span><span class="nx">f</span><span class="p">;</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>&quot;tab&quot;</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, &quot;tab&quot;]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+<span class="cm">/*tab*/</span><span class="nx">b</span><span class="o">=</span><span class="nx">c</span><span class="p">;</span>
+<span class="cm">/*tab*/</span><span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+<span class="cm">/*tab*//*tab*/</span><span class="nx">e</span><span class="o">=</span><span class="nx">f</span><span class="p">;</span>
+<span class="cm">/*tab*/</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h5>SwitchCase</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>2, { &quot;SwitchCase&quot;: 1 }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;SwitchCase&quot;: 1 }]*/</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span>
+<span class="k">case</span> <span class="s2">&quot;a&quot;</span><span class="o">:</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="k">case</span> <span class="s2">&quot;b&quot;</span><span class="o">:</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;SwitchCase&quot;: 1 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;SwitchCase&quot;: 1 }]*/</span>
+
+<span class="k">switch</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span>
+  <span class="k">case</span> <span class="s2">&quot;a&quot;</span><span class="o">:</span>
+    <span class="k">break</span><span class="p">;</span>
+  <span class="k">case</span> <span class="s2">&quot;b&quot;</span><span class="o">:</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h5>VariableDeclarator</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>2, { &quot;VariableDeclarator&quot;: 1 }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;VariableDeclarator&quot;: 1 }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">,</span>
+    <span class="nx">c</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">,</span>
+    <span class="nx">c</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;VariableDeclarator&quot;: 1 }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;VariableDeclarator&quot;: 1 }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span><span class="p">,</span>
+  <span class="nx">b</span><span class="p">,</span>
+  <span class="nx">c</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">a</span><span class="p">,</span>
+  <span class="nx">b</span><span class="p">,</span>
+  <span class="nx">c</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;VariableDeclarator&quot;: 2 }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;VariableDeclarator&quot;: 2 }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">,</span>
+    <span class="nx">c</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">,</span>
+    <span class="nx">c</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;VariableDeclarator&quot;: { &quot;var&quot;: 2, &quot;let&quot;: 2, &quot;const&quot;: 3 } }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;VariableDeclarator&quot;: { &quot;var&quot;: 2, &quot;let&quot;: 2, &quot;const&quot;: 3 } }]*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">,</span>
+    <span class="nx">c</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">a</span><span class="p">,</span>
+    <span class="nx">b</span><span class="p">,</span>
+    <span class="nx">c</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nx">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</pre></div>
+<h5>outerIIFEBody</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the options <code>2, { &quot;outerIIFEBody&quot;: 0 }</code>:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;outerIIFEBody&quot;: 0 }]*/</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="p">})();</span>
+
+
+<span class="k">if</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the options <code>2, {&quot;outerIIFEBody&quot;: 0}</code>:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;outerIIFEBody&quot;: 0 }]*/</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">})();</span>
+
+
+<span class="k">if</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h5>MemberExpression</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>2, { &quot;MemberExpression&quot;: 1 }</code> options:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;MemberExpression&quot;: 1 }]*/</span>
+
+<span class="nx">foo</span>
+<span class="p">.</span><span class="nx">bar</span>
+<span class="p">.</span><span class="nx">baz</span><span class="p">()</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;MemberExpression&quot;: 1 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;MemberExpression&quot;: 1 }]*/</span>
+
+<span class="nx">foo</span>
+  <span class="p">.</span><span class="nx">bar</span>
+  <span class="p">.</span><span class="nx">baz</span><span class="p">();</span>
+</pre></div>
+<h5>FunctionDeclaration</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>2, { &quot;FunctionDeclaration&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;FunctionDeclaration&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;FunctionDeclaration&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;FunctionDeclaration&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="p">,</span>
+    <span class="nx">qux</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>2, { &quot;FunctionDeclaration&quot;: {&quot;parameters&quot;: &quot;first&quot;} }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;FunctionDeclaration&quot;: {&quot;parameters&quot;: &quot;first&quot;}}]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="p">,</span> <span class="nx">boop</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;FunctionDeclaration&quot;: {&quot;parameters&quot;: &quot;first&quot;} }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;FunctionDeclaration&quot;: {&quot;parameters&quot;: &quot;first&quot;}}]*/</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span>
+             <span class="nx">qux</span><span class="p">,</span> <span class="nx">boop</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>FunctionExpression</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>2, { &quot;FunctionExpression&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;FunctionExpression&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;FunctionExpression&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;FunctionExpression&quot;: {&quot;body&quot;: 1, &quot;parameters&quot;: 2} }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="p">,</span>
+    <span class="nx">qux</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>2, { &quot;FunctionExpression&quot;: {&quot;parameters&quot;: &quot;first&quot;} }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;FunctionExpression&quot;: {&quot;parameters&quot;: &quot;first&quot;}}]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="p">,</span> <span class="nx">boop</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;FunctionExpression&quot;: {&quot;parameters&quot;: &quot;first&quot;} }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;FunctionExpression&quot;: {&quot;parameters&quot;: &quot;first&quot;}}]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span>
+                   <span class="nx">qux</span><span class="p">,</span> <span class="nx">boop</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">qux</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h5>CallExpression</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>2, { &quot;CallExpression&quot;: {&quot;arguments&quot;: 1} }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;CallExpression&quot;: {&quot;arguments&quot;: 1} }]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="p">,</span>
+      <span class="nx">qux</span>
+<span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;CallExpression&quot;: {&quot;arguments&quot;: 1} }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;CallExpression&quot;: {&quot;arguments&quot;: 1} }]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span>
+<span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>2, { &quot;CallExpression&quot;: {&quot;arguments&quot;: &quot;first&quot;} }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;CallExpression&quot;: {&quot;arguments&quot;: &quot;first&quot;}}]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span> <span class="nx">boop</span><span class="p">,</span> <span class="nx">beep</span><span class="p">);</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;CallExpression&quot;: {&quot;arguments&quot;: &quot;first&quot;} }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;CallExpression&quot;: {&quot;arguments&quot;: &quot;first&quot;}}]*/</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">baz</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="p">,</span> <span class="nx">boop</span><span class="p">,</span> <span class="nx">beep</span><span class="p">);</span>
+</pre></div>
+<h5>ArrayExpression</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>2, { &quot;ArrayExpression&quot;: 1 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;ArrayExpression&quot;: 1 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">bar</span><span class="p">,</span>
+<span class="nx">baz</span><span class="p">,</span>
+      <span class="nx">qux</span>
+<span class="p">];</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;ArrayExpression&quot;: 1 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;ArrayExpression&quot;: 1 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span>
+<span class="p">];</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>2, { &quot;ArrayExpression&quot;: &quot;first&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;ArrayExpression&quot;: &quot;first&quot;}]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="p">,</span>
+  <span class="nx">qux</span>
+<span class="p">];</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;ArrayExpression&quot;: &quot;first&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;ArrayExpression&quot;: &quot;first&quot;}]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span>
+           <span class="nx">baz</span><span class="p">,</span>
+           <span class="nx">qux</span>
+<span class="p">];</span>
+</pre></div>
+<h5>ObjectExpression</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>2, { &quot;ObjectExpression&quot;: 1 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;ObjectExpression&quot;: 1 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="nx">baz</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nx">qux</span><span class="o">:</span> <span class="mi">3</span>
+<span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;ObjectExpression&quot;: 1 }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, { &quot;ObjectExpression&quot;: 1 }]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">bar</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="nx">qux</span><span class="o">:</span> <span class="mi">3</span>
+<span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>2, { &quot;ObjectExpression&quot;: &quot;first&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;ObjectExpression&quot;: &quot;first&quot;}]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nx">baz</span><span class="o">:</span> <span class="mi">2</span> <span class="p">};</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>2, { &quot;ObjectExpression&quot;: &quot;first&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 2, {&quot;ObjectExpression&quot;: &quot;first&quot;}]*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">bar</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nx">baz</span><span class="o">:</span> <span class="mi">2</span> <span class="p">};</span>
+</pre></div>
+<h5>ImportDeclaration</h5>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>4, { &quot;ImportDeclaration&quot;: 1 }</code> option (the default):</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 4, { ImportDeclaration: 1 }]*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="p">,</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;qux&#39;</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="p">,</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;qux&#39;</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>4, { ImportDeclaration: &quot;first&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 4, { ImportDeclaration: &quot;first&quot; }]*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="p">,</span>
+    <span class="nx">baz</span><span class="p">,</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;qux&#39;</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>4, { ImportDeclaration: &quot;first&quot; }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 4, { ImportDeclaration: &quot;first&quot; }]*/</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">foo</span><span class="p">,</span>
+         <span class="nx">bar</span><span class="p">,</span>
+         <span class="nx">baz</span><span class="p">,</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;qux&#39;</span><span class="p">;</span>
+</pre></div>
+<h5>flatTernaryExpressions</h5>
+<p>Examples of <strong>incorrect</strong> code for this rule with the default <code>4, { &quot;flatTernaryExpressions&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 4, { &quot;flatTernaryExpressions&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span>
+    <span class="nx">foo</span> <span class="o">?</span> <span class="nx">bar</span> <span class="o">:</span>
+    <span class="nx">baz</span> <span class="o">?</span> <span class="nx">qux</span> <span class="o">:</span>
+    <span class="nx">boop</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the default <code>4, { &quot;flatTernaryExpressions&quot;: false }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 4, { &quot;flatTernaryExpressions&quot;: false }]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span>
+    <span class="nx">foo</span> <span class="o">?</span> <span class="nx">bar</span> <span class="o">:</span>
+        <span class="nx">baz</span> <span class="o">?</span> <span class="nx">qux</span> <span class="o">:</span>
+            <span class="nx">boop</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>incorrect</strong> code for this rule with the <code>4, { &quot;flatTernaryExpressions&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 4, { &quot;flatTernaryExpressions&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span>
+    <span class="nx">foo</span> <span class="o">?</span> <span class="nx">bar</span> <span class="o">:</span>
+        <span class="nx">baz</span> <span class="o">?</span> <span class="nx">qux</span> <span class="o">:</span>
+            <span class="nx">boop</span><span class="p">;</span>
+</pre></div>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>4, { &quot;flatTernaryExpressions&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 4, { &quot;flatTernaryExpressions&quot;: true }]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span>
+    <span class="nx">foo</span> <span class="o">?</span> <span class="nx">bar</span> <span class="o">:</span>
+    <span class="nx">baz</span> <span class="o">?</span> <span class="nx">qux</span> <span class="o">:</span>
+    <span class="nx">boop</span><span class="p">;</span>
+</pre></div>
+<h5>ignoredNodes</h5>
+<p>The following configuration ignores the indentation of <code>ConditionalExpression</code> (&quot;ternary expression&quot;) nodes:</p>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>4, { &quot;ignoredNodes&quot;: [&quot;ConditionalExpression&quot;] }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 4, { &quot;ignoredNodes&quot;: [&quot;ConditionalExpression&quot;] }]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">foo</span>
+      <span class="o">?</span> <span class="nx">bar</span>
+      <span class="o">:</span> <span class="nx">baz</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">foo</span>
+                <span class="o">?</span> <span class="nx">bar</span>
+<span class="o">:</span> <span class="nx">baz</span><span class="p">;</span>
+</pre></div>
+<p>The following configuration ignores indentation in the body of IIFEs.</p>
+<p>Examples of <strong>correct</strong> code for this rule with the <code>4, { &quot;ignoredNodes&quot;: [&quot;CallExpression &gt; FunctionExpression.callee &gt; BlockStatement.body&quot;] }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 4, { &quot;ignoredNodes&quot;: [&quot;CallExpression &gt; FunctionExpression.callee &gt; BlockStatement.body&quot;] }]*/</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+<span class="nx">foo</span><span class="p">();</span>
+<span class="nx">bar</span><span class="p">();</span>
+
+<span class="p">})</span>
+</pre></div>
+<h5>ignoreComments</h5>
+<p>Examples of additional <strong>correct</strong> code for this rule with the <code>4, { &quot;ignoreComments&quot;: true }</code> option:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint indent: [&quot;error&quot;, 4, { &quot;ignoreComments&quot;: true }] */</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">doSomething</span><span class="p">();</span>
+
+<span class="c1">// comment intentionally de-indented</span>
+    <span class="nx">doSomethingElse</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSHint</strong>: <code>indent</code></li>
+<li><strong>JSCS</strong>: <a href="https://jscs-dev.github.io/rule/validateIndentation">validateIndentation</a></li>
+</ul>
+
+    </section>
+</article>

@@ -1,0 +1,56 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1009">PE1009: 在调用字符串操作的函数中使用空指针作为参数</h2>
+    <h3>在调用字符串操作的函数中使用空指针作为参数，例如strcpy(), strcmp(), strlen()。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1009</dd>
+                    <dt>标签</dt>
+                    <dd>C, CPP</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>不要在需要对象的任何实例中使用空指针，包括以下情况：</p>
+<ul>
+<li>调用空对象的实例方法</li>
+<li>访问或修改空对象的字段</li>
+<li>将null的长度视为数组</li>
+<li>访问或修改null的元素，就像它是一个数组一样</li>
+<li>抛出null，就像它是一个Throwable值一样</li>
+</ul>
+<p>在需要对象的情况下使用null会导致引发NullPointerException，从而中断程序或线程的执行。</p>
+<h4>漏洞与风险</h4>
+<p>在需要对象的情况下使用null会导致引发NullPointerException，从而中断程序或线程的执行。</p>
+<h4>缓解与预防</h4>
+<p>不要在需要对象的任何实例中使用空指针。</p>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+<h4>演示示例</h4>
+<h5>漏洞缺陷示例</h5>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">strcpy_null_dst</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// expected-warning{{Null pointer argument in call to string copy function}}</span>
+  <span class="n">strcpy</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span> 
+
+  <span class="c1">// expected-warning{{Null pointer argument in call to string length function}}</span>
+  <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> 
+
+  <span class="kt">char</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="s">&quot;123&quot;</span><span class="p">;</span>
+  <span class="c1">// expected-warning{{Null pointer argument in call to string comparison </span>
+  <span class="c1">// function}}</span>
+  <span class="n">strcmp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://wiki.sei.cmu.edu/confluence/display/java/EXP01-J.+Do+not+use+a+null+in+a+case+where+an+object+is+required.html<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

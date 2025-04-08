@@ -1,0 +1,65 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1115">PE1115: 使用的不安全Jackson反序列化配置</h2>
+    <h3>该漏洞存在于Jackson框架下的enableDefaultTyping方法，通过该漏洞，攻击者可以远程在服务器主机上越权执行任意代码，从而取得该网站服务器的控制权。</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1115</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>该漏洞存在于Jackson框架下的enableDefaultTyping方法，通过该漏洞，攻击者可以远程在服务器主机上越权执行任意代码，从而取得该网站服务器的控制权。</p>
+<h4>漏洞与风险</h4>
+<p>Jackson是一个开源的Java序列化与反序列化工具，可以将java对象序列化为xml或json格式的字符串，或者反序列化回对应的对象，由于其使用简单，速度较快，且不依靠除JDK外的其他库，被众多用户所使用。但是其组件Jackson-databind可以指定特定的反序列化类，这样就存在代码执行的风险。</p>
+<p>通过java生态中的第三方库存在的序列化方法构造序列化恶意攻击代码，并将恶意代码base64编码后拼接到一个精心构造的json数据包中，代码层如果在使用ObjectMapper对象实例时（ObjectMapper mapper = new ObjectMapper();）开启了enableDefaultType特性（例如mapper.enableDefaultTyping();），会在readValue时对传入的JSON自动调用第三方库的反序列化方法，被攻击者利用即可越权执行代码。</p>
+<h4>漏洞利用威胁</h4>
+<p>严重</p>
+<h4>缓解与预防</h4>
+<p>###官方修复方式
+官方在漏洞产生后，通过黑名单的方式禁止黑名单中的第三方库因为反序列化问题而产生的代码执行漏洞。</p>
+<p>###修复建议
+1.升级到最新版本jackson-databind 2.7.9.2，2.8.11，2.9.3.1及后续版本;</p>
+<p>2.禁用enableDefaultTyping()方法；</p>
+<p>3.对客户端传入的JSON数据，进行过滤或者类型检查。</p>
+<h4>演示示例</h4>
+<h5>漏洞代码示例</h5>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Example</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ABean</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="n">Object</span> <span class="n">obj</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">AnotherBean</span> <span class="o">{</span>
+        <span class="nd">@JsonTypeInfo</span><span class="o">(</span><span class="n">use</span> <span class="o">=</span> <span class="n">JsonTypeInfo</span><span class="o">.</span><span class="na">Id</span><span class="o">.</span><span class="na">CLASS</span><span class="o">)</span> <span class="c1">// or JsonTypeInfo.Id.MINIMAL_CLASS</span>
+        <span class="kd">public</span> <span class="n">Object</span> <span class="n">obj</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">example</span><span class="o">(</span><span class="n">String</span> <span class="n">json</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">JsonMappingException</span> <span class="o">{</span>
+         <span class="n">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="o">();</span>
+         <span class="n">mapper</span><span class="o">.</span><span class="na">enableDefaultTyping</span><span class="o">();</span> <span class="c1">//using enableDefaultTyping() method</span>
+         <span class="n">mapper</span><span class="o">.</span><span class="na">readValue</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="n">ABean</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">exampleTwo</span><span class="o">(</span><span class="n">String</span> <span class="n">json</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">JsonMappingException</span> <span class="o">{</span>
+         <span class="n">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="o">();</span>
+         <span class="n">mapper</span><span class="o">.</span><span class="na">readValue</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="n">AnotherBean</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+<h4>引用</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://github.com/FasterXML/jackson-databind/issues/1599<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+<li id="fn-2"><p>https://github.com/mbechler/marshalsec<a href="#fnref-2" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

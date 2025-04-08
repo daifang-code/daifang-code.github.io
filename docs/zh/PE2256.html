@@ -1,0 +1,445 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="luobin" />
+<meta name="description" content="要求或者禁止Yoda条件 (yoda)" />
+<meta name="keywords" content="">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="yoda"/>
+<meta property="og:description" content="要求或者禁止Yoda条件 (yoda)"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE2256.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:06.128829+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/luobin.html">
+<meta property="article:section" content="misc"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; yoda</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="输入以搜索">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent 缺陷文档</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ 缺陷文档</a>
+                        (316)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp 缺陷文档</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang 缺陷文档</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java 缺陷文档</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript 缺陷文档</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c 缺陷文档</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/php.html">php 缺陷文档</a>
+                        (58)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python 缺陷文档</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift 缺陷文档</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/javascript.html">javascript</a>
+        </li>
+        <li>
+            <a href="./standard/style-issues.html">风格问题</a>
+        </li>
+        <li>
+            <a href="./category/code-style-and-efficiency.html">代码风格和效率</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE2256">yoda</h1>
+    <p>
+        在 2024-九月-28 发布于 <a href="./category/code-style-and-efficiency.html">代码风格和效率</a> 分类
+
+        &#8226; 2 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#yoda-yoda">要求或者禁止Yoda条件 (yoda)</a><ul>
+<li><a href="#_1">缺陷详因</a></li>
+<li><a href="#_2">修改方案</a><ul>
+<li><a href="#never">never</a></li>
+<li><a href="#exceptrange">exceptRange</a></li>
+<li><a href="#onlyequality">onlyEquality</a></li>
+<li><a href="#always">always</a></li>
+</ul>
+</li>
+<li><a href="#_3">更多解释</a></li>
+<li><a href="#eslint">Eslint版本</a></li>
+<li><a href="#_4">来源</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+  <div>
+    
+<p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h1 id="yoda-yoda">要求或者禁止Yoda条件 (yoda)</h1>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>Yoda 条件被如此命名，是因为在条件判断中字面量在先而变量在第二的位置。例如，以下是 Yoda 条件：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="s2">"red"</span> <span class="o">===</span> <span class="nx">color</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>它被叫做 Yoda 条件是因为它这样读："红色是颜色"，类似于星球大战中 Yoda 的讲话方式。对比另一种操作数的排序方式：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">color</span> <span class="o">===</span> <span class="s2">"red"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>这通常读作，"颜色是红的"，这是一种更自然的方式去描述对比。</p>
+<p>Yoda 条件的支持者强调，错误地使用 <code>=</code> 代替 <code>==</code> 是不可能的，因为你不能分配给一个文本值。这样做将导致一个语法错误，并且你会被提早告知。因此在工具尚不可用的早期编程中，这种做法是非常常见的。</p>
+<p>Yoda 条件的反对者指出工具使我们成为更好的程序员，因为工具将捕获使用 <code>=</code> 代替 <code>==</code> 的错误（ESLint 将为你捕获这个错误）。因此,他们认为当使用 Yoda 条件时，该模式的实用性并不高于代码的可读性。</p>
+<h2 id="_1">缺陷详因</h2>
+<p>这条规则需要一个参数。如果是 <code>"never"</code> 那么比较绝不能是一个 Yoda 条件。</p>
+<h2 id="_2">修改方案</h2>
+<p>该规则只有一个字符串选项：</p>
+<ul>
+<li>如果是默认的 <code>"never"</code>，则比较绝不能是 Yoda 条件。</li>
+<li>如果是 <code>"always"</code>，那么字面量值必须放在首位。</li>
+</ul>
+<p>默认选项 <code>"never"</code> 可以有例外情况，是个对象：</p>
+<ul>
+<li>如果 <code>"exceptRange"</code> 为 <code>true</code>，该规则 <em>允许</em> yoda 条件 出现在被括号包裹的范围比较中，包括 <code>if</code> 或 <code>while</code> 条件的括号。默认为 <code>false</code>。一个 <em>范围</em> 比较测试一个变量是在两个字面量内部还是外部。</li>
+<li>如果 <code>"onlyEquality"</code> 为 <code>true</code>，该规则 <em>只</em> 对等号操作符 <code>==</code> 和 <code>===</code> 报告 yoda 条件。默认为 <code>false</code>。</li>
+</ul>
+<p><code>onlyEquality</code> 选项所允许的是 <code>exceptRange</code> 所允许的例外的超集，因此同时使用它们什么用。</p>
+<h3 id="never">never</h3>
+<p>默认选项<code>"never"</code>的 <strong>错误</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint yoda: "error"*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="s2">"red"</span> <span class="o">===</span> <span class="nx">color</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span> <span class="o">==</span> <span class="nx">flag</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="mi">5</span> <span class="o">&gt;</span> <span class="nx">count</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">substr</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="nx">x</span> <span class="o">&amp;&amp;</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>默认选项 <code>"never"</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint yoda: "error"*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="mi">5</span> <span class="o">&amp;</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">===</span> <span class="s2">"red"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="exceptrange">exceptRange</h3>
+<p>选项 <code>"never", { "exceptRange": true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint yoda: ["error", "never", { "exceptRange": true }]*/</span>
+
+<span class="kd">function</span> <span class="nx">isReddish</span><span class="p">(</span><span class="nx">color</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nx">color</span><span class="p">.</span><span class="nx">hue</span> <span class="o">&lt;</span> <span class="mi">60</span> <span class="o">||</span> <span class="mi">300</span> <span class="o">&lt;</span> <span class="nx">color</span><span class="p">.</span><span class="nx">hue</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">count</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="nx">rand</span> <span class="o">&amp;&amp;</span> <span class="nx">rand</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">howLong</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span> <span class="o">?</span> <span class="s2">"short"</span> <span class="o">:</span> <span class="s2">"long"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="onlyequality">onlyEquality</h3>
+<p>选项 <code>"never", { "onlyEquality": true }</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint yoda: ["error", "never", { "onlyEquality": true }]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="mi">9</span> <span class="o">&lt;</span> <span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">!==</span> <span class="s1">'foo'</span> <span class="o">&amp;&amp;</span> <span class="s1">'bar'</span> <span class="o">!=</span> <span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h3 id="always">always</h3>
+<p>选项 <code>"always"</code> 的 <strong>错误</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint yoda: ["error", "always"]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">color</span> <span class="o">==</span> <span class="s2">"blue"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>选项 <code>"always"</code> 的 <strong>正确</strong> 代码示例：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/*eslint yoda: ["error", "always"]*/</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="s2">"blue"</span> <span class="o">==</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">substr</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h2 id="_3">更多解释</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Yoda_conditions">Yoda Conditions</a></li>
+<li><a href="http://thomas.tuerke.net/on/design/?with=1249091668#msg1146181680">Yoda Notation and Safe Switching</a></li>
+</ul>
+<h2 id="eslint">Eslint版本</h2>
+<p>该规则在 ESLint 0.7.1 中被引入。</p>
+<h2 id="_4">来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/yoda.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/yoda.md">Documentation source</a></li>
+</ul>
+  </div>
+  <div class="tag-cloud">
+    <p>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Pinpoint 源代码静态缺陷分析系统, 源伞科技有限公司 - 保留所有权利
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1056">PE1056: Incorrect string comparision</h2>
+    <h3></h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>PE1056</dd>
+                    <dt>Tags</dt>
+                    <dd>C, CPP</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/CPP</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>If we compare constant strings with pointers which point to strings using '==', then what we get is the comparision of address, this may result in mistakes sometimes.</p>
+<h4>Vulnerability and risk</h4>
+<h5>Expression is False</h5>
+<p>Incorrect string comparison operations always lead to incorrect results.</p>
+<h4>Likelihood of Exploit</h4>
+<p>We can use the strcmp() function to compare if these two strings are same.</p>
+<h4>Potential Mitigations</h4>
+<p>medium</p>
+<h4>Demonstrative Examples</h4>
+<h5>Vulnerable Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">isequiv</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">t</span> <span class="o">==</span> <span class="s">&quot;char&quot;</span><span class="p">)</span><span class="c1">//detect</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">else</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">bad</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="n">test</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;char&quot;</span><span class="p">;</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">isequiv</span><span class="p">(</span><span class="n">test</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+<p>Under this situation, they compare the address of these two strings not themsleves, so the result will be 0.</p>
+<h5>Fixed Code Example</h5>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">isequiv</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="s">&quot;char&quot;</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">else</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">good</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="n">test</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;char&quot;</span><span class="p">;</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">isequiv</span><span class="p">(</span><span class="n">test</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+<p>If we use strcmp() function, what we compare is content rather than address, this can get the right comparision result.</p>
+
+    </section>
+</article>

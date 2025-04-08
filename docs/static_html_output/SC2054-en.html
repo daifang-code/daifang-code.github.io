@@ -1,0 +1,33 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:SC2054">SC2054: Using commas on separating array elements</h2>
+    <h3>Use spaces, not commas, to separate array elements.</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>SC2054</dd>
+                    <dt>Tags</dt>
+                    <dd>Shell</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/Shell</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>Use spaces, not commas, to separate array elements.</h2>
+<h5>Problematic code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">flags</span><span class="o">=(</span><span class="s2">&quot;-l&quot;</span>, <span class="s2">&quot;-d&quot;</span>, <span class="s2">&quot;--sort=size&quot;</span><span class="o">)</span>
+ls <span class="s2">&quot;</span><span class="si">${</span><span class="nv">flags</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Correct code:</h5>
+<div class="highlight"><pre><span></span><span class="nv">flags</span><span class="o">=(</span><span class="s2">&quot;-l&quot;</span> <span class="s2">&quot;-d&quot;</span> <span class="s2">&quot;--sort=size&quot;</span><span class="o">)</span>
+ls <span class="s2">&quot;</span><span class="si">${</span><span class="nv">flags</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+<h5>Rationale:</h5>
+<p>You appear to have used commas to separate array elements in an array assignment. Other languages require this, but bash instead treats the commas as literal strings.</p>
+<p>In the problematic code, the first element is <code>-l,</code> with the trailing comma, and the executed command ends up being <code>ls -l, -d, --sort=size</code>.</p>
+<p>In the correct code, the trailing commas have been removed, and the command will be <code>ls -l -d --sort=size</code> as expected.</p>
+<h5>Exceptions:</h5>
+<p>None (if you actually want a trailing comma in your strings, move them inside the quotes).</p>
+
+    </section>
+</article>

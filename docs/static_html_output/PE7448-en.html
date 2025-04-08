@@ -1,0 +1,28 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7448">BE7448: Collections should not contain themselves</h2>
+    <h3>Collections should not contain themselves</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7448</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Collections should not contain themselves</p>
+<h4>Vulnerability and risk</h4>
+<p> This call to a generic collection's method would only make sense if a collection contained
+itself (e.g., if <code>s.contains(s)</code> were true). This is unlikely to be true and would cause
+problems if it were true (such as the computation of the hash code resulting in infinite recursion).
+It is likely that the wrong value is being passed as a parameter.
+    </p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

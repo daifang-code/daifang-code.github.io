@@ -1,0 +1,83 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2051">PE2051: linebreak-style</h2>
+    <h3>强制使用一致的换行符风格 (linebreak-style)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2051</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>强制使用一致的换行符风格 (linebreak-style)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>当很多人协同开发时，会用到不同的编辑器，在 VCS 应用程序和操作系统中可能会出现不同的编辑器行结束方式也不同(尤其是同时使用 windows 和 mac 版本的源码)。</p>
+<p>在 windows 操作系统中换行符通常是回车 (CR) 加换行分隔符 (LF)，也就是回车换行(CRLF)，然而在 Linux 和 Unix 中只使用简单的换行分隔符 (LF)。对应的控制字符为 <code>&quot;\n&quot;</code> (LF) 和 <code>&quot;\r\n&quot;</code>(CRLF)。</p>
+<p>很多版本控制系统（如 git 和 subversion）可以自动的保证正确的结尾。然而如果要涵盖所有情况，你可以激活此规则。</p>
+<h2>缺陷详因</h2>
+<p>该规则强制在独立的开源系统、VCS 或 你使用的编辑器中使用一致的换行符。</p>
+<h5>修改方案</h5>
+<p>该规则有一个字符串选项：</p>
+<ul>
+<li><code>&quot;unix&quot;</code> (默认) 强制使用 Unix 换行符： <code>\n</code>。</li>
+<li><code>&quot;windows&quot;</code> 强制使用 Windows 换行符： <code>\r\n</code>。</li>
+</ul>
+<h5>unix</h5>
+<p>默认选项 <code>&quot;unix&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint linebreak-style: [&quot;error&quot;, &quot;unix&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">;</span> <span class="c1">// \r\n</span>
+</pre></div>
+<p>默认选项 <code>&quot;unix&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint linebreak-style: [&quot;error&quot;, &quot;unix&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="c1">// \n</span>
+    <span class="nx">b</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">;</span> <span class="c1">// \n</span>
+<span class="c1">// \n</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// \n</span>
+    <span class="c1">// do stuff \n</span>
+<span class="p">}</span><span class="c1">// \n</span>
+</pre></div>
+<h5>windows</h5>
+<p>选项 <code>&quot;windows&quot;</code> 的 <strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint linebreak-style: [&quot;error&quot;, &quot;windows&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">;</span> <span class="c1">// \n</span>
+</pre></div>
+<p>选项 <code>&quot;windows&quot;</code> 的 <strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint linebreak-style: [&quot;error&quot;, &quot;windows&quot;]*/</span>
+
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="c1">// \r\n</span>
+    <span class="nx">b</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">;</span> <span class="c1">// \r\n</span>
+<span class="c1">// \r\n</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// \r\n</span>
+    <span class="c1">// do stuff \r\n</span>
+<span class="p">}</span> <span class="c1">// \r\n</span>
+</pre></div>
+<h2>Using this rule with version control systems</h2>
+<p>版本控制系统有时对换行符有一些特殊的行为。为了让开发人员更方便的在不同的平台贡献自己的代码库，你可能需要配置你 VCS 的来适当地处理换行符。</p>
+<p>比如，window 系统中 <a href="https://git-scm.com/">git</a> 在 checkout 文件时会把换行符 LF 转换为 CRLF， 但在提交时，会把换行符保存为 LF。如果配置了了 <code>&quot;unix&quot;</code> 设置，这将导致 <code>linebreak-style</code> 规则报告错误，因为 ESLint 检测到的是 CRLF。如果你使用 git， 伱可能希望在你的 <a href="https://git-scm.com/docs/gitattributes"><code>.gitattributes</code> 文件</a> 添加一行来避免 git 对 <code>.js</code> 文件中的换行符进行转换。</p>
+
+<pre><code>*.js text eol=lf
+</code></pre>
+<h2>当该情况下该规则可忽略</h2>
+<p>如果你不关心你的代码中是否以不同的换行符结尾，你可以关闭此规则。</p>
+<h2>Compatibility</h2>
+<ul>
+<li><strong>JSCS</strong>: <a href="http://jscs.info/rule/validateLineBreaks">validateLineBreaks</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.21.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/linebreak-style.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/linebreak-style.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

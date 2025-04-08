@@ -1,0 +1,27 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7349">BE7349: NodeList.getLength() called in a loop</h2>
+    <h3>NodeList.getLength() called in a loop</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7349</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>NodeList.getLength() called in a loop</p>
+<h4>Vulnerability and risk</h4>
+<p> The method calls NodeList.getLength() inside the loop and NodeList was produced by getElementsByTagName call.
+This NodeList doesn't store its length, but computes it every time in not very optimal way.
+Consider storing the length to the variable before the loop.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

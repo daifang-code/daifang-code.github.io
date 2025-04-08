@@ -1,0 +1,54 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7584">BE7584: 信任边界违规</h2>
+    <h3>信任边界违规</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7584</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>信任边界违规</p>
+<h4>漏洞与风险</h4>
+<p>
+    "一个信任边界可以被看作是通过一个程序绘制的分界线。在线的一边，数据是不可信的。
+在这条线的另一边，数据则是可信的。
+验证逻辑的目的是允许数据安全地跨越信任边界——从不可信到可信。
+当一个程序模糊了受信任的和不可信的之间的界限时，就会发生信任边界违规。
+通过将可信的和不受信任的数据组合在相同的数据结构中，程序员就更容易错误地信任未经验证的数据。" <sup>[1]</sup>
+</p>
+<p>
+<b>有风险的代码</b><br/>
+<pre>
+public void doSomething(HttpServletRequest req, String activateProperty) {
+    //..
+    req.getSession().setAttribute(activateProperty,"true");
+}
+</pre>
+<pre>
+public void loginEvent(HttpServletRequest req, String userSubmitted) {
+    //..
+    req.getSession().setAttribute("user",userSubmitted);
+}
+</pre>
+</p>
+<p>
+<b>解决方案：</b><br/>
+<p>
+解决方案是在设定新的会话属性之前添加验证。在可能的情况下，更喜欢来自安全位置的数据，而不是直接使用用户输入的数据。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+<h4>引用</h4>
+<p>[1] &lt;a href=&quot;https://cwe.mitre.org/data/definitions/501.html&quot;&gt;CWE-501: Trust Boundary Violation&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://www.owasp.org/index.php/Trust_Boundary_Violation&quot;&gt;OWASP : Trust Boundary Violation&lt;/a&gt;</p>
+</p>
+
+    </section>
+</article>

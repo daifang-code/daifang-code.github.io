@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7302">BE7302: Number of format-string arguments does not correspond to number of placeholders</h2>
+    <h3>Number of format-string arguments does not correspond to number of placeholders</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7302</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Number of format-string arguments does not correspond to number of placeholders</p>
+<h4>Vulnerability and risk</h4>
+<p>
+A format-string method with a variable number of arguments is called,
+but the number of arguments passed does not match with the number of
+% placeholders in the format string.  This is probably not what the
+author intended.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

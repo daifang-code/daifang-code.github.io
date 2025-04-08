@@ -1,0 +1,25 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7203">BE7203: 不是可序列化的类的transient 字段</h2>
+    <h3>不是可序列化的类的transient 字段</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7203</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>不是可序列化的类的transient 字段</p>
+<h4>漏洞与风险</h4>
+<p>该字段标记为transient ，但该类不是可序列化的，因此将其标记为transient 没有任何作用。这可能是以前版本的代码遗漏修改的标记，也可能是程序员不理解序列化如何工作。
+</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7399">BE7399: 随机对象创建后只使用一次</h2>
+    <h3>随机对象创建后只使用一次</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7399</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>随机对象创建后只使用一次</p>
+<h4>漏洞与风险</h4>
+<p>这段代码创建了一个java.util.Random对象，用它生成一个随机数，然后丢弃这个Random对象。
+这就产生了质量不高的随机数字，而且效率低下。
+如果可能的话，请重写代码，使Random对象被创建一次并保存，
+每当需要一个新的随机数时，就可以调用现有Random对象上的一个方法来获得它。</p>
+<p>如果生成的随机数不能被猜测是很重要的，那么你就不应该为每一个随机数字创建一个新的Random
+数量;这些值太容易猜测了。您应该考虑使用java.security.SecureRandom代替(并避免为每个需要的随机数字分配一个新的SecureRandom)。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

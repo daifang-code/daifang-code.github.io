@@ -1,0 +1,24 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7435">BE7435: 方法访问拥有类的私有成员变量</h2>
+    <h3>方法访问拥有类的私有成员变量</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7435</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>方法访问拥有类的私有成员变量</p>
+<h4>漏洞与风险</h4>
+<p>内部类的此方法从拥有类的私有成员变量读取或写入，或调用拥有类的私有方法。编译器必须生成一个特殊方法来访问此私有成员，从而降低其效率。放宽对成员变量或方法的保护将允许编译器将其视为普通访问。</p>
+<h4>漏洞利用威胁</h4>
+<p>低</p>
+
+    </section>
+</article>

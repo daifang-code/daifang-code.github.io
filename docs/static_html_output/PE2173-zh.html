@@ -1,0 +1,46 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2173">PE2173: no-template-curly-in-string</h2>
+    <h3>禁止在常规字符串中出现模板字面量占位符语法 (no-template-curly-in-string)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2173</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>禁止在常规字符串中出现模板字面量占位符语法 (no-template-curly-in-string)</h4>
+<p>ECMAScript 6 允许程序员使用模板字面量创建包含变量或表达式的字符串，在两个反引号之间书写表达式比如 <code>${variable}</code>，而不是使用字符串拼接。在使用模板字面量过程中很容易写错引号，写错成 <code>&quot;${variable}&quot;</code> 而不是在字符串中包含注入的表达式的值。</p>
+<h2>缺陷详因</h2>
+<p>该规则旨在对常规字符串中包含看起来像是模板字面量占位符的情况发出警告。当发现一个字符串中包含模板语法占位符(<code>${something}</code>) 使用了 <code>&quot;</code> 或 <code>'</code>，该规则将发出警告。</p>
+<h2>Examples</h2>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-template-curly-in-string: &quot;error&quot;*/</span>
+<span class="s2">&quot;Hello ${name}!&quot;</span><span class="p">;</span>
+<span class="s1">&#39;Hello ${name}!&#39;</span><span class="p">;</span>
+<span class="s2">&quot;Time: ${12 * 60 * 60 * 1000}&quot;</span><span class="p">;</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-template-curly-in-string: &quot;error&quot;*/</span>
+<span class="sb">`Hello </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+<span class="sb">`Time: </span><span class="si">${</span><span class="mi">12</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+
+<span class="nx">templateFunction</span><span class="sb">`Hello </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>该规则不应在 ES3/5 环境下使用。</p>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 3.3.0 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-template-curly-in-string.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-template-curly-in-string.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>

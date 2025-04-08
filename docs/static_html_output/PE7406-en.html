@@ -1,0 +1,32 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7406">BE7406: Impossible cast</h2>
+    <h3>Impossible cast</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7406</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Impossible cast</p>
+<h4>Vulnerability and risk</h4>
+<p>
+This cast will always throw a ClassCastException.
+Pinpoint tracks type information from instanceof checks,
+and also uses more precise information about the types
+of values returned from methods and loaded from fields.
+Thus, it may have more precise information that just
+the declared type of a variable, and can use this to determine
+that a cast will always throw an exception at runtime.
+</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

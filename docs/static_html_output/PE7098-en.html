@@ -1,0 +1,26 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7098">BE7098: Incorrect combination of Math.max and Math.min</h2>
+    <h3>Incorrect combination of Math.max and Math.min</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7098</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Incorrect combination of Math.max and Math.min</p>
+<h4>Vulnerability and risk</h4>
+<p>This code tries to limit the value bounds using the construct like Math.min(0, Math.max(100, value)). However the order of
+  the constants is incorrect: it should be Math.min(100, Math.max(0, value)). As the result this code always produces the same result
+  (or NaN if the value is NaN).</p>
+<h4>Likelihood of Exploit</h4>
+<p>medium</p>
+
+    </section>
+</article>

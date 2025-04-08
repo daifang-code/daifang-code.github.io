@@ -1,0 +1,50 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7570">BE7570: Seam日志调用中的潜在代码注入</h2>
+    <h3>Seam日志调用中的潜在代码注入</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>BE7570</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA ,FIND-SEC-BUGS</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>Seam日志调用中的潜在代码注入</p>
+<h4>漏洞与风险</h4>
+<p>
+Seam Logging API支持一种表达式语言，用于将bean属性引入日志消息。表达式语言也可以是不需要的代码执行的源。
+</p>
+<p>
+在此上下文中，表达式使用动态值构建。应验证值的来源，如果数据来源于外部用户输入，请确保检查内部没有恶意代码。
+</p>
+<p><b>风险代码：</b></p>
+<p>
+<pre>public void logUser(User user) {
+    log.info("Current logged in user : " + user.getUsername());
+    //...
+}</pre>
+</p>
+<p><b>解决方案：</b></p>
+<p>
+<pre>public void logUser(User user) {
+    log.info("Current logged in user : #0", user.getUsername());
+    //...
+}</pre>
+</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>引用</h4>
+<p>&lt;a href=&quot;https://issues.jboss.org/browse/JBSEAM-5130&quot;&gt;JBSEAM-5130: Issue documenting the risk&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://docs.jboss.org/seam/2.3.1.Final/reference/html_single/#d0e4185&quot;&gt;JBoss Seam: Logging (Official documentation)&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;https://docs.oracle.com/javaee/6/tutorial/doc/gjddd.html&quot;&gt;The Java EE 6 Tutorial: Expression Language&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/94.html&quot;&gt;CWE-94: Improper Control of Generation of Code ('Code Injection')&lt;/a&gt;&lt;br/&gt;
+&lt;a href=&quot;http://cwe.mitre.org/data/definitions/95.html&quot;&gt;CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')&lt;/a&gt;&lt;br/&gt;</p>
+</p>
+
+    </section>
+</article>

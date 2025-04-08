@@ -1,0 +1,60 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE1083">PE1083: 不安全的随机性</h2>
+    <h3>在所有Java版本的实现中，使用同一个种子创建的两个`java.util.Random`类的实例会生成相同的随机数序列</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE1083</dd>
+                    <dt>标签</dt>
+                    <dd>JAVA</dd>
+                    <dt>目录</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>缺陷描述</h4>
+<p>伪随机数生成器（Pseudorandom number generators，即PRNGs）使用决定性的数学算法来产生具有良好统计属性的数字序列，但这样产生的数字序列并没有真正的随机性。PRNGs通常需要一个起始的种子，实现算法将使用这个种子来产生一个数字以及一个新的种子，并再借由新产生的种子来往复循环相同的过程。</p>
+<h4>漏洞与风险</h4>
+<p>Java API中<code>java.util.Random</code>包提供了一种PRNG实现。这个PRGN具有便携性和可重复性，因此，在所有Java版本的实现中，使用同一个种子创建的两个<code>java.util.Random</code>类的实例会生成相同的随机数序列。随机数种子的值通常会在应用初始化时被重用，除非重启了机器。排除掉重启机器的情况时，随机数种子值由来自系统时钟的现时时间决定。攻击者会通过监测缺陷目标中的随机数种子值，然后创建一张查找表来预测未来的随机数种子值。</p>
+<h4>漏洞利用威胁</h4>
+<p>中</p>
+<h4>缓解与预防</h4>
+<p>使用安全性更好的随机数生成器，如<code>java.security.SecureRandom</code>类。</p>
+<h4>演示实例</h4>
+<h5>漏洞代码示例</h5>
+<p>这段缺陷代码使用了不安全的<code>java.util.Random</code>类，因为这个类对相同的种子值能产生同样的伪随机数序列，也就是说这个序列是可预测的：</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+<span class="c1">// ...</span>
+
+<span class="n">Random</span> <span class="n">number</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">(</span><span class="mi">123L</span><span class="o">);</span>
+<span class="c1">//...</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+  <span class="c1">// Generate another random integer in the range [0, 20]</span>
+  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">number</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">21</span><span class="o">);</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+<h5>漏洞代码修复示例</h5>
+<p>这段合规代码使用<code>java.security.SecureRandom</code>类来产生可靠的随机数序列：</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.security.SecureRandom</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.NoSuchAlgorithmException</span><span class="o">;</span>
+<span class="c1">// ...</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span> <span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+  <span class="n">SecureRandom</span> <span class="n">number</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SecureRandom</span><span class="o">();</span>
+  <span class="c1">// Generate 20 integers 0..20</span>
+  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">21</span><span class="o">));</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h4>参考资料</h4>
+<section class="footnotes">
+<ol>
+<li id="fn-1"><p>https://wiki.sei.cmu.edu/confluence/display/java/MSC02-J.+Generate+strong+random+numbers<a href="#fnref-1" class="footnote">&#8617;</a></p></li>
+</ol>
+</section>
+
+    </section>
+</article>

@@ -1,0 +1,29 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:BE7439">BE7439: Class is final but declares protected field</h2>
+    <h3>Class is final but declares protected field</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">Bug info</h4>
+                <dl>
+                    <dt>BugTypeID</dt>
+                    <dd>BE7439</dd>
+                    <dt>Tags</dt>
+                    <dd>JAVA ,FIND-BUGS</dd>
+                    <dt>Category</dt>
+                    <dd>Checkers/JAVA</dd>
+                    <dt>Authors</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>Description</h4>
+<p>Class is final but declares protected field</p>
+<h4>Vulnerability and risk</h4>
+<p>
+      This class is declared to be final, but declares fields to be protected. Since the class
+      is final, it can not be derived from, and the use of protected is confusing. The access
+      modifier for the field should be changed to private or public to represent the true
+      use for the field.
+      </p>
+<h4>Likelihood of Exploit</h4>
+<p>low</p>
+
+    </section>
+</article>

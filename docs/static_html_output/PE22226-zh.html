@@ -1,0 +1,41 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE22226">PE22226: DUO116</h2>
+    <h3>DUO116</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE22226</dd>
+                    <dt>标签</dt>
+                    <dd>flake8</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h4>DUO116</h4>
+<p>此linter搜索使用<code>shell=True</code>的<code>subprocess</code>模块。此模块通常允许在组合时出现任意代码执行错误用户输入。</p>
+<h2>示例错误代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="n">malicious_filename</span> <span class="o">=</span> <span class="s2">&quot;file; cat /etc/passwd&quot;</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s2">&quot;touch &quot;</span> <span class="o">+</span> <span class="n">malicious_filename</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+<h2>正确代码</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;file&quot;</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s2">&quot;touch&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">])</span>
+</pre></div>
+<h2>来源</h2>
+<blockquote>
+<p>与其他一些popen函数不同，这个实现永远不会隐式地&gt;调用系统外壳。这意味着所有角色，包括shell&gt;元字符，可以安全地传递给子进程。如果壳是&gt;显式地调用<code>via shell=True</code>，这是应用程序的责任&gt;确保所有空格和元字符都被适当地引用到&gt;避免外壳注入漏洞。&gt;&gt;使用<code>shell=True</code>时<code>shlex.quote（）</code>函数可以正确地用于&gt;空壳中的字符串将是转义符&gt;用于构造shell命令。</p>
+</blockquote>
+<h2>特别提及</h2>
+<p>很少有情况下<code>shell=True</code>实际上是必须的将参数列表传递给子进程。</p>
+<blockquote>
+<p>如果<code>shell</code>为<code>True</code>，则指定的命令将通过&gt;壳牌。如果您主要使用Python来增强&gt;它在大多数系统外壳上提供了控制流，但仍然希望访问方便&gt;其他shell功能，如shell管道、文件名通配符、环境&gt;变量扩展，以及将<code>~</code>扩展到用户的主目录。然而，&gt;请注意，Python本身提供了许多类似shell的特性的实现&gt;（尤其是<code>glob</code>、<code>fnmatch</code>手术室步行()<code>,</code>os.path.expandvars操作系统()<code>,&gt;</code>os.path.expanduser操作系统（）<code>，</code>shutil`）。</p>
+</blockquote>
+
+    </section>
+</article>

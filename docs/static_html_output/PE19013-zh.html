@@ -1,0 +1,35 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE19013">PE19013: LDAP注入</h2>
+    <h3>LDAP注入</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE19013</dd>
+                    <dt>标签</dt>
+                    <dd>cobra</dd>
+                    <dt>目录</dt>
+                    <dd>Code style and efficiency</dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <h2>安全风险</h2>
+
+<pre><code>    LDAP Injection
+    允许进行LDAP查询 + 输入未进行过滤 ---&gt; LDAP注入
+    这种威胁可以让攻击者能够从LADP树中提取到很多很重要的信息
+
+</code></pre>
+<h2>修复方案</h2>
+
+<pre><code>    对用户输入数据中包含的”语言本身的保留字符”进行转义(例如可以使用`ldap_escape`)
+
+
+</code></pre>
+<h2>匹配规则</h2>
+<p>(ldap_add|ldap_delete|ldap_list|ldap_read|ldap_search|ldap_bind)</p>
+<h4>References</h4>
+<p>[^cobra] : https://github.com/WhaleShark-Team/cobra</p>
+
+    </section>
+</article>

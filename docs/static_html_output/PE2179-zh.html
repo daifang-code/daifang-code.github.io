@@ -1,0 +1,103 @@
+<article class="bugdoc">
+    <h2 class="bugdoc-title" id="Bug-Doc:PE2179">PE2179: no-undef-init</h2>
+    <h3>不允许初始化变量值为 undefined (no-undef-init)</h3>
+    <section id="tip">
+     <h4 style="border-top: 0pt; padding: 0pt 4pt 4pt 4pt;">缺陷信息</h4>
+                <dl>
+                    <dt>缺陷ID</dt>
+                    <dd>PE2179</dd>
+                    <dt>标签</dt>
+                    <dd></dd>
+                    <dt>目录</dt>
+                    <dd></dd>
+                    <dt>作者</dt>
+                    <dd>pinpoint</dd>
+                </dl>
+    <p>Licensed under the <a href="https://github.com/eslint/cn.eslint.org/blob/gh-pages/LICENSE">MIT License</a></p>
+<h4>不允许初始化变量值为 undefined (no-undef-init)</h4>
+<p>(fixable) <a href="../user-guide/command-line-interface#fix">命令行</a>中的 <code>--fix</code> 选项可以自动修复一些该规则报告的问题。</p>
+<p>在 JavaScript 中，声明一个变量但未初始化，变量会自动获得 <code>undefined</code> 作为初始值。比如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">);</span>     <span class="c1">// true</span>
+</pre></div>
+<p>因此，初始化变量值为 <code>undefined</code> 是多余的，如：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+</pre></div>
+<p>最好的做法是避免初始化变量值为 <code>undefined</code>。</p>
+<h2>缺陷详因</h2>
+<p>此规则旨在限制变量声明后被初始化为 <code>undefined</code>。</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-undef-init: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+</pre></div>
+<p><strong>正确</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-undef-init: &quot;error&quot;*/</span>
+<span class="cm">/*eslint-env es6*/</span>
+
+<span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">bar</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">baz</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+</pre></div>
+<h2>当该情况下该规则可忽略</h2>
+<p>当在一个循环中用 <code>var</code> 声明一个变量的时候，这种情况下给变量赋值为 <code>undefined</code> 与省略初始化的结果不同。比如：</p>
+<p><strong>错误</strong> 代码示例：</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+    <span class="nx">x</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>在这种情况下，<code>var x</code> 被提升到循环外。</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">x</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+    <span class="nx">x</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>如果删除初始化语句，循环语句的行为会改变：</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+    <span class="nx">x</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>此代码等价于下面代码：</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+    <span class="nx">x</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>于在循环语句中使用 <code>var x = undefined</code> 相比，这样产生了一个不同结果 ，因为每次循环后 <code>x</code> 不在赋值为 <code>undefined</code>。</p>
+<p>如果你有在循环语句中初始化变量，你应该禁用此规则。</p>
+<p><strong>正确</strong> 代码示例，因为它在特定的行上被禁用。</p>
+<div class="highlight"><pre><span></span><span class="cm">/*eslint no-undef-init: &quot;error&quot;*/</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span> <span class="c1">// eslint-disable-line no-undef-init</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+    <span class="nx">x</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2>Related Rules</h2>
+<ul>
+<li><a href="no-undefined">no-undefined</a></li>
+<li><a href="no-void">no-void</a></li>
+</ul>
+<h2>Eslint版本</h2>
+<p>该规则在 ESLint 0.0.6 中被引入。</p>
+<h2>来源</h2>
+<ul>
+<li><a href="https://github.com/eslint/eslint/tree/master/lib/rules/no-undef-init.js">Rule source</a></li>
+<li><a href="https://github.com/eslint/eslint/tree/master/docs/rules/no-undef-init.md">Documentation source</a></li>
+</ul>
+
+    </section>
+</article>
