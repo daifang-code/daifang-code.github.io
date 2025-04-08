@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="ddj" />
+<meta name="description" content="Executing commands or loading libraries from an untrusted source or in an untrusted environment can cause an application to execute malicious commands (and payloads) on behalf of an attacker." />
+<meta name="keywords" content="C, C++, JAVA, CWE-114">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="Process Control"/>
+<meta property="og:description" content="Executing commands or loading libraries from an untrusted source or in an untrusted environment can cause an application to execute malicious commands (and payloads) on behalf of an attacker."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE0089.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:05.992829+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/ddj.html">
+<meta property="article:section" content="Checkers/JAVA"/>
+<meta property="article:tag" content="C"/>
+<meta property="article:tag" content="C++"/>
+<meta property="article:tag" content="JAVA"/>
+<meta property="article:tag" content="CWE-114"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; Process Control</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/c.html">c</a>
+              <a href="./standard/java.html">java</a>
+        </li>
+        <li>
+            <a href="./standard/security-issues.html">Security issues</a>
+        </li>
+        <li>
+            <a href="./category/input-validation-and-representation.html">Input validation and representation</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE0089">Process Control</h1>
+    <p>
+        Posted on September 28, 2024 in <a href="./category/input-validation-and-representation.html">Input validation and representation</a>
+
+        &#8226; 4 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example-1">Vulnerable code Example 1</a></li>
+<li><a href="#fixed-code-example-1">Fixed code Example 1</a></li>
+<li><a href="#vulnerable-code-example-2">Vulnerable code Example 2</a></li>
+<li><a href="#fixed-code-example-2">Fixed code Example 2</a></li>
+<li><a href="#vulnerable-code-example-3">Vulnerable code Example 3</a></li>
+<li><a href="#fixed-code-example-3">Fixed code Example 3</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+  <div>
+    
+<h1 id="description">Description</h1>
+<p>Process control vulnerabilities take two forms: </p>
+<ol>
+<li>An attacker can change the command that the program executes: the attacker explicitly controls what the command is. </li>
+<li>An attacker can change the environment in which the command executes: the attacker implicitly controls what the command means. </li>
+</ol>
+<p>Process control vulnerabilities of the first type occur when either data enters the application from an untrusted source and the data is used as part of a string representing a command that is executed by the application. By executing the command, the application gives an attacker a privilege or capability that the attacker would not otherwise have.  </p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<p>Execute Unauthorized Code or Commands</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<p>Libraries that are loaded should be well understood and come from a trusted source. The application can execute code contained in the native libraries, which often contain calls that are susceptible to other security problems, such as buffer overflows or command injection. All native libraries should be validated to determine if the application requires the use of the library. It is very difficult to determine what these native libraries actually do, and the potential for malicious code is high. In addition, the potential for an inadvertent mistake in these native libraries is also high, as many are written in C or C++ and may be susceptible to buffer overflow or race condition problems. To help prevent buffer overflow attacks, validate all input to native calls for content and length. If the native library does not come from a trusted source, review the source code of the library. The library should be built from the reviewed source before using it. </p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Critical</p>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example-1">Vulnerable code Example 1</h3>
+<p>The following code uses System.loadLibrary() to load code from a native library named library.dll, which is normally found in a standard system directory.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">"library.dll"</span><span class="o">);</span>
+<span class="o">...</span>
+</pre></div>
+</td></tr></table>
+<p>The problem here is that System.loadLibrary() accepts a library name, not a path, for the library to be loaded. From the Java 1.4.2 API documentation this function behaves as follows [1]: A file containing native code is loaded from the local file system from a place where library files are conventionally obtained. The details of this process are implementation-dependent. The mapping from a library name to a specific filename is done in a system-specific manner. If an attacker is able to place a malicious copy of library.dll higher in the search order than file the application intends to load, then the application will load the malicious copy instead of the intended file. Because of the nature of the application, it runs with elevated privileges, which means the contents of the attacker's library.dll will now be run with elevated privileges, possibly giving them complete control of the system.</p>
+<h3 id="fixed-code-example-1">Fixed code Example 1</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="c1">// Use absolute path</span>
+<span class="n">System</span><span class="o">.</span><span class="na">loadLibrary</span><span class="o">(</span><span class="s">"C:\\path_to_real_lib\\library.dll"</span><span class="o">);</span>
+<span class="o">...</span>
+</pre></div>
+</td></tr></table>
+<h3 id="vulnerable-code-example-2">Vulnerable code Example 2</h3>
+<p>The following code from a privileged application uses a registry entry to determine the directory in which it is installed and loads a library file based on a relative path from the specified directory.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">...</span>
+<span class="n">RegQueryValueEx</span><span class="p">(</span><span class="n">hkey</span><span class="p">,</span> <span class="s">"APPHOME"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">BYTE</span><span class="o">*</span><span class="p">)</span><span class="n">home</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">size</span><span class="p">);</span>
+<span class="kt">char</span><span class="o">*</span> <span class="n">lib</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">home</span><span class="p">)</span> <span class="o">+</span> <span class="n">strlen</span><span class="p">(</span><span class="n">INITLIB</span><span class="p">));</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">lib</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">strcpy</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="n">home</span><span class="p">);</span>
+  <span class="n">strcat</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="n">INITCMD</span><span class="p">);</span>
+  <span class="n">LoadLibrary</span><span class="p">(</span><span class="n">lib</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">...</span>
+</pre></div>
+</td></tr></table>
+<p>The code in this example allows an attacker to load an arbitrary library, from which code will be executed with the elevated privilege of the application, by modifying a registry key to specify a different path containing a malicious version of INITLIB. Because the program does not validate the value read from the environment, if an attacker can control the value of APPHOME, they can fool the application into running malicious code.</p>
+<h3 id="fixed-code-example-2">Fixed code Example 2</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">...</span>
+
+<span class="c1">// Ensure the safety of data before updating Reg</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">is_safe_key</span><span class="p">(</span><span class="n">hkey</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">is_safe</span><span class="p">(</span><span class="n">home</span><span class="p">))</span> <span class="p">{</span>
+ <span class="n">error_handle</span><span class="p">(</span><span class="s">"Unsafe Reg editing"</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">RegQueryValueEx</span><span class="p">(</span><span class="n">hkey</span><span class="p">,</span> <span class="s">"APPHOME"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">BYTE</span><span class="o">*</span><span class="p">)</span><span class="n">home</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">size</span><span class="p">);</span>
+<span class="kt">char</span><span class="o">*</span> <span class="n">lib</span><span class="o">=</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">home</span><span class="p">)</span><span class="o">+</span><span class="n">strlen</span><span class="p">(</span><span class="n">INITLIB</span><span class="p">));</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">lib</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">strcpy</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="n">home</span><span class="p">);</span>
+  <span class="n">strcat</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span><span class="n">INITCMD</span><span class="p">);</span>
+  <span class="n">LoadLibrary</span><span class="p">(</span><span class="n">lib</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">...</span>
+</pre></div>
+</td></tr></table>
+<h3 id="vulnerable-code-example-3">Vulnerable code Example 3</h3>
+<p>The following code is from a web-based administration utility that allows users access to an interface through which they can update their profile on the system. The utility makes use of a library named liberty.dll, which is normally found in a standard system directory.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">LoadLibrary</span><span class="p">(</span><span class="s">"liberty.dll"</span><span class="p">);</span>
+</pre></div>
+</td></tr></table>
+<p>The problem is that the program does not specify an absolute path for liberty.dll. If an attacker is able to place a malicious library named liberty.dll higher in the search order than file the application intends to load, then the application will load the malicious copy instead of the intended file. Because of the nature of the application, it runs with elevated privileges, which means the contents of the attacker's liberty.dll will now be run with elevated privileges, possibly giving the attacker complete control of the system. The type of attack seen in this example is made possible because of the search order used by LoadLibrary() when an absolute path is not specified. If the current directory is searched before system directories, as was the case up until the most recent versions of Windows, then this type of attack becomes trivial if the attacker can execute the program locally. The search order is operating system version dependent, and is controlled on newer operating systems by the value of the registry key: HKLM\System\CurrentControlSet\Control\Session Manager\SafeDllSearchMode</p>
+<h3 id="fixed-code-example-3">Fixed code Example 3</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// Use absolute path</span>
+<span class="n">LoadLibrary</span><span class="p">(</span><span class="s">"C:</span><span class="se">\\</span><span class="s">path_to_real_lib</span><span class="se">\\</span><span class="s">liberty.dll"</span><span class="p">);</span>
+</pre></div>
+</td></tr></table>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cwe">
+<p>http://cwe.mitre.org/data/definitions/114.html <a class="footnote-backref" href="#fnref-cwe" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/c.html">C</a>
+      <a href="./tag/c.html">C++</a>
+      <a href="./tag/java.html">JAVA</a>
+      <a href="./tag/cwe-114.html">CWE-114</a>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>

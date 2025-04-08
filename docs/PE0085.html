@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='./theme/fonts/googleapis.css' rel='stylesheet' type='text/css'>
+    <link href="./theme/stylesheet/normalize.min.css">
+    <script src="./theme/javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="./tipuesearch_content.js"></script>
+    <link rel="stylesheet" href="./theme/tipuesearch/css/tipuesearch.css">
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="./theme/tipuesearch/tipuesearch.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.css">
+
+    <link rel="stylesheet" type="text/css"
+          href="./theme/pygments/xcode.min.css">
+    <link rel="stylesheet" type="text/css" href="./theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>     <meta name="robots" content=""/>      <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#333333">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#333333">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Microsoft EDGE -->
+    <meta name="msapplication-TileColor" content="#333333">  <meta name="author" content="MITRE" />
+<meta name="description" content="The software uses a function that accepts a format string as an argument, but the format string originates from an external source. [^CWE]" />
+<meta name="keywords" content="C, CPP, Java">
+
+<meta property="og:site_name" content="Pinpoint Document"/>
+<meta property="og:title" content="Format String Vulnerability"/>
+<meta property="og:description" content="The software uses a function that accepts a format string as an argument, but the format string originates from an external source. [^CWE]"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./PE0085.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2024-09-28 09:33:05.886828+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/mitre.html">
+<meta property="article:section" content="Checkers/CPP"/>
+<meta property="article:tag" content="C"/>
+<meta property="article:tag" content="CPP"/>
+<meta property="article:tag" content="Java"/>
+<meta property="og:image" content="">
+
+    <title>Pinpoint Document &ndash; Format String Vulnerability</title>
+
+</head>
+
+<body style="display: none;">
+
+<aside>
+    <div>
+        <a href=".">
+                <img src="./theme/img/profile.png" alt="Pinpoint Document" title="Pinpoint Document">
+        </a>
+        <h1><a href=".">Pinpoint Document</a></h1>
+
+        <div style="padding-left: 0">
+            <form action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <input id="tipue_search_input" type="text" name="q" placeholder="Input to search">
+            </form>
+        </div>
+
+
+        <ul class="global_lang">
+                    <li class="active"><a href="javascript:void(0);"
+                                                                                  language-link="en">en</a>
+                    </li>
+                    <li><a href="javascript:void(0);"
+                                                                                  language-link="zh">zh</a>
+                    </li>
+        </ul>
+
+        <!--  -->
+
+        <nav>
+            <ul class="list">
+                    <li>
+                        <a href="./standard/language-independent.html">Language Independent documents</a>
+                        (3)
+                    </li>
+                    <li>
+                        <a href="./standard/c.html">c/c++ documents</a>
+                        (317)
+                    </li>
+                    <li>
+                        <a href="./standard/csharp.html">csharp documents</a>
+                        (39)
+                    </li>
+                    <li>
+                        <a href="./standard/golang.html">golang documents</a>
+                        (34)
+                    </li>
+                    <li>
+                        <a href="./standard/java.html">java documents</a>
+                        (555)
+                    </li>
+                    <li>
+                        <a href="./standard/javascript.html">javascript documents</a>
+                        (295)
+                    </li>
+                    <li>
+                        <a href="./standard/objective-c.html">objective-c documents</a>
+                        (124)
+                    </li>
+                    <li>
+                        <a href="./standard/python.html">python documents</a>
+                        (618)
+                    </li>
+                    <li>
+                        <a href="./standard/shell.html">shell documents</a>
+                        (334)
+                    </li>
+                    <li>
+                        <a href="./standard/swift.html">swift documents</a>
+                        (26)
+                    </li>
+
+            </ul>
+        </nav>
+
+        <ul class="social">
+        </ul>
+    </div>
+
+
+</aside>
+<main>
+  <article class="single">
+  <header>
+    <div class="breadcrumb">
+      <ol>
+        <li>
+              <a href="./standard/c.html">c</a>
+              <a href="./standard/java.html">java</a>
+        </li>
+        <li>
+            <a href="./standard/security-issues.html">Security issues</a>
+        </li>
+        <li>
+            <a href="./category/input-validation-and-representation.html">Input validation and representation</a>
+        </li>
+        
+    </ol>
+    
+    </div>
+
+    <h1 id="PE0085">Format String Vulnerability</h1>
+    <p>
+        Posted on September 28, 2024 in <a href="./category/input-validation-and-representation.html">Input validation and representation</a>
+
+        &#8226; 2 min read
+    </p>
+  </header>
+
+    <div class="toc">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#vulnerability-and-risk">Vulnerability and risk</a><ul>
+<li><a href="#dos-information-leak">DoS, Information leak</a></li>
+</ul>
+</li>
+<li><a href="#likelihood-of-exploit">Likelihood of Exploit</a></li>
+<li><a href="#potential-mitigations">Potential Mitigations</a></li>
+<li><a href="#demonstrative-examples">Demonstrative Examples</a><ul>
+<li><a href="#vulnerable-code-example-1-leak-content-in-program-stack">Vulnerable code example 1: Leak content in program stack</a></li>
+<li><a href="#vulnerable-code-example-2-denial-of-service-program-crash">Vulnerable code example 2: Denial of service, Program crash</a></li>
+<li><a href="#fixed-code-example">Fixed code example</a></li>
+<li><a href="#vulnerable-code-example-3">Vulnerable code example 3</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+  <div>
+    
+<h1 id="description">Description</h1>
+<p>String format related functions like <code>printf</code> in C and <code>String.format</code> in Java can take a varying number of arguments. One of the arguments describes the way to interpret the rest of arguments, and is called the format string argument. According to the implementation of the programming language, an external malicious format string may lead to program crash, information leak and code execution. </p>
+<h1 id="vulnerability-and-risk">Vulnerability and risk</h1>
+<h4 id="dos-information-leak">DoS, Information leak</h4>
+<p>Formatting string functions will print out memory content according to integer specifiers, therefore, sensitive information inside memory could be leaked to attackers.
+Attackers also could include multiple string specifiers to format string argument. It tells the program to interpret data as a pointer to a string, since memory data are not always valid pointers, program will crash in dereferencing an invalid pointer.  </p>
+<h1 id="likelihood-of-exploit">Likelihood of Exploit</h1>
+<p>Critical</p>
+<h1 id="potential-mitigations">Potential Mitigations</h1>
+<ul>
+<li>Do not use externally-controlled data as format string argument</li>
+<li>Sanitize user input before they used as format string argument</li>
+</ul>
+<h1 id="demonstrative-examples">Demonstrative Examples</h1>
+<h3 id="vulnerable-code-example-1-leak-content-in-program-stack">Vulnerable code example 1: Leak content in program stack</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">0xAABBCCDD</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mh">0xFFEE4242</span><span class="p">;</span>
+  <span class="n">printf</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>Program execution: </p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span>$ ./a.out <span class="s2">"%p %p %p %p %p %p %p %p %p  "</span>
+0x7ffeccbb42f8 0x7ffeccbb4310 <span class="o">(</span>nil<span class="o">)</span> 0x4005e0 0x7f287164bab0 <span class="se">\</span>
+0x7ffeccbb42f8 0x200400430 0x7ffeccbb42f0 0xffee4242aabbccdd  
+</pre></div>
+</td></tr></table>
+<p>The last output (0xffee4242aabbccdd) is the value of local variables <code>a</code> and <code>b</code> in our example. This example shows string formatting functions will read memory content based on the format string argument, and thus maliciously constructed input could leak sensitive information.</p>
+<h3 id="vulnerable-code-example-2-denial-of-service-program-crash">Vulnerable code example 2: Denial of service, Program crash</h3>
+<p>We use the same program from example 1, but with different input this time.  </p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>$ ./a.out <span class="s2">"%s %s %s %s %s %s %s %s %s  "</span>
+Segmentation fault <span class="o">(</span>core dumped<span class="o">)</span>
+</pre></div>
+</td></tr></table>
+<p><code>%s</code> tells the program to use the corresponding argument as a pointer to string, and the program crashes when dereferencing an invalid pointer.</p>
+<h3 id="fixed-code-example">Fixed code example</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">0xAABBCCDD</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mh">0xFFEE4242</span><span class="p">;</span>
+
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>In general, it is the best practice to use only fixed format strings. When an external string needs to be printed, print it with the <code>%s</code> specifier instead of using it as the format string.</p>
+<h3 id="vulnerable-code-example-3">Vulnerable code example 3</h3>
+<p>The example above also applies to Java:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.</span><span class="o">*</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">Example</span> <span class="p">{</span>
+  <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nb">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">printf</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>and can be fixed by</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.</span><span class="o">*</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">Example</span> <span class="p">{</span>
+  <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nb">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">printf</span><span class="p">(</span><span class="s2">"</span><span class="si">%s%d%d</span><span class="s2">"</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<h1 id="references">References</h1>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn-cwe">
+<p>http://cwe.mitre.org/data/definitions/134.html <a class="footnote-backref" href="#fnref-cwe" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/c.html">C</a>
+      <a href="./tag/cpp.html">CPP</a>
+      <a href="./tag/java.html">Java</a>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+    <footer>
+ <p>
+  &copy; Pinpoint 2016-Present, Rights reserve
+</p>
+
+<p>
+</p>     </footer>
+</main>
+
+  <script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Pinpoint Document ",
+  "url" : ".",
+  "image": "",
+  "description": "Manual and documents for Sourcebrella Pinpoint"
+}
+</script> 
+<div id="initDiv"
+     style="position: fixed; z-index: 1000; background-color: white; top: 0; right: 0; bottom: 0; left: 0; "></div>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByTagName('body')[0].style.display = "block";
+        document.getElementById('initDiv').style.display = 'none';
+
+        document.querySelectorAll('.global_lang li a').forEach(elm => {
+            elm.addEventListener('click', (e) => {
+                var lang = e.target.getAttribute('language-link');
+                var abs_url = '/' + lang + '/';
+                var reg = /\/(en|zh)\//;
+                var newRef;
+                var location = window.location;
+                if (reg.test(location.href)) {
+                    newRef = location.href.replace(reg, abs_url);
+                } else {
+                    var match = /\/(output|docs)\//.exec(window.location.href);
+                    if (match) {
+                        newRef = window.location.href.replace(match[0], '/' + match[1] + abs_url)
+                    } else {
+                        return;
+                    }
+                }
+                window.open(newRef, '_self')
+            })
+        })
+    };
+
+</script>
+</body>
+
+</html>
